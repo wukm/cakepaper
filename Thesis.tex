@@ -1,0 +1,124 @@
+\documentclass[]{csulb-thesis}
+
+
+%\usepackage{csulbthm} % this is broken :( need to fix
+\usepackage{pslatex}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+%\usepackage{setspace}
+%\usepackage{scat}
+%\usepackage{bm}
+%\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{lscape}
+\usepackage{datatool} % Allows importing tables
+\usepackage{longtable}
+
+%\usepackage[small,singlelinecheck=on]{caption}
+%\usepackage[font=singlespacing]{caption}
+
+\graphicspath{{figures/}}
+
+\makeatletter
+\def\LT@c@ption#1[#2]#3{%
+  \LT@makecaption#1\fnum@table{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\vspace*{\baselineskip}
+     \let\\\space
+     \addcontentsline{lot}{table}{\protect\numberline{4.}{#2}}}%
+  \fi}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%About the Author%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lastdegree{B.S.} 							%B.S., B.A., etc.
+\lastdegyear{2013} 							% year of last degree
+\lastdeginst{University of California, Los Angeles}	% University granting degree listed above
+\degree{Master of Science in Applied Mathematics}				%CSULB degree
+\department{Department of Mathematics and Statistics} 			% department
+\gradyear{2018} 							% year you will get current degree
+\gradmonth{May} 							% graduation month for current degree
+\author{Lucas Wukmer}  					                %Your official CSULB name.
+
+%Enter the title in all caps force returns using \\ to form an inverted pyramid
+\title{A Beefy Frangi Filter for Noisy Vascular Segmentation and Network Connection in PCSVN}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%Thesis Committe%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\committeeA{Jen-Mei~Chang,~Ph.D.~(Chair)} 						% insert name of thesis chair; include his/her degree
+\committeeAdept{Mathematics and Statistics} 
+\committeeB{James~von~Brecht,~Ph.D.} 							% name and degree of 2nd committee member
+\committeeBdept{Mathematics and Statistics}
+\committeeC{William~Ziemer,~Ph.D.} 							% name and degree of 3rd committee member
+\committeeCdept{Mathematics and Statistics} 
+\deptHead{Tangan~Gao,~Ph.D.} 						        % name and degree of department chair
+\deptHeadTitle{Department Chair, Mathematics and Statistics} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{preliminary}
+
+%% This generates the abstract page, with the line spacing adjusted
+%% according to University guidelines.
+%%% The university says(At most 150 words or 2 pages).
+%% Use \input{} instead of \include{} because \include{} will add a page break and \input{} will not
+\begin{abstract}
+\input{manuscript/abstract}
+\end{abstract}
+
+%% There should be NOTHING between the title page and abstract.
+%% This generates the title page from the information given above.
+\maketitle
+
+%% This generates an "acknowledgements" section, if needed. Comment out if not needed.
+%% Use \input{} instead of \include{} because \include{} will add a page break and \input{} will not
+\begin{acknowledgements}
+\input{manuscript/acknowledgements}
+\end{acknowledgements}
+
+%% This generates the Table of Contents (on a separate page).
+\setcounter{tocdepth}{3}  %%  Set how many levels to include in the TOC
+\tableofcontents
+
+%% This generates the List of Tables (on a separate page), if needed.
+%% (uncomment to have it appear in the document)
+\listoftables
+
+%% This generates the List of Figures (on a separate page), if needed.
+%% (uncomment to have it appear in the document)
+\listoffigures
+
+%% End of the preliminary sections: reset page style and numbering.
+\end{preliminary}
+
+%\clearpage 
+%\pagenumbering{arabic}	%Starts numbering pages in arabic, starts from 1.
+
+
+\include{manuscript/introduction}		
+\include{manuscript/mathematical_methods}
+\include{manuscript/research_protocol}
+\include{manuscript/results_analysis}
+\include{manuscript/conclusion}
+
+
+
+\HalfPage{Appendices}
+%% Renews chapter command so type appendix files in the same way
+
+\myappendix{Appendix Title}
+\include{manuscript/appendix}
+
+%Here is the list of cited works.
+\HalfPage{Bibliography}
+
+
+%% use Zotero to create bibliography
+%% then export in BibTeX format into file thesis_bib.bib
+%\bibliographystyle{prsty} % this was the default
+\bibliographystyle{plain-annote} %annotated version
+\bibliography{thesis_bib}
+%\nocite{*}
+
+\end{document}
