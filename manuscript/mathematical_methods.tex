@@ -1,15 +1,13 @@
-%% mathematical methods here
-
 \chapter{Mathematical Methods}
 
-\textit{(Note: this can be 50 pages long. Don't focus on brevity--rather make it basically self-contained, within reason)}
+\textit{(Note to self: this can be 50 pages long. Don't focus on brevity--rather make it basically self-contained, within reason)}
 
 Relevant math in no particular order. Focus on mathematics (primarily on a general image, rather than focusing on a particular image domain)
 
 
 \section{Overview of Differential Geometry in Image Processing}
 	\subsection{Basics, Definitions}
-	Let $L(x,y)$ represent a $M\times N$ discrete image. ETC
+	Let $u_0(x,y)$ represent a $M\times N$ discrete image. ETC
 	\begin{itemize}
 	\item basic definitions from differential geometry in $\mathbb{R}^3$
 	\item basic image processing setup and nomenclature
@@ -34,6 +32,7 @@ Relevant math in no particular order. Focus on mathematics (primarily on a gener
 		
 		\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\footnote{the following was adapted in a large part from DFT: an owner's manual. cite?}
 		
+		\begin{theorem}[2D DFT Convolution Theorem]
 		Given two discrete functions are sequences with the same length\footnote{If they're
 			not actually the same length, DIP-GW suggests to make the final length at least
 			$P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
@@ -52,13 +51,13 @@ Relevant math in no particular order. Focus on mathematics (primarily on a gener
 		\left(f \star h\right)(x,y) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n)
 		\end{equation}
 		
-		Then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
+		then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
 		\begin{equation}
 		\left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
 		\end{equation}
-		
+		\end{theorem}
 		The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
-		
+		\begin{proof}
 		\begin{align}
 		\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
 		&= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
@@ -91,15 +90,15 @@ Relevant math in no particular order. Focus on mathematics (primarily on a gener
 				0 & \text{else}
 				\end{cases}
 		\end{equation}
-	
+	\end{proof}
 	Above, we make use of the following lemma:
-	
+	\begin{lemma}
 	Let $j$ and $k$ be integers and let $N$ be a positive integer. Then
 	\begin{equation}
 		\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k)
 		\end{equation}
-		
-		proof:
+		\end{lemma}
+		\begin{proof}
 		
 		For any particular $n \in 0..N-1$,consider the complex number $e^{2\pi i n(j-k)/N}$. Note first, that this is an $N$-th root of unity, since
 		\[
@@ -120,7 +119,7 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 \[\left(e^{2\pi i n(j-k)/N}\right)^N -1 = 0 \;\implies\; \sum_{n=0}^{N-1} \left(e^{2\pi i n(j-k)/N}\right)^n = 0\]
 	
 	Combining these two cases gives the result of the lemma.
-		
+		\end{proof}
 %		\subsubsection{Terminology}
 %		% this was probably referenced earlier. make it agree and reference earlier eq. number?
 %		Call the original (theoretical, nondiscrete) image $L(x,y)$.
@@ -151,7 +150,13 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 		I actually don't know.
 		WRAPAROUND ERROR (like from p250) i don't get how that works
 \section{Linear Scale Space Theory}
-	\subsection{Why it matters}
+	Koenderink showed that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
+	\begin{equation}
+		\Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
+		\;\text{for}\; \sigma \ge 0
+		\;\text{such that}\; K(x,y, 0) = u_0(x,y).
+		\end{equation}
+		where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
 	\subsection{Overview of Theory}
 	\subsection{methods of "merging"}
 \section{Other Odds and Ends} Finding the placental plate? Morphology stuff like skeletonization.

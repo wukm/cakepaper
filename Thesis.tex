@@ -3,17 +3,24 @@
 
 %\usepackage{csulbthm} % this is broken :( need to fix
 \usepackage{pslatex}
-\usepackage{amsmath, amssymb}
+\usepackage{amsfonts, amsmath, mathrsfs}
+\usepackage{amsxtra, amsthm, amssymb, amscd}
 \usepackage{graphicx}
 \usepackage{subfigure}
 %\usepackage{setspace}
 %\usepackage{scat}
 %\usepackage{bm}
 %\usepackage{hyperref}
-\usepackage{mathrsfs}
 \usepackage{lscape}
 \usepackage{datatool} % Allows importing tables
 \usepackage{longtable}
+
+% mathy definitions?
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
 
 %\usepackage[small,singlelinecheck=on]{caption}
 %\usepackage[font=singlespacing]{caption}
