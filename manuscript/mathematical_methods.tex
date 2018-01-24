@@ -9,6 +9,7 @@ Relevant math in no particular order. Focus on mathematics (primarily on a gener
 
 \section{Overview of Differential Geometry in Image Processing}
 	\subsection{Basics, Definitions}
+	Let $L(x,y)$ represent a $M\times N$ discrete image. ETC
 	\begin{itemize}
 	\item basic definitions from differential geometry in $\mathbb{R}^3$
 	\item basic image processing setup and nomenclature
@@ -22,8 +23,133 @@ Relevant math in no particular order. Focus on mathematics (primarily on a gener
 	\subsection{Intro to Hessian-based filters}
 	Describe $H_{xx}, H_{xy}, H_{yy}$. What the principal curvatures and directions are and mean. Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
 	\subsection{Overview of Frangi vesselness measure} keep it simple. this maybe should just go in the next chapter
-	\subsection{Implementation Details: Convolution Speedup}
-	how you do fourier stuff. as long as necessary
+	\subsection{Implementation Details: Convolution Speedup via FFT}
+	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. In 
+		\subsubsection{TODO}
+		\begin{itemize}
+			\item find image processing papers that find hessian from FFT / who uses this?
+			\item with above: downsides?
+			\item SIDE BY SIDE comparison?
+		\end{itemize}
+		
+		\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\footnote{the following was adapted in a large part from DFT: an owner's manual. cite?}
+		
+		Given two discrete functions are sequences with the same length\footnote{If they're
+			not actually the same length, DIP-GW suggests to make the final length at least
+			$P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
+		$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
+		\begin{align}
+		F(u,v) := \mathcal{D}\{f(x,y)\} &=
+						\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)
+						e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\	
+		   H(u,v) := \mathcal{D}\{h(x,y)\} &=
+						\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} h(x,y)
+						e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}
+		\end{align}
+		
+		and given the convolution of the two functions
+		\begin{equation}
+		\left(f \star h\right)(x,y) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n)
+		\end{equation}
+		
+		Then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
+		\begin{equation}
+		\left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
+		\end{equation}
+		
+		The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
+		
+		\begin{align}
+		\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
+		&= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
+		\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
+			e^{2\pi i \left(\frac{mp}{M} + \frac{nq}{N}\right)}\right)
+			\left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+			e^{2\pi i \left(\frac{u(x-m)}{M} + \frac{v(y-n)}{N}\right)} \right) \\
+		&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+			e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
+			\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
+			\left(\sum_{m=0}^{M-1} e^{2\pi i \left(\frac{m(p-u)}{M}\right)}\right)
+			\left(\sum_{n=0}^{N-1} e^{2\pi i \left(\frac{n(q-v)}{N}\right)}\right)\right) \\
+			&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+			e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
+			\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
+			\left( M \cdot \hat{\delta}_M(p-u) \right)
+			\left( N \cdot \hat{\delta}_M(q-v)\right)\right) \\
+			&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+			e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
+			\cdot M N F(u,v) \\
+			&=MN \cdot \sum_{u=0}^{M-1} \sum_{v=0}^{N-1} F(u,v) H(u,v)
+			e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
+			&= MN \cdot \mathcal{D}^{-1}\left\{ FH\right\}
+		\end{align}
+		
+		where
+		\begin{equation}
+			\hat{\delta}_N (k) = \begin{cases}
+				1 & \text{when } k = 0 \mod N \\
+				0 & \text{else}
+				\end{cases}
+		\end{equation}
+	
+	Above, we make use of the following lemma:
+	
+	Let $j$ and $k$ be integers and let $N$ be a positive integer. Then
+	\begin{equation}
+		\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k)
+		\end{equation}
+		
+		proof:
+		
+		For any particular $n \in 0..N-1$,consider the complex number $e^{2\pi i n(j-k)/N}$. Note first, that this is an $N$-th root of unity, since
+		\[
+		\left(e^{2\pi i n(j-k)/N}\right)^N = e^{2\pi i n(j-k)} = \left(e^{2\pi i}\right)^{n(j-k)}
+		= 1^{n(j-k)} = 1
+		\]
+	
+	Thus, we understand that the complex number $e^{2\pi i n(j-k)/N}$ is a root of $z^N -1 = 0$, which we rewrite as
+	\[ z^N -1 \;=\; (z-1)(z^{n-1} + \cdots + z + 1) \;=\; (z-1)\sum_{n=0}^{N-1} z^n .
+	\]
+
+We consider two cases: in the case that $j-k$ is a multiple of $N$, we of course have $e^{2\pi i n(j-k)/N} = 1$ for any $n$, and thus
+\[
+\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} = \sum_{n=0}^{N-1} \left(1\right) = N
+\].
+
+In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^{2\pi i n(j-k)/N}\right)-1 \ne 0$, and thus it must be that
+\[\left(e^{2\pi i n(j-k)/N}\right)^N -1 = 0 \;\implies\; \sum_{n=0}^{N-1} \left(e^{2\pi i n(j-k)/N}\right)^n = 0\]
+	
+	Combining these two cases gives the result of the lemma.
+		
+%		\subsubsection{Terminology}
+%		% this was probably referenced earlier. make it agree and reference earlier eq. number?
+%		Call the original (theoretical, nondiscrete) image $L(x,y)$.
+%		Denote the FFT'd image $\mathcal{L}(\mu, \nu) := \mathcal{F}\left\{L(x,y)\right\}$.
+%		% Is this common? Check.
+%		We will also refer to the $\mathcal{L}(\mu,\nu)$ as the image in frequency space.
+%		% This was probably referenced earlier. make it agree and reference earlier eq. number?
+%		The (theoretical Hessian) of image $L$ is denoted as
+%			$H(x,y)$ := $\begin{Bmatrix} L_{xx} & L_{xy} \\ L_{yx} & L_{yy} \end{Bmatrix}$
+%		
+%		According to \cite{gonzalezwoods} %pp255 table 4.3,
+%		we can take the DFT %FUCK, need difference between DFT and FFT.
+		
+		%%%
+		
+		
+		\subsubsection{FFT}
+		
+		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead.
+		
+		Should  I put theory in on this? Yuck.
+		
+		\subsubsection{Comparision--Notes on Speedup}
+		
+		Here you actually provide some results that this method is faster. Times, compatibililty of results, etc.
+		
+		\subsubsection{Sampling Theorem}
+		I actually don't know.
+		WRAPAROUND ERROR (like from p250) i don't get how that works
 \section{Linear Scale Space Theory}
 	\subsection{Why it matters}
 	\subsection{Overview of Theory}
