@@ -2,24 +2,88 @@
 
 \textit{(Note to self: this can be 50 pages long. Don't focus on brevity--rather make it basically self-contained, within reason)}
 
-Relevant math in no particular order. Focus on mathematics (primarily on a general image, rather than focusing on a particular image domain)
-
 
 \section{Overview of Differential Geometry in Image Processing}
 	\subsection{Basics, Definitions}
-	Let $u_0(x,y)$ represent a $M\times N$ discrete image. ETC
-	\begin{itemize}
-	\item basic definitions from differential geometry in $\mathbb{R}^3$
-	\item basic image processing setup and nomenclature
-	\end{itemize}
+	For theoretical purposes, we may view any 2D grayscale image
+	as a continuous surface $L: \R^2 \to \R$
+	with $L \in \mathcal{C}^2\left(\R^2\right).$
+	In situations where we wish to discuss a discrete image, we may refer to
+	$L_0 \in \R^{m\times n}$. That is, $L_0$ is a matrix corresponding to the $m$-by-$n$ digital grayscale image.
+	
+	
+	Viewing the surface in $R^3$, we define the Hessian $\Hess$ of the surface $L$
+	at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
+	\begin{equation}
+\mathcal{H}(x,y) = \begin{bmatrix}
+		L_{xx}(x,y) & L_{xy}(x,y) \\
+		L_{yx}(x,y) & L_{yy}(x,y)
+	\end{bmatrix}
+	\end{equation}
+	
+	At any point $(x,y)$ we denote the two eigenpairs of $\Hess(x,y)$ as
+	\begin{equation}
+		\Hess u_i = \kappa_i u_i \; , \quad i = 1,2
+	\end{equation}
+	
+	where $\kappa_i$ and $u_i$ are known as the
+	\textit{principal curvatures} and \textit{principal directions} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function)and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following lemma:
+	
+	% from burden and faires corllary 9.17
+	\begin{lemma}
+		Let $A$ be a real, symmetric matrix. The eigenvalues of $A$ are real and its eigenvectors are orthonormal to each other.
+	\end{lemma}
+	
+	\begin{proof}
+		Let $x\ne 0$ so that $Ax = \lambda x$. Then 
+		\begin{align*}
+		\vnorm{Ax}_2^2 = \inner{Ax}{Ax}  &= (Ax)^{*} Ax \\
+						&= x^{*}A^{*}Ax = x^{*}A^T A x = x*A A x \\
+						&= x^{*} A \lambda x = \lambda x^{*} A x \\
+						&= \lambda x^{*} \lambda x = \lambda^2 x^{*} x = \lambda ^2 \vnorm{x}_2^2
+		\end{align*}
+		Upon rearrangement, we have
+		$\lambda^2 = \frac{\vnorm{Ax}_2^2}{\vnorm{x}_2^2} \ge 0 \implies \lambda $ is real.
+		
+		To prove that a set of orthonormalizable eigenvectors exists,
+		let $A$ be real, symmetric as above and consider the eigenpairs
+		$Av_1 = \lambda_1 v_1$, $Av_2 = \lambda_2 v_2$ with $v_1, v_2 \ne 0$.
+		\footnote{To simplify notation, we simplify our argument to consider two explicit eigenvectors only, since we're only concerned with the $2\times 2$ matrix $\Hess$
+			anyway.}
+		
+		In the case that $\lambda_1 \ne \lambda_2$, we have
+		\begin{align*}
+			(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \\
+										  	 &= (\lambda_1 v_1)^T v_2 - v_1^T (\lambda_2 v_2) \\
+										  	 &= (Av_1)^T v_2 - v_1^T (Av_2) \\
+										  	 &= v_1^T A^T v_2 - v_1^T A v_2 \\
+										  	 &= v_1^T A v_2 - v_1^T A v_2 = 0
+			\end{align*}
+			Since $\lambda_1 \ne \lambda_2$, we conclude that $v_1^T v_2 = 0$.
+		
+		In the case that $\lambda_1 = \lambda_2 =: \lambda$, we can define
+		(as in Gram-Schmidt orthogonalization) $u = v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1$.
+		This is an eigenvector for $\lambda=\lambda_2$, as
+		\begin{align*}
+		Au &= A\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1\right) \\
+		   &= A v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} A v_1 \\
+		   &= \lambda v_2- \frac{v_1^Tv_2}{v_1^Tv_1} \lambda v_1 \\
+		   &= \lambda \left( v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1 \right) = \lambda u
+		\end{align*}
+		and is perpendicular to $v_1$, since
+			\begin{align*}
+			v_1^T u &= v_1^T\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1\right) \\
+					&= v_1^T v_2 - \left(\frac{v_1^Tv_2}{v_1^Tv_1}\right) v_1^T v_1 \\
+					&= v_1^T v_2 - v_1^Tv_2 (1) = 0.
+			\end{align*}
+	\end{proof}
+	
+	
 	\subsection{Calculating Derivatives of Discrete Images} 
-	\begin{itemize}
-	\item Pretend the image is continuous surface in $\mathbb{R}^3$.
-	\item Why gaussian blur is the way to go (see paper i forget whose)
-	\end{itemize}
+	proof that derivatives should be taken on gaussian blur.
 	\section{Frangi Filter}
 	\subsection{Intro to Hessian-based filters}
-	Describe $H_{xx}, H_{xy}, H_{yy}$. What the principal curvatures and directions are and mean. Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
+	Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
 	\subsection{Overview of Frangi vesselness measure} keep it simple. this maybe should just go in the next chapter
 	\subsection{Implementation Details: Convolution Speedup via FFT}
 	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. In 

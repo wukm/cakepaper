@@ -4,7 +4,7 @@
 %\usepackage{csulbthm} % this is broken :( need to fix
 \usepackage{pslatex}
 \usepackage{amsfonts, amsmath, mathrsfs}
-\usepackage{amsxtra, amsthm, amssymb, amscd}
+\usepackage{amsxtra, amsthm, amssymb, amscd, mathtools}
 \usepackage{graphicx}
 \usepackage{subfigure}
 %\usepackage{setspace}
@@ -21,6 +21,9 @@
 \newtheorem{lemma}[theorem]{Lemma}
 
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
+\newcommand{\Hess}{\mathcal{H}} % fancy H for the hessian
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
 
 %\usepackage[small,singlelinecheck=on]{caption}
 %\usepackage[font=singlespacing]{caption}
