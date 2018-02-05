@@ -29,8 +29,8 @@
 	where $\kappa_i$ and $u_i$ are known as the
 	\textit{principal curvatures} and \textit{principal directions} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function)and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following lemma:
 	
-	% from burden and faires corllary 9.17
-	\begin{lemma}
+        % from burden and faires corollary 9.17
+        \begin{lemma}[Principal Axis Theorem?]
 		Let $A$ be a real, symmetric matrix. The eigenvalues of $A$ are real and its eigenvectors are orthonormal to each other.
 	\end{lemma}
 	
@@ -78,13 +78,23 @@
 			\end{align*}
 	\end{proof}
 	
-	Thus we have that the principal directions form an orthonormal frame at all points $(x,y)$ in the continuous image.
-	\subsection{Calculating Derivatives of Discrete Images} 
+        Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
+
+        \textit{Note: you could also prove (which might be useful for later) that these vary continuously along paths in $\R^2$
+        except at points where $\Hess(x,y)$ is singular. }
+\section{Calculating Derivatives of Discrete Images} 
 	proof that derivatives should be taken on gaussian blur.
-	\section{Frangi Filter}
-	\subsection{Intro to Hessian-based filters}
-	Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
-	\subsection{Overview of Frangi vesselness measure} keep it simple. this maybe should just go in the next chapter
+\section{Frangi Filter}
+    \subsection{Intro to Hessian-based filters}
+	%Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
+
+        Hessian-based filters are a family of curvilinear filters that employ the Hessian and its eigenspaces
+        to determine regions of significant curvature within an image.
+        % as mentioned by Frangi, see Sato [13] and Lorenz [10] in their paper
+        Several such filters exist --see Sato [13] and Lorenz[10]  for more info within Frangi's paper % FIX CITATION AND LOOK INTO THESE
+    \subsection{Overview of Frangi vesselness measure}
+        The Frangi filter is a widely used [citation needed] Hessian-based filter that relies on the principal curvatures--that is,
+        the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image. 
 	\subsection{Implementation Details: Convolution Speedup via FFT}
 	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. In 
 		\subsubsection{TODO}
