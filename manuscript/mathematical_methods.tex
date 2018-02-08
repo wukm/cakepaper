@@ -80,18 +80,36 @@
 	
         Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
 
-        \textit{Note: you could also prove (which might be useful for later) that these vary continuously along paths in $\R^2$
-        except at points where $\Hess(x,y)$ is singular. }
+        \maltese \textbf{TODO:} You can  (i think) also prove (which might be useful for later) that these vary continuously along paths in $\R^2$
+        except at points where $\Hess(x,y)$ is singular.
+        
+\hrulefill
 \section{Calculating Derivatives of Discrete Images} 
-	proof that derivatives should be taken on gaussian blur.
-\section{Frangi Filter}
+	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
+	\begin{itemize}
+		\item Take derivative with gradient / divided difference.
+		\item Derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.
+		\item Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
+					\begin{verbatim}
+					gaussian_filtered = fftgauss(image, sigma=sigma)
+					Lx, Ly = np.gradient(gaussian_filtered)
+					Lxx, Lxy = np.gradient(Lx)
+					Lxy, Lyy = np.gradient(Ly)
+					\end{verbatim}
+				
+		\end{itemize}
+
+\hrulefill
+\section{The Frangi Filter}
+
+
     \subsection{Intro to Hessian-based filters}
 	%Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
 
         Hessian-based filters are a family of curvilinear filters that employ the Hessian and its eigenspaces
         to determine regions of significant curvature within an image.
         % as mentioned by Frangi, see Sato [13] and Lorenz [10] in their paper
-        Several such filters exist --see Sato [13] and Lorenz[10]  for more info within Frangi's paper % FIX CITATION AND LOOK INTO THESE
+        Several such filters exist --see Sato [13] and Lorenz[10]. These filters use information about the principal curvatures (eigenvalues of the Hessian) at each point to 
     \subsection{Overview of Frangi vesselness measure}
         The Frangi filter is a widely used [citation needed] Hessian-based filter that relies on the principal curvatures--that is,
         the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image. 
@@ -194,35 +212,28 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 	
 	Combining these two cases gives the result of the lemma.
 		\end{proof}
-%		\subsubsection{Terminology}
-%		% this was probably referenced earlier. make it agree and reference earlier eq. number?
-%		Call the original (theoretical, nondiscrete) image $L(x,y)$.
-%		Denote the FFT'd image $\mathcal{L}(\mu, \nu) := \mathcal{F}\left\{L(x,y)\right\}$.
-%		% Is this common? Check.
-%		We will also refer to the $\mathcal{L}(\mu,\nu)$ as the image in frequency space.
-%		% This was probably referenced earlier. make it agree and reference earlier eq. number?
-%		The (theoretical Hessian) of image $L$ is denoted as
-%			$H(x,y)$ := $\begin{Bmatrix} L_{xx} & L_{xy} \\ L_{yx} & L_{yy} \end{Bmatrix}$
-%		
-%		According to \cite{gonzalezwoods} %pp255 table 4.3,
-%		we can take the DFT %FUCK, need difference between DFT and FFT.
 		
-		%%%
-		
+
+
 		
 		\subsubsection{FFT}
 		
 		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead.
 		
-		Should  I put theory in on this? Yuck.
+		\begin{itemize}
+			\item Basic theory.
+			\item Show speedup and equivalency.
+		\end{itemize}
 		
-		\subsubsection{Comparision--Notes on Speedup}
-		
-		Here you actually provide some results that this method is faster. Times, compatibililty of results, etc.
-		
-		\subsubsection{Sampling Theorem}
-		I actually don't know.
-		WRAPAROUND ERROR (like from p250) i don't get how that works
+		\subsubsection{Odds \& Ends of Fourier Analysis}
+		\begin{itemize}
+			\item Sampling theory?
+			\item Wraparound error?
+			\item Any other kinks introduced in going from continuous to discrete.
+		\end{itemize}
+
+
+\hrulefill
 \section{Linear Scale Space Theory}
 	Koenderink showed that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
 	\begin{equation}
@@ -231,9 +242,18 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 		\;\text{such that}\; K(x,y, 0) = u_0(x,y).
 		\end{equation}
 		where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
-	\subsection{Overview of Theory}
-	\subsection{methods of "merging"}
-\section{Other Odds and Ends} Finding the placental plate? Morphology stuff like skeletonization.
+	This can be derived using several assumptions.
+	
+
+	
+\hrulefill
+\section{Morphology}
+	Methods of merging multiscale methods.
+	
+	
+\hrulefill
+\section{Other Odds and Ends}
+	Finding the placental plate. Preprocessing. Could go in next section as well.
 
 
 
