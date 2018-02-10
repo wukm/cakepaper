@@ -80,9 +80,36 @@
 	
         Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
 
-        \maltese \textbf{TODO:} You can  (i think) also prove (which might be useful for later) that these vary continuously along paths in $\R^2$
-        except at points where $\Hess(x,y)$ is singular.
-        
+        \maltese The following is an \textbf{unverified claim} (which might be useful for later):
+            The frame varies continuously along paths in $\R^2$
+            except at points where $\Hess(x,y)$ is singular.
+        To make this explicit:
+
+        \begin{theorem}[Continuity of the leading principal direction]
+            Let $\theta: I:= [0,1] \to \R^2$ be a parametrized regular curve in $\R^2$ and
+            $H_\theta := \Hess_f  \circ \theta(t)$ be the matrix-valued function
+            % use the same notation as the Hessian before and cite the eqn. number from earlier
+            (where $\Hess_f$ is the $2\times 2$ Hessian of the smooth surface $f$)
+            Let $U:I \to \R^2$ be the implicitly-defined vector valued function s.t.
+            $U(t)$ is the leading eigenvector of $H_\theta$
+            (and therefore the leading principal direction of $f$). That is,
+            \begin{equation}
+                H_\theta \; U(t) = \lambda U(t) \quad \textrm{with}\quad \lambda = \rho(H_\theta)
+            \end{equation}
+            In other words, $\abs{\lambda} \ge \abs{\tilde{\lambda}}$ for any
+            $\tilde{\lambda} : H_\theta \; u = \tilde{\lambda} u$ for some $u \ne 0$.
+            
+            Then, $U(t)$ is continuous in $t$ whenever $H_f(t)$ is non-singular.
+            \textit{Note:} Maybe fix this so that the path avoids any nonsingular points?
+            $U(t)$ isn't even well-defined at such points anyway.
+        \end{theorem}
+        \begin{proof}
+            First, we show that $U(t)$ is a well-defined function at all points $t$ where
+            $H_f(t)$ is non-singular.
+        \end{proof}
+
+         \maltese \textbf{TODO}       
+
 \hrulefill
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
