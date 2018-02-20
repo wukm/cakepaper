@@ -1,15 +1,21 @@
 \chapter{Mathematical Methods}
 
-\textit{(Note to self: this can be 50 pages long. Don't focus on brevity--rather make it basically self-contained, within reason)}
-
-
 \section{Overview of Differential Geometry in Image Processing}
 	\subsection{Basics, Definitions}
-	For theoretical purposes, we may view any 2D grayscale image
-	as a continuous surface $L: \R^2 \to \R$
-	with $L \in \mathcal{C}^2\left(\R^2\right).$
-	In situations where we wish to discuss a discrete image, we may refer to
-	$L_0 \in \R^{m\times n}$. That is, $L_0$ is a matrix corresponding to the $m$-by-$n$ digital grayscale image.
+        \begin{defn}
+    	For theoretical purposes, we may view any 2D grayscale image
+    	as a continuous function $L: \R^2 \to \R$
+        with $L \in \mathcal{C}^2\left(\R^2\right).$
+        \end{defn}
+        \begin{defn}
+        In the context of differential geometry, we wish to refer to its graph
+            $f: \R^2 \to \R^3 $ by $ (u,v) \mapsto (u, v, L(u,v))$.
+    	\end{defn}
+    % put this later instead?
+        \begin{defn}
+    In situations where we wish to discuss a discrete image, we may refer to
+	$L_0 \in \R^{m\times n}$. That is, $L_0$ is a matrix corresponding to the $m$-by-$n$ digital grayscale image. 
+    \end{defn}
 	
 	
 	Viewing the surface in $R^3$, we define the Hessian $\Hess$ of the surface $L$
@@ -111,6 +117,89 @@
          \maltese \textbf{TODO}       
 
 \hrulefill
+
+\section{Eigenvectors of the Hessian are principal curvature directions}
+	Formally, within the context of differential geometry, we should show a few things:
+	\begin{itemize}
+		\item definition of curvature of a surface (how it relates to curvature of a regular curve) and showing that it's invariant of which curve is taken--that is, it only depends on a tangent vector to the surface.
+		\item normal curvature is given by the second fundamental form
+			$\textbf{II}(X,X) = \inner{\mathsf{L}X}{X}$ where $\mathsf{L}$ is the Weingarten map.
+		\item $X$ is an extremal value of $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X) = 1 $ iff $X$ is an eigenvector of $L$.
+		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
+		\end{itemize}
+        
+        \begin{lemma}
+            If $A\in R^{n\times n}$ is a symmetric real matrix, $v \in R^n$
+            and given the dot product $\inner{\cdot}{\cdot}$,
+            we have $\nabla_{v} \inner{v}{Av} = 2Av$.
+            In particular, when $A = I$ the identity matrix, we have
+            $ \nabla_{v} \inner{v}{v} = 2v$.
+        \end{lemma}
+        
+        \begin{proof}
+            The result is uninterestingly obtained by tracking
+            each (the `$i$th') component of
+            $\nabla_{v} \inner{v}{Av}$:
+            
+            \begin{align}
+            {\Big(\nabla_{v} \inner{v}{Av}\Big)}_{i} =
+                    \frac{\partial}{\partial v_i} \Big[
+                    \inner{v}{Av}\Big]
+                    &=  \frac{\partial}{\partial v_i} \left[
+                        \sum_{j=1}^{n} v_j {(Av)}_j\right] \\
+                    &=	\frac{\partial}{\partial v_i} \left[
+                    \sum_{j=1}^{n} v_j \sum_{k=1}^n a_{jk} v_k \right] \\
+                    &= \frac{\partial}{\partial v_i} \left[
+                    a_{ii} v_i^2 + v_i \sum_{k\ne i} a_{ik} v_k
+				                 + v_i \sum_{j\ne i} a_{ji} v_j
+				                 + \sum_{j\ne i} \sum_{k \ne i} v_j a_{jk} v_k \right] \\
+				    &=  2 a_{ii} v_i + \sum_{k\ne i} a_{ik} v_k
+				    + \sum_{j\ne i} a_{ji} v_j + 0 \\
+				    &= 2 a_{ii} v_i + 2 \sum_{k\ne i} a_{ik} v_k
+				     = 2 \sum_{k=1}^n a_{ik}v_{k} = 2 {\big(Av\big)}_i \\
+				     &\quad \implies \nabla_{v} \inner{v}{Av} = 2Av.
+            \end{align}
+        \end{proof}
+        
+        \begin{theorem}[Theorem of Olinde Rodrigues]
+        	$X$ minimizes $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X)= 1$
+        	iff $X$ is a (normalized) eigenvector of the Weingarten map $\mathsf{L}$.
+        	\end{theorem}
+        \begin{proof}
+        		Recall first the defintion of the first two fundamental forms,
+        		$\textbf{II}(X,X) = \inner{\wein{X}}{X}$
+        		and $\textbf{I}(X,X) = \inner{X}{X}$.
+        		
+        		Using the method of Lagrange multipliers, we define the Lagrangian:
+        		\begin{equation}
+        		\begin{aligned}
+        		\mathscr{L}(X; \lambda) &=
+	        		\mathbf{II}(X,X) - \lambda\Big(\mathbf{I}(X,X) - 1\Big) \\
+	        		&= \inner{\wein X}{X} - \lambda\Big(\inner{X}{X} - 1\Big)
+	        	\end{aligned} \end{equation}
+	        	
+	        	Extremal values occur when
+	        	$\nabla_{X,\lambda} \mathscr{L}(X;\lambda) = 0$,
+	        	
+	        	which becomes the two equations
+	        	
+	        \begin{equation}
+	        \left\{ \begin{aligned}
+		        \nabla_X \inner{\wein X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
+		        \inner{X}{X} - 1 = 0
+	        \end{aligned} \right.
+	        \end{equation}
+	        
+	        The second requirement is simply the constraint that $X$ is normalized.
+	        Using the previous lemma, we can simplify the first result as follows:
+	        
+	        \begin{gather}
+	        \nabla_X \inner{\wein X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
+	        2\wein X - \lambda \left(2 X \right) = 0 \\
+	        \implies LX - \lambda X = 0 \implies LX = \lambda X.
+	        \end{gather}
+	        Thus the two hypotheses are exactly equivalent when $X$ is normalized. It is also worth remarking that the corresponding eigenvalue $lambda$ is the Lagrangian multiplier itself.
+        	\end{proof}
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
 	\begin{itemize}
