@@ -128,6 +128,64 @@
 		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
 		\end{itemize}
         
+        \subsection{Defining normal curvature of a surface}
+        In the context of a regular curve $c: I \to \R^3$
+	        (that is, one where $c'(s) = 1 \forall s \in I$), curvature at a point $s$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
+	    % get this notation right
+	    To extend the notion of curvature of a surface $f$, we can consider at some point
+	    $u = (u_1, u_2)$ on the surface and consider a parametrized curve with
+	    parametrization $\theta: I \to U \subset \R^2$  
+		so that we may speak of $c(u) = c \circ \theta(t)$ freely as the curve $c$ at point $u \in U$ and simultaneously refer to it as $c(t) $ for $ t \in I$.
+		Of course, $\mathrm{image}(c) \subset \mathrm{image}(f)$ exactly--that is, the curve is on the surface.
+		
+		\begin{theorem}[Theorem of Meusnier]
+			Given a point $u \in U$ and a tangent direction $X \in T_u \R^3$ any curve on the surface $f$ 
+			such that $c'(u) = X$ will have the same curvature.
+		\end{theorem}
+		
+		\begin{proof}
+		Considering any such curve where $\frac{\partial c}{\partial t}(u=\theta(t)) = X$ where $X \in T_u \R^3$ is a normalized vector tangent to the surface at the point $u$,
+		we wish to decompose its acceleration along the two orthogonal vectors $X$ and
+		the Gauss map $\nu := \nu(u_1, u_2) =
+			\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
+			{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$. (Note that $X$ and $\nu$ are indeed orthogonal,
+			as both $\frac{\partial f}{\partial u_i} \in T_u \R^3, \; i=1,2.$) We then have
+			
+			\begin{equation}
+				c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
+				\end{equation}. 
+		
+		The first term is zero, since for a regular curve,  % is it? why disregard otherwise
+		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
+		
+		Using chain rule, we can rewrite the second coefficient as % prove chain rule?
+		\begin{align}
+			\inner{c''}{\nu} &=
+			\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
+				- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
+				&= \frac{\partial}{\partial t}\left[ \inner{X}{\nu} \right]
+				- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
+				&= 0 - \inner{X}{\frac{\partial \nu}{\partial t}} \\
+				&= \inner{X}{\wein X} = \mathbf{II}(X,X)
+				\end{align}
+		
+		Thus, we can express the curvature at this point on our selected curve as
+		\[
+		\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
+		\]
+		
+		which only depends on the point $u$ and the selected direction $X$.
+		\end{proof}
+		
+		In fact, we refer to this invariant quantity as the normal curvature of the surface.
+		
+		\begin{defn}
+			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := \mathbf{II}(X,X)$. 
+		\end{defn}
+		
+		Our final goal to is to characterize such normal curvatures and determine,
+		at a given point $u \in U$, a method of determining in which directions an extremal
+		normal curvature occurs. First, we need the following lemma:
         \begin{lemma}
             If $A\in R^{n\times n}$ is a symmetric real matrix, $v \in R^n$
             and given the dot product $\inner{\cdot}{\cdot}$,
@@ -162,11 +220,11 @@
         \end{proof}
         
         \begin{theorem}[Theorem of Olinde Rodrigues]
-        	$X$ minimizes $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X)= 1$
+        	Fixing a point $u \in U$, a direction $X \in T_u \R^3 $ minimizes the normal curvature $\kappa_\nu = \textbf{II}(X,X)$ subject to $\textbf{I}(X,X)= 1$
         	iff $X$ is a (normalized) eigenvector of the Weingarten map $\mathsf{L}$.
         	\end{theorem}
         \begin{proof}
-        		Recall first the defintion of the first two fundamental forms,
+        		Recall first the definition of the first two fundamental forms,
         		$\textbf{II}(X,X) = \inner{\wein{X}}{X}$
         		and $\textbf{I}(X,X) = \inner{X}{X}$.
         		
@@ -180,7 +238,6 @@
 	        	
 	        	Extremal values occur when
 	        	$\nabla_{X,\lambda} \mathscr{L}(X;\lambda) = 0$,
-	        	
 	        	which becomes the two equations
 	        	
 	        \begin{equation}
@@ -198,7 +255,44 @@
 	        2\wein X - \lambda \left(2 X \right) = 0 \\
 	        \implies LX - \lambda X = 0 \implies LX = \lambda X.
 	        \end{gather}
-	        Thus the two hypotheses are exactly equivalent when $X$ is normalized. It is also worth remarking that the corresponding eigenvalue $lambda$ is the Lagrangian multiplier itself.
+	        Thus the two hypotheses are exactly equivalent when $X$ is normalized. It is also worth remarking that the corresponding eigenvalue $\lambda$ is the Lagrangian multiplier itself.
+        	\end{proof}
+        	
+        	Our final goal is to determine that in the case of $f(u,v) = (u,v,L(u,v))$, the Weingarten
+        	map itself is defined as
+        	\begin{defn}[The Weingarten map]
+        		We define the Weingarten map $\mathcal{L}$ at point $u \in U$ as mapping tangent vectors (in the basis of $\left\{\frac{\partial f}{\partial u_i}\right\}$) to the (negative) derivatives of normal vectors (in the basis $\left\{- \frac{\partial \nu}{\partial u_i}\right\}$).
+        
+    
+        		Formally, we can write this map as $\mathcal{L} = - d\nu \circ (df)^{-1}$.
+        	\end{defn}
+        	
+        		That is,
+        		$\wein \frac{\partial f}{\partial u_i} = - \frac{\partial \nu}{\partial u_i}.$, and
+        		thus we can write a matrix representation of the map $\mathcal{L}$ as the change of basis matrix %justify this
+        		\begin{equation}
+        		\wein := \begin{pmatrix}
+		        	\inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_1}}
+		        	& \inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_2}} \\
+	        		\inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_1}}
+        			& \inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_2}}
+        		\end{pmatrix}
+        		\end{equation}
+        		
+        		We are now ready to show that in the case of a graph surface, this matrix is exactly the Hessian matrix.
+        		
+        	\begin{theorem}
+	        	When $f: U \to \R^3$ is given by $(u,v) \mapsto (u,v,L(u,v))$, the matrix
+	        	representation of the Weingarten map is exactly the Hessian matrix given in (2.1). % make this a real tag.
+        	\end{theorem}
+        	\begin{proof}
+        		First, we can (using chain rule) rewrite each component as
+        		\[ \inner{\frac{\partial f}{\partial u_i}}{-\frac{\partial \nu}{\partial u_j}}
+        		= \inner{\frac{\partial^2 f}{\partial u_i \partial u_j}}{\nu} \]
+        		
+        		Now, given our particular surface $f$, we can calculate each of these components directly.
+        		
+        		
         	\end{proof}
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
