@@ -290,8 +290,24 @@
         		\[ \inner{\frac{\partial f}{\partial u_i}}{-\frac{\partial \nu}{\partial u_j}}
         		= \inner{\frac{\partial^2 f}{\partial u_i \partial u_j}}{\nu} \]
         		
-        		Now, given our particular surface $f$, we can calculate each of these components directly.
+        		Now, given our particular surface $f$, we can calculate each of these components directly. We have:
+        		\begin{equation}
+        		\begin{gathered}
+        		f_{u} = (1, 0, L_u) , \quad
+        		f_{v} = (0, 1, L_v)  \\
+        		f_{uu} = (0, 0, L_{uu}) , \quad
+        		f_{uv} = (0, 0, L_{uv}) = f_{vu} , \quad
+        		f_{vv} = (0, 0, L_{vv})
+        		\end{gathered}
+        		\end{equation}
         		
+        		and we have the unit normal vector (Gauss map)
+        		\begin{align}
+        		\nu(u_1, u_2) &=
+        		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
+        		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \\
+        		&= \frac{(1, 0, L_u) \times (0, 1, L_v)}{\vnorm{\cdots}}
+			 \end{align}    		
         		
         	\end{proof}
 \section{Calculating Derivatives of Discrete Images} 
