@@ -129,8 +129,8 @@
 		\end{itemize}
         
         \subsection{Defining normal curvature of a surface}
-        In the context of a regular curve $c: I \to \R^3$
-	        (that is, one where $c'(s) = 1 \forall s \in I$), curvature at a point $s$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
+        In the context of a regular curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
+	        (that is, one where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
 	    % get this notation right
 	    To extend the notion of curvature of a surface $f$, we can consider at some point
 	    $u = (u_1, u_2)$ on the surface and consider a parametrized curve with
@@ -138,6 +138,7 @@
 		so that we may speak of $c(u) = c \circ \theta(t)$ freely as the curve $c$ at point $u \in U$ and simultaneously refer to it as $c(t) $ for $ t \in I$.
 		Of course, $\mathrm{image}(c) \subset \mathrm{image}(f)$ exactly--that is, the curve is on the surface.
 		
+		We now present a main result that provides a notion of curvature of a surface.
 		\begin{theorem}[Theorem of Meusnier]
 			Given a point $u \in U$ and a tangent direction $X \in T_u \R^3$ any curve on the surface $f$ 
 			such that $c'(u) = X$ will have the same curvature.
@@ -158,20 +159,22 @@
 		The first term is zero, since for a regular curve,  % is it? why disregard otherwise
 		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
 		
-		Using chain rule, we can rewrite the second coefficient as % prove chain rule?
+		Using chain rule, we can rewrite the second coefficient of (2.4) as % prove chain rule?
 		\begin{align}
 			\inner{c''}{\nu} &=
 			\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
 				- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
 				&= \frac{\partial}{\partial t}\left[ \inner{X}{\nu} \right]
 				- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
-				&= 0 - \inner{X}{\frac{\partial \nu}{\partial t}} \\
-				&= \inner{X}{\wein X} = \mathbf{II}(X,X)
+				&= 0 - \inner{X}{\frac{\partial \nu}{\partial t}}
+				%&= \inner{X}{\wein X} = \mathbf{II}(X,X)
 				\end{align}
 		
 		Thus, we can express the curvature at this point on our selected curve as
 		\[
-		\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
+		%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
+		\vnorm{c''} = - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu}
+		= - \inner{X}{\frac{\partial \nu}{\partial t}}
 		\]
 		
 		which only depends on the point $u$ and the selected direction $X$.
@@ -180,12 +183,33 @@
 		In fact, we refer to this invariant quantity as the normal curvature of the surface.
 		
 		\begin{defn}
-			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := \mathbf{II}(X,X)$. 
+			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
 		\end{defn}
 		
-		Our final goal to is to characterize such normal curvatures and determine,
+		In other contexts, this quantity is referred to as the second fundamental form at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
+		
+		Our final goal to is to characterize such normal curvatures and establish,
 		at a given point $u \in U$, a method of determining in which directions an extremal
-		normal curvature occurs. First, we need the following lemma:
+		normal curvature occurs.
+		To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$. That is, we trace $X \in T_u f $ (which may be expanded in the  orthogonal basis
+		$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$)
+		back to its associated surface element $f(u)$ and then expand it along the basis $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\}$.
+		
+		Formally, we can write this map as $\mathcal{L} = - d\nu \circ (df)^{-1}$. 
+
+	
+	That is,
+	$\wein \frac{\partial f}{\partial u_i} = - \frac{\partial \nu}{\partial u_i}.$ where we refer to $\wein$  we can write a matrix representation of the map $\mathcal{L}$ as the change of basis matrix %justify this
+	\begin{equation}
+	\wein := \begin{pmatrix}
+	\inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_1}}
+	& \inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_2}} \\
+	\inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_1}}
+	& \inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_2}}
+	\end{pmatrix}
+	\end{equation}
+		
+		First, we need the following lemma:
         \begin{lemma}
             If $A\in R^{n\times n}$ is a symmetric real matrix, $v \in R^n$
             and given the dot product $\inner{\cdot}{\cdot}$,
@@ -262,22 +286,10 @@
         	map itself is defined as
         	\begin{defn}[The Weingarten map]
         		We define the Weingarten map $\mathcal{L}$ at point $u \in U$ as mapping tangent vectors (in the basis of $\left\{\frac{\partial f}{\partial u_i}\right\}$) to the (negative) derivatives of normal vectors (in the basis $\left\{- \frac{\partial \nu}{\partial u_i}\right\}$).
+        		\end{defn}
         
     
-        		Formally, we can write this map as $\mathcal{L} = - d\nu \circ (df)^{-1}$.
-        	\end{defn}
-        	
-        		That is,
-        		$\wein \frac{\partial f}{\partial u_i} = - \frac{\partial \nu}{\partial u_i}.$, and
-        		thus we can write a matrix representation of the map $\mathcal{L}$ as the change of basis matrix %justify this
-        		\begin{equation}
-        		\wein := \begin{pmatrix}
-		        	\inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_1}}
-		        	& \inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_2}} \\
-	        		\inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_1}}
-        			& \inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_2}}
-        		\end{pmatrix}
-        		\end{equation}
+        		
         		
         		We are now ready to show that in the case of a graph surface, this matrix is exactly the Hessian matrix.
         		
@@ -461,16 +473,124 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 
 \hrulefill
 \section{Linear Scale Space Theory}
-	Koenderink showed that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
+	Koenderink showed/asserted that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
 	\begin{equation}
 		\Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
 		\;\text{for}\; \sigma \ge 0
 		\;\text{such that}\; K(x,y, 0) = u_0(x,y).
 		\end{equation}
 		where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
-	This can be derived using several assumptions.
+	Much work blah blah blah has been done to formalize this approach. 
+	
+\subsection{Significance of the convolution operation}
+	This section shows that if one constructs the family using an operation and a source image, the necessary operation is necessarily equivalent to convolution. I am guessing at this, but I think the axiom that causes this is wanting no space in the image to be preferred.
+\subsection{Uniqueness of the Gaussian Kernel}
+	This is the result of most of these axioms.
 	
 
+\subsection{$G_\sigma \star u_0$ solves the heat equation}
+	given $u_0$ as a continuous image (unscaled), we construct PDE with this as a boundary condition.
+	
+	\begin{equation}
+		u: \R^2 \supset \Omega \to \R \; \textrm{with} \; u(\bm{x},t) : \;
+			\begin{cases}
+				\frac{\partial u}{\partial t} (\bm{x}, t) = \Delta u(\bm{x},t) & ,\; t \ge 0 \\
+				u(\bm{x},0) = u_0(\bm{x}) 
+			\end{cases}
+		\end{equation}
+
+	We show that
+	\begin{equation}
+		u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})
+	\end{equation}
+	solves (the above tagged equation), where
+	\[
+		G_\sigma := \frac{1}{2\pi \sigma^2} e^{\left(-\abs{x}^2 / (2\sigma^2)\right)}
+	\]
+	First, we need a quick lemma regarding differentiation a continuous convolution.
+	\begin{lemma}
+		Derivative of a convolution is the way that it is (obviously rewrite this).
+	\end{lemma}
+	\begin{proof}
+		For a single variable,
+		\begin{align}
+		\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
+		&= \frac{\partial}{\partial \alpha} \left[ 
+		\int f(t) g(\alpha - t) dt \right] \\
+		&=  \int f(t) \frac{\partial}{\partial \alpha}\left[ g(\alpha - t)  \right] dt \\
+		&=  \int f(t) \left(\frac{\partial g}{\partial \alpha}\right) g(\alpha - t) dt \\
+		&=  f(\alpha) \star g'(\alpha)
+		\end{align}
+		By symmetry of convolution we can also conclude 
+		\[\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
+		= f'(\alpha) \star g(\alpha)
+		\]
+		
+		If $f$ and $g$ are twice differentiable, we can compound this result to show a similar statement holds for second derivatives, and then, given the additivity of convolution,
+		we may conclude
+		\begin{equation}
+		\Delta \left(f \star g \right) = \Delta(f) \star g = f \star \Delta(g) 
+		\end{equation} 
+	\end{proof}
+	\begin{theorem}
+		$u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})$ solves the heat equation.
+	\end{theorem}
+	\begin{proof}
+		We focus on the particular kernel
+		\[
+			G_{\sqrt{2t}} = \frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)}
+			\]
+	\end{proof}
+	
+	Then
+	\begin{align}
+	\frac{\partial u}{\partial t} (\bm{x}, t)
+		&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t) \star u_0(\bm{x})\right)  \\
+		&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t)\right) \star u_0(\bm{x})  \\
+		&= \frac{\partial}{\partial t} \left(
+			\frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)} \right) \star u_0(\bm{x}) \\
+		&= \left[
+		-\frac{1}{4\pi t^2} e^{\left(-\abs{x}^2 / (4t)\right)}
+			+ \frac{1}{4\pi t}\left(\frac{-\abs{x}^2}{4t^2}\right) e^{-\abs{x}^2 / (4t)}
+			\right] \star u_0(\bm{x}) \\
+			&= -\frac{1}{4t^2} \left( e^{\left(-\abs{x}^2 / (4t)\right)} 
+					+ \abs{\bm{x}}^2 G_{\sqrt{2t}}(\bm{x},t)
+						\right) \star u_0(\bm{x})
+	\end{align}
+	and from the previous lemma,
+	\[
+	\Delta u(\bm{x}, t) = \Delta\left( G_{\sqrt{2t}} \star u_0(\bm{x})\right)
+						= \Delta\left( G_{\sqrt{2t}} \right)\star u_0(\bm{x})
+	\]
+	
+	We explicitly calculate the Laplacian of $G_{\sigma}(x,y) = A \exp(-\frac{x^2 + y^2}{2\sigma^2})$ as follows:
+	
+	\begin{align*}
+	\frac{\partial}{\partial x} G_{\sigma}(x,y)
+		&= A \left( \frac{-2x}{2\sigma^2}\right) \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \\
+		\implies \frac{\partial^2}{\partial^2 x} G_{\sigma}(x,y)
+		&= A \cdot \frac{\partial}{\partial x}
+		\left[ - \frac{x}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+		&= A \left[ - \frac{1}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) 
+			+ \frac{x}{\sigma^2} \cdot \frac{2x}{2\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+			&= A \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right)
+				\left[ - \frac{1}{\sigma^2} + \frac{x^2}{\sigma^4} \right] \\
+				&= \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{x^2}{\sigma^2} - 1\right]
+	\end{align*}
+	
+	By symmetry of argument we also may conclude
+	\[
+	\frac{\partial^2}{\partial y^2} G_{\sigma}(x,y) = \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{y^2}{\sigma^2} - 1\right]
+	\]
+	
+	and so
+	
+	\begin{equation}
+	\Delta G_\sigma(x,y) =
+		\frac{\partial^2}{\partial x^2} \left(G_{\sigma}\right)
+		+ \frac{\partial^2}{\partial y^2} \left(G_{\sigma}\right)
+		= \frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right] 
+	\end{equation}
 	
 \hrulefill
 \section{Morphology}
