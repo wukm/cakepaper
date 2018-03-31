@@ -450,10 +450,7 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 	
 	Combining these two cases gives the result of the lemma.
 		\end{proof}
-		
-
-
-		
+				
 		\subsubsection{FFT}
 		
 		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead.
@@ -508,7 +505,7 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 		G_\sigma := \frac{1}{2\pi \sigma^2} e^{\left(-\abs{x}^2 / (2\sigma^2)\right)}
 	\]
 	First, we need a quick lemma regarding differentiation a continuous convolution.
-	\begin{lemma}
+	\begin{lemma} \label{dconvolution}
 		Derivative of a convolution is the way that it is (obviously rewrite this).
 	\end{lemma}
 	\begin{proof}
@@ -540,7 +537,7 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 		\[
 			G_{\sqrt{2t}} = \frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)}
 			\]
-	\end{proof}
+	
 	
 	Then
 	\begin{align}
@@ -591,7 +588,41 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 		+ \frac{\partial^2}{\partial y^2} \left(G_{\sigma}\right)
 		= \frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right] 
 	\end{equation}
+	Then, given \cref{dconvolution}, we conclude
+	\begin{equation}
+	\Delta \left[ G_\sigma(x,y) \star u_0(x,y) \right] 
+	= \left(\frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right]\right) \star u_0(x,y)
+	\end{equation}
 	
+	For particular choices of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$,
+	we see 
+	\begin{align}
+		\Delta \left[ G_{\sqrt{2t}}(x,y) \star u_0(x,y) \right] 
+		&= \left(\frac{1}{2t} G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{2t} - 2\right]\right) \star u_0(x,y) \\
+		&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} - \frac{1}{t}\right]\right) \star u_0(x,y)
+	\end{align}
+	We then calculate the time derivative,
+	using our particular choice of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$ as:
+	
+	\begin{align}
+	\frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \star u_0(x,y) \right]
+	&= \frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \right] \star u_0(x,y) \\
+	&= \frac{\partial}{\partial t} \left[ G_{\sqrt{2t}}(x,y)\right] \star u_0(x,y) \\
+	&= \frac{\partial}{\partial t} \left[
+	\frac{1}{4\pi t} \exp\left(-\frac{x^2 + y^2}{4t}\right) \right] \star u_0(x,y) \\
+	&= \left[ -\frac{1}{4\pi t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right) + 
+	\frac{1}{4\pi t}\left( \frac{x^2 + y^2}{4t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right)\right)
+		\right] \star u_0(x,y) \\
+		&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} -\frac{1}{t}\right]\right) \star u_0(x,y)
+	\end{align}
+
+	Combining these results, we find that
+	\begin{equation}
+	\frac{\partial}{\partial t} \left[ G_{\sqrt{2t}} \star u_0 \right]
+	= \Delta \left[ G_{\sqrt{2t}} \star u_0 \right] 
+	\end{equation}
+	
+	as desired. \end{proof}
 \hrulefill
 \section{Morphology}
 	Methods of merging multiscale methods.
