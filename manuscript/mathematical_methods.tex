@@ -181,35 +181,37 @@
 	  It is clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$, and also that
 	  $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} = T_u f$ as well.
         \subsection{Defining normal curvature of a surface}
-        In the context of a regular curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
-	        (that is, one where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
-	    % get this notation right
-	    To extend the notion of curvature of a surface $f$, we can consider at some point
-	    $u = (u_1, u_2)$ on the surface and consider a parametrized curve with
-	    parametrization $\theta: I \to U \subset \R^2$  
-		so that we may speak of $c(u) = c \circ \theta(t)$ freely as the curve $c$ at point $u \in U$ and simultaneously refer to it as $c(t) $ for $ t \in I$.
-		Of course, $\mathrm{image}(c) \subset \mathrm{image}(f)$ exactly--that is, the curve is on the surface.
+        In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
+	        (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
+	    
+	    To extend the notion of curvature of a surface $f$, we can consider the curvature of such a curve embedded within the surface: that is, $c[I] = f[\theta_c[I]]$. Considering a point $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all curves at the point with a shared velocity. We now present a main result that provides a notion of curvature of a surface.
 		
-		We now present a main result that provides a notion of curvature of a surface.
+		\textit{\maltese TODO \color{red} fix so this is clearer and less bogged down by 
+			$u \leftrightarrow p$ conversion so you can more easily tell what all curves have in
+			common}
 		\begin{theorem}[Theorem of Meusnier]
-			Given a point $u \in U$ and a tangent direction $X \in T_u \R^3$ any curve on the surface $f$ 
-			such that $c'(u) = X$ will have the same curvature.
+			Given a point $u \in U $ and a tangent direction $X \in T_u \R^3$,
+		    any curve on the surface $c: I \to \image(f)$ with $p\in I : \theta_c(p) = u$
+		    where $c'(p) = X$ will have the same curvature.
 		\end{theorem}
 		
 		\begin{proof}
-		Considering any such curve where $\frac{\partial c}{\partial t}(u=\theta(t)) = X$ where $X \in T_u \R^3$ is a normalized vector tangent to the surface at the point $u$,
-		we wish to decompose its acceleration along the two orthogonal vectors $X$ and
+		Considering any such curve where $\frac{\partial c}{\partial t}(p) = X$ where $X \in T_u \R^3$ is a normalized vector tangent to the surface at the point $u$,
+		we wish to decompose its acceleration along the  orthogonal vectors $X$ and
 		the Gauss map $\nu := \nu(u_1, u_2) =
 			\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
 			{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$. (Note that $X$ and $\nu$ are indeed orthogonal,
 			as both $\frac{\partial f}{\partial u_i} \in T_u \R^3, \; i=1,2.$) We then have
+			(at this fixed point $u=\theta_c(p)$)
 			
 			\begin{equation}
 				c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
 				\end{equation}. 
 		
-		The first term is zero, since for a regular curve,  % is it? why disregard otherwise
+		The first term is zero, since for a regular curve
 		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
+		
+		since either $c'' \perp c'$ or $\vnorm{c''} = 0$ itself (which is generally true for a regular curve in $\R^3$) %see Kuhnel pg. 13, def 2.4
 		
 		Using chain rule, we can rewrite the second coefficient of (2.4) as % prove chain rule?
 		\begin{align}
@@ -228,20 +230,57 @@
 		\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
 		&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
 		&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
-		&= - \inner{X}{\frac{\partial \nu}{\partial t}}
+		&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
+		&=  \inner{X}{-\frac{\partial \nu}{\partial t}}
 		\end{align}
 		
-		which only depends on the point $u$ and the selected direction $X$.
-		\end{proof}
+		We may compute $-\frac{\partial \nu}{\partial t}$ via chain rule:
+		\begin{align}
+		-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
+		&= \theta_1'(s)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
+		\theta_2'(s)\left( - \frac{\partial \nu}{\partial u_2} \right)
+		\end{align}
 		
-		In fact, we refer to this quantity as the normal curvature of the surface. It is invariant
-		in the sense that 
+		Using this, we can rewrite the curvature for our curve as
+		\begin{align}
+		\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
+		&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
+		&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
+		&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
+		&=  \inner{X}{-\frac{\partial \nu}{\partial t}}
+		\end{align}
+		
+		
+		Identifying $\left\{ \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a basis for $T_u f$, just as $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ is, we can identify a linear transformation $\wein: T_u f \to T_u f$ which converts between bases, i.e.
+		$\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$. This allows us to rewrite the time derivative of the Gauss map as
+			\begin{align}
+			-\frac{d \nu}{dt} &= 
+			\theta_1'(s)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
+			\theta_2'(s)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
+			&= \theta_1'(s)\left( L\left(- \frac{\partial f}{\partial u_1}\right) \right) + 
+			\theta_2'(s)\left( L\left(- \frac{\partial f}{\partial u_2}\right) \right) \\
+			&= L\left(\theta_1'(s)\left( - \frac{\partial f}{\partial u_1}\right)  + 
+			\theta_2'(s)\left( - \frac{\partial f}{\partial u_2} \right)\right) \\
+			&= L\left( \frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
+			= L\left( \frac{d}{dt} \left[ c(t) \right] \right) = L\left(X\right)
+			\end{align} 
+			With this, we can re-express the curvature of our curve as
+			
+			\begin{equation}
+			\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein X}
+			\end{equation}
+			
+			which only depends on the point $u$ and the selected direction $X$, not on the particular curve at all! 
+		\end{proof}
+		In fact, we refer to this quantity as the normal curvature of the surface. 
 		
 		\begin{defn}
 			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
 		\end{defn}
 		
 		In other contexts, this quantity is referred to as the second fundamental form at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
+		
+		The map $\wein$ we used is known as the Weingarten map. \textcolor{red}{Talk here.}
 		
 		Our final goal to is to characterize such normal curvatures and establish,
 		at a given point $u \in U$, a method of determining in which directions an extremal
