@@ -119,6 +119,9 @@
 \hrulefill
 
 \section{Eigenvectors of the Hessian are principal curvature directions}
+	\maltese \textbf{TO-DO \color{red}REWRITE THIS AS A PARAGRAPH AND/OR INTERSPERSE THROUGHOUT THE SECTION}
+	
+	
 	Formally, within the context of differential geometry, we should show a few things:
 	\begin{itemize}
 		\item definition of curvature of a surface (how it relates to curvature of a regular curve) and showing that it's invariant of which curve is taken--that is, it only depends on a tangent vector to the surface.
@@ -128,6 +131,55 @@
 		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
 		\end{itemize}
         
+        \subsection{Preliminaries of Differential Geometry / Notational Dump}
+        
+        Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$.
+        then we define its \textit{graph} $f$ as
+        \[
+	        f: U \to \R^3 \quad \textrm{by} \quad f(u_1, u_2) \;=\; \big(u_1 , u_2 , h(u_1,u_2)\big)
+	        \quad,\; u = (u_1, u_2) \in U
+        \]
+        
+        For any point $u \in U$, we associate a $p \in f[U]$, i.e. $p = f(u)$.
+        
+        We define the tangent plane of f at point $p$ as the map
+        \[
+        T_u f := Df\vert_u \left(T_u U\right) \subset T_{f(u)} \R^3
+        \]
+        
+        where $Df\vert_x$ is the differential map of $f$ at point $x$ given by
+        
+        \[
+	        Df|_x : U \to \R^3 \quad \textrm{by} \quad v \mapsto J_f (x) \cdot v
+        \]
+	  where $J_f(x)$ is the Jacobian of $f$ evaluated at point $x$, i.e. the matrix
+	  \[
+	  J_f (x) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_x \right]_{i,j}
+	  \]
+	  
+	  
+	  We shall denote a tangent vector $X \in T_u f$ at point $p$. It is easily shown that we may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
+	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$.
+	  
+	  
+	  Given a closed interval $I \subset \R$, we can define a regular curve on the surface
+	  $c: I \to \R^3$ such that $\image(c) \subset \image(f)$. In other words, we can (for this particular curve) define an intermediary parametrization $\theta_c$ for this curve so that
+      $ c = f \circ \theta_c $ i.e.
+	  \[
+	  \theta_c : I \to U \; \textrm{by} \; \theta(t) = \big(\theta_1(t), \theta_2(t)\big)
+	  \]
+	  
+	  and $c(t) = f(\theta(t))$.
+	  
+	  We also shall define at a point $p = f(u)$ the Gauss map
+	  \[\nu : U \to S^2 \quad\textrm{by}\quad  \nu(u_1, u_2) :=
+	  \frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
+	  {\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
+	  
+	  with each partial above understood to be evaluated at the input $u \in U$.
+	  
+	  It is clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$, and also that
+	  $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} = T_u f$ as well.
         \subsection{Defining normal curvature of a surface}
         In the context of a regular curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
 	        (that is, one where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
@@ -171,16 +223,19 @@
 				\end{align}
 		
 		Thus, we can express the curvature at this point on our selected curve as
-		\[
+		\begin{align}
 		%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
-		\vnorm{c''} = - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu}
-		= - \inner{X}{\frac{\partial \nu}{\partial t}}
-		\]
+		\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
+		&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
+		&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
+		&= - \inner{X}{\frac{\partial \nu}{\partial t}}
+		\end{align}
 		
 		which only depends on the point $u$ and the selected direction $X$.
 		\end{proof}
 		
-		In fact, we refer to this invariant quantity as the normal curvature of the surface.
+		In fact, we refer to this quantity as the normal curvature of the surface. It is invariant
+		in the sense that 
 		
 		\begin{defn}
 			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
