@@ -267,7 +267,7 @@
 			With this, we can re-express the curvature of our curve as
 			
 			\begin{equation}
-			\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein X}
+			\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein(X)}
 			\end{equation}
 			
 			which only depends on the point $u$ and the selected direction $X$, not on the particular curve at all! 
@@ -275,22 +275,49 @@
 		In fact, we refer to this quantity as the normal curvature of the surface. 
 		
 		\begin{defn}
-			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
+			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{L(X)}$. In other contexts (not necessary here), this quantity is referred to as the \textit{second fundamental form} at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\wein(X)}$.
 		\end{defn}
 		
-		In other contexts, this quantity is referred to as the second fundamental form at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\frac{\partial \nu}{\partial t}}$.
 		
-		The map $\wein$ we used is known as the Weingarten map. \textcolor{red}{Talk here.}
+		
+		The map $\wein$ we used is known as the Weingarten map
+		and is implicitly defined at each $u \in U$. 
+		We wish to make its existence rigorous as well as find a matrix representation for it, using the standard motivation that $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$.
+		
+	
+		\begin{defn}[Weingarten map]
+		The Weingarten map (or shape operator) is the map $\wein: T_u f \to T_u f$ given by
+		$\wein = D\nu \circ (Df)^{-1}$.
+		\end{defn}
+		
+		That is, we may trace any $X \in T_u f$ which has been expanded in terms of the basis 
+		$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
+		and expand it along the basis $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
+		
+		\textcolor{red}{TODO: THIS GOES SOMEWHERE ELSE?? You can simplify by assuming we're dealing with a graph, although it's true in general as long as $f$ is an immersion.}
+		To prove that $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ and $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$ are each a basis for $T_u f$,
+		
+		For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set. We can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent.
+		
+		To show that $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$ is a basis as well,
+		first note that at any particular $u \in U$,
+		$\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
+		and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
+		\implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
+			Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
+			$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
+			\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
+			\textcolor{red}{TODO: why are $\nu_{u_i}$ necessarily linearly independent?}
+		
+		\textcolor{red}{TODO: Finish proving soundness of the Weingarten map in the context of a graph}
+		To find a matrix representation for $\wein$, we 
+			 
+		
 		
 		Our final goal to is to characterize such normal curvatures and establish,
 		at a given point $u \in U$, a method of determining in which directions an extremal
 		normal curvature occurs.
-		To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$. That is, we trace $X \in T_u f $ (which may be expanded in the  orthogonal basis
-		$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$)
-		back to its associated surface element $f(u)$ and then expand it along the basis $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\}$.
-		
-		Formally, we can write this map as $\mathcal{L} = - d\nu \circ (df)^{-1}$. 
-
+		To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$. That is, we trace $X \in T_u f $
 	
 	That is,
 	$\wein \frac{\partial f}{\partial u_i} = - \frac{\partial \nu}{\partial u_i}.$ where we refer to $\wein$  we can write a matrix representation of the map $\mathcal{L}$ as the change of basis matrix %justify this
