@@ -119,17 +119,17 @@
 \hrulefill
 
 \section{Eigenvectors of the Hessian are principal curvature directions}
-	\maltese \textbf{TO-DO \color{red}REWRITE THIS AS A PARAGRAPH AND/OR INTERSPERSE THROUGHOUT THE SECTION}
+%	\maltese \textbf{TO-DO \color{red}REWRITE THIS AS A PARAGRAPH AND/OR INTERSPERSE THROUGHOUT THE SECTION}
+%	
 	
-	
-	Formally, within the context of differential geometry, we should show a few things:
-	\begin{itemize}
-		\item definition of curvature of a surface (how it relates to curvature of a regular curve) and showing that it's invariant of which curve is taken--that is, it only depends on a tangent vector to the surface.
-		\item normal curvature is given by the second fundamental form
-			$\textbf{II}(X,X) = \inner{\mathsf{L}X}{X}$ where $\mathsf{L}$ is the Weingarten map.
-		\item $X$ is an extremal value of $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X) = 1 $ iff $X$ is an eigenvector of $L$.
-		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
-		\end{itemize}
+%	Formally, within the context of differential geometry, we should show a few things:
+%	\begin{itemize}
+%		\item definition of curvature of a surface (how it relates to curvature of a regular curve) and showing that it's invariant of which curve is taken--that is, it only depends on a tangent vector to the surface.
+%		\item normal curvature is given by the second fundamental form
+%			$\textbf{II}(X,X) = \inner{\mathsf{L}X}{X}$ where $\mathsf{L}$ is the Weingarten map.
+%		\item $X$ is an extremal value of $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X) = 1 $ iff $X$ is an eigenvector of $L$.
+%		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
+%		\end{itemize}
         
         \subsection{Preliminaries of Differential Geometry / Notational Dump}
         
@@ -186,11 +186,11 @@
 	    
 	    To extend the notion of curvature of a surface $f$, we can consider the curvature of such a curve embedded within the surface: that is, $c[I] = f[\theta_c[I]]$. Considering a point $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all curves at the point with a shared velocity. We now present a main result that provides a notion of curvature of a surface.
 		
-		\textit{\maltese TODO \color{red} fix so this is clearer and less bogged down by 
-			$u \leftrightarrow p$ conversion so you can more easily tell what all curves have in
-			common}
+%		\textit{\maltese TODO \color{red} fix so this is clearer and less bogged down by 
+%			$u \leftrightarrow p$ conversion so you can more easily tell what all curves have in
+%			common}
 		\begin{theorem}[Theorem of Meusnier]
-			Given a point $u \in U $ and a tangent direction $X \in T_u \R^3$,
+			Given a point $u \in U $ and a tangent direction $X \in T_u f$,
 		    any curve on the surface $c: I \to \image(f)$ with $p\in I : \theta_c(p) = u$
 		    where $c'(p) = X$ will have the same curvature.
 		\end{theorem}
@@ -446,7 +446,7 @@
 	        2\weinmat X - \lambda \left(2 X \right) = 0 \\
 	        \implies \weinmat X - \lambda X = 0 \implies \weinmat X = \lambda X
 	        \end{gather}
-	        which implies that $X$ is an eigenvector of  $weinmat$ with corresponding eigenvalue $\lambda$.
+	        which implies that $X$ is an eigenvector of  $\weinmat$ with corresponding eigenvalue $\lambda$.
 	        Thus the two hypotheses are exactly equivalent when $X$ is normalized. It is also worth remarking that the corresponding eigenvalue $\lambda$ is the Lagrangian multiplier itself.
         	\end{proof}
         	
