@@ -16,7 +16,7 @@
 \usepackage{datatool} % Allows importing tables
 \usepackage{longtable}
 \usepackage{xcolor}
-
+\usepackage[normalem]{ulem}
 % mathy definitions?
 \newtheorem{defn}{Definition}[section]
 \newtheorem{theorem}{Theorem}[section]
@@ -32,6 +32,10 @@
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 \DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
 \DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+
+% matrix columns
+
+\newcommand*\mcol[1]{\overset{\big\uparrow}{\underset{\big\downarrow}{#1}}}
 %\usepackage[small,singlelinecheck=on]{caption}
 %\usepackage[font=singlespacing]{caption}
 

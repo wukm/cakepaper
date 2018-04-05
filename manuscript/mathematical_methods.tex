@@ -310,25 +310,67 @@
 			\textcolor{red}{TODO: why are $\nu_{u_i}$ necessarily linearly independent?}
 		
 		\textcolor{red}{TODO: Finish proving soundness of the Weingarten map in the context of a graph}
-		To find a matrix representation for $\wein$, we 
-			 
 		
 		
-		Our final goal to is to characterize such normal curvatures and establish,
-		at a given point $u \in U$, a method of determining in which directions an extremal
+		To find a matrix representation for $\wein$, (which we will denote $\weinmat \in R^{2\times2}$) we simply wish to find a linear transformation
+		such that
+		$\weinmat \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}
+			= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} i=1,2$
+			
+		where $- \left.X\right|_{T_u f}$ denotes that $X \in T_u f$ is being represented in a local basis of $T_u f$. In matrix form, this translates to
+		
+		\begin{align}
+		\Bigg[ \;\weinmat\; \Bigg]
+		\left[ \mcol{\left[\frac{\partial f}{\partial u_1}\right]_{T_u f}} \;
+				\mcol{\left[\frac{\partial f}{\partial u_2}\right]_{T_u f}} \right]
+				&= \left[ \weinmat \mcol{\left[\frac{\partial f}{\partial u_1}\right]_{T_u f}} \;
+				\weinmat \mcol{\left[\frac{\partial f}{\partial u_2}\right]_{T_u f}} \right] \\
+				&= \left[ \mcol{ \left[-\frac{\partial \nu}{\partial u_1}\right]_{T_u f}} \;
+				\mcol{\left[-\frac{\partial \nu}{\partial u_2}\right]_{T_u f}} \right]
+				\end{align}
+				Now, representing each vector in  $T_u f$ with respect to the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}$, we have
+				\begin{align}
+				\implies
+				\Bigg[ \;\weinmat\; \Bigg]
+				\begin{bmatrix} \leftarrow \frac{\partial f}{\partial u_1} \rightarrow \\
+								\leftarrow \frac{\partial f}{\partial u_2} \rightarrow
+								\end{bmatrix}
+				\left[ \mcol{\frac{\partial f}{\partial u_1}} \;
+					\mcol{\frac{\partial f}{\partial u_2}}\right]
+					&= \begin{bmatrix} \leftarrow \frac{\partial f}{\partial u_1} \rightarrow \\
+					\leftarrow \frac{\partial f}{\partial u_2} \rightarrow
+					\end{bmatrix}
+					\left[ \mcol{-\frac{\partial \nu}{\partial u_1}} \;
+					\mcol{-\frac{\partial \nu}{\partial u_2}}\right]
+		\end{align}
+				 
+		We can simplify this greatly by defining 
+		\begin{equation}\label{fundamentalformcoefficients}
+		g_{ij} := \inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}}
+		\quad \textrm{and}\quad
+		h_{ij} := \inner{\frac{\partial f}{\partial u_i}}{-\frac{\partial \nu}{\partial u_j}}
+		\end{equation}
+		
+		so that
+		\begin{equation}
+		\Bigg[ \;\weinmat\; \Bigg]
+		\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}
+		= \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
+		\end{equation}
+		
+		Then we rearrange to solve for $\weinmat$ as
+			\begin{equation}
+			\weinmat
+			\;=\; \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
+			\left.\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}\right.^{-1}
+			\end{equation}
+		
+		Our final goal to is to characterize such normal curvatures.
+		Namely, we wish to establish a method of determining in which directions an extremal
 		normal curvature occurs.
-		To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$. That is, we trace $X \in T_u f $
+		To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$.
+
 	
-	That is,
-	$\wein \frac{\partial f}{\partial u_i} = - \frac{\partial \nu}{\partial u_i}.$ where we refer to $\wein$  we can write a matrix representation of the map $\mathcal{L}$ as the change of basis matrix %justify this
-	\begin{equation}
-	\wein := \begin{pmatrix}
-	\inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_1}}
-	& \inner{\frac{\partial f}{\partial u_1}}{-\frac{\partial \nu}{\partial u_2}} \\
-	\inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_1}}
-	& \inner{\frac{\partial f}{\partial u_2}}{-\frac{\partial \nu}{\partial u_2}}
-	\end{pmatrix}
-	\end{equation}
 		
 		First, we need the following lemma:
         \begin{lemma}
@@ -364,22 +406,26 @@
             \end{align}
         \end{proof}
         
+        We are now ready for the major result of this section.
+        
         \begin{theorem}[Theorem of Olinde Rodrigues]
-        	Fixing a point $u \in U$, a direction $X \in T_u \R^3 $ minimizes the normal curvature $\kappa_\nu = \textbf{II}(X,X)$ subject to $\textbf{I}(X,X)= 1$
-        	iff $X$ is a (normalized) eigenvector of the Weingarten map $\mathsf{L}$.
+        	Fixing a point $u \in U$, a direction $X \in T_u f $ minimizes the normal curvature $\kappa_\nu = \inner{\wein X}{X}$ subject to $\inner{X}{X}= 1$
+        	iff $X$ is a (normalized) eigenvector of the Weingarten map $\wein$.
         	\end{theorem}
         \begin{proof}
-        		Recall first the definition of the first two fundamental forms,
-        		$\textbf{II}(X,X) = \inner{\wein{X}}{X}$
-        		and $\textbf{I}(X,X) = \inner{X}{X}$.
+        	%	Recall first the definition of the first two fundamental forms,
+        		%$\textbf{II}(X,X) = \inner{\wein{X}}{X}$
+        	%	and $\textbf{I}(X,X) = \inner{X}{X}$.
         		
+        		In the following, we will assume that $X \in T_u f$ is expanded,
+        		in local coordinates, i.e. along  a two dimensional basis
+        		(such as $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$
+        		) and thus can refer to $\wein$ freely as the $2\times2$ matrix $\weinmat$.
         		Using the method of Lagrange multipliers, we define the Lagrangian:
         		\begin{equation}
-        		\begin{aligned}
-        		\mathscr{L}(X; \lambda) &=
-	        		\mathbf{II}(X,X) - \lambda\Big(\mathbf{I}(X,X) - 1\Big) \\
-	        		&= \inner{\wein X}{X} - \lambda\Big(\inner{X}{X} - 1\Big)
-	        	\end{aligned} \end{equation}
+        		\mathscr{L}(X; \lambda) =
+	        	\inner{\weinmat X}{X} - \lambda\Big(\inner{X}{X} - 1\Big) 
+	        \end{equation}
 	        	
 	        	Extremal values occur when
 	        	$\nabla_{X,\lambda} \mathscr{L}(X;\lambda) = 0$,
@@ -387,7 +433,7 @@
 	        	
 	        \begin{equation}
 	        \left\{ \begin{aligned}
-		        \nabla_X \inner{\wein X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
+		        \nabla_X \inner{\weinmat X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
 		        \inner{X}{X} - 1 = 0
 	        \end{aligned} \right.
 	        \end{equation}
@@ -396,27 +442,27 @@
 	        Using the previous lemma, we can simplify the first result as follows:
 	        
 	        \begin{gather}
-	        \nabla_X \inner{\wein X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
-	        2\wein X - \lambda \left(2 X \right) = 0 \\
-	        \implies LX - \lambda X = 0 \implies LX = \lambda X.
+	        \nabla_X \inner{\weinmat X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
+	        2\weinmat X - \lambda \left(2 X \right) = 0 \\
+	        \implies \weinmat X - \lambda X = 0 \implies \weinmat X = \lambda X
 	        \end{gather}
+	        which implies that $X$ is an eigenvector of  $weinmat$ with corresponding eigenvalue $\lambda$.
 	        Thus the two hypotheses are exactly equivalent when $X$ is normalized. It is also worth remarking that the corresponding eigenvalue $\lambda$ is the Lagrangian multiplier itself.
         	\end{proof}
         	
-        	Our final goal is to determine that in the case of $f(u,v) = (u,v,L(u,v))$, the Weingarten
-        	map itself is defined as
-        	\begin{defn}[The Weingarten map]
-        		We define the Weingarten map $\mathcal{L}$ at point $u \in U$ as mapping tangent vectors (in the basis of $\left\{\frac{\partial f}{\partial u_i}\right\}$) to the (negative) derivatives of normal vectors (in the basis $\left\{- \frac{\partial \nu}{\partial u_i}\right\}$).
-        		\end{defn}
-        
-    
-        		
-        		
-        		We are now ready to show that in the case of a graph surface, this matrix is exactly the Hessian matrix.
-        		
+        	Thus, to find the directions of greatest and least curvature of a surface at a point $u \in U$, we simply must calculate the Weingarten map and its eigenvectors. We refer to these directions as follows.
+        	
+        	\begin{defn}[Principal Curvatures and Principal Directions]
+        		The extremal values of normal curvature of a surface at a point  $u\in U$
+        		are referred to as \textbf{principal curvatures}. The corresponding directions at which normal curvature attains an extremal value are referred to as \textbf{principal directions}.
+        	\end{defn}
+        	
+        	Our final goal is to explicitly determine a (hopefully simplified) version of the Weingarten map in the case of a graph $f(u_1,u_2) = (u_1,u_2, h(u_1,u_2))$ and calculate
+        	the principal directions and curvatures in a simple example.
+        	        		
         	\begin{theorem}
-	        	When $f: U \to \R^3$ is given by $(u,v) \mapsto (u,v,L(u,v))$, the matrix
-	        	representation of the Weingarten map is exactly the Hessian matrix given in (2.1). % make this a real tag.
+	        	When $f: U \to \R^3$ is given by $(u_1,u_2) \mapsto (u_1,u_2,h(u_1,u_2))$, the matrix
+	        	representation of the Weingarten map \sout{is exactly the Hessian matrix given in (2.1)} has the same principal directions as the eigenvectors of $Hess(h)$, and the principal directions of $f$ are proportional to the eigenvalues of $Hess(h)$.
         	\end{theorem}
         	\begin{proof}
         		First, we can (using chain rule) rewrite each component as
