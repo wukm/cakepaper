@@ -21,7 +21,7 @@
 	Viewing the surface in $R^3$, we define the Hessian $\Hess$ of the surface $L$
 	at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
 	\begin{equation}
-\mathcal{H}(x,y) = \begin{bmatrix}
+\Hess(x,y) = \begin{bmatrix}
 		L_{xx}(x,y) & L_{xy}(x,y) \\
 		L_{yx}(x,y) & L_{yy}(x,y)
 	\end{bmatrix}
@@ -359,7 +359,7 @@
 		\end{equation}
 		
 		Then we rearrange to solve for $\weinmat$ as
-			\begin{equation}
+			\begin{equation} \label{weinmatconstruction}
 			\weinmat
 			\;=\; \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
 			\left.\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}\right.^{-1}
@@ -461,34 +461,88 @@
         	the principal directions and curvatures in a simple example.
         	        		
         	\begin{theorem}
-	        	When $f: U \to \R^3$ is given by $(u_1,u_2) \mapsto (u_1,u_2,h(u_1,u_2))$, the matrix
-	        	representation of the Weingarten map \sout{is exactly the Hessian matrix given in (2.1)} has the same principal directions as the eigenvectors of $Hess(h)$, and the principal directions of $f$ are proportional to the eigenvalues of $Hess(h)$.
+	        	When $f: U \to \R^3$ is given by $(x,y) \mapsto (x, y, h(x,y))$, the matrix
+	        	representation of the Weingarten map \sout{is exactly the Hessian matrix given in (2.1)} is given by
+	        	\begin{equation} \label{weinmatexactgraph}
+	        	\weinmat = \Hess(h) \tilde{G} \;,\quad \mathrm{where} \quad
+		        	\tilde{G} := \frac{1}{\sqrt{1+h_x^2 + h_y^2}}
+		        	\begin{bmatrix}
+			        	1 + h_y^2 & -h_x h_y \\
+			        	-h_x h_y & 1 + h_x^2 \\
+		        	\end{bmatrix} 
+	        	\end{equation}
+	        	
+	        	In particular, given a point $u = (x,y) \in U \subset \R^2$ where $h_x \approx h_y \approx 0$, we
+	        	have $\tilde{G} \approx \mathrm{Id}$, and thus $\weinmat \approx \Hess$.
         	\end{theorem}
         	\begin{proof}
-        		First, we can (using chain rule) rewrite each component as
-        		\[ \inner{\frac{\partial f}{\partial u_i}}{-\frac{\partial \nu}{\partial u_j}}
+        		First, we can (using chain rule) rewrite each component as in  \cref{fundamentalformcoefficients}:
+        		 \[ h_{ij} = \inner{\frac{\partial f}{\partial u_i}}{-\frac{\partial \nu}{\partial u_j}}
         		= \inner{\frac{\partial^2 f}{\partial u_i \partial u_j}}{\nu} \]
         		
         		Now, given our particular surface $f$, we can calculate each of these components directly. We have:
         		\begin{equation}
         		\begin{gathered}
-        		f_{u} = (1, 0, L_u) , \quad
-        		f_{v} = (0, 1, L_v)  \\
-        		f_{uu} = (0, 0, L_{uu}) , \quad
-        		f_{uv} = (0, 0, L_{uv}) = f_{vu} , \quad
-        		f_{vv} = (0, 0, L_{vv})
+        		f_{x} = (1, 0, h_x) , \quad
+        		f_{y} = (0, 1, h_y)  \\
+        		f_{xx} = (0, 0, h_{xx}) , \quad
+        		f_{xy} = (0, 0, h_{xy}) = f_{yx} , \quad
+        		f_{yy} = (0, 0, h_{yy})
         		\end{gathered}
         		\end{equation}
         		
         		and we have the unit normal vector (Gauss map)
         		\begin{align}
         		\nu(u_1, u_2) &=
-        		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
-        		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \\
-        		&= \frac{(1, 0, L_u) \times (0, 1, L_v)}{\vnorm{\cdots}}
-			 \end{align}    		
-        		
+        		\frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
+        		{\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}} \\
+        		&= \frac{(1, 0, h_x) \times (0, 1, h_y)}{\vnorm{\cdots}} \\
+        		&= \frac{\left( -h_x , -h_y , 1 \right)}{\sqrt{h_x^2 + h_y^2 + 1}}
+			 \end{align}
+			 We then calculate each $h_{ij}$ as
+			 \begin{equation}
+			 \begin{gathered}
+			 h_{11} = \inner{\frac{\partial^2 f}{\partial x^2}}{\nu} = 
+				 \frac{h_{xx}}{\sqrt{1+h_x^2 + h_y^2}} \\
+				  h_{12} = \inner{\frac{\partial^2 f}{\partial x \partial y}}{\nu} = 
+				  \frac{h_{xy}}{\sqrt{1+h_x^2 + h_y^2}} = h_{21} \\
+				  h_{22} = \inner{\frac{\partial^2 f}{\partial y^2}}{\nu} = 
+				  \frac{h_{yy}}{\sqrt{1+h_x^2 + h_y^2}} \\
+			 \end{gathered}
+			 \end{equation}
+			 
+			 and thus the first matrix in \cref{weinmatconstruction} is given by
+			 
+			 \begin{equation} \label{hij_exactgraph}
+			 [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
+			 \end{equation}
+			 
+			 To calcuate the second, we use
+			 
+			 
+			 
+			 \begin{equation}
+			 \begin{gathered}
+			 g_{ij} = \inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}} \\
+			 g_{11} = \inner{f_x}{f_x} = 1 + h_x^2 \\
+			 g_{12} = \inner{f_x}{f_y} = h_x h_y = g_{21} \\
+			 g_{22} = \inner{f_y}{f_y} = 1 + h_y^2
+			 \end{gathered}
+			 \end{equation}
+			 
+			 and thus
+			\begin{equation} \label{gij_exactgraph}		 
+			[g_{ij}]^{-1} = \begin{bmatrix} 1 + h_x^2 & h_x h_y \\
+						h_x h_y & 1 + h_y^2 \end{bmatrix}^{-1}
+						\;=\;	\begin{bmatrix} 1 + h_y^2 & -h_x h_y \\
+						-	h_x h_y & 1 + h_x^2 \end{bmatrix}
+			\end{equation}
+        	
+        	Combining $[h_{ij}]$ and $[g_{ij}]^{-1}$ from \cref{gij_exactgraph} and \cref{hij_exactgraph}
+        	we arrive at \cref{weinmatexactgraph}.
         	\end{proof}
+        	
+        	
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
 	\begin{itemize}
