@@ -542,7 +542,63 @@
         	we arrive at \cref{weinmatexactgraph}.
         	\end{proof}
         	
-        	
+      Thus the matrix of the Weingarten map $\weinmat$ is the Hessian matrix exactly at a critical point $u \in  U$, where $\nabla h(u) = (h_x(u), h_y(u)) = 0$. Of course this implies that $\weinmat$ and $\Hess{(h)}$ have the same eigenvalues and eigenvectors at these points.
+      
+      To make this a little more explicit, we will calculate the Weingarten map for a relatively simple graph.
+      
+      \subsection{The Weingarten map of a cylindrical ridge}
+      
+      Let $f$ be the graph given by 
+      \begin{equation}
+	      f: \R^2 \to \R^3 \;\textrm{by}\; f(x,y) = (x,y,h(x,y)), \;\textrm{with}\;
+	      h(x,y) = \begin{cases}
+		      \sqrt{r^2 - x^2} & -r \le x \le r \\
+		      0 & \textrm{else}
+ 	      \end{cases}
+      \end{equation} 
+      
+      We calculate the necessary partial derivatives as follows:
+      
+      \begin{gather}
+      \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
+      \quad , \quad
+      \frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \\
+      \frac{\partial f}{\partial y} = \left(0, 1, 0\right)
+      \quad , \quad
+      \frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 f}{\partial x \partial y} = 0
+      \end{gather}
+      The gauss map is given by
+      \begin{gather}
+      \nu(x,y) = \frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
+      {\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}}
+      = \left( \frac{x}{r} ,\; 0 ,\; \frac{\sqrt{r^2 - x^2}}{r} \right) \\
+	  \implies
+	  \frac{\partial \nu}{\partial x}
+		  = \left(\frac{1}{r} \;,\; 0\;,\; \frac{-x}{r\sqrt{r^2-x^2}}\right)
+		  \quad , \quad \frac{\partial \nu}{\partial y} = \left(0,0,0\right).
+      \end{gather}
+      
+      We then calculate matrix elements of the Weingarten map's construction as given in
+      \cref{hij_exactgraph} and \cref{gij_exactgraph} :
+      \begin{align}
+      [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
+		       &= \frac{1}{\sqrt{1+\left(\frac{x^2}{r^2-x^2}\right)}}
+		       \begin{bmatrix}
+		       \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \\
+			     0 & 0
+		       \end{bmatrix} 
+		       &= \begin{bmatrix}
+		       \frac{-r}{r^2 - x^2} & 0 \\
+		       0 & 0
+		       \end{bmatrix} \\
+		       [g_{ij}]^{-1} &= \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \\ 0 & 1 \end{bmatrix} \\
+		       \implies \weinmat = [h_{ij}]	[g_{ij}]^{-1} &=
+		       \begin{bmatrix}
+		       \frac{-r}{r^2 - x^2} & 0 \\
+		       0 & 0
+		       \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \\ 0 & 1 \end{bmatrix} \\
+		       &= \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}	       	
+      \end{align}
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
 	\begin{itemize}
