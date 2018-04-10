@@ -599,6 +599,10 @@
 		       \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \\ 0 & 1 \end{bmatrix} \\
 		       &= \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}	       	
       \end{align}
+      
+      We see that $u_2 = (0,1)$ and $u_1 = (1,0)$ are eigenvectors for $\weinmat$ with respective eigenvalues
+      $\kappa_2 = -\frac{1}{r} , \kappa_1 = 0$. Given the theorem of Olinde Rodriguez suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and is $0$. The theorem of Meusnier suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable-- any curve on the trough perpendicular to the ridge should have the curvature of a circle (the negative simply indicates that we are on the ``outside'' of the surface). Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
+      
 \section{Calculating Derivatives of Discrete Images} 
 	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
 	\begin{itemize}
@@ -613,6 +617,8 @@
 					\end{verbatim}
 				
 		\end{itemize}
+
+
 
 \hrulefill
 \section{The Frangi Filter}
