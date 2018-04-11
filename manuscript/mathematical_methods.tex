@@ -118,20 +118,16 @@
 
 \hrulefill
 
-\section{Eigenvectors of the Hessian are principal curvature directions}
-%	\maltese \textbf{TO-DO \color{red}REWRITE THIS AS A PARAGRAPH AND/OR INTERSPERSE THROUGHOUT THE SECTION}
-%	
-	
-%	Formally, within the context of differential geometry, we should show a few things:
-%	\begin{itemize}
-%		\item definition of curvature of a surface (how it relates to curvature of a regular curve) and showing that it's invariant of which curve is taken--that is, it only depends on a tangent vector to the surface.
-%		\item normal curvature is given by the second fundamental form
-%			$\textbf{II}(X,X) = \inner{\mathsf{L}X}{X}$ where $\mathsf{L}$ is the Weingarten map.
-%		\item $X$ is an extremal value of $\textbf{II}(X,X)$ subject to $\textbf{I}(X,X) = 1 $ iff $X$ is an eigenvector of $L$.
-%		\item In the case of a surface $f(u,v) = (u,v,h(u,v))$ (i.e. graph of a 2D function, which is the only situation we care about in image processing), the Weingarten map is exactly the Hessian matrix.
-%		\end{itemize}
-        
+\section{Differential Geometry}
+
+\vcomment{motivate the 'notational dump' and help explain why it's such a fucking mess}
+
+We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $R^3$ in a standard way. 
         \subsection{Preliminaries of Differential Geometry / Notational Dump}
+        
+        % compare this to a general graph
+        \vcomment{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about non-graphs at all (to define shape operator in general)}
+        
         
         Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$.
         then we define its \textit{graph} $f$ as
@@ -142,7 +138,7 @@
         
         For any point $u \in U$, we associate a $p \in f[U]$, i.e. $p = f(u)$.
         
-        We define the tangent plane of f at point $p$ as the map
+        We define the tangent plane of $f$ at point $p$ as the map
         \[
         T_u f := Df\vert_u \left(T_u U\right) \subset T_{f(u)} \R^3
         \]
@@ -157,11 +153,16 @@
 	  J_f (x) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_x \right]_{i,j}
 	  \]
 	  
+	  We shall denote a tangent vector $X \in T_u f$ at point $p$. We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
+	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. 
 	  
-	  We shall denote a tangent vector $X \in T_u f$ at point $p$. It is easily shown that we may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
-	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$.
-	  
-	  
+	  	For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set. We can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. They are not, in general, orthogonal.
+	  	So the differential map of $f$ is exactly the expansion of
+	  	a point  $v \in U$ along the basis
+	  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
+	  	
+	  	
+	  	
 	  Given a closed interval $I \subset \R$, we can define a regular curve on the surface
 	  $c: I \to \R^3$ such that $\image(c) \subset \image(f)$. In other words, we can (for this particular curve) define an intermediary parametrization $\theta_c$ for this curve so that
       $ c = f \circ \theta_c $ i.e.
@@ -171,16 +172,26 @@
 	  
 	  and $c(t) = f(\theta(t))$.
 	  
-	  We also shall define at a point $p = f(u)$ the Gauss map
-	  \[\nu : U \to S^2 \quad\textrm{by}\quad  \nu(u_1, u_2) :=
+	  \vcomment{make this a definition}
+	  We also shall define at a point $p = f(u)$ the Gauss map normal to the tangent plane
+	  \[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u_1, u_2) :=
 	  \frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
 	  {\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
 	  
-	  with each partial above understood to be evaluated at the input $u \in U$.
-	  
+	  with each partial above understood to be evaluated at the input $u \in U$,that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
 	  It is clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$, and also that
-	  $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} = T_u f$ as well.
-        \subsection{Defining normal curvature of a surface}
+	  $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well.
+	  \vcomment{at this point if you can prove $\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\}$ are linearly independent then do so, or just save for later, in which case don't use derivates at all}
+	  
+	  To show that $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\} \in T_u f$,
+	  first note that at any particular $u \in U$,
+	  $\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
+	  and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
+	  \implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
+	  Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
+	  $\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
+	  \spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
+        \subsection{Curvature of a surface}
         In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
 	        (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
 	    
@@ -195,25 +206,30 @@
 		    where $c'(p) = X$ will have the same curvature.
 		\end{theorem}
 		
+		\vcomment{PROVIDE A VISUALIZATION OF THIS}
+		
+		In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature.
 		\begin{proof}
-		Considering any such curve where $\frac{\partial c}{\partial t}(p) = X$ where $X \in T_u \R^3$ is a normalized vector tangent to the surface at the point $u$,
-		we wish to decompose its acceleration along the  orthogonal vectors $X$ and
+		Considering any such curve where $\frac{\partial c}{\partial t}(p) = X$ where $X \in T_u f$ is a normalized vector tangent to the surface at the point $u$,
+		we wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
 		the Gauss map $\nu := \nu(u_1, u_2) =
 			\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
-			{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$. (Note that $X$ and $\nu$ are indeed orthogonal,
-			as both $\frac{\partial f}{\partial u_i} \in T_u \R^3, \; i=1,2.$) We then have
-			(at this fixed point $u=\theta_c(p)$)
+			{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$.
+			(Note that $X$ and $\nu$ are indeed orthogonal,
+			as $ X \in \spn\left\{\frac{\partial f}{\partial u_i}\right\} = T_u f$, and
+			$\nu \perp T_u f$).
+			 We then have (at this fixed point $u=\theta_c(p)$)
 			
-			\begin{equation}
+			\begin{equation} \label{meusnier_acceleration}
 				c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
 				\end{equation}. 
 		
-		The first term is zero, since for a regular curve
+		The first term is always zero for a regular curve:
 		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
 		
-		since either $c'' \perp c'$ or $\vnorm{c''} = 0$ itself (which is generally true for a regular curve in $\R^3$) %see Kuhnel pg. 13, def 2.4
+		since either $c'' \perp c'$ (which is generally true for a regular curve in $\R^3$ with a nontrivial curvature) or $c'' = 0$ itself.  \vcomment{see Kuhnel pg. 13, def 2.4. What points of differential geometry are too basic? what's off limits? Should I develop this too?}
 		
-		Using chain rule, we can rewrite the second coefficient of (2.4) as % prove chain rule?
+		We can rewrite the second coefficient of \cref{meusnier_acceleration} using the chain rule: % prove chain rule?
 		\begin{align}
 			\inner{c''}{\nu} &=
 			\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
@@ -235,34 +251,27 @@
 		\end{align}
 		
 		We may compute $-\frac{\partial \nu}{\partial t}$ via chain rule:
-		\begin{align}
-		-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
-		&= \theta_1'(s)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-		\theta_2'(s)\left( - \frac{\partial \nu}{\partial u_2} \right)
-		\end{align}
-		
-		Using this, we can rewrite the curvature for our curve as
-		\begin{align}
-		\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
-		&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
-		&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
-		&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
-		&=  \inner{X}{-\frac{\partial \nu}{\partial t}}
+		\begin{align} \label{gaussmap_timederivative}
+		-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \\
+		&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
+		&= \theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
+		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right)
 		\end{align}
 		
 		
-		Identifying $\left\{ \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a basis for $T_u f$, just as $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ is, we can identify a linear transformation $\wein: T_u f \to T_u f$ which converts between bases, i.e.
-		$\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$. This allows us to rewrite the time derivative of the Gauss map as
+		Identifying $\left\{ \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation $\wein: T_u f \to T_u f$ which maps the basis
+		$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this subset, i.e.
+		$\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$. This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
 			\begin{align}
 			-\frac{d \nu}{dt} &= 
-			\theta_1'(s)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-			\theta_2'(s)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
-			&= \theta_1'(s)\left( L\left(- \frac{\partial f}{\partial u_1}\right) \right) + 
-			\theta_2'(s)\left( L\left(- \frac{\partial f}{\partial u_2}\right) \right) \\
-			&= L\left(\theta_1'(s)\left( - \frac{\partial f}{\partial u_1}\right)  + 
-			\theta_2'(s)\left( - \frac{\partial f}{\partial u_2} \right)\right) \\
-			&= L\left( \frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
-			= L\left( \frac{d}{dt} \left[ c(t) \right] \right) = L\left(X\right)
+			\theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
+			\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
+			&= \theta_1'(t)\left( \wein\left(- \frac{\partial f}{\partial u_1}\right) \right) + 
+			\theta_2'(t)\left( \wein\left(- \frac{\partial f}{\partial u_2}\right) \right) \\
+			&= \wein\left(\theta_1'(t)\left( - \frac{\partial f}{\partial u_1}\right)  + 
+			\theta_2'(t)\left( - \frac{\partial f}{\partial u_2} \right)\right) \\
+			&= \wein\left( \frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
+			= \wein\left( \frac{d}{dt} \left[ c(t) \right] \right) = \wein\left(X\right)
 			\end{align} 
 			With this, we can re-express the curvature of our curve as
 			
@@ -270,17 +279,17 @@
 			\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein(X)}
 			\end{equation}
 			
-			which only depends on the point $u$ and the selected direction $X$, not on the particular curve at all! 
+			which only depends on the point $u$ and the selected direction $X$, not on the particular curve at all.
 		\end{proof}
 		In fact, we refer to this quantity as the normal curvature of the surface. 
 		
 		\begin{defn}
-			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu := - \inner{X}{L(X)}$. In other contexts (not necessary here), this quantity is referred to as the \textit{second fundamental form} at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\wein(X)}$.
+			The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu :=  \inner{X}{\wein(X)}$.
 		\end{defn}
+		The above proof shows that this is an intrinsic property of the surface.   In other contexts (not necessary here), this quantity is referred to as the \textit{second fundamental form} at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\wein(X)}$.
 		
 		
-		
-		The map $\wein$ we used is known as the Weingarten map
+		The map $\wein$ introduced in the proof above is known as the Weingarten map
 		and is implicitly defined at each $u \in U$. 
 		We wish to make its existence rigorous as well as find a matrix representation for it, using the standard motivation that $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$.
 		
@@ -290,43 +299,30 @@
 		$\wein = D\nu \circ (Df)^{-1}$.
 		\end{defn}
 		
+		\vcomment{Fix this notational nightmare}
+		
 		That is, we may trace any $X \in T_u f$ which has been expanded in terms of the basis 
 		$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
-		and expand it along the basis $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
+		and map it to the subset $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 		
-		\textcolor{red}{TODO: THIS GOES SOMEWHERE ELSE?? You can simplify by assuming we're dealing with a graph, although it's true in general as long as $f$ is an immersion.}
-		To prove that $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ and $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$ are each a basis for $T_u f$,
-		
-		For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set. We can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent.
-		
-		To show that $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$ is a basis as well,
-		first note that at any particular $u \in U$,
-		$\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
-		and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
-		\implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
-			Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
-			$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
-			\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
-			\textcolor{red}{TODO: why are $\nu_{u_i}$ necessarily linearly independent?}
-		
-		\textcolor{red}{TODO: Finish proving soundness of the Weingarten map in the context of a graph}
-		
+		The Weingarten map can be shown to be well-defined, invariant under coordinate transfomration [see Kuhnel]. We will content ourselves with simply constructing it in the context of a graph. 		
 		
 		To find a matrix representation for $\wein$, (which we will denote $\weinmat \in R^{2\times2}$) we simply wish to find a linear transformation
 		such that
 		$\weinmat \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}
-			= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} i=1,2$
-			
-		where $- \left.X\right|_{T_u f}$ denotes that $X \in T_u f$ is being represented in a local basis of $T_u f$. In matrix form, this translates to
+			= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} \; i=1,2$
+				where $- \left.X\right|_{T_u f}$ denotes that $X \in T_u f$ is being represented in so-called
+		'local coordinates' for $T_u f$ (Strictly speaking, of course $T_u f \subset \R^3$ and thus
+		$\frac{\partial f}{\partial u_i} \in \R^3.$ Thus when we say $ \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}$ we are refering to this 3-vector expanded w.r.t. a basis for $T_u f$). In matrix form, we describe this situation as
 		
 		\begin{align}
 		\Bigg[ \;\weinmat\; \Bigg]
-		\left[ \mcol{\left[\frac{\partial f}{\partial u_1}\right]_{T_u f}} \;
-				\mcol{\left[\frac{\partial f}{\partial u_2}\right]_{T_u f}} \right]
-				&= \left[ \weinmat \mcol{\left[\frac{\partial f}{\partial u_1}\right]_{T_u f}} \;
-				\weinmat \mcol{\left[\frac{\partial f}{\partial u_2}\right]_{T_u f}} \right] \\
-				&= \left[ \mcol{ \left[-\frac{\partial \nu}{\partial u_1}\right]_{T_u f}} \;
-				\mcol{\left[-\frac{\partial \nu}{\partial u_2}\right]_{T_u f}} \right]
+		\left[ \mcol{\left.\frac{\partial f}{\partial u_1}\right|_{T_u f}} \;
+				\mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right]
+				&= \left[ \weinmat \mcol{\left.\frac{\partial f}{\partial u_1}\right|_{T_u f}} \;
+				\weinmat \mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right] \\
+				&= \left[ \mcol{ \left.-\frac{\partial \nu}{\partial u_1}\right|_{T_u f}} \;
+				\mcol{\left.-\frac{\partial \nu}{\partial u_2}\right|_{T_u f}} \right]
 				\end{align}
 				Now, representing each vector in  $T_u f$ with respect to the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}$, we have
 				\begin{align}
@@ -364,6 +360,13 @@
 			\;=\; \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
 			\left.\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}\right.^{-1}
 			\end{equation}
+		
+		where $\left[ g_{ij} \right]$ is clearly invertible, as the set
+		$\left\{\frac{\partial f}{\partial u_j}\right\}$ is linearly independent.
+		
+		It should be noted that this matrix representation is accurate not only for the surface of a graph, but for any \textit{generalized} surface
+		$f: U \to \R^3 $ with $u \mapsto (x(u), y(u), z(u))$ as well. We shall later show that this calculation simplifies (somewhat) in the case that our surface is a graph.
+		
 		
 		Our final goal to is to characterize such normal curvatures.
 		Namely, we wish to establish a method of determining in which directions an extremal
