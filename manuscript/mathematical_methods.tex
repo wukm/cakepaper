@@ -758,17 +758,30 @@ In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^
 
 \hrulefill
 \section{Linear Scale Space Theory}
+	\vcomment{this is all as cited in GSST book (see starting in sec 6.3.1).
+		as mentioned there, this is analogous to a discrete development
+		(lindeberg 1990 lindeberg 1991 lindeberg 1994c lindeberg 1994e)}
+	
 	Koenderink showed/asserted that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
 	\begin{equation}
 		\Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
 		\;\text{for}\; \sigma \ge 0
 		\;\text{such that}\; K(x,y, 0) = u_0(x,y).
 		\end{equation}
+		
 		where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
-	Much work blah blah blah has been done to formalize this approach. 
+	Much work has been done to formalize this approach. There is a long list of desired properties
+	quoted from gsst. goal is to try to find a minimal subset of axioms and show that other desired properties follow.
 	
-\subsection{Significance of the convolution operation}
-	This section shows that if one constructs the family using an operation and a source image, the necessary operation is necessarily equivalent to convolution. I am guessing at this, but I think the axiom that causes this is wanting no space in the image to be preferred.
+	
+\subsection{Axioms}
+	Require existence of a continuous scale parameter.
+	
+	Require linear shift-invariant smoothing. Shift invariant means that no position in the original signal is favored (makes sense, this should apply to any image.)
+	
+	``Linearity implies that all-scale space properties valid for the original signal will transfer to its derivatives. Hence, there is no commitment to certain aspects of image structure, such as the zero-order representation, or its first- or second-order derivatives.''
+	\vcomment{this is dubious, as mentioned by JvB}
+	
 \subsection{Uniqueness of the Gaussian Kernel}
 	This is the result of most of these axioms.
 	
