@@ -702,41 +702,49 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		\end{align}
 		
 		where
-		\begin{equation}
+		\begin{equation} \label{delta_multiple}
 			\hat{\delta}_N (k) = \begin{cases}
 				1 & \text{when } k = 0 \mod N \\
 				0 & \text{else}
 				\end{cases}
 		\end{equation}
 	\end{proof}
-	Above, we make use of the following lemma:
+	Above, we make use of the following lemma \vcomment{add this before DFT convolution theorem and embed the definition of $\hat{\delta}_N$ inside}
 	\begin{lemma}
 	Let $j$ and $k$ be integers and let $N$ be a positive integer. Then
-	\begin{equation}
-		\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k)
+	\begin{equation} \label{dft_conv_lemma}
+		\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k) 
 		\end{equation}
 		\end{lemma}
 		\begin{proof}
 		
-		For any particular $n \in 0..N-1$,consider the complex number $e^{2\pi i n(j-k)/N}$. Note first, that this is an $N$-th root of unity, since
+		For any particular $n \in 0..N-1$, consider the complex number $e^{2\pi i (j-k)/N}$. Note first, that this is an $N$-th root of unity, since
 		\[
-		\left(e^{2\pi i n(j-k)/N}\right)^N = e^{2\pi i n(j-k)} = \left(e^{2\pi i}\right)^{n(j-k)}
-		= 1^{n(j-k)} = 1
+		\left(e^{2\pi i (j-k)/N}\right)^N = e^{2\pi i (j-k)} = \left(e^{2\pi i}\right)^{(j-k)}
+		= 1^{(j-k)} = 1
 		\]
 	
-	Thus, we understand that the complex number $e^{2\pi i n(j-k)/N}$ is a root of $z^N -1 = 0$, which we rewrite as
-	\[ z^N -1 \;=\; (z-1)(z^{n-1} + \cdots + z + 1) \;=\; (z-1)\sum_{n=0}^{N-1} z^n .
-	\]
+	In other words, $e^{2\pi i n(j-k)/N}$ is a root of $z^N -1 = 0$, which we can factor as
+	\begin{equation}
+	z^N -1 \;=\; (z-1)\left(z^{n-1} + \cdots + z + 1\right) \;=\; (z-1)\sum_{n=0}^{N-1} z^n .
+	\end{equation}
 
-We consider two cases: in the case that $j-k$ is a multiple of $N$, we of course have $e^{2\pi i n(j-k)/N} = 1$ for any $n$, and thus
+thus giving us
+\begin{equation} \label{dft_conv_lemma_factors}
+	0 = \left(e^{2\pi i(j-k)/N} - 1\right) \sum_{n=0}^{N-1} e^{2\pi i n(j-k)/N}
+	\end{equation}
+	
+To prove the claim in \cref{dft_conv_lemma}, we consider two cases: First, if $j-k$ is a multiple of $N$, we of course have $e^{2\pi i n(j-k)/N} = \left(e^{2\pi i}\right)^{n(j-k)/N} = 1$  and thus the left side of \cref{dft_conv_lemma} reduces to 
 \[
-\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} = \sum_{n=0}^{N-1} \left(1\right) = N
+\sum_{n=0}^{N-1} \left(e^{2\pi i}\right)^{n(j-k)/N} = \sum_{n=0}^{N-1} \left(1\right) = N
 \].
 
-In the case that $j-k$ is \textit{not} a multiple of $N$, then clearly $\left(e^{2\pi i n(j-k)/N}\right)-1 \ne 0$, and thus it must be that
-\[\left(e^{2\pi i n(j-k)/N}\right)^N -1 = 0 \;\implies\; \sum_{n=0}^{N-1} \left(e^{2\pi i n(j-k)/N}\right)^n = 0\]
+In the case that $j-k$ is \textit{not} a multiple of $N$, we refer to \cref{dft_conv_lemma_factors}.
+The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (simply since $(j-k)/N$ is not an integer), and thus it must be that the second factor is 0:
+\[
+\sum_{n=0}^{N-1} \left(e^{2\pi i (j-k)/N}\right)^n = 0\]
 	
-	Combining these two cases gives the result of the lemma.
+	We can combine these two cases by invoking the definition of \cref{delta_multiple}, giving us the result.
 		\end{proof}
 				
 		\subsubsection{FFT}
