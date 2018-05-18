@@ -561,8 +561,14 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		      0 & \textrm{else}
  	      \end{cases}
       \end{equation} 
+      \begin{figure}[h!]
+      \includegraphics[width=\linewidth]{circular_trough}
+      \caption{The graph of a cylindrical ridge of radius $r$,
+			      	as given by $f(x,y)$ as given above.}
+      \end{figure}
       
-      We calculate the necessary partial derivatives as follows:
+      
+      We calculate the necessary partial derivatives of $f$ as follows:
       
       \begin{gather}
       \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
@@ -637,7 +643,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
         % as mentioned by Frangi, see Sato [13] and Lorenz [10] in their paper
         Several such filters exist --see Sato [13] and Lorenz[10]. These filters use information about the principal curvatures (eigenvalues of the Hessian) at each point to 
     \subsection{Overview of Frangi vesselness measure}
-        The Frangi filter is a widely used [citation needed] Hessian-based filter that relies on the principal curvatures--that is,
+        The Frangi filter is a widely used \vcomment{citation needed} Hessian-based filter that relies on the principal curvatures--that is,
         the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image. 
 	\subsection{Implementation Details: Convolution Speedup via FFT}
 	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. In 
@@ -718,7 +724,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		\end{lemma}
 		\begin{proof}
 		
-		For any particular $n \in 0..N-1$, consider the complex number $e^{2\pi i (j-k)/N}$. Note first, that this is an $N$-th root of unity, since
+		Consider the complex number $e^{2\pi i (j-k)/N}$. Note first that this is an $N$-th root of unity, since
 		\[
 		\left(e^{2\pi i (j-k)/N}\right)^N = e^{2\pi i (j-k)} = \left(e^{2\pi i}\right)^{(j-k)}
 		= 1^{(j-k)} = 1
