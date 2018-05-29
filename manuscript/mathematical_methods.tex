@@ -146,43 +146,54 @@ We wish to describe the structure of an image as a surface. To do this, we devel
         
         Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$.
         then we define its \textit{graph} $f$ as
+        
+        \begin{defn} \label{defn:graph}
+        The surface $f$ is a graph (of the function $h$) when 
         \[
 	        f: U \to \R^3 \quad \textrm{by} \quad f(u_1, u_2) \;=\; \big(u_1 , u_2 , h(u_1,u_2)\big)
-	        \quad,\; u = (u_1, u_2) \in U
-        \]
+	        \quad,\; u = (u_1, u_2) \in U \]
+        \end{defn}
         
         For any point $u \in U$, we associate a $p \in f[U]$, i.e. $p = f(u)$.
         
-        We define the tangent plane of $f$ at point $p$ as the map
+        \vcleanup{make these all definitions and fix the flow}
+        \begin{defn} \label{defn:tangent plane}
+        	
+        	We define the tangent plane of $f$ at point $p$ as the map
         \[
         T_u f := Df\vert_u \left(T_u U\right) \subset T_{f(u)} \R^3
         \]
-        
-        where $Df\vert_x$ is the differential map of $f$ at point $x$ given by
+    \end{defn}
+        where \vcleanup{fix this flow. subdefintions?}
+                
+        \begin{defn} \label{defn:differential-map}
+        	$Df\vert_x$ is the differential map of $f$ at point $x$ given by
         
         \[
 	        Df|_x : U \to \R^3 \quad \textrm{by} \quad v \mapsto J_f (x) \cdot v
         \]
-	  where $J_f(x)$ is the Jacobian of $f$ evaluated at point $x$, i.e. the matrix
+	  where \vcleanup{another definition?} $J_f(x)$ is the Jacobian of $f$ evaluated at point $x$, i.e. the matrix
 	  \[
 	  J_f (x) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_x \right]_{i,j}
 	  \]
-	  
+	\end{defn}
 	  We shall denote a tangent vector $X \in T_u f$ at point $p$. We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
-	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. 
+	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. \vcomment{maybe do this after you finish basic defintions}
 	  
-	  Of course, we should justify this. 
-	  \begin{lemma}
-	  	For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set.
+	  Of course, we should justify this. \vcomment{what's the smallest statement you want to give lemma status?} 
+	  \begin{lemma} \label{lemma:f_ui-is-a-basis}
+	  	For the surface $f$ of a graph at any point $p$, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set.
 	  \end{lemma}
-	  We have no need to prove the general case \vcomment{maybe no point in mentioning it even, also define what an immersion is?}, but
-	  in our use cases the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. They are not, in general, orthogonal.
+	 \begin{proof}
+	  This is actually true for any immersion $f$. We have no need to prove the general case \vcleanup{define what an immersion is? or just cite}, but
+	  in our use case, where $f$ is a graph as in \cref{defn:graph}, the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. \end{proof}
+		The partials derivatives of $f$ are not, in general, orthogonal.
 	  	So the differential map of $f$ is exactly the expansion of
 	  	a point  $v \in U$ along the basis
 	  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
 
 	  	
-	  	
+	  	\begin{defn}[Curves on a surface] \label{defn:curve-on-a-surface}
 	  Given a closed interval $I \subset \R$, we can define a regular curve on the surface
 	  $c: I \to \R^3$ such that $\image(c) \subset \image(f)$. In other words, we can (for this particular curve) define an intermediary parametrization $\theta_c$ for this curve so that
       $ c = f \circ \theta_c $ i.e.
@@ -191,6 +202,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	  \]
 	  
 	  and $c(t) = f(\theta(t))$.
+	\end{defn}
 	  
 	  We regularize our concept of a "normal" direction to the surface, which will prove immensely useful later \vtodo{add pictures!}
 	  \begin{defn}[The Gauss Map]
@@ -212,6 +224,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	  Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
 	  $\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
 	  \spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
+	  
         \subsection{Curvature of a surface}
         In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
 	        (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
@@ -227,7 +240,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		    where $c'(p) = X$ will have the same curvature.
 		\end{theorem}
 		
-		\vcomment{PROVIDE A VISUALIZATION OF THIS}
+		\vtodo{provide a visualization of this}
 		
 		In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature.
 		\begin{proof}
@@ -241,16 +254,16 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 			$\nu \perp T_u f$).
 			 We then have (at this fixed point $u=\theta_c(p)$)
 			
-			\begin{equation} \label{meusnier_acceleration}
+			\begin{equation} \label{eq:meusnier_acceleration}
 				c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
 				\end{equation}. 
 		
 		The first term is always zero for a regular curve:
 		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
 		
-		since either $c'' \perp c'$ (which is generally true for a regular curve in $\R^3$ with a nontrivial curvature) or $c'' = 0$ itself.  \vcomment{see Kuhnel pg. 13, def 2.4. What points of differential geometry are too basic? what's off limits? Should I develop this too?}
+		since either $c'' \perp c'$ (which is generally true for a regular curve in $\R^3$ with a nontrivial curvature) or $c'' = 0$ itself.  \vcomment{see Kuhnel pg. 13, def 2.4. What results of differential geometry are too basic? what's off limits? Should I develop this too?}
 		
-		We can rewrite the second coefficient of \cref{meusnier_acceleration} using the chain rule: % prove chain rule?
+		We can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
 		\begin{align}
 			\inner{c''}{\nu} &=
 			\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
@@ -324,9 +337,9 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		
 		That is, we may trace any $X \in T_u f$ which has been expanded in terms of the basis 
 		$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
-		and map it to the subset $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
+		and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 		
-		The Weingarten map can be shown to be well-defined, invariant under coordinate transfomration [see Kuhnel]. We will content ourselves with simply constructing it in the context of a graph. 		
+		The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation [see Kuhnel] \vtodo{real citations}, which is certainly useful for surfaces $f$ that are not graphs. The situation is much simpler if $f$ is a graph--the linear transformation may be simply constructed.		
 		
 		To find a matrix representation for $\wein$, (which we will denote $\weinmat \in R^{2\times2}$) we simply wish to find a linear transformation
 		such that
@@ -430,7 +443,8 @@ We wish to describe the structure of an image as a surface. To do this, we devel
             \end{align}
         \end{proof}
         
-        We are now ready for the major result of this section.
+        We are now ready for the major result of this section, which ties the Weingarten map to the
+        notion of normal curvatures.
         
         \begin{theorem}[Theorem of Olinde Rodrigues]
         	Fixing a point $u \in U$, a direction $X \in T_u f $ minimizes the normal curvature $\kappa_\nu = \inner{\wein X}{X}$ subject to $\inner{X}{X}= 1$
@@ -635,25 +649,32 @@ We wish to describe the structure of an image as a surface. To do this, we devel
       We see that $u_2 = (0,1)$ and $u_1 = (1,0)$ are eigenvectors for $\weinmat$ with respective eigenvalues
       $\kappa_2 = -\frac{1}{r} , \kappa_1 = 0$. Given the theorem of Olinde Rodriguez suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and is $0$. The theorem of Meusnier suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable-- any curve on the trough perpendicular to the ridge should have the curvature of a circle (the negative simply indicates that we are on the ``outside'' of the surface). Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
       
+      
+      \vcomment{Transition} To we are interested in the differentiation of 2D images, we need a way
+      to calculate the quantities of the previous section \vcleanup{tag}. We can simply extend these ideas of differentiation to the discrete domain.
+    
 \section{Calculating Derivatives of Discrete Images} 
-	Discrete derivatives. \maltese\textbf{TODO:} Develop the following:
+
+	
 	\begin{itemize}
-		\item Take derivative with gradient / divided difference.
-		\item Derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.
-		\item Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
-					\begin{verbatim}
-					gaussian_filtered = fftgauss(image, sigma=sigma)
-					Lx, Ly = np.gradient(gaussian_filtered)
-					Lxx, Lxy = np.gradient(Lx)
-					Lxy, Lyy = np.gradient(Ly)
-					\end{verbatim}
-				
+		\item \vtodo{Describe taking gradient with divided difference.}
+		\item \vtodo{Describe the situation: derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.}
+		\item \vtodo{Mention that derivatives can be taken in frequency space?}
+
+%		Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
+%					\begin{verbatim}
+%					gaussian_filtered = fftgauss(image, sigma=sigma)
+%					Lx, Ly = np.gradient(gaussian_filtered)
+%					Lxx, Lxy = np.gradient(Lx)
+%					Lxy, Lyy = np.gradient(Ly)
+%					\end{verbatim}	
 		\end{itemize}
+\vcomment{describe this no matter what. if you want to calculate the derivatives in frequency space,
+	still describe this so you can compare the results.}
+\vcleanup{Put scale space theory section before this.}
 
 
-
-\hrulefill
-\section{The Frangi Filter}
+\section{The Frangi Filter} \label{sec:frangi}
 
 
     \subsection{Intro to Hessian-based filters}
@@ -667,12 +688,14 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     
 	    \vcomment{move to next session? or cover any necessary math here}
         The Frangi filter is a widely used \vcomment{citation needed} Hessian-based filter that relies on the principal curvatures--that is,
-        the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image. 
+        the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image.
 	\subsection{Implementation Details: Convolution Speedup via FFT}
 	\vcomment{FIRST DESCRIBE HOW YOU NEED DERIVATIVES}
 	
 	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. We instead, we perform a fast Fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}
-	
+
+\vcleanup{Fix this part of the outline}
+\section{Fourier Transforms}
 	\subsubsection{Fourier Transform of a continuous 1D signal}
 	
 	\vcomment{start with 1D but then extend/rewrite}
@@ -730,21 +753,18 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	
 	The transform is a continuous function with period $1 / \Delta T$. 
 	
-		\subsubsection{TODO}
 		\begin{itemize}
-			\item find image processing papers that find hessian from FFT / who uses this?
-			\item with above: downsides?
-			\item SIDE BY SIDE comparison?
+			\item \vtodo{find image processing papers that find hessian from FFT / who uses this?}
+			\item \vtodo{with above: downsides?}
+			\item \vtodo{side by side comparison in a toy example and/or a real problem?}
 		\end{itemize}
 		
 		\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
 		
-		\vcomment{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
+		\vcleanup{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
 		\begin{theorem}[2D DFT Convolution Theorem] 
 			\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
-		Given two discrete functions are sequences with the same length\footnote{If they're
-			not actually the same length, DIP-GW suggests to make the final length at least
-			$P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
+		Given two discrete functions are sequences with the same length \vtodo{don't gloss over this} \vcomment{If they're not actually the same length, DIP-GW suggests to make the final length at least $P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
 		$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
 		\begin{align}
 		F(u,v) := \mathcal{D}\{f(x,y)\} &=
@@ -765,6 +785,8 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 		\left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
 		\end{equation}
 		\end{theorem}
+		
+		
 		The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
 		\begin{proof}
 		\begin{align}
