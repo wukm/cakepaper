@@ -1,6 +1,21 @@
-\chapter{Mathematical Methods}
+S\chapter{Mathematical Methods}
 
-\section{Overview of Differential Geometry in Image Processing}
+\vtodo{This is a TODO.  Used when something is missing, incomplete, blatantly inconsistent,
+		These are the most important action items.}
+
+\vcomment{This is a comment. Used for general remarks that haven't been merged into the text,
+	less pressing suggestions.}
+
+\vcleanup{Also used for cleanup TODOs. Should be strictly style fixes, at least until the number/severity of TODO items decreases. These can and will require in-depth fixes, but it's usually
+less pressing than a missing/wrong item, which requires a TODO.}
+
+\section{Problem Setup in Image Processing}
+	\vcomment{This section should be basically describing how to view an image as a surface.
+			  Use any notation here that is useful beyond differential geometry, in all the contexts
+			  we need to consider the image (in terms of Fourier Theory, scale space theory,
+			  Frangi filtering, etc. all together}
+	\vcleanup{Less halfassed intro. Do this last, when the flow of this chapter is fixed.}
+	Although an 2D grayscale image is given by a $MxN$ array of pixels (often integers between 0 and 255, or sometimes as a real number between 0 and 1), we want to view it as a surface.
 	\subsection{Basics, Definitions}
         \begin{defn}
     	For theoretical purposes, we may view any 2D grayscale image
@@ -14,11 +29,12 @@
     % put this later instead?
         \begin{defn}
     In situations where we wish to discuss a discrete image, we may refer to
-	$L_0 \in \R^{m\times n}$. That is, $L_0$ is a matrix corresponding to the $m$-by-$n$ digital grayscale image. 
+	$L_0 \in \R^{M\times N}$. That is, $L_0$ is a matrix corresponding to the $M$-by-$N$ digital grayscale image. 
     \end{defn}
 	
+	\vcleanup{The following stuff about the Hessian needs to go later. Introduce it in the context of differential geometry, and then consider its eigenpairs there (or even after frangi description)}
 	
-	Viewing the surface in $R^3$, we define the Hessian $\Hess$ of the surface $L$
+	Viewing the surface in $\R^3$, we define the Hessian \vcomment{notation here, does it need to be an operator?} $\Hess$ of the surface $L$
 	at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
 	\begin{equation}
 \Hess(x,y) = \begin{bmatrix}
@@ -85,8 +101,9 @@
 	\end{proof}
 	
         Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
-
-        \maltese The following is an \textbf{unverified claim} (which might be useful for later):
+		
+		\vcomment{The following unverified (but intuitive) theorem is currently unnecessary but could be useful if I still want to implement the idea of tracking direction of eigenvectors along potential ridges, useful for filling in the ridge network. Like approximating the surface using derivatives.}
+			The following is an \textbf{unverified claim} (which might be useful for later):
             The frame varies continuously along paths in $\R^2$
             except at points where $\Hess(x,y)$ is singular.
         To make this explicit:
@@ -106,27 +123,25 @@
             $\tilde{\lambda} : H_\theta \; u = \tilde{\lambda} u$ for some $u \ne 0$.
             
             Then, $U(t)$ is continuous in $t$ whenever $H_f(t)$ is non-singular.
-            \textit{Note:} Maybe fix this so that the path avoids any nonsingular points?
-            $U(t)$ isn't even well-defined at such points anyway.
+            \vcomment{Maybe fix this so that the path avoids any nonsingular points?
+            $U(t)$ isn't even well-defined at such points anyway.}
         \end{theorem}
         \begin{proof}
             First, we show that $U(t)$ is a well-defined function at all points $t$ where
             $H_f(t)$ is non-singular.
+            \vtodo{FIX PROOF OR REMOVE}
         \end{proof}
-
-         \maltese \textbf{TODO}       
-
-\hrulefill
 
 \section{Differential Geometry}
 
-\vcomment{motivate the 'notational dump' and help explain why it's such a fucking mess}
+\vcleanup{motivate the 'notational dump' and help explain why it's such a fucking mess}
 
-We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $R^3$ in a standard way. 
+We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way. 
         \subsection{Preliminaries of Differential Geometry / Notational Dump}
         
         % compare this to a general graph
-        \vcomment{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about non-graphs at all (to define shape operator in general)}
+        \vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant}
+        \vcomment{useful to keep some references to non-graphs to align this with "the general picture" and what you'll find in a diff-geo text}
         
         
         Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$.
@@ -156,11 +171,16 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	  We shall denote a tangent vector $X \in T_u f$ at point $p$. We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
 	  $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. 
 	  
-	  	For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set. We can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. They are not, in general, orthogonal.
+	  Of course, we should justify this. 
+	  \begin{lemma}
+	  	For any immersion, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set.
+	  \end{lemma}
+	  We have no need to prove the general case \vcomment{maybe no point in mentioning it even, also define what an immersion is?}, but
+	  in our use cases the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent in the case of a graph, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. They are not, in general, orthogonal.
 	  	So the differential map of $f$ is exactly the expansion of
 	  	a point  $v \in U$ along the basis
 	  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
-	  	
+
 	  	
 	  	
 	  Given a closed interval $I \subset \R$, we can define a regular curve on the surface
@@ -172,13 +192,14 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	  
 	  and $c(t) = f(\theta(t))$.
 	  
-	  \vcomment{make this a definition}
-	  We also shall define at a point $p = f(u)$ the Gauss map normal to the tangent plane
+	  We regularize our concept of a "normal" direction to the surface, which will prove immensely useful later \vtodo{add pictures!}
+	  \begin{defn}[The Gauss Map]
+	  The Gauss map at a point $p = f(u)$ is the unit normal to the tangent plane
 	  \[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u_1, u_2) :=
 	  \frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
 	  {\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
-	  
-	  with each partial above understood to be evaluated at the input $u \in U$,that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
+	\end{defn}
+	  Each partial above understood to be evaluated at the input $u \in U$,that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
 	  It is clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$, and also that
 	  $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well.
 	  \vcomment{at this point if you can prove $\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\}$ are linearly independent then do so, or just save for later, in which case don't use derivates at all}
