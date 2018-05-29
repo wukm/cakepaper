@@ -861,9 +861,7 @@ The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (sim
 		
 		We'll get a few identities out of the way (where $m, n \in \Zpos$ arbitrary).
 		
-		\vcomment{sublabel these}
-		\vcomment{this fixes an issue in DIP-GW where the identities were provided for $M$ instead
-				of arbitrary $m$, where the proof uses the results for $K$ anyway}
+		\vcomment{this fixes an issue in DIP-GW where the identities were provided in terms of $M$ instead of arbitrary $m$, where the proof uses the results for some value other than $M$ anyway}
 		\begin{gather}
 		W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \\
 		W_{m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{m} } = e^{\frac{-i2\pi u}{m}} e^{\frac{-i2\pi m}{m}}
@@ -877,15 +875,14 @@ Thus we can rewrite \cref{FFT-oddevensplit} as
 F(u)  = \sum_{x=0}^{K-1} f(2x) W_{K}^{ux} + \sum_{x=0}^{K-1} f(2x+1) W_{K}^{ux} W_{2K}^{u}
 \end{equation} 
 
-\vcomment{keep going}
-		
-		
-		\subsubsection{Odds \& Ends of Fourier Analysis}
-		\begin{itemize}
-			\item Sampling theory?
-			\item Wraparound error?
-			\item Any other kinks introduced in going from continuous to discrete.
-		\end{itemize}
+\begin{itemize}
+\item \vtodo{keep going, show development of 1D FFT}
+\item \vtodo{show calculation counts}
+\item \vtodo{how does FFTPACK implement this when sequence length is not a power of 2?}
+\item \vtodo{how does scipy implement ifft? like it says in the book?}
+\item \vtodo{proof of how derivatives are implemented AND USE IT IN YOUR CODE}
+\item \vtodo{wraparound error, any other errors?}
+\end{itemize}
 
 
 \hrulefill
