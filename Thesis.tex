@@ -24,7 +24,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 
 % visible comments and notes
-\newcommand{\vcomment}[1]{\textcolor{gray}{[#1]}}
+\newcommand{\vcomment}[1]{\textcolor{red}{[#1]}}
 
 % math commands
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
@@ -37,7 +37,7 @@
 \DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
 \DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
 
-% matrix columns
+\DeclareMathOperator{\FT}{\mathscr{F}}
 
 \newcommand*\mcol[1]{\overset{\big\uparrow}{\underset{\big\downarrow}{#1}}}
 %\usepackage[small,singlelinecheck=on]{caption}

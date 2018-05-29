@@ -643,10 +643,72 @@ We wish to describe the structure of an image as a surface. To do this, we devel
         % as mentioned by Frangi, see Sato [13] and Lorenz [10] in their paper
         Several such filters exist --see Sato [13] and Lorenz[10]. These filters use information about the principal curvatures (eigenvalues of the Hessian) at each point to 
     \subsection{Overview of Frangi vesselness measure}
+    
+	    \vcomment{move to next session? or cover any necessary math here}
         The Frangi filter is a widely used \vcomment{citation needed} Hessian-based filter that relies on the principal curvatures--that is,
         the eigenvalues of $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point (x,y) in the image. 
 	\subsection{Implementation Details: Convolution Speedup via FFT}
-	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. In 
+	\vcomment{FIRST DESCRIBE HOW YOU NEED DERIVATIVES}
+	
+	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. We instead, we perform a fast fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}
+	
+	\subsubsection{Fourier Transform of a continuous 1D signal}
+	
+	\vcomment{start with 1D but then extend/rewrite}
+	
+	A periodic signal (real valued function) $f(t)$ of period $T$ can \vcomment{justify?} be expanded in an infinite basis as follows:
+	
+	\begin{equation}
+		f(t) = \sum_{-\infty}^{\infty} c_n e^{i\frac{2\pi n}{T}t} \;,\quad
+			c_n = \frac{1}{T}\int_{-T/2}^{T/2} f(t) e^{-i\frac{2\pi n}{T}t} dt
+			\end{equation}
+	
+	The Fourier transform of a 1D continuous function is defined by
+	\begin{equation} \label{1D-CFT}
+		F(\mu) := \FT\{f(t)\} \;=\; \int_{-\infty}^{\infty} f(t) e^{i2\pi \mu } dt
+	\end{equation}
+	
+	It can be shown \vcomment{justify?} that an inverse transform will then recover our original signal:
+	\begin{equation} \label{1D-ICFT}
+		f(t) = \FT^{-1}\left\{F(\mu)\right\} = \int_{-\infty}^{\infty} F(\mu) e^{i2\pi \mu t} dt
+	\end{equation}
+	
+	Together, \cref{1D-CFT} and \cref{1D-ICFT} are referred to as the \textit{Fourier transform pair} of the signal $f(t)$. 
+	
+	\subsubsection{Fourier Transform of a Discrete 1D signal}
+	
+	We wish to develop the Fourier transform pair for a discrete signal. We frame the situation
+	as follows: A continuous function $f(t)$ \vcomment{right now, with domain $\R$} is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling function (also referred to
+	in DIP-GW as an impulse function), an infinite series of discrete impulses with equal spacing $\Delta T$:
+	
+	\begin{equation} \label{1D-sampling-function}
+	s_{\Delta T}(t) = \sum_{n=-\infty}^{\infty} \delta[t - n\Delta T] \;,\quad
+	\delta[t] = \begin{cases} 1 \;,\; & t=0 \\ 0 \;,\;& t \ne 0 \end{cases}
+	\end{equation}
+	
+	where $\delta[t]$ is the discrete unit impulse.
+	
+	The discrete sample $f(t)$ is then constructed from $f(t)$ by
+	\begin{equation} \label{1D-discrete-sample}
+	\tilde{f}(t) = f(t) s_{\Delta T}(t)
+	\end{equation}
+	
+	From this (and actually the convolution theorem) we can calculate $\tilde{F}(t)$. \vcomment{SKIP AHEAD. There's some groundwork here to copy between 213-220. We don't need the sampling theorem, since our signal is given as-is... i think}.
+	
+	\subsubsection{1D Discrete Fourier Transform (DFT)}
+	
+	Given the discrete signal $\tilde{f}$, we construct the transform
+	$\tilde{F}(\mu) = \FT\{\tilde{f}(t)\}$. by simply transforming the definition \cref{1D-discrete-sample}.
+	
+	\vcomment{supress derivation but do explain $f_n$ notation / cleanup}
+	
+	\begin{equation} \label{1D-DFT-transform}
+	\tilde{F}(\mu) = \sum_{n=-\infty}^{\infty} f_n e^{-i 2\pi \mu n \Delta T} \;,\quad
+		f_n = \tilde{f}(n) = f(n\Delta T)
+	\end{equation}
+	
+	The transform is a continuous function with period $1 / \Delta T$. 
+	
 		\subsubsection{TODO}
 		\begin{itemize}
 			\item find image processing papers that find hessian from FFT / who uses this?
@@ -654,9 +716,11 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 			\item SIDE BY SIDE comparison?
 		\end{itemize}
 		
-		\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\footnote{the following was adapted in a large part from DFT: an owner's manual. cite?}
+		\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
 		
-		\begin{theorem}[2D DFT Convolution Theorem]
+		\vcomment{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
+		\begin{theorem}[2D DFT Convolution Theorem] 
+			\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
 		Given two discrete functions are sequences with the same length\footnote{If they're
 			not actually the same length, DIP-GW suggests to make the final length at least
 			$P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
@@ -754,13 +818,14 @@ The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (sim
 		\end{proof}
 				
 		\subsubsection{FFT}
-		
+		 \vcomment{use DIP-GW p298}
 		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead.
 		
 		\begin{itemize}
 			\item Basic theory.
 			\item Show speedup and equivalency.
 		\end{itemize}
+		
 		
 		\subsubsection{Odds \& Ends of Fourier Analysis}
 		\begin{itemize}
