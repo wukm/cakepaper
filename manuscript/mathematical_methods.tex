@@ -650,7 +650,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	\subsection{Implementation Details: Convolution Speedup via FFT}
 	\vcomment{FIRST DESCRIBE HOW YOU NEED DERIVATIVES}
 	
-	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. We instead, we perform a fast fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}
+	As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. We instead, we perform a fast Fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}
 	
 	\subsubsection{Fourier Transform of a continuous 1D signal}
 	
@@ -819,12 +819,65 @@ The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (sim
 				
 		\subsubsection{FFT}
 		 \vcomment{use DIP-GW p298}
-		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead.
+		As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of DIP-GW \vcomment{should I? or just link? or fix notation? or do for 2D at the same time}. For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.
 		
-		\begin{itemize}
-			\item Basic theory.
-			\item Show speedup and equivalency.
-		\end{itemize}
+		
+		First, a 2D DFT may actually be calculated via two successive 1D DFTs, which can be
+		seen through a basic rearrangement, as follows:
+		
+		\begin{align}
+		F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M + \nu y/N\right)} \\
+			   &= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \left[ \sum_{y=0}^{N-1} f(x,y)e^{-i2\pi \nu y/N} \right] \\
+			   &= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \\
+			   &= \FT_y\{\FT_x \{f(x,y)\} \}
+		\end{align}
+		
+		where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
+		the variable $x'$ only.
+		
+		Thus, to calculate the fourier transform $F(u,v)$ at the point $u,v$
+		requires the computation of the transform of length $N$ for each iterated point $x \in 0..M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$ \vcomment{rectify this, is it really caused by the number of $u,v$ points that need calculating?}. (Note: the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation \vcomment{source?}.
+		
+		We now show that a considerable speedup can be achieved through elimination of redundant calculations. In particular, we wish to show that the calculation of a 1D DFT of signal length $M=2^n, n \in \Zpos$ can be reduced to calculating two half-length transforms and an additional $M/2 = 2^{n-1}$ calculations.
+		
+		\vcomment{we follow DIP-GW variable conventions, which I think are dumb}
+		
+		To "simplify" our notation we will use a new notation for the Fourier kernels/basis functions.
+		Let the 1D Fourier transform be given by
+		
+		\begin{equation} \label{FFT-defineW}
+		F(u) = \sum_{x=0}^{M-1} f(x) W_M^{ux},\quad \textrm{where} \quad W_m := e^{-i2\pi/m}
+		\end{equation} 
+		
+		We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
+		
+		We use this to rewrite the series in \cref{FFT-defineW} and split it into odd and even entries in the summation
+		
+		\begin{align}
+		F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \\
+			 &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{u(2x)}
+				 + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \label{FFT-oddevensplit}
+		\end{align}
+		
+		We'll get a few identities out of the way (where $m, n \in \Zpos$ arbitrary).
+		
+		\vcomment{sublabel these}
+		\vcomment{this fixes an issue in DIP-GW where the identities were provided for $M$ instead
+				of arbitrary $m$, where the proof uses the results for $K$ anyway}
+		\begin{gather}
+		W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \\
+		W_{m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{m} } = e^{\frac{-i2\pi u}{m}} e^{\frac{-i2\pi m}{m}}
+					= e^{\frac{-i2\pi u }{m}} (1) = W_m^u \\
+		W_{2m}^{u+m} = e^{\frac{-i2\pi(u+m)}{2m}} = e^{\frac{-i2\pi u}{2m}} e^{-i\pi}
+					 = W_{2m}^{u} e^{-i\pi} = - W_{2m}^{u}
+		\end{gather}
+
+Thus we can rewrite \cref{FFT-oddevensplit} as
+\begin{equation}
+F(u)  = \sum_{x=0}^{K-1} f(2x) W_{K}^{ux} + \sum_{x=0}^{K-1} f(2x+1) W_{K}^{ux} W_{2K}^{u}
+\end{equation} 
+
+\vcomment{keep going}
 		
 		
 		\subsubsection{Odds \& Ends of Fourier Analysis}
