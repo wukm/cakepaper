@@ -491,7 +491,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
       
       To make this a little more explicit, we will calculate the Weingarten map for a relatively simple graph.
       
-      \subsection{The Weingarten map of a cylindrical ridge}
+      \subsection{The Weingarten map of a cylindrical ridge} \label{sec:calculate-weinmap-of-a-ridge}
       
       Let $f$ be the graph given by 
       \begin{equation}
@@ -1177,27 +1177,53 @@ The inverse DFT is actually a DFT of a modified function, see \vtodo{cite DIP-GW
 
 \section{Overview of Frangi vesselness measure}
 
-\vcleanup{move to next session? or cover any necessary math here}
+\vcleanup{move to next section? or cover any necessary math here}
 
-The Frangi filter \cite{frangi1998multiscale} is a widely used \vcomment{citation needed} Hessian-based filter used to detect curvilinear structures in images.  It was orignally developed for images such as MRIs and it excels in that context. It essentially relies on measuring eigenvalues of the Hessian $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point $(x,y)$ in the image.
+The Frangi filter \cite{frangi1998multiscale} is a widely used \vcomment{citation needed} Hessian-based filter used to detect curvilinear structures in images.  It was orignally developed for images such as MRIs and it excels in that context. It essentially relies on measuring eigenvalues of the Hessian $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point $(x,y)$ in the image and comparing their magnitudes.
 
 The procedure for a single scale in a 2D image is as follows:
 
-Let $\lambda_1, \lambda_2$ be the two eigenvalues of the Hessian, ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, where
+\vcleanup{redefine this in a sensible way so you can easily talk about the point in the domain of the image, etc.}
+Let $\lambda_1, \lambda_2$ be the two eigenvalues of the Hessian of the image at point $(x_0, y_0)$,
+ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, and define the Frangi vesselness measure at scale $\sigma$ as:
 
-\begin{equation} \label{frangivesselnessmeasure}
-V_0(\sigma) = \begin{cases}
+
+\begin{equation} \label{frangi-vesselness-measure}
+V_\sigma(x_0,y_0) = \begin{cases}
 0 & \text{if} \quad \lambda_2 > 0 \\
-\exp\left(-\frac{R^2}{2\beta^2}\right)
+\exp\left(-\frac{A^2}{2\beta^2}\right)
 \left(1 - \exp(-\frac{S^2}{2c^2})\right) & \text{else}
 \end{cases} \end{equation}
 where
-\begin{equation}
-R := \lambda_1 / \lambda_2
+\begin{equation} \label{frangi-def-anisotropy-structureness}
+A := \abs{\lambda_1 / \lambda_2}
 \quad \textrm{and} \quad 
 S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \end{equation}
-and $\beta$ and $c$ are tuning parameters. Before we discuss appropriate values for $\beta$ and $c$, we first seek to highlight the significance of \cref{frangivesselnessmeasure}.
+and $\beta$ and $c$ are tuning parameters. Before we discuss appropriate values for $\beta$ and $c$, we first seek to highlight the significance of \cref{frangi-vesselness-measure}, and in particular, the ratios defined in
+\cref{frangi-def-anisotropy-structureness}. $A$ and $S$ are known as the anisotropy measure and structureness measure, respectively. \vcleanup{define these earlier than the vesselness measure so that the definitions are easier to find}.
 
+\subsection{Anisotropy}
+The anisotropy (or directionality) measure $A$ is simply the ratio of magnitudes of $\lambda_1$ and $\lambda_2$. Since at a ridge point of a tubular structure, we should have $\lambda_1 \approx 0$ and $\abs{\lambda_2} \gg \abs{\lambda_1}$,
+a very small value of $A$ would be present at a ridge of a tubular structure.
 
+\begin{figure}[h] \label{fig:expo-principal-curvatures}
+	\begin{center}
+\includegraphics[width=0.8\linewidth]{expo_principal_curvatures}
+\caption{The principal eigenvectors of the image $L$ at a ridge like structure (arrows not to scale). $\lambda_1 \approx 0$ and $\lambda_2$ is large and negative. }
+\end{center}
+\end{figure}
 
+In \cref{fig:expo-principal-curvatures}, this situation is demonstrated. Here, $u_1, u_2$ is the orthogonal set of Hessian eigenvectors with corresponding eigenvalues $\lambda_1$ and $\lambda_2$. At such a ridgelike structure, we could predict the largest change in curvature to be straight down the ridge (in the direction of $u_2$), and the direction of least curvature to be directly along the ridge (in the direction  of $u_1$).
+
+Of course, if the the ridge is perfectly circular along its cross section (as was in \cref{sec:calculate-weinmap-of-a-ridge}, it is of course apparent that $\lambda_2$ would be the same value at any place along the ridge (not just at its crest \vcleanup{fix terminology}), and $\lambda_1$ would likewise be 0 at any such point. Thus, the anisotropy measure will not necessarily be a maximum at the crest of the ridge. One could also imagine a similar situation in which the dropoff from crest to bottom gets increasing steep. In such a case, $\lambda_2$ as a function of $x$ would in fact be largest nearest to the bottom. This thought experiment should dispel a naive misunderstanding of the power of a frangi filter: a high anisotropy measure (and a large structureness measure \vcleanup{define structureness first}) will not in general identify the crests of a ridgelike structure--it only will highlight that such a pixel is on a ridgelike structure at all.
+
+Similiarly, the vessel we're trying to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure we seek to identify.  (either small parts where it goes up (so that $u_1$ is not exactly zero \vtodo{and we could fix this by checking that it's continuousish?}, there may be small divots where the thing seems to go up a bit etc etc etc or sampling error cos it's a fucking picture etcetc \vtodo{flesh this out}.
+
+Also the crest could be really flat.
+
+The fix to this is to look at scale and make sure we're dealing with an appropriate scale. Also the fix is to find the ridge using a separate technique.
+
+Also look at where the stitches are (discontinuities in $u_2,$ but $u_1$ still 0?)
+
+\vtodo{now talk about structureness measure.}
