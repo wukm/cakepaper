@@ -1188,7 +1188,7 @@ Let $\lambda_1, \lambda_2$ be the two eigenvalues of the Hessian of the image at
 ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, and define the Frangi vesselness measure at scale $\sigma$ as:
 
 
-\begin{equation} \label{frangi-vesselness-measure}
+\begin{equation} \label{eq:frangi-vesselness-measure}
 V_\sigma(x_0,y_0) = \begin{cases}
 0 & \text{if} \quad \lambda_2 > 0 \\
 \exp\left(-\frac{A^2}{2\beta^2}\right)
@@ -1203,14 +1203,14 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 and $\beta$ and $c$ are tuning parameters. Before we discuss appropriate values for $\beta$ and $c$, we first seek to highlight the significance of \cref{frangi-vesselness-measure}, and in particular, the ratios defined in
 \cref{frangi-def-anisotropy-structureness}. $A$ and $S$ are known as the anisotropy measure and structureness measure, respectively. \vcleanup{define these earlier than the vesselness measure so that the definitions are easier to find}.
 
-\subsection{Anisotropy}
+\subsection{Anisotropy} \label{sec:frangi.anisotropy}
 The anisotropy (or directionality) measure $A$ is simply the ratio of magnitudes of $\lambda_1$ and $\lambda_2$. Since at a ridge point of a tubular structure, we should have $\lambda_1 \approx 0$ and $\abs{\lambda_2} \gg \abs{\lambda_1}$,
 a very small value of $A$ would be present at a ridge of a tubular structure.
 
 \begin{figure}[h] \label{fig:expo-principal-curvatures}
 	\begin{center}
 \includegraphics[width=0.8\linewidth]{expo_principal_curvatures}
-\caption{The principal eigenvectors of the image $L$ at a ridge like structure (arrows not to scale). $\lambda_1 \approx 0$ and $\lambda_2$ is large and negative. }
+\caption{The principal eigenvectors of the image $L$ at a ridge like structure (arrows not to scale). $\lambda_1 \approx 0$ and $\lambda_2$ is large and negative. \vtodo{fix drawing so $u_1$ is more to scale }}
 \end{center}
 \end{figure}
 
@@ -1220,10 +1220,51 @@ Of course, if the the ridge is perfectly circular along its cross section (as wa
 
 Similiarly, the vessel we're trying to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure we seek to identify.  (either small parts where it goes up (so that $u_1$ is not exactly zero \vtodo{and we could fix this by checking that it's continuousish?}, there may be small divots where the thing seems to go up a bit etc etc etc or sampling error cos it's a fucking picture etcetc \vtodo{flesh this out}.
 
-Also the crest could be really flat.
+\vcleanup{move elsewhere} Importantly, this formulation does allow that $\lambda_1$ is not necessarily approximately $0$, just that the curvature in the downward direction is much more significant.
+
+Also the crest could be really flat, in which case both are around zero. again, this is a scaling issue.
 
 The fix to this is to look at scale and make sure we're dealing with an appropriate scale. Also the fix is to find the ridge using a separate technique.
 
 Also look at where the stitches are (discontinuities in $u_2,$ but $u_1$ still 0?)
 
-\vtodo{now talk about structureness measure.}
+\subsection{Structureness measure} \label{sec:frangi-structureness}
+
+There is another concern with using the pure ratio $S:= \abs{\lambda_1 / \lambda_2}$ as an identifying feature of ridgelike structures: we could still have $\abs{\lambda_2} \gg \abs{\lambda_1}$ in a relative sense, but still have $\lambda_2 \approx 0$. As a rather extreme example, we should certainly wish to differentiate a point on the surface where $\lambda_2 \approx 10^{-5} $ and $\lambda_1 \approx 10^{-10}$ from another point where $\lambda_2 \approx 10000$ and $\lambda_2 = 0.1$. A quite simple fix to differentiate these points is to introduce a ``structureness'' measure to insure that there is in fact some significant curvilinear activity at the point in question. Frangi used $S:= \sqrt{(\lambda_1)^2 + (\lambda_2)^2}$, which is in fact the 2-norm of the Hessian matrix \vcleanup{show?}.
+
+\vcleanup{note somewhere (maybe in a section called 'tuning parameters' how important this one is}
+
+
+\subsection{The Frangi vesselness filter: Basic Anatomy}
+
+Our goal then is to attach a numerical measure to each pixel in the image (at a particular scale $\sigma$) that is large when the anisotropy measure $A$ and the structureness measure $S$ is sufficiently large.
+
+The form Frangi arrived at in \cref{eq:frangi-vesselness-measure} in which a factor of $\exp\{...\}$ and $(1 - \exp\{\})$ are multiplied together are simply to ensure that the final vesselness measure $V$ is largest when $A$ is small and $S$ is large enough, with rapidly decay in other situations.
+
+We have an added case present in \cref{eq:frangi-vesselness-measure}, simply to ensure that $\lambda_2$ is not positive. If we are indeed at a curvilinear ridge, we need the second derivative of the surface in the maximal direction to be negative, which hasn't been accounted for as yet in our formulation of $A$ and $S$ -- we wish (for our purposes) to only indentify when we are finding crests. $A$ will still be small and $S$ will still be large however if we identify a ``trough''.
+The only perceivable difference is that the maximum normal curvature will be positive--we are at a local minimum in the direction of $u_2$. In situations where we wish to only identify ridges (as is the case here) we simply exclude any points where there is not a negative curvature in the maximal direction. 
+
+\vtodo{can you plot this theoretically to show when $V$ is large? Good parameters? Like show multiple peaks of $\exp(\dots)$ and  $(1 - \exp(\dots))$ arranged so that they only coincide in 'good' regions and are rapidly diminishing overlap elsewhere?}
+
+\subsection{The Frangi vesselness filter: Choosing parameters $\beta$ and $c$}
+
+The parameters $\beta$ and $c$ are meant to scale so that the peaks of $exp$ and $1-exp$ coincide enough to be statistically significant but rapidly decay in areas not associated with curvilinear structure.
+
+What values of these parameters are appropriate is ultimately dependent on the context of the problem.
+
+Frangi suggested for $c$ that half of the Frobenius norm of the Hessian matrix is appropriate , simply because the minimum value of $S$ is zero, and  its maximum value is approx the 2 norm of the Hessian. \vtodo{find your proof/add proof}. For $\beta$ we would say that a good intermediate point is 0.5.
+(thus $2\beta^2 = 1/2$). \vtodo{analyze/show an example of what this does in the context of particular values of $\lambda_1,\lambda_2$ in terms of $V$ output}.
+
+As we will show later, choosing $c$ freely is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain \vtodo{explain better or make a picture.} then $\beta$ should be smaller.} If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.
+
+\subsection{A multiscale approach}
+
+As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures.
+
+\vtodo{stitching} \vtodo{alternate approach}
+
+\vtodo{thresholding}
+
+
+
+
