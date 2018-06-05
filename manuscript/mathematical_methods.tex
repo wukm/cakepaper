@@ -1255,15 +1255,36 @@ What values of these parameters are appropriate is ultimately dependent on the c
 Frangi suggested for $c$ that half of the Frobenius norm of the Hessian matrix is appropriate , simply because the minimum value of $S$ is zero, and  its maximum value is approx the 2 norm of the Hessian. \vtodo{find your proof/add proof}. For $\beta$ we would say that a good intermediate point is 0.5.
 (thus $2\beta^2 = 1/2$). \vtodo{analyze/show an example of what this does in the context of particular values of $\lambda_1,\lambda_2$ in terms of $V$ output}.
 
-As we will show later, choosing $c$ freely is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain \vtodo{explain better or make a picture.} then $\beta$ should be smaller.} If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.
+As we will show later, choosing $c$ freely is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain \vtodo{explain better or make a picture.} then $\beta$ should be smaller. If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.
 
 \subsection{A multiscale approach}
 
-As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures.
+As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures. We wish to find regions that would receive a high vesselness score at any range, and consider them all together. Frangi \cite{frangi1998multiscale} approached this problem by simply aggregating vesselness measure over all scales:
 
-\vtodo{stitching} \vtodo{alternate approach}
+\begin{equation} \label{frangi-vesselness-max}
+V(x_0, y_0) = \underset{\sigma \in \Sigma}{\max}\;  V_\sigma(x_0, y_0)
+\end{equation}
 
-\vtodo{thresholding}
+where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is a range of scale spaces representative enough of all scales where meaningful content is expected to be found.
+
+\subsection{Thresholding}
+
+After this procedure, we are left with a matrix with as many samples/pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image:
+
+\begin{equation} \label{eq:frangi-max-matrix}
+\mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
+\end{equation}
+
+Whereas Frangi \cite{frangi1998multiscale} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point.
+
+ET CETERA. 
+
+%Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
+
+\vtodo{alternate approach (morphology)}
+
+
+
 
 
 
