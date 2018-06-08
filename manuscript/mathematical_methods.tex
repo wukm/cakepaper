@@ -1275,15 +1275,34 @@ After this procedure, we are left with a matrix with as many samples/pixels as t
 \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
 \end{equation}
 
-Whereas Frangi \cite{frangi1998multiscale} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point.
+Whereas Frangi \cite{frangi1998multiscale} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
+\vcleanup{fix notation in all of this}
+\begin{equation}
+V_{\Sigma,\alpha}(x,y) = \begin{cases}
+	1 & \textrm{if}\quad V(x,y) \ge \alpha \\
+	0 & \textrm{else}
+\end{cases}  \quad , \quad \alpha > 0 fixed.
+\end{equation}
 
-ET CETERA. 
 
 %Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
 
 \vtodo{alternate approach (morphology)}
 
+\vcleanup{this goes somewhere else}
+\section{methods of calculating 2D Hessian}
 
+Note the following 6 methods should all theoretically be equivalent:
+
+\begin{itemize}
+	\item convolve discrete image with a gaussian kernel, then take derivatives (no FFT). This is the ``classical approach''
+	\item Take derivatives of gaussian kernel, then convolve with the image/signal (again, no FFT)(due to \vcleanup{cite theorem})
+	\item FFT image and FFT gaussian kernel then convolve in freq. space, then IFFT, then take derivatives in xy-space (my implementation)
+	\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
+	\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
+	\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
+
+\end{itemize}
 
 
 
