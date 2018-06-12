@@ -1301,6 +1301,8 @@ Note the following 6 methods should all theoretically be equivalent:
 	\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
 	\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
 	\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
+	
+\vtodo{big implementation note: you want to show equivalence of these, but the problem is that around the boundary the issue is annoying. can you fix this?}
 
 \end{itemize}
 
