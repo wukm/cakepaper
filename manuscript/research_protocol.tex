@@ -1,11 +1,23 @@
 \chapter{Research Protocol}
+\vcomment{List all decisions you make. Be very explicit.
+	Current plan: Go into depth for certain portions in the implementations chapter.
+	This covers from 
 List. All. Decisions. You Make. Be very explicit.
 
-\section{preprocessing}
-
-\section{multiscale setup}
-\section{vesselness measure}
+\section{Image Preprocessing}
+	\vcomment{Cover data cleaning in a different section/chapter dedicated to image domains.}
+	All images are grayscale, $M,N$ pixels as a masked array, (background is manually designated as a mask).
+	Covered to grayscale in the standard way.
+	\vtodo{Note:  the only thing that makes sense to do here is maybe clipping. Any linear rescaling doesn't matter in terms of derivatives. Mention this somewhere? / Address the question of not needing to apply contrast enhancement.} 
+\section{Multiscale Setup}
+	Pick a logarithmic range of scales $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$.
+	The smallest one should be an effective size, largest should be an effective size as well. Designate these manually per image or use a default range and ``throw out'' bad ones somehow.
+	
+\section{Applying Vesselness Measure}
 We calculate the hessian matrix of each and then the eigenvalues of these.
 
-\section{multiscale merging}
-\section{cleanup}
+\vtodo{Show at this point or move elsewhere how features of  size $\sigma$ are isolated in this step at the appropriate scale.}
+\section{Scale-space post-processing}
+\section{Multiscale Merging}
+\section{Cleanup/Postprocessing}
+\section{Measurements}
