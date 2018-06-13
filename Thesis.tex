@@ -24,17 +24,21 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 
-%%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS
 
-% to hide, comment these three and uncomment the ones below
-\newcommand{\vcomment}[1]{\textbf{\textcolor{Blue}{[#1]}}}
+%%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% to make interspersed comments visible, uncomment these three lines and comment out the three below
+\newcommand{\vcomment}[1]{\textit{\textcolor{Blue}{[#1]}}}
 \newcommand{\vtodo}[1]{\textbf{\textcolor{Red}{[TODO:\;#1]}}}
-\newcommand{\vcleanup}[1]{\textbf{\textcolor{Orchid}{[CLEANUP:\;#1]}}}
+\newcommand{\vcleanup}[1]{\textcolor{Orchid}{[CLEANUP:\;#1]}}
 
-%uncomment these and comment the ones above to get rid of the notations
+% to hide interspersed comments, uncomment these three lines and comment out the three above
 %\newcommand{\vcomment}[1]{}
 %\newcommand{\vtodo}[1]{}
 %\newcommand{\vcleanup}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % math commands
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
@@ -133,7 +137,6 @@
 
 %\clearpage 
 %\pagenumbering{arabic}	%Starts numbering pages in arabic, starts from 1.
-
 
 \include{manuscript/introduction}		
 \include{manuscript/mathematical_methods}
