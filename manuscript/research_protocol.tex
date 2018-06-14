@@ -9,13 +9,17 @@ List. All. Decisions. You Make. Be very explicit.}
 	\vcomment{Cover data cleaning in a different section/chapter dedicated to image domains.}
 	All images are grayscale, $M,N$ pixels as a masked array, (background is manually designated as a mask).
 	Covered to grayscale in the standard way.
-	\vtodo{Note:  the only thing that makes sense to do here is maybe clipping. Any linear rescaling doesn't matter in terms of derivatives. Mention this somewhere? / Address the question of not needing to apply contrast enhancement.} 
+	\vtodo{Note:  the only thing that makes sense to do here is maybe clipping. Any linear rescaling doesn't matter in terms of derivatives. Mention this somewhere? / Address the question of not needing to apply contrast enhancement.}
+	
 \section{Multiscale Setup}
+
 	Pick a logarithmic range of scales $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$.
 	The smallest one should be an effective size, largest should be an effective size as well. Designate these manually per image or use a default range and ``throw out'' bad ones somehow.
 	
+	Convolve this via fft transform to get $L_{\sigma_i}$
+	
 \section{Applying Vesselness Measure}
-We calculate the hessian matrix of each and then the eigenvalues of these.
+Calculate the Hessian matrix of  and then the eigenvalues using the function \texttt{hfft.fft\_hessian}.
 
 \vtodo{Show at this point or move elsewhere how features of  size $\sigma$ are isolated in this step at the appropriate scale.}
 \section{Scale-space post-processing}

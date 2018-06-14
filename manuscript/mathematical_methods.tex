@@ -1,54 +1,68 @@
 \chapter{Mathematical Methods}
 
-\vtodo{This is a TODO.  Used when something is missing, incomplete, blatantly inconsistent,
-		These are the most important action items.}
+\hrulefill
 
-\vcomment{This is a comment. Used for general remarks that haven't been merged into the text,
-	less pressing suggestions.}
+\textbf{Notes on this draft:}
 
-\vcleanup{Also used for cleanup TODOs. Should be strictly style fixes, at least until the number/severity of TODO items decreases. These can and will require in-depth fixes, but it's usually
-less pressing than a missing/wrong item, which requires a TODO.}
+
+The following types of comments are interspersed throughout this working draft. Obviously, these are to be removed by the time of the final draft.
+
+\vtodo{This is a TODO.  Used when something is missing, incomplete, or wrong.
+		These are the most important action items, often requiring additional research or development.
+		For example, ``add example'' or ``derive necessity of gaussian'' i}
+ 
+\vcleanup{Lower priority than a TODO. Cleanup-TODOs can and will require in-depth fixes, but it's usually less pressing than a missing/wrong item, which requires a TODO. For example, ``fix transition'' or ``standardize notation'' is a CLEANUP, not a TODO. Roughly, CLEANUPS are for formatting/style concerns, rather than content.}
+
+\vcomment{This is a comment. Used for general remarks about a subject that haven't been merged into the text.
+			These are often descriptions, or suggestions for expansion or deletion of content.}
+
+
+These should be used sparing. Absence of any comment does not indicate that a section is complete or without concerns in any way--these are simply meant to represent ``threads to pull'' in bringing this document closer to completion.
+
+\hrulefill
 
 \section{Problem Setup in Image Processing}
 	\vcomment{This section should be basically describing how to view an image as a surface.
 			  Use any notation here that is useful beyond differential geometry, in all the contexts
 			  we need to consider the image (in terms of Fourier Theory, scale space theory,
-			  Frangi filtering, etc. all together}
+			  Frangi filtering, etc. all together.}
+			
 	\vcleanup{Less halfassed intro. Do this last, when the flow of this chapter is fixed.}
-	Although an 2D grayscale image is given by a $MxN$ array of pixels (often integers between 0 and 255, or sometimes as a real number between 0 and 1), we want to view it as a surface.
+	
 	\subsection{Basics, Definitions}
-        \begin{defn}
-    	For theoretical purposes, we may view any 2D grayscale image
-    	as a continuous function $L: \R^2 \to \R$
-        with $L \in \mathcal{C}^2\left(\R^2\right).$
+	A 2D grayscale image is given by a $MxN$ array of pixels, whose intensity is given by an integer value between 0 and 255.
+	
+	\vcleanup{I hate using L since it conflicts with the standard symbol used for the Weingarten map later. Fix these.}
+	
+	\begin{defn}[Image as a pixel matrix] \label{defn:image_as_pixel_matrix}
+		$\mathtt{I} \in \R^{m \times n} \;\textrm{with}\; I_{ij} \in 0..255$
+	\end{defn}
+	
+		For theoretical purposes, we wish to consider any such picture to ultimately be a sampling of a 2D continuous surface.
+		We also require that this surface is sufficiently continuous as to admit the existence of second partial derivatives.
+		
+    \begin{defn}[Image as an interpolated surface] \label{defn:image_as_surface}
+	    $h: \R^2 \to \R \; \textrm{with}\; h \in \mathcal{C}^2\left(\R^2\right).$
         \end{defn}
-        \begin{defn}
-        In the context of differential geometry, we wish to refer to its graph
-            $f: \R^2 \to \R^3 $ by $ (u,v) \mapsto (u, v, L(u,v))$.
-    	\end{defn}
-    % put this later instead?
-        \begin{defn}
-    In situations where we wish to discuss a discrete image, we may refer to
-	$L_0 \in \R^{M\times N}$. That is, $L_0$ is a matrix corresponding to the $M$-by-$N$ digital grayscale image. 
-    \end{defn}
-	
-	
-	
-
-\section{Differential Geometry}
-
-\vcleanup{motivate the 'notational dump' and help explain why it's such a fucking mess}
-
-We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way. 
+        
+        \vcomment{the following paragraph is stupid probably. acknowledge it elsewhere or destroy it}
+        It is indeed a sampling, and we could note that $h(i,j) = \mathtt{I}_{ij}$. Of course, $\mathtt{I}$ is not a perfect representation of the underlying ``content'' within the picture. There are multiple treatments of image processing that do address this \vcleanup{cite}, especially when the goal is noise reduction. However, we will be content to simply represent the pixels of \cref{defn:image_as_pixel_matrix} as the ultimate ``cause'' of the surface \cref{defn:image_as_surface}, rather than considering $\mathtt{I}$ to be a sampling of some real-world surface. \vtodo{but this contradicts the motivation behind scale space theory later. rectify}
+	    
+	    \hrulefill
+	    
+	    \section{Differential Geometry}
+      	
+We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way, following \vcleanup{cite Kuhnel}
         \subsection{Preliminaries of Differential Geometry / Notational Dump}
         
         % compare this to a general graph
-        \vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant}
-        \vcomment{useful to keep some references to non-graphs to align this with "the general picture" and what you'll find in a diff-geo text}
+        \vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant.
+        	Although it's useful to keep some references to non-graphs to align this with "the general picture" and what
+        	you'll find in a diff geo textbook, also because I already wasted time doing the hard work.}
         
         
-        Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$.
-        then we define its \textit{graph} $f$ as
+        Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$ (as in \cref{defn:image_as_surface})
+        we define its \textit{graph} $f$ as
         
         \begin{defn} \label{defn:graph}
         The surface $f$ is a graph (of the function $h$) when 
@@ -1287,7 +1301,7 @@ V_{\Sigma,\alpha}(x,y) = \begin{cases}
 
 %Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
 
-\vtodo{alternate approach (morphology)}
+\vtodo{Describe an alternative approach of stitching.}
 
 \vcleanup{this goes somewhere else}
 \section{methods of calculating 2D Hessian}
