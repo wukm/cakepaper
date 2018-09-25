@@ -1,10 +1,49 @@
 \chapter{Research Protocol}
 
 \vcomment{List all decisions you make. Be very explicit.
-	Current plan: Go into depth for certain portions in the implementations chapter.
-	This covers from 
-List. All. Decisions. You Make. Be very explicit.}
+	Current plan: Go into depth for certain portions in the implementations chapter.}
 
+\section{Samples / Image Domain}
+
+% see Nen's master's thesis for his descriptions of the data sets
+
+We ultimately perform a PCSVN extraction on a set of 174 color placental images from a private database called NCS (from NYMH?). These are project files in GIMP which contain multiple layers.
+The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample is given in \cref{fig:exampleNCSoutput}
+
+\begin{figure}\label{fig:NCSlayers} \centering
+	\subfigure[Fixed Placental Sample]{
+		\label{fig:NCSlayers-raw}\includegraphics[width=60mm]{{{T-BN0164923.raw}}}}
+	\subfigure[Arterial tracing]{
+		\label{fig:NCSlayers-A}\includegraphics[width=60mm]{{{T-BN0164923_arteryoverlay}}}}
+	\subfigure[Venous tracing]{
+		\label{fig:NCSlayers-V}\includegraphics[width=60mm]{{{T-BN0164923_veinoverlay}}}}
+	\subfigure[Total Vascular Network]{
+		\label{fig:NCSlayers-T}\includegraphics[width=60mm]{{{T-BN0164923_traceoverlay}}}}
+\caption{Preprocessed files from an NCS sample}
+\end{figure}
+
+In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of this procedure is given in \vtodo{some reference}. \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.)
+
+For our procedure, we simply operate in luminance transform based grayscale. We "zero" outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
+
+These procedures are performed automatically on the 174 image in our data set using a custom GIMP plugin.
+
+Then talk about your autoextraction script.
+
+
+\begin{figure}\label{fig:exampleNCSoutput} 	\centering
+	\subfigure[Raw]{
+		\label{fig:aa}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}}
+	\subfigure[Mask]{
+		\label{fig:bb}\includegraphics[width=60mm]{{{T-BN0164923}}}}
+	\subfigure[Base]{
+		\label{fig:cc}\includegraphics[width=60mm]{{{T-BN0164923.L}}}}
+	\subfigure[Trace]{
+		\label{fig:dd}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}}
+	\caption{Preprocessed files from an NCS sample}
+\end{figure}
+
+(There are actually 201 images but 27 of them have mislabelled layers and were not autoprecessed correctly)
 \section{Image Preprocessing}
 	\vcomment{Cover data cleaning in a different section/chapter dedicated to image domains.}
 	All images are grayscale, $M,N$ pixels as a masked array, (background is manually designated as a mask).
@@ -26,3 +65,17 @@ Calculate the Hessian matrix of  and then the eigenvalues using the function \te
 \section{Multiscale Merging}
 \section{Cleanup/Postprocessing}
 \section{Measurements}
+
+\section{NOTE DUMP}
+	\vcomment{this is just a place to put commentary to sort/ rewrite later}
+	
+	\subsection{Erode plate / dilate boundary}
+	
+	Our function considers the placenta as a nonzero surface but the surface outside is zero (or, in many situations, masked). We're currently not implementing any way to ``reflect'' along the border, so instead the second degree behavior of the surface there will be incorrect in an area proportional to the scale size.
+	
+	Describe how that function works. Earlier efforts are wrong, whatever.
+	
+	The are which is affected should be larger than just the standard dropoff the gaussian however, since we're interested
+	in second derivative information.
+	
+	
