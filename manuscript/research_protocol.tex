@@ -19,37 +19,62 @@ The layers together give a hand tracing of the vascular network and perimeter. A
 		\label{fig:NCSlayers-V}\includegraphics[width=60mm]{{{T-BN0164923_veinoverlay}}}}
 	\subfigure[Total Vascular Network]{
 		\label{fig:NCSlayers-T}\includegraphics[width=60mm]{{{T-BN0164923_traceoverlay}}}}
-\caption{Preprocessed files from an NCS sample}
+\caption{A representative placental NCS sample with vascular tracing}
 \end{figure}
 
-In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of this procedure is given in \vtodo{some reference}. \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.)
+In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of this procedure is given in \vtodo{some reference}. \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.) 
 
-For our procedure, we simply operate in luminance transform based grayscale. We "zero" outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
-
-These procedures are performed automatically on the 174 image in our data set using a custom GIMP plugin.
-
-Then talk about your autoextraction script.
 
 
 \begin{figure}\label{fig:exampleNCSoutput} 	\centering
-	\subfigure[Raw]{
-		\label{fig:aa}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}}
-	\subfigure[Mask]{
-		\label{fig:bb}\includegraphics[width=60mm]{{{T-BN0164923}}}}
-	\subfigure[Base]{
-		\label{fig:cc}\includegraphics[width=60mm]{{{T-BN0164923.L}}}}
-	\subfigure[Trace]{
-		\label{fig:dd}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}}
+	\subfigure[Background Mask]{
+		\label{fig:NCSoutput-mask}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}}
+	\subfigure[Sample with BG removed]{
+		\label{fig:NCSoutput-base}\includegraphics[width=60mm]{{{T-BN0164923}}}}
+	\subfigure[Grayscale]{
+		\label{fig:NCSoutput-gray}\includegraphics[width=60mm]{{{T-BN0164923.L}}}}
+	\subfigure[Trace / ``Ground Truth'']{
+		\label{fig:NCSoutput-trace}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}}
 	\caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-(There are actually 201 images but 27 of them have mislabelled layers and were not autoprecessed correctly)
+For our procedure, we simply operate on the placental sample itself, without any understanding of its provided tracing except for comparing the strength of our algorithm. Of course, our goal is to develop an algorithm that can produce a ``ground truth'' tracing such as in \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any intervention.
+
+For our purposes however, we will use the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using an Active Contour Model \vtodo{REF} or perhaps even any edge finding algorithm followed by morphological / watershedding as in \vtodo{REF}.
+
+
+
+To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We "zero" outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
+
+These procedures are performed automatically on the 174 image in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix. \vtodo{put a link here}
+(There are actually 201 images but 27 of them have mislabeled layers and were not autoprocessed correctly)
+
+
+
+
 \section{Image Preprocessing}
-	\vcomment{Cover data cleaning in a different section/chapter dedicated to image domains.}
-	All images are grayscale, $M,N$ pixels as a masked array, (background is manually designated as a mask).
-	Covered to grayscale in the standard way.
-	\vtodo{Note:  the only thing that makes sense to do here is maybe clipping. Any linear rescaling doesn't matter in terms of derivatives. Mention this somewhere? / Address the question of not needing to apply contrast enhancement.}
 	
+	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary dimension input \cite{frangi1998multiscale}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
+	
+	\begin{equation} \label{eq:luma_transform}
+	L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
+	\end{equation}
+
+`	All images are grayscale, $M,N$ pixels as a masked array (of type
+	\texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
+	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not designed to handle masked regions. Although it would be of some interest to create an algorithm that, say, calculates a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to simply exclude affected areas from consideration, and zero unwanted background pixels to speed up computation. This excluding function,
+	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
+	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur. That boundary itself is then dilated by the desired factor.
+	
+	\begin{figure} \label{fig:boundary-demo}
+		\includegraphics[width=\textwidth]{boundary_dilation_demo}
+		\caption{Demonstration of boundary dilation}
+	\end{figure}
+	
+	\cref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Maybe the issue doesn't occur with these as much?
+	In the image above, $\sigma=3$ and border radius is 80 and all it does is get
+	rid of the stupid natural boundary, not a weird frangi response.
+	The code can by found by running \texttt{plate\_morphology} directly.
 \section{Multiscale Setup}
 
 	Pick a logarithmic range of scales $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$.
@@ -78,4 +103,5 @@ Calculate the Hessian matrix of  and then the eigenvalues using the function \te
 	The are which is affected should be larger than just the standard dropoff the gaussian however, since we're interested
 	in second derivative information.
 	
-	
+\section{Code Listings}
+\vtodo{this goes in the appendix}
