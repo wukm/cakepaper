@@ -50,8 +50,6 @@ These procedures are performed automatically on the 174 image in our data set us
 (There are actually 201 images but 27 of them have mislabeled layers and were not autoprocessed correctly)
 
 
-
-
 \section{Image Preprocessing}
 	
 	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary dimension input \cite{frangi1998multiscale}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
@@ -64,21 +62,31 @@ These procedures are performed automatically on the 174 image in our data set us
 	\texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
 	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not designed to handle masked regions. Although it would be of some interest to create an algorithm that, say, calculates a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to simply exclude affected areas from consideration, and zero unwanted background pixels to speed up computation. This excluding function,
 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
-	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur. That boundary itself is then dilated by the desired factor.
+	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur. That boundary itself is then dilated by the desired factor. The second is a ``sparse'' implementation of binary dilation that is particularly efficient for our problem. An array of indices of the image where the 
 	
 	\begin{figure} \label{fig:boundary-demo}
 		\includegraphics[width=\textwidth]{boundary_dilation_demo}
 		\caption{Demonstration of boundary dilation}
 	\end{figure}
 	
-	\cref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Maybe the issue doesn't occur with these as much?
-	In the image above, $\sigma=3$ and border radius is 80 and all it does is get
-	rid of the stupid natural boundary, not a weird frangi response.
-	The code can by found by running \texttt{plate\_morphology} directly.
+	\ref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Repeat with a smaller border. Maybe the issue doesn't occur with these as much? 	In the image above, $\sigma=3$ and border radius is 80 and all it does is get 	rid of the stupid natural boundary, not a weird frangi response. Which is important in itself, but I was having an error just between the edge of the image.
+	
+	The code for the above can by found by running \texttt{plate\_morphology.py} as a top-level script (that is, within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file).
+	
 \section{Multiscale Setup}
 
-	Pick a logarithmic range of scales $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$.
-	The smallest one should be an effective size, largest should be an effective size as well. Designate these manually per image or use a default range and ``throw out'' bad ones somehow.
+	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius. This  list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
+	 
+	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \vtodo{CITE REF}, it is reasonable to select these logarithmically; that is,
+	for some selected inputs $m < M$ we have
+	
+	\begin{equation}
+	\sigma_1 = 2^{m} \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \sigma_N = 2^{M} \end{equation}
+	
+	That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
+	\texttt{np.logspace(m,M,num=N)}. The idea is that the filter will respond better at its particular scale, but there are diminishing returns as $\sigma$ increases. While the filter's response may vary substantially between, say $\sigma=2$ and $\sigma=3$, there will be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$.
+	
+	Designate these manually per image or use a default range and ``throw out'' bad ones somehow. 
 	
 	Convolve this via fft transform to get $L_{\sigma_i}$
 	
