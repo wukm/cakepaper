@@ -33,50 +33,7 @@
 %% 10. Added major amounts of comments.
 %% --3/20/09 Roger Dellaca.
 %%
-%% 11. Fixed single space caption code, added exception to 
-%%	    singlespace checker warning for caption environment
-%% 12. Implemented proper subsubheading formatting. Subheadings
-%%      and subsubheadings will now be added to the table of contents
-%%      if user sets \setcounter{tocdepth}{#} to 3 or greater. Changed
-%%      tocdepth default to 1 to only show up to sections.
-%%--8/30/11 Jorge L. Guerra
-%%
-%% 13. Added needspace and nowidow package requirements and modified section, subsection 
-%%      and subsubsection commands to maintain required number of lines after a
-%%      new heading before the page can break.
-%%--3/23/2012 Jorge L. Guerra
-%%
-%% 14. Extensive modifications:
-%%		+ Switched margin/geometry control to the geometry package for
-%%		   better and more reliable margin control
-%%		+ Added "CHAPTER to second page ToC heading
-%%		+ Added indent to LoT and Lof long entries. Should also break to
-%%		   next line how library seems to want it to.
-%%		+ Removed quite a bit of extraneous code including margin options, twocolumn support
-%%		   and quite a few things that were already commented out. Compare to older version
-%%		   to determine all removed items. Hopefully nothign will ahve broken.
-%%		+ Redefined what was "doublespaced" to "tightdoublespaced" in order to add option of
-%%		   true double spacing.
-%%		+ More stuff. I hope I didnt break anything.
-%%--5/8/2012 Jorge L. Guerra
-%%
-%%  15.  Note by Ryan Hashi (1-7-14)--Refer to line #618 in the Pagestyle (TOC) section.  
-%%  There is a flaw regarding the left column heading of the 2nd page of the Table of Contents.
-%%  The 2nd page may not necessarily have chapters that spill over from the first page.  
-%%  Appendices may spill over, or just the Bibliography section may be on the 2nd page.  
-%%  The easiest way to adjust this is to set the left column heading in here manually.
-%%
-%% 16.  Added by Ryan Hashi (2-26-14).  Line 560:  negative vertical space added because
-%% there is too much space after the date in the abstract section.
-%%
-%% 17. Changed by Louis Coleman (1-8-15). Changed all titles, subheads, and captions to bold font 
-%% except the Bibliography. Change that in main .tex file. Additionally removed subhead underlines.
-%%
-%% 18. Changed by Louis Coleman (1-8-15). Changed all inner margins in the abstract, 
-%% acknowledgements, all chapter text, appendices, and bibliography to 1 inches from 1.5 inches. TOC, %% list of figures, and list of tables dont have 1" indents.
-%%
-%% 19. Changed by ???? (??). Changed spacing after end of sentence punctuation from two to one
-%% spacing. Does this even have to be changed? Seems to be single spacing
+%% 11. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% USAGE: \documentclass{csulb-thesis}
@@ -201,6 +158,9 @@
 \newif\if@singlespacednotes
 \@singlespacednotestrue 		% initially true by default
 
+%% Macro for testing the size of margins.
+\newcommand{\@marginsize}{}
+
 %% Because of the draft option, and to allow users to override
 %% defaults, we don't want to be passing conflicting options back to
 %% the report class, so we define our own temporary toggles holding
@@ -213,12 +173,12 @@
 \newcommand{\@thesisside}{}
 \newcommand{\@thesisopen}{}
 \newcommand{\@thesislnsp}{}
-\newcommand{\@thesisfoot}{}
+
 
 %%%%%%%%%%%% OPTION DECLARATION %%%%%%%%%%%%
 
 %% `draft' option: change default document settings.
-%% set font to 11pt, line spacing to singlespaced
+%% set font to 11pt, line spacing to singlespaced, margins to normalmargins
 \DeclareOption{draft}{\@drafttrue	% if [draft] set in options to \documentclass
    \typeout{CSULB-Thesis Class Option: `draft'}
    \ExecuteOptions{11pt,		% instead of 12pt
@@ -227,8 +187,8 @@
 					% option e.g. [twoside,draft]
 		openright,		% only matters with twoside, but set in case 
 					% someone uses twoside
-		singlespaced		% instead of doublespaced
-   }
+		singlespaced,		% instead of doublespaced
+		normalmargins}
    \PassOptionsToClass{draft}{report}
    %% Macros for printing "DRAFT" at the corners of a page.
    %% Not sure I like this - Roger
@@ -246,21 +206,19 @@
 %% of the document.
 \DeclareOption{spacednotes}{\@singlespacednotesfalse}
 
-%% Point Size options: change current setting. 
-%% Hardcoding couble the fontsize because macro multiplication is not easy.
+%% Margin options: change the size of margins.
+%% have not tested anything except normal margins
 %
-\DeclareOption{10pt}{
-	\renewcommand{\@thesisptsz}{10pt}
-	\renewcommand{\@thesisfoot}{20pt}
-}
-\DeclareOption{11pt}{
-	\renewcommand{\@thesisptsz}{11pt}
-	\renewcommand{\@thesisfoot}{22pt}
-}
-\DeclareOption{12pt}{
-	\renewcommand{\@thesisptsz}{12pt}
-	\renewcommand{\@thesisfoot}{24pt}
-}
+\DeclareOption{narrowmargins}{\renewcommand{\@marginsize}{0}}
+\DeclareOption{normalmargins}{\renewcommand{\@marginsize}{1}}
+\DeclareOption{widemargins}{\renewcommand{\@marginsize}{2}}
+\DeclareOption{extrawidemargins}{\renewcommand{\@marginsize}{3}}
+
+%% Point Size options: change current setting.
+%
+\DeclareOption{10pt}{\renewcommand{\@thesisptsz}{10pt}}
+\DeclareOption{11pt}{\renewcommand{\@thesisptsz}{11pt}}
+\DeclareOption{12pt}{\renewcommand{\@thesisptsz}{12pt}}
 
 %% Number of Page Sides options: change current setting.
 %
@@ -275,10 +233,8 @@
 %% Line Spacing options: change current setting.
 %
 \DeclareOption{singlespaced}{\renewcommand{\@thesislnsp}{1}}
-\DeclareOption{tightoneandahalfspaced}{\renewcommand{\@thesislnsp}{1.33}}
-\DeclareOption{oneandahalfspaced}{\renewcommand{\@thesislnsp}{1.5}}
-\DeclareOption{tightdoublespaced}{\renewcommand{\@thesislnsp}{1.66}}
-\DeclareOption{doublespaced}{\renewcommand{\@thesislnsp}{2}}
+\DeclareOption{oneandahalfspaced}{\renewcommand{\@thesislnsp}{1.33}}
+\DeclareOption{doublespaced}{\renewcommand{\@thesislnsp}{1.66}}
 
 %% All other options are passed to the base class directly.
 %
@@ -289,7 +245,7 @@
 
 %% Default settings.
 %
-\ExecuteOptions{12pt,oneside,openany,tightdoublespaced}
+\ExecuteOptions{12pt,oneside,openright,doublespaced,normalmargins}
 %
 %% Process options.
 %
@@ -305,20 +261,7 @@
 	\@thesisopen]			% set by openright/openany
 	{report}
 
-	
-	\RequirePackage{needspace}					% Need this to ensure no orphaned section/subsection/etc headers JLG 2012-03-23
-%Following  line commented out 5/14/2012 by rmw
-%	\RequirePackage[defaultlines=2,all]{nowidow}  		% Load the nowidow package in order to eliminate widows and orphans entirely. needspace values set assuming this package is loaded. JLG 2012-03-23
-	\RequirePackage[
-		top=1in, 
-		bottom=1in, 
-		outer=1in, 
-		inner=1in, 
-		includeheadfoot, 
-		nohead, 
-		footskip=\@thesisfoot
-	]{geometry}
-	
+
 %%%%%%%%%%%% MAIN CODE %%%%%%%%%%%%
 
 %%%%%% Parameters
@@ -336,15 +279,7 @@
   {\ifx\empty#1\empty\else\gdef\@gradyear{#1}\fi}
 \renewcommand{\author}[1]%
   {\ifx\empty#1\empty\else\gdef\@author{#1}\fi}
-%add for rmw-09172012  
-%\newcommand{\firstdegree}[1]%
-%  {\ifx\empty#1\empty\else\gdef\@firstdegree{#1}\fi}
-%\newcommand{\firstdegyear}[1]%
-%  {\ifx\empty#1\empty\else\gdef\@firstdegyear{#1}\fi}
-%\newcommand{\firstdeginst}[1]%
-%  {\ifx\empty#1\empty\else\gdef\@firstdeginst{#1}\fi}    
 \newcommand{\lastdegree}[1]%
-%add for rmw-09172012 
   {\ifx\empty#1\empty\else\gdef\@lastdegree{#1}\fi}
 \newcommand{\lastdegyear}[1]%
   {\ifx\empty#1\empty\else\gdef\@lastdegyear{#1}\fi}
@@ -377,16 +312,19 @@
 %% when not in draft mode.
 %
 \newcommand{\linespacing}[1]%
-  {\newlinestretch{#1}
-	\if @draft 		% warn if single space and not draft or caption
-	\elseif @caption	%Added by JLG 2011-8-29
-	\else	
-		\if	dim #1pt < 1.33pt
-		\typeout{CSULB-Thesis Class Warning: line spacing less than 1 1/2}
-		\fi
-	\fi
-   }
+  {\newlinestretch{#1}\if@draft\else	% warn if single space and not draft
+	\ifdim #1pt < 1.33pt\typeout
+   {CSULB-Thesis Class Warning: line spacing less than 1 1/2}\fi\fi}
 %
+%% `longquote' and `longquotation' produce single-spaced quotes, while
+%% `newspacing' encloses paragraphs with a different line spacing,
+%% such as `singlespaced', `oneandahalfspaced', or `doublespaced'.
+%
+%\newenvironment{longquote}%
+% {\begin{quote}\newlinestretch{1}}{\end{quote}}
+%\newenvironment{longquotation}%
+% {\begin{quotation}\newlinestretch{1}}{\end{quotation}}
+
 %% changing spacing using, e.g., \begin{singlespaced}...\end{singlespaced}
 %% which calls the newspacing environment defined immediately below;
 %% which calls the newlinestretch command below that;
@@ -394,14 +332,10 @@
 %
 \newenvironment{singlespaced}%
   {\begin{newspacing}{1}}{\end{newspacing}}
-\newenvironment{tightoneandahalfspaced}%
-  {\begin{newspacing}{1.33}}{\end{newspacing}}
 \newenvironment{oneandahalfspaced}%
-  {\begin{newspacing}{1.5}}{\end{newspacing}}
-\newenvironment{tightdoublespaced}%
+  {\begin{newspacing}{1.33}}{\end{newspacing}}
+\newenvironment{doublespaced}%
   {\begin{newspacing}{1.66}}{\end{newspacing}}
-  \newenvironment{doublespaced}%
-  {\begin{newspacing}{2}}{\end{newspacing}}
 \newenvironment{newspacing}[1]%
   {\par\begingroup\newlinestretch{#1}}	% start new line & grouping, change spacing
   {\par\vskip\parskip\vskip\baselineskip\endgroup
@@ -480,124 +414,127 @@
 \renewcommand{\maketitle}{
    \begingroup
    \begin{titlepage}
-	\begin{center}
-		\textbf{\@title}\\
-		\vfill				% fill vertical space evenly
-		A THESIS\\
-		Presented to the Department of {\@department}\\
-		California State University, Long Beach\\
-		\vfill
-		In Partial Fulfillment\\
-		of the Requirements for the Degree\\
-		{\@degree}\\
-		\vfill
-		Committee Members:\\
-		\@committeeA\\
-		\begin{singlespaced}
-			\@committeeB\\
-			\@committeeC\\
-		\end{singlespaced}
-		\vspace{\@thesisfoot}
-		College Designee:\\
-		\@deptHead\\
-		\vfill
-		By {\@author}\\
-%		{\@firstdegree}, {\@firstdegyear}, {\@firstdeginst}\\
-		{\@lastdegree}, {\@lastdegyear}, {\@lastdeginst}\\	
-		{\@gradmonth} {\@gradyear}
-	\end{center}
-	\setcounter{page}{1}
+   \enlargethispage{.75in} 		% make this page larger
+  \begin{center}
+      \mbox{} 				% empty box - not sure why
+      %\MakeUppercase{\@title}\\	
+	\@title\\
+      %\vspace{2in} %using vfills instead-see next line
+      \vfill				% fill vertical space evenly
+      A THESIS\\
+      Presented to the Department of {\@department}\\
+      California State University, Long Beach\\
+      %\vspace{2in}
+      \vfill
+      In Partial Fulfillment\\
+      of the Requirements for the Degree\\
+      {\@degree}\\
+      %\vspace{2in}
+      \vfill
+      Committee Members:\\
+      \@committeeA\\
+      \newlinestretch{.83}
+      \@committeeB\\
+      \@committeeC\\
+      \newlinestretch{1.66}
+      College Designee:\\
+      \@deptHead\\
+      %\vspace{0.5in}
+      \vfill
+      By {\@author}\\
+      {\@lastdegree}, {\@lastdegyear}, {\@lastdeginst}\\
+      {\@gradmonth} {\@gradyear}
+      \vspace{.2in}
+      \mbox{}
+\end{center}
+   \setcounter{page}{1}
    \end{titlepage}
 
-   \begin{titlepage} 			% approval signature page
-	\begin{center}
-		WE, THE UNDERSIGNED MEMBERS OF THE COMMITTEE,\\
-		HAVE APPROVED THIS THESIS\\
-		\vfill\vfill
-		\textbf{\@title}
-		\vfill\vfill
-		By \\
-		{\@author}
-		\vfill\vfill
-		COMMITTEE MEMBERS\\
-	\end{center}
-	\vfill
-	\begin{singlespaced}
-		\noindent \makebox[5.75in]{\hrulefill}\\	% signature line (makebox controls size)
-		\noindent \makebox[5.75in]{\@committeeA\hfill\@committeeAdept}\vspace*{.4in}
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent\makebox[5.75in]{\@committeeB\hfill\@committeeBdept}\vspace*{.4in}
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent\makebox[5.75in]{\@committeeC\hfill\@committeeCdept}
-		\vfill\vfill
-		\begin{center}
-			ACCEPTED AND APPROVED ON BEHALF OF THE UNIVERSITY
-		\end{center}
-		\vfill\vfill
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent \@deptHead\\
-		\noindent \@deptHeadTitle
-	\end{singlespaced}
-	\vspace{0pt}
-	\begin{center}
-		California State University, Long Beach\\
-		\@gradmonth\ \@gradyear
-	\end{center}
-	\setcounter{page}{2}
-    \end{titlepage}
-\endgroup
-\setcounter{page}{3}
+   \setcounter{page}{2}
+   \endgroup
+
 
 } % end maketitle
 %
 %% Change \begin{abstract}...\end{abstract} to follow guidelines
 %% and put the abstract on a separate page (checking @openright).
-%
+%%%%%%%%%%%%%%%%%%%%%%                 ABSTRACT                %%%%%%%%%%%%%%%
 
 \renewenvironment{abstract}{
    \if@openright\cleardoublepage\else\clearpage\fi % start new page
-   \pagenumbering{arabic} 		% arabic num on 2nd page if it exists
-    			% add 1/2 in. to top margin
+   \pagenumbering{roman} 	\setcounter{page}{2}	% arabic num on 2nd page if it exists
+   \vspace*{-.5in} 			% add 1/2 in. to top margin
+   \vspace*{-12pt}			% move up a line - workaround (see below)
+   \addcontentsline{toc}{chapter}{Abstract}
    \begin{center}
-	\vspace*{.625in}
-   	  \bfseries
-      \MakeUppercase{Abstract}\\
+      \MakeUppercase{{Abstract}}\\
       %\MakeUppercase{\@title}\\
 	\@title\\
       By\\
       {\@author}\\
       {\@gradmonth} {\@gradyear}
-	\vspace{-4mm}% added by Ryan Hashi (2-26-14)  Too much space after the date.
    \end{center}
-   
+   \vspace*{-12pt}			% move up a line - a workaround since
+					% begin/end center puts extra vertical space
    \begingroup
-}
-{\par\endgroup				%
+   %% Adjust the line spacing: if it was less than 1 1/2,
+   %% increase it to 1 1/2; if it was between 1 1/2 and 2,
+   %% increase it to 2; otherwise, leave it as is.
+   \ifdim \baselinestretch pt < 1.33pt \newlinestretch{1.33}\else
+   \ifdim \baselinestretch pt < 1.66pt \newlinestretch{1.66}\fi\fi
+}{\par\endgroup				%
    \ifnum\value{page}=1			% abstract did not go to second page
       \thispagestyle{empty} 		% so don't number the page
    \fi
-   \newpage		 		% go to next page
-   \pagenumbering{roman} 		% change page numbering back to roman
+   \newpage		 		% go to next pager
 }% end abstract
-
+%
+%% \begin{dedication}...\end{dedication} formats a
+%% dedication section (*not* on a separate page).
+%% Not currently allowed by University.
+%
+\newenvironment{dedication}%
+  {\begin{center}
+      \section*{Dedication}
+   \end{center}
+   \begingroup}%
+  {\par\endgroup}
+%
 %% \begin{acknowledgements}...\end{acknowledgements} formats an
 %% acknowledgements section (on a separate page).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%     ACKNOWLEDGEMENTS %%%%%%%%%%%%%%%
 \newenvironment{acknowledgements}{
   \if@openright\cleardoublepage\else\clearpage\fi % start new page
-  \vspace*{.625in}			% add 1/2 in. to top margin
-    {\bfseries
-    \centering{ACKNOWLEDGEMENTS}\\}
+  \vspace*{-.5in}			% add 1/2 in. to top margin
+    {\centering{\textbf{ACKNOWLEDGEMENTS}}\\}
       \addcontentsline{toc}{chapter}{Acknowledgements}
-   \begingroup
-}%
-{\par\endgroup\newpage}		% go to next page
+   \begingroup}%
+  {\par\endgroup\newpage}		% go to next page
+
+%% Redefine `thebibliography' environment so that it generates
+%% headers in the same style as the rest of the document.
+%
+\let\tmp@thebibliography=\thebibliography % store current command
+\renewcommand{\thebibliography}[1]{	% redefine \thebibliography
+	\tmp@thebibliography{#1}	% do what it does now
+   \if@thesispage\@mkboth{		% set the running headings (not likely to use)
+	\textsc{\bibname}}{\textsc{\bibname}}\fi}
+
+%% Variations of \cleardoublepage that explicitly set the pagestyle
+%% of any inserted blank page.
+%
+\newcommand{\clearemptydoublepage}%
+  {{\pagestyle{empty}\cleardoublepage}}
+\newcommand{\clearplaindoublepage}%
+  {{\pagestyle{plain}\cleardoublepage}}
 
 %%%%%% Page Styles
 %
 %% Redefine all four standard page styles (empty, plain, headings,
 %% myheadings), based on the definitions in `report', so that they
 %% conform to the guidelines (and include draft information if
-%% applicable). Also, a new page styles `toc', `lof', and `lot' to put column headings
+%% applicable). Then, define a new pagestyle `utthesis' (default).
+%% Also, a new page styles `toc', `lof', and `lot' to put column headings
 %% on 2nd/subsequent pages of table of contents, list of figures, and
 %% list of tables.
 %
@@ -625,6 +562,88 @@
    \let\@evenhead\@oddhead
 }%ps@plain
 %
+%% Pagestyle `headings'.
+%
+\if@twoside 				% if two-sided printing
+\renewcommand{\ps@headings}{\@thesispagefalse % not a thesis page
+   \let\@mkboth\markboth
+   \def\@oddfoot{\if@draft\blDRAFT\hfil	% put draft in 4 corners if draft
+      {\slshape\small\today}\hfil\brDRAFT\fi}%
+   \let\@evenfoot\@oddfoot
+   \def\@oddhead{\if@draft\tlDRAFT\fi{\slshape\rightmark}\hfil
+      \thepage\if@draft\trDRAFT\fi}%
+   \def\@evenhead{\if@draft\tlDRAFT\fi\thepage\hfil
+      {\slshape\leftmark}\if@draft\trDRAFT\fi}%
+   \def\chaptermark##1{\markboth	% add chap/sec left/right running headings
+					% (probably won't use)
+      {\MakeUppercase{\ifnum\c@secnumdepth >\m@ne
+         \@chapapp\ \thechapter. \ \fi ##1}}{}}%
+   \def\sectionmark##1{\markright
+      {\MakeUppercase{\ifnum\c@secnumdepth >\z@
+         \thesection. \ \fi ##1}}}%
+}% end ps@headings
+\else 					% if one-sided printing
+\renewcommand{\ps@headings}{\@thesispagefalse
+   \let\@mkboth\markboth
+   \def\@oddfoot{\if@draft\blDRAFT\hfil
+      {\slshape\small\today}\hfil\brDRAFT\fi}%
+   \def\@oddhead{\if@draft\tlDRAFT\fi{\slshape\rightmark}\hfil
+      \thepage\if@draft\trDRAFT\fi}%
+   \def\chaptermark##1{\markright
+      {\MakeUppercase{\ifnum\c@secnumdepth >\m@ne
+         \@chapapp\ \thechapter. \ \fi ##1}}}%
+}% end ps@headings
+\fi% end @twoside
+%
+%% Pagestyle `myheadings'.
+%
+\renewcommand{\ps@myheadings}{\@thesispagefalse
+   \let\@mkboth\@gobbletwo
+   \def\@oddfoot{\if@draft\blDRAFT\hfil
+      {\slshape\small\today}\hfil\brDRAFT\fi}%
+   \let\@evenfoot\@oddfoot
+   \def\@oddhead{\if@draft\tlDRAFT\fi{\slshape\rightmark}\hfil
+      \thepage\if@draft\trDRAFT\fi}%
+   \def\@evenhead{\if@draft\tlDRAFT\fi\thepage\hfil
+      {\slshape\leftmark}\if@draft\trDRAFT\fi}%
+   \let\chaptermark\@gobble\let\sectionmark\@gobble
+}%ps@myheadings
+%
+%% Pagestyle `utthesis' (based on `headings').
+%% This is the page style for all thesis pages.
+%
+\if@twoside 				% if two-sided printing
+\newcommand{\ps@utthesis}{\@thesispagetrue % is a thesis page
+   \let\@mkboth\markboth
+   \def\@oddfoot{\if@draft\blDRAFT\hfil	% put in draft in 4 corners if a draft
+      {\slshape\small\today}\hfil\brDRAFT\fi}%
+   \let\@evenfoot\@oddfoot
+   \def\@oddhead{\if@draft\tlDRAFT\fi{\slshape\rightmark}\hfil
+      \thepage\if@draft\trDRAFT\fi}%
+   \def\@evenhead{\if@draft\tlDRAFT\fi\thepage\hfil
+      {\slshape\leftmark}\if@draft\trDRAFT\fi}%
+   \def\chaptermark##1{\markboth	% left/right running head (prob won't be used)
+      {\textsc{\ifnum\c@secnumdepth >\m@ne
+         \@chapapp\ \thechapter. \ \fi ##1}}{}}%
+   \def\sectionmark##1{\markright
+      {\textsc{\ifnum\c@secnumdepth >\z@
+         \thesection. \ \fi ##1}}}%
+}%ps@utthesis
+\else 					% if one-sided printing
+\newcommand{\ps@utthesis}{\@thesispagetrue
+   \let\@mkboth\markboth
+   \def\@oddfoot{\hfil\thepage\hfil}
+   % Inside oddfoot if footer should be raised:\raisebox{-9pt}
+   %\def\@oddfoot{\if@draft\blDRAFT\hfil
+   % {\slshape\small\today}\hfil\brDRAFT\fi}%
+   %\def\@oddhead{\if@draft\tlDRAFT\fi{\slshape\rightmark}\hfil
+   % \if@draft\trDRAFT\fi}%
+   %\def\chaptermark##1{\markright
+  %{\textsc{\ifnum\c@secnumdepth >\m@ne
+   % \@chapapp\ \thechapter. \ \fi ##1}}}%
+}%ps@utthesis
+\fi%@twoside
+%
 %% Pagestyle `toc'.
 %
 \newcommand{\ps@toc}{\@thesispagefalse
@@ -632,8 +651,8 @@
    \def\@oddfoot{\if@draft\blDRAFT\fi\hfil
       \thepage\hfil\if@draft\brDRAFT\fi}%
    \let\@evenfoot\@oddfoot
-   \def\@oddhead{APPENDIX\hfill Page}%Note by Ryan Hashi (1-7-14)--Originally "CHAPTER".  The 2nd page may not necessarily have chapters that spill over from the first page.  Appendices may spill over, or just the Bibliography section may be on the 2nd page.  The easiest way to adjust this is to set the title in here manually.
-   \let\@evenhead\@oddhead
+   \def\@oddhead{\hfill Page}%
+   \def\@evenhead\oddhead
    \let\chaptermark\@gobble\let\sectionmark\@gobble
 }%ps@toc
 %
@@ -645,7 +664,7 @@
       \thepage\hfil\if@draft\brDRAFT\fi}%
    \let\@evenfoot\@oddfoot
    \def\@oddhead{FIGURE \hfill Page}%
-   \let\@evenhead\@oddhead
+   \def\@evenhead\oddhead
    \let\chaptermark\@gobble\let\sectionmark\@gobble
 }%ps@toc
 %
@@ -657,7 +676,7 @@
       \thepage\hfil\if@draft\brDRAFT\fi}%
    \let\@evenfoot\@oddfoot
    \def\@oddhead{TABLE \hfill Page}%
-   \let\@evenhead\@oddhead
+   \def\@evenhead\oddhead
    \let\chaptermark\@gobble\let\sectionmark\@gobble
 }%ps@toc
 %
@@ -668,12 +687,83 @@
 %
 \linespacing{\@thesislnsp}		% default doublespaced
 
-\raggedright
-\setlength{\parindent}{0.5in}
+%% Page layout (see The LaTeX Companion pp.84-86).
+%
+%% By default, TeX puts the `reference point' one inch down and to
+%% the right of the top-left corner of the page. This moves it back
+%% to the top-left corner (making the rest of the layout easier to
+%% define).
+%
+\setlength{\voffset}{-1in} \setlength{\hoffset}{-1in}
+%
+%% Instead of hard-coding the page layout for letter paper
+%% (8.5" x 11"), we will base it on \paperheight and \paperwidth,
+%% so that it works with options that change the paper size.
+%
+\setlength{\textheight}{\paperheight} \setlength{\textwidth}{\paperwidth}
+%
+%% Now, set the margin-dependent values.
+%% Note the ifcase construct: the four values for @marginsize
+%% are listed above as one of the options.
+%% the default is the second option, normal margins.
+%
+\ifcase\@marginsize % set narrow margins: 1 1/4" left, 3/4" others
+%
+\addtolength{\textheight}{-1in} \setlength{\topmargin}{.5in}
+\setlength{\headsep}{0in} \setlength{\footskip}{.25in}
+\addtolength{\textwidth}{-1in} \setlength{\oddsidemargin}{1.25in}
+\setlength{\evensidemargin}{1in} \setlength{\marginparwidth}{.5in}
+\setlength{\marginparsep}{.125in}
+%
+\or % set normal margins: 1.6" left, 1" others %%Changed to 1.5 on left %%
+
+\addtolength{\textheight}{-1.75in}
+\setlength{\topmargin}{-.5in}
+\addtolength{\textheight}{-2.5in} \setlength{\topmargin}{.5in} %% - original before change
+\setlength{\headsep}{.5in} \setlength{\footskip}{.8in}
+\addtolength{\textwidth}{-1in} \setlength{\oddsidemargin}{1in} %% - original before change I FIXED THE MARGINS FOR NOT TOC HERE
+\addtolength{\textwidth}{-1in} \setlength{\oddsidemargin}{1in}  % original before change I FIXED THE MARGINS FOR NOT TOC HERE
+\setlength{\evensidemargin}{1in} \setlength{\marginparwidth}{.75in}
+\setlength{\marginparsep}{.125in}
+%
+\or % set wide margins: 1 1/4" all around
+%
+\addtolength{\textheight}{-2.5in} \setlength{\topmargin}{.5in}
+\setlength{\headsep}{.75in} \setlength{\footskip}{.75in}
+\addtolength{\textwidth}{-2.5in} \setlength{\oddsidemargin}{1.25in}
+\setlength{\evensidemargin}{1in} \setlength{\marginparwidth}{.75in}
+\setlength{\marginparsep}{.25in}
+%
+\or % set extra wide margins: 1 1/2" all around
+%
+\addtolength{\textheight}{-1in} \setlength{\topmargin}{.5in}
+\setlength{\headsep}{.75in} \setlength{\footskip}{.75in}
+\addtolength{\textwidth}{-3in} \setlength{\oddsidemargin}{1.5in}
+\setlength{\evensidemargin}{1.5in} \setlength{\marginparwidth}{1in}
+\setlength{\marginparsep}{.25in}
+%
+\fi%@marginsize
+%
+%% Adjust \headsep to include height of running head.
+%
+\addtolength{\headsep}{-\headheight}
+%
+%% Adjust the vertical spacing between the main text and the notes,
+%% and between successive notes if they are not single-spaced.
+%
+\setlength{\skip\footins}{.75\baselineskip} \if@singlespacednotes\else
+\let\oldtextsize=\currenttextsize
+\footnotesize \setlength{\marginparpush}{\baselineskip}
+\setlength{\footnotesep}{\baselineskip} \oldtextsize
+\fi%@singlespacednotes
+%
+%% Make each page fill up the entire page.
+%\flushbottom
+
 
 %% Default page style.
 %
-\pagestyle{plain}
+\pagestyle{utthesis}
 %
 %% Default values for the required fields.
 %
@@ -681,13 +771,15 @@
 \author{\mbox{}}
 \title{\mbox{}}
 %
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Chapter headings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand\chapter{			% redefine \chapter command
     \if@openright\cleardoublepage\else\clearpage\fi% clear page
-    \restoregeometry
     \thispagestyle{plain}		% set page style
     \global\@topnum\z@			% no figure on top of page
     \@afterindenttrue			% indent next paragraph (changed from default)
@@ -698,36 +790,43 @@
 	\refstepcounter{chapter}	% increment the chapter counter
 	\typeout{\@chapapp\space\thechapter.}% type CHAPTER #. to log
 	\ifnum\thechapter=1 		% if this is chapter 1, ...
-		{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}% add font sized vertical space,...
-		\addtocontents{toc}{\noindent CHAPTER\par}}% add the heading "CHAPTER"
-							% to table of contents first
+{\addtocontents{toc}{\protect\addvspace{12\p@}}% add 12pt. vertical space,...
+\addtocontents{toc}{\noindent \par}}% add the heading "CHAPTER"
+					% to table of contents first
         \fi
 	\addcontentsline{toc}{chapter}{%
-		\hangindent=.5in\hspace{.25in}\protect\numberline{\thechapter.}#1}% adds #. name to toc
+	\noindent\protect\numberline{\thechapter.}#1}% adds #. name to toc
     \else
 	\addcontentsline{toc}{chapter}{#1}% only adds name to toc
     \fi
     \chaptermark{#1}			% set the chapter for page headings
-    \@makechapterhead{#2}		% to add the head to doc - see below
-    \@afterheading			% standard class config
-}% end @chapter
+%\addtocontents{lof}{\protect\addvspace{10\p@}}% not used
+%\addtocontents{lot}{\protect\addvspace{10\p@}}% not used
+    \if@twocolumn			% if two column mode (standard class config)
+	\@topnewpage[\@makechapterhead{#2}]% chapter head in doc - see below
+    \else
+	\@makechapterhead{#2}		% to add the head to doc - see below
+	\@afterheading			% standard class config
+    \fi}% end @chapter
 
 
-\renewcommand{\@makechapterhead}[1]{	% put the chapter head in the doc
-        \vspace*{0.625in}			% extra 1 in top margin on first page of chapter
-        \normalfont			% reset font
-        {\centering\MakeUppercase{\bfseries\@chapapp{ \thechapter}}\\} % type "CHAPTER #"
-        {\centering\MakeUppercase{\bfseries#1}\\}	% chapter name in upper case
-        }
-	% end @makechapterhead
+\renewcommand{\@makechapterhead}[1]{{	% put the chapter head in the doc
+       %\vspace*{1in}			% extra 1/2 in top margin on first page of chapter
+        \normalfont \bfseries			% reset font
+        {\centering\MakeUppercase{\@chapapp{ \thechapter}}\\} % type "CHAPTER #"
+        {\centering\MakeUppercase{#1}\\}	% chapter name in upper case
+        }}% end @makechapterhead
 
 \def\@schapter#1{			% define \chapter* command (nothing in toc)
+    \if@twocolumn
+	\@topnewpage[\@makeschapterhead{#1}]% chapter head in doc - see below
+    \else
 	\@makeschapterhead{#1}%
 	\@afterheading			% standard class config
-}% end @schapter
+    \fi}% end @schapter
 
 \renewcommand{\@makeschapterhead}[1]{{	% put the chapter* head in the doc
-	\vspace*{0.625in}			% like \@makechapterhead above
+	\vspace*{.5in}			% like \@makechapterhead above
         \normalfont
         {\centering\MakeUppercase{#1}\\}	% chapter name in upper case
 }}% end @makeschapterhead
@@ -735,40 +834,23 @@
 
 \newcommand{\@makesectionhead}[1]{	% put section head in doc
         \normalfont			% reset font
-        {\needspace{1\baselineskip}\noindent\bfseries{#1}\\}	% put in the section name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
+
+        {\centering  \textbf{#1}\\}	% put in the section name (underlined)
 }% end @makesectionhead
-
-\newcommand{\@makesubsectionhead}[1]{	% put subsection head in doc
-        \normalfont			% reset font
-        {\needspace{1\baselineskip}\noindent\bfseries{#1}\\}	% put in the subsection name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
-}% end @makesubsectionhead
-
-\newcommand{\@makesubsubsectionhead}[1]{	% put subsection head in doc
-        \normalfont			% reset font
-        {\bfseries{#1}}	% put in the subsubsection name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
-}% end @makesubsubsectionhead
 
 \renewcommand{\section}[1]{%		% redefine section command
     \refstepcounter{section}		% increment section number
     \@makesectionhead{#1}		% put section head in doc - see above
     \ifnum \value{section}=1 		% if first section of chapter, ...
-	\addtocontents{toc}{\protect\addvspace{12\p@}}% put an extra blank line in toc
+	%\addtocontents{toc}{\protect\addvspace{12\p@}}% put an extra blank line in toc
     \fi
-    \addcontentsline{toc}{section}{\hspace{.5in}#1}% add section name to toc
+    %\addcontentsline{toc}{section}{\hspace{.5in}#1}% add section name to toc
 }% end section
 
 \renewcommand{\subsection}[1]{		% redefine subsection command
-    \refstepcounter{subsection}		% increment subsection number (added by JLG 2011-08-29)
-    \@makesubsectionhead{#1}		% add subsection head, left align, underlined  JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
-    \addcontentsline{toc}{subsection}{\hspace{.5in}#1}% add subsection name to toc (added by JLG 2011-08-29)
+    %\vspace{12pt}			% not used
+    \noindent\textbf{#1}\\		% add subsection head, left align, underlined
 }% end subsection
-
-\renewcommand{\subsubsection}[1]{		% redefine subsubsection command (added by JLG 2011-08-29)
-    \refstepcounter{subsubsection}		% increment subsubsection number (added by JLG 2011-08-29)
-    \@makesubsubsectionhead{#1}.			% add subsubsection head: indented, underlined followed by a period and two spaces JLG 2012-03-23 use needspace to move ot next page if <1 lines follow on page
-    \addcontentsline{toc}{subsubsection}{\hspace{.5in}#1}% add subsubsection name to toc (added by JLG 2011-08-29)
-}% end subsection
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Appendices
@@ -780,7 +862,8 @@
 %
 \def\HalfPage#1{%			% define HalfPage command
     \clearpage				% finish the current page (prints queued 
-					% figures/tables), start new page
+	
+\bfseries				% figures/tables), start new page
     \vspace*{0pt plus 1fil}		% advances half the vertical space
     \begin{center}
         \MakeUppercase{#1}		% puts the title in upper case
@@ -788,6 +871,14 @@
     \addcontentsline{toc}{chapter}{#1}	% adds to toc 
     \newpage				% advances page
 }% end HalfPage
+
+\renewcommand\appendix{\par		% redefine appendix command 
+					% (use \myappendix instead - see below)
+  \setcounter{chapter}{0}		% set chapter counter to 0
+  \gdef\@chapapp{\appendixname}		% set global name
+  \gdef\thechapter{\@Alph\c@chapter}
+  \addcontentsline{toc}{chapter}	% add to toc
+}% end appendix
 
 %% new command - \myappendix{title}
 %% use instead of \appendix{...}
@@ -808,29 +899,40 @@
 }% end myappendix
 
 \def\@myappendix[#1]#2{			% define section start for \myappendix
-    \ifnum \c@secnumdepth >\m@ne	% if secnumdepth > -1
+  \bfseries  \ifnum \c@secnumdepth >\m@ne	% if secnumdepth > -1
 	\refstepcounter{myappendix}	% increment myappendix counter
-	\typeout{APPENDIX\space\themyappendix.}% put in display
+	\typeout{\textbf{APPENDIX}\space\themyappendix.}% put in display
 	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
+	\addcontentsline{toc}{chapter}{\protect\numberline{\themyappendix}#1}% not used
     \else
 	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}%
+	\addcontentsline{toc}{chapter}{#1}% not use
     \fi
     \chaptermark{#1}			% for running headings (probably won't be used)
-    \@makeappendixhead{#2}%
-    \@afterheading			% standard class config
-}% end @myappendix
+    \addtocontents{lof}{\protect\addvspace{10\p@}}% not used
+    \addtocontents{lot}{\protect\addvspace{10\p@}}% not used
+    \if@twocolumn			% if in two-column mode
+	\@topnewpage[\@makeappendixhead{#2}]% call appendix head - see below
+    \else
+	\@makeappendixhead{#2}%
+	\@afterheading			% standard class config
+    \fi}% end @myappendix
 
-\def\@sappendix#1{			% define section start for \myappendix*
-    \@makesappendixhead{#1}%
-    \@afterheading
-}% end sappendix
+\def\@sappendix#1{			% define section start for \myappendix* 
+ \bfseries  \if@twocolumn
+	\@topnewpage[\@makesappendixhead{#1}]%similar to @myappendix above but no toc entry
+    \else
+	\@makesappendixhead{#1}%
+	\@afterheading
+    \fi}% end sappendix
 
-\def\@makeappendixhead#1{		% put the appendix half page in the doc
+\def\@makeappendixhead#1{	\bfseries	% put the appendix half page in the doc
     \newpage				% start a new page
     \vspace*{0pt plus 1fil}		% advance vertically 1/2 the page
-    \begin{center} \bfseries
+    \begin{center}
     APPENDIX \themyappendix\\		% add "APPENDIX X" where X is appendix letter (A,B,C,...)
-    \MakeUppercase{#1}			% put appendix title in upper case
+    \MakeUppercase{#1}		% put appendix title in upper case
+
     \end{center}
     \newpage				% clear the page
 }% end @makeappendixhead
@@ -844,20 +946,18 @@
 %%% Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newdimen\bibindent			% add variable
-\setlength\bibindent{.125in}		% set bibindent to 1.5em  
-\renewcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
-\let\@openbib@code\@empty
+%\newdimen\bibindent			% add variable
+%\setlength\bibindent{1.5em}		% set bibindent to 1.5em
 
 \renewenvironment{thebibliography}[1]	% redefine thebibliography command
-     {\chapter*{\bibname}		% adds a heading for bibliography
-     \newlinestretch{1}
-     \vspace*{\baselineskip}
+  {\chapter*{\bibname}		% adds a heading for bibliography
+     \vspace{12pt}\normalfont
      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}% set page headings
      \list{\@biblabel{\@arabic\c@enumiv}}% set number for bib entry
 	{\setlength{\itemindent}{-\bibindent}% set 1st line - hanging indent
 	\settowidth\labelwidth{\@biblabel{#1}}% set width of label
-	\advance\leftmargin\labelsep % advance the left margin for remaining lines
+	\leftmargin\labelwidth		% set other lines - hanging indent - from labelwidth
+	\advance\leftmargin\labelsep	% advance the left margin for remaining lines
 	\@openbib@code			% open the bib file
 	\usecounter{enumiv}		% use 4th-level enumerate counter style
 	\let\p@enumiv\@empty		% blank the counter?
@@ -866,48 +966,76 @@
       \clubpenalty4000			% set high widow and club penalties, although 10000 may be necessary
       \@clubpenalty \clubpenalty
       \widowpenalty4000%
-      \sfcode`\.\@m	% not sure what this is
-}			
-{
-	\def\@noitemerr			% display warning if nothing there
-	{\@latex@warning{Empty `thebibliography' environment}}%
-	\endlist
-}
+      \sfcode`\.\@m}			% not sure what this is
+     {\def\@noitemerr			% display warning if nothing there
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\renewcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+\let\@openbib@code\@empty
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Table of Contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% ToC entry formatting commands
+
+
+\setcounter{tocdepth}{2}		% only chapter and section headings in toc
 \renewcommand{\contentsname}{Table of contents}%set the name
-\renewcommand\@dotsep{1}
-\renewcommand*\l@section{\@dottedtocline{1}{2em}{2.3em}}% the rest of the l@'s are standard
-\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
-\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
-\renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
-\renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
-
-\setcounter{tocdepth}{1}		% only chapter and section headings in toc (modified JLG 2011-8-29)
-
 \renewcommand\tableofcontents{		% redefine table of contents
 				% following length changes allow heading on 2nd page of TOC (if any)
-	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
-	\thispagestyle{plain}		% first page does not use toc page style
-	\pagestyle{toc}			% subsequent pages (if any) - types "Page" in upper right
-	\null\vspace{0pt}
-	\vspace*{22pt}
-	{\bfseries\centering{TABLE OF CONTENTS}\\}	% title of page
-	\hfill Page\par			% right-aligns "Page"
-	\begin{singlespaced}
-	\@starttoc{toc}			% start the toc
-	\newpage				% go to next page
-	\pagestyle{plain}			% reset page style
-	\end{singlespaced}
-	\restoregeometry
+    \addtolength{\topmargin}{.25in}	% add to top margin (change starts this page)
+    \addtolength{\textheight}{-.5in}	% matching shrink of text area (starts next page)
+    \addtolength{\headsep}{-.125in}	% offsetting shrink of space between head and text
+					% (gives proper vertical space if 2nd TOC page)
+    \setlength{\@colht}{\textheight}	% these 3 settings make the change to 
+    \setlength{\@colroom}{\textheight}	% \textheight above apply to this page
+    \setlength{\vsize}{\textheight}	% 
+    \thispagestyle{plain}		% first page does not use toc page style
+    \pagestyle{toc}			% subsequent pages (if any) - types "Page" in upper right
+    %\if@twocolumn
+	%\@restonecoltrue\onecolumn	% change to one-column and remember to change back later
+    %\else
+	%\@restonecolfalse		% already one-column
+    %\fi
+    %\vspace*{.5in}			% disabled - using the margin/textheight/pagestyle stuff above
+   %\newlinestretch{.415}		% small line space (not used)
+   %\newlinestretch{1.66}		% double space
+    \null\vspace{0pt}
+   {\centering{\textbf{TABLE OF CONTENTS}}\\}	% title of page
+   %\hfill Page\par			% right-aligns "Page"
+   \newlinestretch{.83}			% little less than 1 - each chapter entry
+					% has extra 12pt vspace first, making those double-spaced
+   \@starttoc{toc}			% start the toc
+   \addtolength{\textheight}{.5in}	% reset text area (change starts next page)
+      \newpage				% go to next page
+   \addtolength{\topmargin}{-.625in}	% reset top margin (change starts this page)
+   \addtolength{\headsep}{.125in}	% reset header/text separating space
+   \if@restonecol\twocolumn\fi		% restore two-column if detected at the start
+   \pagestyle{plain}			% reset page style
 }% end tableofcontents
 
+\renewcommand*\l@part[2]{		% should not need - don't use parts as major divider
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{1em \@plus\p@}%
+    \setlength\@tempdima{3em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+  \fi}% end l@part
+
+\renewcommand\@dotsep{1}
 \renewcommand*\l@chapter[2]{		% redefine the writing of the chapter line in the toc
-    \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
+   \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
 	\addpenalty{-\@highpenalty}	% prefer a page break before starting entry if needed
 	\vskip 1.0em \@plus\p@		% small white space
 	\setlength\@tempdima{1.5em}	% save width of number part
@@ -925,10 +1053,22 @@
 	\penalty\@highpenalty		% set high penalty to avoid page break
 	\endgroup
     \fi}% end l@chapter
+%\renewcommand*\l@section{\@dottedtocline{1}{2em}{2.3em}}% the rest of the l@'s are standard
+%\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+%\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+\renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+\renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% fill
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\raggedright
+
+
+
+
+
 
 
 
@@ -937,44 +1077,76 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand\listoftables{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
-	    \thispagestyle{plain}		% first page does not use lot page style
-	    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
-	    \null\vspace{0pt}			% Need this or title wont show
-	    \vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
-	    {\bfseries\centering{LIST OF TABLES}\\}	% print title
-	    \noindent TABLE \hfill Page\par	% subtitle
-	    \addcontentsline{toc}{chapter}{List of Tables}% add to toc
-	    \begin{singlespaced}		% Singlespace the list
-		    \@starttoc{lot}		% Insert the list of tables
-	    \end{singlespaced}
-    \restoregeometry	% reset page geometry
-    \pagestyle{plain}	% reset page style
-}% end listoftables
-    
-\renewcommand\listoffigures{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
-	    \thispagestyle{plain}		% first page does not use lot page style
-	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
-	    \null\vspace{0pt}			% Need this or title wont show
-	    \vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
-	    {\bfseries\centering{LIST OF FIGURES}\\}	% print title
-  	    \noindent FIGURE \hfill Page\par	% subtitle
-	    \addcontentsline{toc}{chapter}{List of Figures}% add to toc
-	    \begin{singlespaced}		% Singlespace the list
-		    \@starttoc{lof}		%Insert the list of figures
-	    \end{singlespaced}
-    \restoregeometry	% reset page geometry
-    \pagestyle{plain}	% reset page style
-}% end listoffigures
+   % \addtolength{\topmargin}{.75in}	% add to top margin (change starts this page)
+    \addtolength{\textheight}{-.5in}	% matching shrink of text area (starts next page)
+    \addtolength{\headsep}{-.125in}	% offsetting shrink of space between head and text
+					% (gives proper vertical space if 2nd LOT page)
+    \setlength{\@colht}{\textheight}	% these 3 settings make the change to 
+    \setlength{\@colroom}{\textheight}	% \textheight above apply to this page
+    \setlength{\vsize}{\textheight}	% 
+    \thispagestyle{plain}		% first page does not use lot page style
+    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
+    %\if@twocolumn			% similar to toc
+      %\@restonecoltrue\onecolumn
+    %\else
+      %\@restonecolfalse
+    %\fi
+    \null\vspace{0pt}			% something above making this line fail so just made this a dummy line
+    \newlinestretch{1.66}		% double space
+    \null\vspace{0pt}			% skips a line before starting
+    {\centering{\textbf{LIST OF TABLES}}\\}	% print title
+   \noindent  \hfill \par	% subtitle
+   \newlinestretch{1.5}			% small line spacing but each entry
+					% adds blank line first - this makes a
+					% multi-line entry singlespaced
+    \addcontentsline{toc}{chapter}{List of Tables}% add to toc
+   \@starttoc{lot}			% complete the list of tables
+   \addtolength{\textheight}{.5in}	% reset text area (change starts next page)
+      \newpage				% go to next page
+   \addtolength{\topmargin}{-.625in}	% reset top margin (change starts this page)
+   \addtolength{\headsep}{.125in}	% reset header/text separating space
+    \if@restonecol\twocolumn\fi
+   \pagestyle{plain}			% reset page style
+    }% end listoftables
 
-%%  The following two values seem to give the ToC, LoF, LoT linebreaking conditions that the library wants
-\renewcommand{\@pnumwidth}{3.1em}	% Set width of ToC, LoF, LoT page number column
-\renewcommand{\@tocrmarg}{3em plus 1fill}
+\renewcommand\listoffigures{		% redefine list of figures
+					% similar to toc
+\makeatletter
+     \renewcommand*\l@figure{\@dottedtocline{1}{1em}{1.7em}}
+\makeatother
+    \addtolength{\topmargin}{.5in}	% add to top margin (change starts this page)
+    \addtolength{\textheight}{-.5in}	% matching shrink of text area (starts next page)
+    \addtolength{\headsep}{-.125in}	% offsetting shrink of space between head and text
+					% (gives proper vertical space if 2nd LOF page)
+    \setlength{\@colht}{\textheight}	% these 3 settings make the change to 
+    \setlength{\@colroom}{\textheight}	% \textheight above apply to this page
+    \setlength{\vsize}{\textheight}	% 
+    \thispagestyle{plain}		% first page does not use lof page style
+    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
+    \if@twocolumn			% similar to toc
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi	
+   % \vspace*{0pt plus 1fil}		% not used
+    \null\vspace{0pt}			% something above making this line fail so just made this a dummy line
+    \newlinestretch{1.66}		% double space
+    \null\vspace{0pt}			% skips a line before starting
+     {\centering{\textbf{LIST OF FIGURES}}\\}	% print title
+  \noindent  \hfill \par	% subtitle
+   \newlinestretch{1.5}			% small line spacing but each entry
+					% adds blank line first - this makes a
+					% multi-line entry singlespaced
+    \addcontentsline{toc}{chapter}{List of Figures}% add to toc
+   \@starttoc{lof}			% complete the list of figures
 
-%% Indent and index number width values for LoF and LoT
-\renewcommand*\l@figure{\@dottedtocline{1}{0.25in}{2em}}
-\renewcommand*\l@table{\@dottedtocline{1}{0.25in}{2em}}
+   \addtolength{\textheight}{.5in}	% reset text area (change starts next page)
+      \newpage				% go to next page
+   \addtolength{\topmargin}{-.75in}	% reset top margin (change starts this page)
+  % \addtolength{\headsep}{.125in}	% reset header/text separating space
+    \if@restonecol\twocolumn\fi
+   \pagestyle{plain}			% reset page style
+    }% end listoffigures
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -989,7 +1161,8 @@
 
 \long\def\@caption#1[#2]#3{		% redefine caption command 
 \addtocontents{\csname ext@#1\endcsname}% put in list of (tables/figures)
-{\protect\addvspace{\@thesisptsz} \protect\hangindent=0.25in \protect\hangafter=1}		% add font sized vertical space,...    
+{\protect\addvspace{12\p@}}		% add 12pt. vertical space,...    
+%{\protect\addvspace{\@thesisptsz} \protect\hangindent=0.25in \protect\hangafter=1}
 \addcontentsline{\csname ext@#1\endcsname}{#1}% then add to the list
 	{\protect\numberline{{\csname%
   the#1\endcsname}.}#2}			% add #. caption
@@ -997,7 +1170,6 @@
  \begingroup
   \@parboxrestore			% standard config - restore important defaults
   \@makecaption{\csname fnum@#1\endcsname}{#3}% call the macro to put the caption in the doc
-  %\@parboxrestore			% standard config - restore important defaults
   \par					% start new paragraph
  \endgroup
 }
@@ -1016,17 +1188,17 @@
 \def\fnum@table{\bfseries\MakeUppercase{\tablename}\nobreakspace\thetable}
 					% define the word "TABLE" uppercase in caption
 \setlength\abovecaptionskip{0\p@}	% define no space above caption
-\setlength\belowcaptionskip{\@thesisptsz}	% define font sized space below caption
+\setlength\belowcaptionskip{12\p@}	% define 12pt space below caption
 					% accounts for setting caption to singlespaced
 					% if longer than one line
 
 \long\def\@makecaption#1#2{		% define the macro that puts the caption in the doc
-    \vskip\abovecaptionskip		% space above caption (set to zero above)
+  \vskip\abovecaptionskip		% space above caption (set to zero above)
     \let\@templinestretch\baselinestretch% save baselinestretch
-    \newlinestretch{1}			% single space
-    \raggedright{#1.  #2}		% put in caption
+    \newlinestretch{2}			% double spaced
+      \ragged2e{#1.  #2}		% put in caption
+    \newlinestretch{\@templinestretch}	% restore line spacing to saved value
   \vskip\belowcaptionskip%		% space below caption (12pt = 1 line)
-  \newlinestretch{\@templinestretch}	% restore line spacing to saved value ( JLG 2011-8-29 swapped positions with \vskip\belowcaptionskip above)
 }% end @makecaption
 
 
@@ -1056,8 +1228,6 @@
 
 \@removefromreset{table}{chapter}
 \def\thetable{\@arabic\c@table}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% End of CSULB-THESIS.CLS

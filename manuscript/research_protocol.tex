@@ -1,3 +1,4 @@
+
 \chapter{Research Protocol}
 
 \vcomment{List all decisions you make. Be very explicit.
@@ -10,15 +11,19 @@
 We ultimately perform a PCSVN extraction on a set of 174 color placental images from a private database called NCS (from NYMH?). These are project files in GIMP which contain multiple layers.
 The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample is given in \cref{fig:exampleNCSoutput}
 
-\begin{figure}\label{fig:NCSlayers} \centering
-	\subfigure[Fixed Placental Sample]{
-		\label{fig:NCSlayers-raw}\includegraphics[width=60mm]{{{T-BN0164923.raw}}}}
-	\subfigure[Arterial tracing]{
-		\label{fig:NCSlayers-A}\includegraphics[width=60mm]{{{T-BN0164923_arteryoverlay}}}}
-	\subfigure[Venous tracing]{
-		\label{fig:NCSlayers-V}\includegraphics[width=60mm]{{{T-BN0164923_veinoverlay}}}}
-	\subfigure[Total Vascular Network]{
-		\label{fig:NCSlayers-T}\includegraphics[width=60mm]{{{T-BN0164923_traceoverlay}}}}
+\begin{figure}[h]\label{fig:NCSlayers} \centering
+	\subfloat[Fixed Placental Sample]{
+		\label{fig:NCSlayers-raw}\includegraphics[width=60mm]{{{T-BN0164923.raw}}}
+		}
+	\subfloat[Arterial tracing]{
+		\label{fig:NCSlayers-A}\includegraphics[width=60mm]{{{T-BN0164923_arteryoverlay}}}
+		}
+	\subfloat[Venous tracing]{
+		\label{fig:NCSlayers-V}\includegraphics[width=60mm]{{{T-BN0164923_veinoverlay}}}
+		}
+	\subfloat[Total Vascular Network]{
+		\label{fig:NCSlayers-T}\includegraphics[width=60mm]{{{T-BN0164923_traceoverlay}}}
+		}
 \caption{A representative placental NCS sample with vascular tracing}
 \end{figure}
 
@@ -27,14 +32,18 @@ In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed desc
 
 
 \begin{figure}\label{fig:exampleNCSoutput} 	\centering
-	\subfigure[Background Mask]{
-		\label{fig:NCSoutput-mask}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}}
-	\subfigure[Sample with BG removed]{
-		\label{fig:NCSoutput-base}\includegraphics[width=60mm]{{{T-BN0164923}}}}
-	\subfigure[Grayscale]{
-		\label{fig:NCSoutput-gray}\includegraphics[width=60mm]{{{T-BN0164923.L}}}}
-	\subfigure[Trace / ``Ground Truth'']{
-		\label{fig:NCSoutput-trace}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}}
+	\subfloat[Background Mask]{
+		\label{fig:NCSoutput-mask}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}
+		}
+	\subfloat[Sample with BG removed]{
+		\label{fig:NCSoutput-base}\includegraphics[width=60mm]{{{T-BN0164923}}}
+		}
+	\subfloat[Grayscale]{
+		\label{fig:NCSoutput-gray}\includegraphics[width=60mm]{{{T-BN0164923.L}}}
+		}
+	\subfloat[Trace / ``Ground Truth'']{
+		\label{fig:NCSoutput-trace}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}
+		}
 	\caption{Preprocessed files from an NCS sample}
 \end{figure}
 
@@ -64,7 +73,7 @@ These procedures are performed automatically on the 174 image in our data set us
 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
 	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur. That boundary itself is then dilated by the desired factor. The second is a ``sparse'' implementation of binary dilation that is particularly efficient for our problem. An array of indices of the image where the 
 	
-	\begin{figure} \label{fig:boundary-demo}
+	\begin{figure}  \label{fig:boundary-demo}
 		\includegraphics[width=\textwidth]{boundary_dilation_demo}
 		\caption{Demonstration of boundary dilation}
 	\end{figure}
@@ -102,9 +111,11 @@ Calculate the Hessian matrix of  and then the eigenvalues using the function \te
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{sweep_stitched_plate}
+	\caption{Frangi vesselness score at several scales}
 \end{figure}
 \begin{figure}
 	\includegraphics[width=\textwidth]{sweep_stitched_inset}
+	\caption{Frangi vesselness score at several scales (inset)}
 \end{figure}
 \section{Scale-space post-processing}
 \section{Multiscale Merging}
