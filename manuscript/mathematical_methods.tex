@@ -32,6 +32,8 @@ Our goal is establish a resource efficient method of finding curvilinear content
 	\item developing methods necessary for efficient computation of the filter.
 \end{enumerate*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem Setup in Image Processing}\label{sec:image-processing-setup}
 
 %\vcomment{This section should be basically describing how to view an image as a surface.
@@ -41,7 +43,7 @@ Our goal is establish a resource efficient method of finding curvilinear content
 
 A digital 2D grayscale image is given by a $MxN$ array of pixels, whose intensity is given by an integer value between 0 and 255.
 
-\begin{defn}[Image as a pixel matrix] \label{definition:image_as_pixel_matrix}
+\begin{defn}[Image as a pixel matrix] \label{def:image_as_pixel_matrix}
 	\begin{equation*}
 	\img \in \N^{M \times N}
 	\quad\textrm{with}\quad
@@ -51,7 +53,7 @@ A digital 2D grayscale image is given by a $MxN$ array of pixels, whose intensit
 	% iI hate this wording.
 	For theoretical purposes, we wish to consider any such picture to ultimately be a sampling of a 2D continuous surface. We also require that this surface is sufficiently continuous as to admit the existence of second partial derivatives.
 	
-\begin{defn}[Image as an interpolated surface] \label{definition:image_as_surface}
+\begin{defn}[Image as an interpolated surface] \label{def:image_as_surface}
  \begin{equation*}
  h: \R^2 \to \R
  \quad \textrm{with}\quad
@@ -68,54 +70,72 @@ That is, the function $h$ is identical to the pixel matrix $\img$ at all integer
 and simply a ``smooth enough'' interpolation of those points for all other values.
 
 
-It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \cite{DIPGW}, especially when the goal is noise reduction. However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{definition:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
+It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \cite{DIPGW}, especially when the goal is noise reduction.
+However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{def:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
 % Word salad, also rude? ask chang about this
 Moreover, though our samples in the image domain have been carefully prepared (as outlined in \label{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
-Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling again in \cref{sec:scale-space-theory}, we ultimately use these techniques because we find them successful to our problem.
+Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling again to motivate our development of scale space theory in \cref{sec:scale-space-theory}, we ultimately use these techniques because we find them successful to our problem.
  
-
-\section{Differential Geometry} \label{sec:diff-geo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Differential Geometry} \label{sec:differential-geometry}
   
 We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way, following \cite{Kuhnel-DiffGeo} (although any undergraduate text in Differential Geometry should prove satisfactory).
 
 \subsection{Preliminaries of Differential Geometry}
-
 %\vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant. Although it's useful to keep some references to non-graphs to align this with "the general picture" and what you'll find in a diff geo textbook, also because I already wasted time doing the hard work.}
+    Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$ (as in \cref{def:image_as_surface})
+    we define the graph, $f$, of $h$ in the following definition.
     
-    
-    Given an open subset $U\subset \R^2$ and a twice differentiable function  $h: U \to \R$ (as in \cref{definition:image_as_surface})
-    we define its \textit{graph} $f$ as
-    
-    \begin{defn} \label{definition:graph}
+    \begin{defn} \label{def:graph}
     The surface $f$ is a graph (of the function $h$) when 
     \[
      f: U \to \R^3 \quad \textrm{by} \quad f(u_1, u_2) \;=\; \big(u_1 , u_2 , h(u_1,u_2)\big)
-     \quad,\; u = (u_1, u_2) \in U \]
+     \;,\quad u = (u_1, u_2) \in U \subset \R^2 \]
     \end{defn}
+    %That is, $f$ is an embedding/immersion/parametrization of the function h
+    Since the graph $f$ is clearly one-to-one by definition, we may readily associate any input $u\in U$ with
+    its corresponding output $p \in f[U]$, i.e.
+    $ p = f(u) = f(u_1, u_2) \;=\; \big(u_1 , u_2 , h(u_1,u_2)\big)$,
+    % world salad but may need motivation.
+    depending on whether we wish to focus on a point of a graph in terms of its input
+    or in terms of the structure of the graph itself.
     
-    For any point $u \in U$, we associate a $p \in f[U]$, i.e. $p = f(u)$.
+    % Motivation of a 
+    Our development of curvature ultimately will hinge upon a mapping
+    related to tangent spaces of the surface and their ilk, so we carefully define the following.
     
-    \vcleanup{make these all definitions and fix the flow}
-    \begin{defn} \label{definition:tangent plane}
+    % need a way to organize this stuff better. a table like p41?
+    \begin{defn} \label{def:tangent-plane}
        	
        	We define the tangent plane of $f$ at point $p$ as the map
     \[
-    T_u f := Df\vert_u \left(T_u U\right) \subset T_{f(u)} \R^3
+    T_u f := Df\vert_u \left(T_u U\right)
+	    \subset T_{f(u)} \R^3 = T_{p} \R^3
     \]
 \end{defn}
-    where \vcleanup{fix this flow. subdefintions?}
-            
-    \begin{defn} \label{definition:differential-map}
-       	$Df\vert_x$ is the differential map of $f$ at point $x$ given by
+    The above requires defining both the tangent space within the domain and image of $f$, as well as the so called "differential" of $f$.
     
+    \begin{defn}[Tangent space of $U$ at $u$] \label{def:tangent-at-U}
+    	\[ T_{u} U = \left\{u\right\} \times \R^2
+    	\]
+    	\end{defn}
+    \begin{defn}[Tangent space of $\R^3$ at $p$]
+    	\[ T_{p} \R^3 = \{p\} \times \R^3
+    	\]
+    \end{defn}
+    \begin{defn}[The differential of $f$ at a point $x$] \label{def:differential-map}
+       	$Df\vert_x$ is the map from $U$ into $\R^3$ given by
     \[
      Df|_x : U \to \R^3 \quad \textrm{by} \quad v \mapsto J_f (x) \cdot v
     \]
-where \vcleanup{another definition?} $J_f(x)$ is the Jacobian of $f$ evaluated at point $x$, i.e. the matrix
+where $J_f(x)$ is the Jacobian of $f$ evaluated at some fixed point $x \in U$, i.e. the matrix
 \[
 J_f (x) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_x \right]_{i,j}
 \]
 \end{defn}
+
+This differential essentially 
 We shall denote a tangent vector $X \in T_u f$ at point $p$. We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
 $\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. \vcomment{maybe do this after you finish basic defintions}
 
@@ -125,14 +145,14 @@ Of course, we should justify this. \vcomment{what's the smallest statement you w
 \end{lemma}
 \begin{proof}
 This is actually true for any immersion $f$. We have no need to prove the general case \vcleanup{define what an immersion is? or just cite}, but
-in our use case, where $f$ is a graph as in \cref{definition:graph}, the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. \end{proof}
+in our use case, where $f$ is a graph as in \cref{def:graph}, the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. \end{proof}
 	The partials derivatives of $f$ are not, in general, orthogonal.
   	So the differential map of $f$ is exactly the expansion of
   	a point  $v \in U$ along the basis
   	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
 
   	
-  	\begin{defn}[Curves on a surface] \label{definition:curve-on-a-surface}
+  	\begin{defn}[Curves on a surface] \label{def:curve-on-a-surface}
 Given a closed interval $I \subset \R$, we can define a regular curve on the surface
 $c: I \to \R^3$ such that $\image(c) \subset \image(f)$. In other words, we can (for this particular curve) define an intermediary parametrization $\theta_c$ for this curve so that
   $ c = f \circ \theta_c $ i.e.
