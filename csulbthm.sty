@@ -60,7 +60,6 @@
 \def\@addpunct#1{\ifnum\spacefactor>\@m \else#1\fi}
 \def\frenchspacing{\sfcode`\.1006\sfcode`\?1005\sfcode`\!1004%
   \sfcode`\:1003\sfcode`\;1002\sfcode`\,1001 }
-
 \DeclareOption*{\input{\CurrentOption .thm}}
 \ProcessOptions
 
@@ -427,7 +426,7 @@
   \begingroup \usefont{U}{msa}{m}{n}\thr@@\endgroup
 }
 \providecommand{\qedsymbol}{\openbox}%
-\newenvironment{proof}[1][\proofname]{\par
+\newenvironment{proof}[1][\proofname]{/par
   \pushQED{\qed}%
   \vspace*{-7pt}
   \normalfont \topsep6\p@\@plus6\p@\relax

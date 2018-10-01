@@ -1,12 +1,12 @@
-\documentclass[]{csulb-thesis-old}
+\documentclass[]{csulb-thesis_april}
+%\usepackage{csulbthm} % this is broken :( need to fix% no amsthm anymore
+\usepackage{amsthm}
 
-
-%\usepackage{csulbthm} % this is broken :( need to fix
 \usepackage{pslatex}
 \usepackage{amsfonts, amsmath, mathrsfs}
-\usepackage{amsxtra, amsthm, amssymb, amscd, mathtools}
+\usepackage{amsxtra, amssymb, amscd, mathtools}
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{subfig}
 %\usepackage{setspace}
 %\usepackage{scat}
 \usepackage{bm}
@@ -15,12 +15,12 @@
 \usepackage{lscape}
 \usepackage{datatool} % Allows importing tables
 \usepackage{longtable}
-%\usepackage{xcolor}
+\usepackage[inline]{enumitem}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
 % mathy definitions?
-\newtheorem{defn}{Definition}[section]
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{defn}{Definition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 
@@ -42,6 +42,7 @@
 
 % math commands
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
+\newcommand{\N}{\mathbb{N}} % set of all natural numbers
 \newcommand{\Z}{\mathbb{Z}} % integers
 \newcommand{\Zpos}{\mathbb{Z}_{+}}
 \newcommand{\image}{\mathrm{image}} % image of a function
@@ -49,6 +50,7 @@
 \newcommand{\Hess}{\mathrm{Hess}} % fancy H for the hessian
 \newcommand{\wein}{\mathsf{L}} % for the Weingarten map
 \newcommand{\weinmat}{\widehat{\mathsf{L}}}
+\newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 \DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
 \DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
