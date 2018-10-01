@@ -101,20 +101,14 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     depending on whether we wish to focus on a point of a graph in terms of its input
     or in terms of the structure of the graph itself.
     
-    % Motivation of a 
-    Our development of curvature ultimately will hinge upon a mapping
-    related to tangent spaces of the surface and their ilk, so we carefully define the following.
+    % Motivation
+    Our development of curvature ultimately will hinge upon a careful consideration of the tangent plane of $f$ at a point $p$, for we will require a concrete definition of both the tangent space within the domain and image of $f$,
+    as well as the so called "differential" of $f$,
+    % shit or not because we need it later!
+    the lattermost of which we will only define for the immediate case required
+    Seeing that $f$ is one-to-one should make a lot of this
+    futzing about complete overkill, but I've yet to find a way to distill it. That is, this development works for any parametrized surface element, not necessarily a graph. Whatever for now.
     
-    % need a way to organize this stuff better. a table like p41?
-    \begin{defn} \label{def:tangent-plane}
-       	
-       	We define the tangent plane of $f$ at point $p$ as the map
-    \[
-    T_u f := Df\vert_u \left(T_u U\right)
-	    \subset T_{f(u)} \R^3 = T_{p} \R^3
-    \]
-\end{defn}
-    The above requires defining both the tangent space within the domain and image of $f$, as well as the so called "differential" of $f$.
     
     \begin{defn}[Tangent space of $U$ at $u$] \label{def:tangent-at-U}
     	\[ T_{u} U = \left\{u\right\} \times \R^2
@@ -124,84 +118,133 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     	\[ T_{p} \R^3 = \{p\} \times \R^3
     	\]
     \end{defn}
-    \begin{defn}[The differential of $f$ at a point $x$] \label{def:differential-map}
-       	$Df\vert_x$ is the map from $U$ into $\R^3$ given by
+    It is immediately clear that $T_uU$ and $T_p\R^3$ are isomorphic to
+    $\R^2$ and $\R^3$, respectively, and we can easily visualize elements of $T_uU$ are tangent vectors in $\R^2$ ``originating'' at the point $u$, and elements of $T_p\R^3$ are tangent vectors ``originating'' at the point $p$.
+\begin{defn}[The differential of $f$ at a point $u$] \label{def:differential-map}
+       	$Df\vert_u$ is the map from $T_uU$ into $\R^3$ given by
     \[
-     Df|_x : U \to \R^3 \quad \textrm{by} \quad v \mapsto J_f (x) \cdot v
+     Df|_u : T_uU \to T_{f(u)}\R^3
+     \quad \textrm{by}
+     \quad w \mapsto J_f (u) \cdot v
     \]
-where $J_f(x)$ is the Jacobian of $f$ evaluated at some fixed point $x \in U$, i.e. the matrix
+where $J_f(u)$ is the Jacobian of $f$ evaluated at some fixed point $u \in U$, i.e. the matrix
 \[
-J_f (x) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_x \right]_{i,j}
+J_f (u) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_u \right]_{i,j}
+\]
+\end{defn} % You can in some ways argue that J_x(f) is a better notation
+Although not necessary presently, we could just as easily consider the differential of an arbitrary function as a map between tangent vectors in the function's domain and tangent vectors in its range.
+We could also just identify this as mapping  $U \to \R^3$ by the obvious isomorphism described above. and then differential of $f$ at $x$ is simply a linear transformation of between the tangent spaces $T_uU$ and $T_p\R^3$ where the transformation in question is given by the Jacobian. We can define such a differential at any point $u$ in the domain.
+
+With these three definitions, we are equipped to give a formal definition of $T_uf$,
+the tangent plane of $f$ at an input $u$.
+\begin{defn}[Tangent plane of a graph]\label{def:tangent-plane}
+\[
+T_u f := Df\vert_u \left(T_u U\right)
+\subset T_{f(u)} \R^3 = T_{p} \R^3
 \]
 \end{defn}
 
-This differential essentially 
-We shall denote a tangent vector $X \in T_u f$ at point $p$. We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
-$\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. \vcomment{maybe do this after you finish basic defintions}
+This vectors of this plane can thus be identified as tangent vectors from $T_uU$ that have been passed through the differential mapping $Df\vert_u$.
+We shall denote a generic tangent vector $X \in T_u f$ at point $p$.
+%%%%%STOPPEED HERE
+We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
+$\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$.
 
-Of course, we should justify this. \vcomment{what's the smallest statement you want to give lemma status?} 
+% level of "needless" abstraction
+Given the level of abstraction above, it may be refreshing to explicitly show the linear independence of this set in the case of an arbitrary graph $f$.
+%it's the span though? just say it's the span?
 \begin{lemma} \label{lemma:f_ui-is-a-basis}
-  	For the surface $f$ of a graph at any point $p$, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent set.
+	When $f$ is a graph, for all points $u \in U$, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is in fact a basis for the tangent plane $T_uf$.
 \end{lemma}
+Quite obviously, we're assuming $(1,0), (0,1) \in U$. If this is not the case, we pick some $\alpha$ small enough so that $(\alpha,0)$ and $(0,\alpha)$ are contained and this scaled version would serve as a basis instead.
 \begin{proof}
-This is actually true for any immersion $f$. We have no need to prove the general case \vcleanup{define what an immersion is? or just cite}, but
-in our use case, where $f$ is a graph as in \cref{def:graph}, the claim is clear: we can directly see that $f_{u_1}$ and $f_{u_2}$ are linearly independent, as $f_{u_1} = (1,0,h_{u_2})$ and $f_{u_2} = (0,1,h_{u_2})$, which are clearly linearly independent. \end{proof}
-	The partials derivatives of $f$ are not, in general, orthogonal.
-  	So the differential map of $f$ is exactly the expansion of
-  	a point  $v \in U$ along the basis
-  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
-
-  	
-  	\begin{defn}[Curves on a surface] \label{def:curve-on-a-surface}
-Given a closed interval $I \subset \R$, we can define a regular curve on the surface
-$c: I \to \R^3$ such that $\image(c) \subset \image(f)$. In other words, we can (for this particular curve) define an intermediary parametrization $\theta_c$ for this curve so that
-  $ c = f \circ \theta_c $ i.e.
+Given the definition of a graph $f$ as in \cref{def:graph}, we can directly calculate the partial derivatives of $f$ at a point $u$.
 \[
-\theta_c : I \to U \; \textrm{by} \; \theta(t) = \big(\theta_1(t), \theta_2(t)\big)
+f_{u_1} = (1,0,h_{u_1}(u)) \quad\textrm{and}\quad f_{u_2} = (0,1,h_{u_2}(u))
 \]
+ which are obviously linearly independent.  Then $Df\vert_u (1,0) = f_{u_1} ,$ and $ Df\vert_u (0,1) = f_{u_2}$, which shows $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\} \in T_uf$.  Thus $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent subset of $T_u f$, and can serve as its basis.\end{proof}
 
-and $c(t) = f(\theta(t))$.
-\end{defn}
-
-We regularize our concept of a "normal" direction to the surface, which will prove immensely useful later \vtodo{add pictures!}
-\begin{defn}[The Gauss Map]
-The Gauss map at a point $p = f(u)$ is the unit normal to the tangent plane
-\[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u_1, u_2) :=
-\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
-{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
-\end{defn}
-Each partial above understood to be evaluated at the input $u \in U$,that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
-It is clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$, and also that
-$\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well.
-\vcomment{at this point if you can prove $\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\}$ are linearly independent then do so, or just save for later, in which case don't use derivates at all}
-
-To show that $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\} \in T_u f$,
-first note that at any particular $u \in U$,
-$\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
-and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
-\implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
-Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
-$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
-\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
-
-    \subsection{Curvature of a surface}
-    In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
-     (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
- 
- To extend the notion of curvature of a surface $f$, we can consider the curvature of such a curve embedded within the surface: that is, $c[I] = f[\theta_c[I]]$. Considering a point $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all curves at the point with a shared velocity. We now present a main result that provides a notion of curvature of a surface.
+	The partials derivatives of $f$ are not, in general, orthogonal at any point $u$, unless it happens that $h_{u_1} $ or $h_{u_2}$ is zero.
+	A visualization of some of the above is given in \cref{fig:Tuf}, although note that $f_{u_1}$ and  $f_{u_2}$ accidentally appear orthogonal.
 	
-%		\textit{\maltese TODO \color{red} fix so this is clearer and less bogged down by 
-%			$u \leftrightarrow p$ conversion so you can more easily tell what all curves have in
-%			common}
+	\begin{figure}\centering
+		\includegraphics[width=0.8\textwidth]{T_uf}
+		\caption{Tangent plane of a graph}
+		\label{fig:Tuf} 
+	\end{figure}
+%  	But the above allows us to view $Df\vert_u$ differential map of $f$ is exactly the expansion of
+%  	a point  $v \in U$ along the basis
+%  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .
+
+We now concern ourselves with developing the notion of curvature on a surface. First, we need to consider an arbitrary regular curve (i.e. differentiable, one-to-one, non-zero derivative) contained within the image of $f$. 
+  	
+  	% this isn't really a definition...?
+ 
+
+\subsection{Curvature of a surface}
+In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
+ (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
+ 
+ To extend the notion of curvature of a surface $f$, we can consider the curvature of such an arbitrary curve embedded within the surface.
+ 
+ \begin{defn}[Surface curve] \label{def:curve-on-a-surface}
+ 	Given a closed interval $I \subset \R$, we call the regular curve
+ 	$c: I \to \R^3$ a surface curve in the event that $\image(c) \subset \image(f)$ entirely. The one-to-one-ness of the graph $f$ ensures that we can define (for the given curve) an intermediary parametrization $\theta_c$  so that
+ 	$ c = f \circ \theta_c $. That is,
+ 	\[
+ 	\theta_c : I \to U \; \textrm{by} \; \theta(t) = \big(\theta_1(t), \theta_2(t)\big)
+ 	\]
+ 	
+ 	so that $c(t) = f(\theta_c(t)) \;\forall t\in I,$
+ 	and $c[I] = f\left[\theta_c[I]\right].$.
+ \end{defn}
+ Note as well that the velocity of this particular curve lies within $T_u f$. This
+ can be seen by an elementary application of chain rule:
+ \begin{align}
+ -\frac{d c}{dt} &= -\frac{d}{dt}\big[ f(\theta_c(t))\big] \\
+ &= -\frac{d}{dt}\big[f(\theta_1(t), \theta_2(t))\big] \\
+ &= \theta_1'(t)\left( \frac{\partial f}{\partial u_1} \right) + 
+ \theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right) \in T_uf.
+ \end{align}
+ 
+ Considering a point $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all (regular) surface curves passing through the point $p$ at some particular velocity.
+ 
+ We now present a main result that provides a notion of curvature of a surface.
+
 	\begin{theorem}[Theorem of Meusnier] \label{thm:meusnier}
 		Given a point $u \in U $ and a tangent direction $X \in T_u f$,
-  any curve on the surface $c: I \to \image(f)$ with $p\in I : \theta_c(p) = u$
+  any regular curve on the surface $c: I \to \image(f)$ with $p\in I : \theta_c(p) = u$
   where $c'(p) = X$ will have the same curvature.
 	\end{theorem}
 	
 	\vtodo{provide a visualization of this}
 	
-	In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature.
+	In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature. To prove this, we'll require one final definition.
+	\begin{defn}[The Gauss Map]
+		The Gauss map at a point $p = f(u)$ is the unit normal to the tangent plane
+		\[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u) :=
+		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
+		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
+	\end{defn}
+	Each partial above understood to be evaluated at the input $u \in U$; that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
+	The existence of the cross product in its definition makes it clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$. A simple dimensionality argument of $\R^3$ implies that these must exist in $T_uf$. However, we can also show it directly: 
+%	\vcomment{at this point if you can prove $\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\}$ are linearly independent then do so, or just save for later, in which case don't use derivates at all}
+	
+	To show that $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\} \in T_u f$,
+	first note that at any particular $u \in U$,
+	$\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
+	and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
+	\implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
+	Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
+	$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
+	\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
+	
+	Thus, we have $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well and we can also use it as a basis.
+	
+	
+	We are now ready to prove \cref{thm:meusnier}, the Theorem of Meusnier.
+	
+	%%% START HERE %%%%%%
 	\begin{proof}
 	Considering any such curve where $\frac{\partial c}{\partial t}(p) = X$ where $X \in T_u f$ is a normalized vector tangent to the surface at the point $u$,
 	we wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
