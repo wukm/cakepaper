@@ -181,7 +181,7 @@ We now concern ourselves with developing the notion of curvature on a surface. F
   	% this isn't really a definition...?
  
 
-\subsection{Curvature of a surface}
+\subsection{Curvature of a surface and its calculation}
 In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
  (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
  
@@ -220,7 +220,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	\vtodo{provide a visualization of this}
 	
 	In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature. To prove this, we'll require one final definition.
-	\begin{defn}[The Gauss Map]
+	\begin{defn}[The Gauss Map] \label{def:gauss-map}
 		The Gauss map at a point $p = f(u)$ is the unit normal to the tangent plane
 		\[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u) :=
 		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
@@ -242,16 +242,15 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	Thus, we have $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well and we can also use it as a basis.
 	
 	
-	We are now ready to prove \cref{thm:meusnier}, the Theorem of Meusnier.
+	We are finally ready to prove \cref{thm:meusnier}, the Theorem of Meusnier.
 	
 	%%% START HERE %%%%%%
 	\begin{proof}
-	Considering any such curve where $\frac{\partial c}{\partial t}(p) = X$ where $X \in T_u f$ is a normalized vector tangent to the surface at the point $u$,
-	we wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
-	the Gauss map $\nu := \nu(u_1, u_2) =
+	Let $X\in T_u f$ be given and consider some curve where $\frac{\partial c}{\partial t}(u) = X$ where $X \in T_u f$. We wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
+	the Gauss map $\nu = \nu(u_1, u_2) =
 		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
-		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$.
-		(Note that $X$ and $\nu$ are indeed orthogonal,
+		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$ as in \cref{def:gauss-map}.
+		Note that $X$ and $\nu$ are indeed orthogonal,
 		as $ X \in \spn\left\{\frac{\partial f}{\partial u_i}\right\} = T_u f$, and
 		$\nu \perp T_u f$).
 	 We then have (at this fixed point $u=\theta_c(p)$)
@@ -260,12 +259,14 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
 			\end{equation}. 
 	
-	The first term is always zero for a regular curve:
-	\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
+	Because $c$ is a regular curve, we either have $c''=0$,
+	or $c' \perp c''$, since $\vnorm{c'} = 1$ implies
+	$0 = \frac{d}{dt} \inner{c'}{c'} = 2 \inner{c''}{c'} $. Thus
 	
-	since either $c'' \perp c'$ (which is generally true for a regular curve in $\R^3$ with a nontrivial curvature) or $c'' = 0$ itself.  \vcomment{see Kuhnel pg. 13, def 2.4. What results of differential geometry are too basic? what's off limits? Should I develop this too?}
+		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
+
 	
-	We can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
+	 and we can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
 	\begin{align}
 		\inner{c''}{\nu} &=
 		\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
@@ -283,75 +284,87 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
 	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
 	&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
-	&=  \inner{X}{-\frac{\partial \nu}{\partial t}}
+	&=  \inner{X}{-\frac{\partial \nu}{\partial t}} \label{eq:expand_accel_norm}
 	\end{align}
 	
-	We may compute $-\frac{\partial \nu}{\partial t}$ via chain rule:
+	We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
+	\cref{eq:expand_accel_norm} via chain rule:
 	\begin{align} \label{gaussmap_timederivative}
 	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \\
 	&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
 	&= \theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right)
+	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \label{eq:gaussmap_dt_expanded}
 	\end{align}
 	
 	
-	Identifying $\left\{ \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation $\wein: T_u f \to T_u f$ which maps the basis
-	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this subset, i.e.
-	$\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$. This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
+	Identifying $\textrm{span}\left\{ - \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can define a linear transformation $\wein$ which maps the basis
+	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this subset:
+	
+	\begin{defn}[The Weingarten Map] \label{def:wein-map}
+		\[
+		\wein: T_u f \to T_u f 
+		\quad \textrm{given by the composition} \quad
+		\wein = D\nu \circ (Df)^{-1}.
+		%\wein(\frac{\partial f}{\partial u_i})
+		%	= - \frac{\partial \nu}{\partial u_i}
+		%\quad i=1,2		
+		\]
+	\end{defn}
+	That is, $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i} $ for $i=1,2$, where the negative sign comes about from blind adherence to \cref{eq:gaussmap_dt_expanded} and \cref{eq:expand_accel_norm}. We will This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
 		\begin{align}
 		-\frac{d \nu}{dt} &= 
 		\theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
 		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
-		&= \theta_1'(t)\left( \wein\left(- \frac{\partial f}{\partial u_1}\right) \right) + 
-		\theta_2'(t)\left( \wein\left(- \frac{\partial f}{\partial u_2}\right) \right) \\
-		&= \wein\left(\theta_1'(t)\left( - \frac{\partial f}{\partial u_1}\right)  + 
-		\theta_2'(t)\left( - \frac{\partial f}{\partial u_2} \right)\right) \\
-		&= \wein\left( \frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
+		&= \theta_1'(t)\left( \wein\left(\frac{\partial f}{\partial u_1}\right) \right) + 
+		\theta_2'(t)\left( \wein\left(\frac{\partial f}{\partial u_2}\right) \right) \\
+		&= \wein\left[\theta_1'(t)\left( \frac{\partial f}{\partial u_1}\right)  + 
+		\theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right)\right] \\
+		&= \wein\left(\frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
 		= \wein\left( \frac{d}{dt} \left[ c(t) \right] \right) = \wein\left(X\right)
 		\end{align} 
-		With this, we can re-express the curvature of our curve as
+		With this, we can re-express the curvature of our curve from
+		\cref{eq:expand_accel_norm} as the much simpler
 		
-		\begin{equation}
+		\begin{equation} \label{eq:expand_accel_norm_final}
 		\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein(X)}
 		\end{equation}
 		
-		which only depends on the point $u$ and the selected direction $X$, not on the particular curve at all.
-	\end{proof}
-	In fact, we refer to this quantity as the normal curvature of the surface. 
 	
-	\begin{defn}
-		The normal curvature of a surface at point $u$ in the direction $X$ is given by $\kappa_\nu :=  \inner{X}{\wein(X)}$.
+	The linear transformation $\wein$ from \cref{def:wein-map}, and thereby
+	the computation of curvature given in \cref{eq:expand_accel_norm_final},
+	depends only on the point $u$ and the selected direction $X$, not on the particular curve $c$ at all.
+	\end{proof}
+	To recap, given a point $u$ on the surface and an arbitrary vector $X$ in the tangent plane, we can calculate the curvature of any surface curve with velocity $X$ there. In fact, we refer to this intrinsic quantity as the normal curvature of the surface.
+	
+	\begin{defn} \label{def:normal-curvature}
+		The normal curvature of a surface, denoted $\kappa_\nu$ at point $u$ in the direction $X$ is given by
+		\[\kappa_\nu :=  \inner{X}{\wein(X)} \]
 	\end{defn}
 	In fact, \cref{thm:meusnier} shows that the normal curvature is an intrinsic property of the surface--it depends only on the
-	surface at a point, and no reference to any particular curve on the surface is necessary.
-	In other contexts (not necessary here), this quantity is referred to as the \textit{second fundamental form} at the point $u \in U$; that is, $ \mathbf{II}(X,X) := - \inner{X}{\wein(X)}$.
+	surface at a point, and no reference to any particular curve on the surface is necessary or implied.
+%	In other contexts (not necessary here), this quantity is referred to as the \textit{second fundamental form} at the point $u \in U$; that is, $ \mathbf{II}(X,X) := \inner{X}{\wein(X)}$.
 	
 	
 	The map $\wein$ introduced in the proof above is known as the Weingarten map
 	and is implicitly defined at each $u \in U$. 
 	We wish to make its existence rigorous as well as find a matrix representation for it, using the standard motivation that $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i}$.
 	
-
-	\begin{defn}[Weingarten map]
-	The Weingarten map (or shape operator) is the map $\wein: T_u f \to T_u f$ given by
-	$\wein = D\nu \circ (Df)^{-1}$.
-	\end{defn}
-	
-	\vcomment{Fix this notational nightmare}
 	
 	That is, we may trace any $X \in T_u f$ which has been expanded in terms of the basis 
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
 	and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
-	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation [see Kuhnel] \vtodo{real citations}, which is certainly useful for surfaces $f$ that are not graphs. The situation is much simpler if $f$ is a graph--the linear transformation may be simply constructed.		
-	
+	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation \cite{Kuhnel-DiffGeo} in the general case, which is certainly useful for surfaces $f$ that are not graphs. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
+	\begin{lemma}
+		The Weingarten map as in \cref{def:wein-map} is well-defined for graphs.
+	\end{lemma}
 	To find a matrix representation for $\wein$, (which we will denote $\weinmat \in R^{2\times2}$) we simply wish to find a linear transformation
 	such that
 	$\weinmat \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}
 		= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} \; i=1,2$
 			where $- \left.X\right|_{T_u f}$ denotes that $X \in T_u f$ is being represented in so-called
 	'local coordinates' for $T_u f$ (Strictly speaking, of course $T_u f \subset \R^3$ and thus
-	$\frac{\partial f}{\partial u_i} \in \R^3.$ Thus when we say $ \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}$ we are refering to this 3-vector expanded w.r.t. a basis for $T_u f$). In matrix form, we describe this situation as
+	$\frac{\partial f}{\partial u_i} \in \R^3.$ Thus when we say $ \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}$ we are referring to this 3-vector expanded with respect to a basis for $T_u f$). In matrix form, we describe this situation as
 	
 	\begin{align}
 	\Bigg[ \;\weinmat\; \Bigg]
@@ -407,8 +420,10 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	
 	
 	Our final goal to is to characterize such normal curvatures.
-	Namely, we wish to establish a method of determining in which directions an extremal
-	normal curvature occurs.
+	Namely, we wish to establish a method of determining in which directions an extremal normal curvature occurs.
+	
+	
+	\subsection{Principal Curvatures and Principal Directions}
 	To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$.
 
 
@@ -471,7 +486,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         	
         	Extremal values occur when
         	$\nabla_{X,\lambda} \mathscr{L}(X;\lambda) = 0$,
-        	which becomes the two equations
+        	which results in the two equations
         	
      \begin{equation} \label{lagrange_requirements}
      \left\{ \begin{aligned}
@@ -590,7 +605,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
   To make this a little more explicit, we will calculate the Weingarten map for a relatively simple graph.
   
-  \subsection{The Weingarten map of a cylindrical ridge} \label{sec:calculate-weinmap-of-a-ridge}
+  \subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \label{sec:calculate-weinmap-of-a-ridge}
   
   Let $f$ be the graph given by 
   \begin{equation}
@@ -670,7 +685,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
 \vcleanup{the eigenvectors of the Weingarten map are orthonormal. the eigenvectors of the hessian are also orthonormalizable. make the distinction!}
   where $\kappa_i$ and $u_i$ are known as the
-  \textit{principal curvatures} and \textit{principal directions} \vcomment{fixthis} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function)and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following lemma:
+  \textit{principal curvatures} and \textit{principal directions} \vcomment{fixthis} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following lemma:
   
   % from burden and faires corollary 9.17
   \begin{lemma}[Principal Axis Theorem?]
@@ -723,70 +738,480 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
   Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
   
-  \vcomment{The following unverified (but intuitive) theorem is currently unnecessary but could be useful if I still want to implement the idea of tracking direction of eigenvectors along potential ridges, useful for filling in the ridge network. Like approximating the surface using derivatives.}
-  The following is an \textbf{unverified claim} (which might be useful for later):
-  The frame varies continuously along paths in $\R^2$
-  except at points where $\Hess(x,y)$ is singular.
-  To make this explicit:
+%  \vcomment{The following unverified (but intuitive) theorem is currently unnecessary but could be useful if I still want to implement the idea of tracking direction of eigenvectors along potential ridges, useful for filling in the ridge network. Like approximating the surface using derivatives.}
+%  The following is an \textbf{unverified claim} (which might be useful for later):
+%  The frame varies continuously along paths in $\R^2$
+%  except at points where $\Hess(x,y)$ is singular.
+%  To make this explicit:
+%  
+%  \begin{theorem}[Continuity of the leading principal direction]
+%     	Let $\theta: I:= [0,1] \to \R^2$ be a parametrized regular curve in $\R^2$ and
+%     	$H_\theta := \Hess_f  \circ \theta(t)$ be the matrix-valued function
+%     	% use the same notation as the Hessian before and cite the eqn. number from earlier
+%     	(where $\Hess_f$ is the $2\times 2$ Hessian of the smooth surface $f$)
+%     	Let $U:I \to \R^2$ be the implicitly-defined vector valued function s.t.
+%     	$U(t)$ is the leading eigenvector of $H_\theta$
+%     	(and therefore the leading principal direction of $f$). That is,
+%     	\begin{equation}
+%     	H_\theta \; U(t) = \lambda U(t) \quad \textrm{with}\quad \lambda = \rho(H_\theta)
+%     	\end{equation}
+%     	In other words, $\abs{\lambda} \ge \abs{\tilde{\lambda}}$ for any
+%     	$\tilde{\lambda} : H_\theta \; u = \tilde{\lambda} u$ for some $u \ne 0$.
+%     	
+%     	Then, $U(t)$ is continuous in $t$ whenever $H_f(t)$ is non-singular.
+%     	\vcomment{Maybe fix this so that the path avoids any nonsingular points?
+%     		$U(t)$ isn't even well-defined at such points anyway.}
+%  \end{theorem}
+%  \begin{proof}
+%     	First, we show that $U(t)$ is a well-defined function at all points $t$ where
+%     	$H_f(t)$ is non-singular.
+%     	\vtodo{FIX PROOF OR REMOVE}
+%  \end{proof}
   
-  \begin{theorem}[Continuity of the leading principal direction]
-     	Let $\theta: I:= [0,1] \to \R^2$ be a parametrized regular curve in $\R^2$ and
-     	$H_\theta := \Hess_f  \circ \theta(t)$ be the matrix-valued function
-     	% use the same notation as the Hessian before and cite the eqn. number from earlier
-     	(where $\Hess_f$ is the $2\times 2$ Hessian of the smooth surface $f$)
-     	Let $U:I \to \R^2$ be the implicitly-defined vector valued function s.t.
-     	$U(t)$ is the leading eigenvector of $H_\theta$
-     	(and therefore the leading principal direction of $f$). That is,
-     	\begin{equation}
-     	H_\theta \; U(t) = \lambda U(t) \quad \textrm{with}\quad \lambda = \rho(H_\theta)
-     	\end{equation}
-     	In other words, $\abs{\lambda} \ge \abs{\tilde{\lambda}}$ for any
-     	$\tilde{\lambda} : H_\theta \; u = \tilde{\lambda} u$ for some $u \ne 0$.
-     	
-     	Then, $U(t)$ is continuous in $t$ whenever $H_f(t)$ is non-singular.
-     	\vcomment{Maybe fix this so that the path avoids any nonsingular points?
-     		$U(t)$ isn't even well-defined at such points anyway.}
-  \end{theorem}
-  \begin{proof}
-     	First, we show that $U(t)$ is a well-defined function at all points $t$ where
-     	$H_f(t)$ is non-singular.
-     	\vtodo{FIX PROOF OR REMOVE}
-  \end{proof}
-  
-  \vcomment{Need a transition} To we are interested in the differentiation of 2D images, we need a way
-  to calculate the quantities of the previous section \vcleanup{tag}. We can simply extend these ideas of differentiation to the discrete domain.
-
-\section{Calculating Derivatives of Discrete Images} 
-
-
-\begin{itemize}
-	\item \vtodo{Describe taking gradient with divided difference.}
-	\item \vtodo{Describe the situation: derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.}
-	\item \vtodo{Mention that derivatives can be taken in frequency space?}
-
-%		Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
-%					\begin{verbatim}
-%					gaussian_filtered = fftgauss(image, sigma=sigma)
-%					Lx, Ly = np.gradient(gaussian_filtered)
-%					Lxx, Lxy = np.gradient(Lx)
-%					Lxy, Lyy = np.gradient(Ly)
-%					\end{verbatim}	
-	\end{itemize}
-\vcomment{describe this no matter what. if you want to calculate the derivatives in frequency space,
-still describe this so you can compare the results.}
-\vcleanup{Move scale space theory section before this.}
-
+	We now seek to harness the ideas of this section to the task at hand: identifying curvilinear content within images.
 
 \section{The Frangi Filter} \label{sec:frangi}
 
+    The Frangi filter, first described by Alejandro Frangi et al. in \cite{frangi-paper} is a widely used (cite) Hessian-based filter
+    within image processing. Hessian-based filters make use of the
+    logical ``proximity'' of the Hessian to notions of curvature of surfaces,
+    as developed in \cref{sec:differential-geometry}. 
+    Several such Hessian-based filters exist--see \cite{sato-filter} and \cite{lorenz-filter}, as well as a comparison given in \cite{olabarriaga-hessian-comparison}. These filters use information about the principal curvatures, approximated as eigenvalues of the Hessian) at each point in the image
+    to identify regions of significant curvature within an image.
+ 
+\vcleanup{move to next section? or cover any necessary math here}
+    
+    Frangi's filter was orignally developed for vascular segmentation in images such as MRIs and it excels in that context.
+    
+    The procedure for a single scale in a 2D image is as follows:
+    Let $\lambda_1, \lambda_2$ be the two eigenvalues of the Hessian of the image at point $(x, y)$,
+    ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, and define the Frangi vesselness measure %at scale $\sigma$ as:
+    as:
+    
+    \begin{equation} \label{eq:frangi-vesselness-measure}
+    V_\sigma(x_0,y_0) = \begin{cases}
+    0 & \text{if} \quad \lambda_2 > 0 \\
+    \exp\left(-\frac{A^2}{2\beta^2}\right)
+    \left(1 - \exp(-\frac{S^2}{2\gamma^2})\right) & \text{otherwise}
+    \end{cases} \end{equation}
+    where
+    \begin{equation} \label{frangi-def-anisotropy-structureness}
+    A := \abs{\lambda_1 / \lambda_2}
+    \quad \textrm{and} \quad 
+    S := \sqrt{\lambda_1^2 + \lambda_2^2}
+    \end{equation}
+    and $\beta$ and $\gamma$ are tuning parameters. Before we discuss appropriate values for $\beta$ and $\gamma$, we first seek to highlight the significance of \cref{eq:frangi-vesselness-measure}, and in particular, the ratios defined in
+    \cref{frangi-def-anisotropy-structureness}. $A$ and $S$ are known as the anisotropy measure and structureness measure, respectively. 
+    
+    \subsection{Anisotropy Measure} \label{sec:frangi.anisotropy}
+    The anisotropy (or directionality) measure $A$ is simply the ratio of magnitudes of $\lambda_1$ and $\lambda_2$. Since at a ridge point of a tubular structure, we should have $\lambda_1 \approx 0$ and $\abs{\lambda_2} \gg \abs{\lambda_1}$,
+    a very small value of $A$ would be present at a ridge of a tubular structure.
+    
+    \begin{figure} \centering
+    		\includegraphics[width=0.8\linewidth]{expo_principal_curvatures}
+    		\caption{The principal eigenvectors at a ridge like structure} 
+    	 \label{fig:expo-principal-curvatures}
+    \end{figure}
+    
+    In \cref{fig:expo-principal-curvatures}, this situation is demonstrated. Here, $u_1, u_2$ form the orthogonal set of Hessian eigenvectors with corresponding eigenvalues $\lambda_1$ and $\lambda_2$. At such a ridgelike structure, we could predict the largest change in curvature to be straight down the ridge (in the direction of $u_2$), and the direction of least curvature to be directly along the ridge (in the direction  of $u_1$). $\lambda_1 \approx 0$ and $\lambda_2$ is large and negative  Note that the length of these vectors in this picture is not meant tor represent their magnitudes, as $u_2$ should have a much larger relative magnitude by design!
+    
+    Of course, if the the ridge is perfectly circular along its cross section (as was in \cref{sec:calculate-weinmap-of-a-ridge}, it is of course apparent that $\lambda_2$ would be the same value at any place along the ridge (not just at its crest \vcleanup{fix terminology}), and $\lambda_1$ would likewise be 0 at any such point.  One could also imagine a similar situation in which the dropoff from crest to bottom gets increasing steep. In such a case, $\lambda_2$ as a function of $x$ would in fact be largest nearest to the bottom. This thought experiment should dispel a naive misunderstanding of the power of a Frangi filter: a high anisotropy measure (and a large structureness measure \vcleanup{define structureness first}) will not in general identify the crests of a ridge-like structure--it only will highlight that such a pixel is on a ridge-like structure at all. Thus, the anisotropy measure will not necessarily be at a maximum at the crest of the ridge.
+    
+    Similiarly, the vessel we we wish to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure, such as small divots or depressions in an overall ridge-like structure. Of importance in our data set later, there will be points where we seem to "lose" our ridgelike structure due to issues with the sample \cref{sec:NCS-data-set}.
+    
+	Importantly, this formulation does not require $\lambda_1$ to be approximately zero, just that the curvature in the downward direction is much more significant.
+    
+    Also the crest could be really flat (``hangar shaped''), in which case both are around zero. At the crest of the ridge, we would actually expect both $u_1$ and $u_2$ to be around 0, whereas a point somewhere between the crest and the ``foot'' of the ridge to contain the maximum $u_2$.
+    
+    We will fix some of these issues by casting this as a multiscale problem in \cref{sec:frangi-multiscale}.
+    
+    Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{sec:conclusion.future-research}.
+    
+    \subsection{Structureness measure} \label{sec:frangi-structureness}
+    
+    There is another concern with using the pure ratio $S:= \abs{\lambda_1 / \lambda_2}$ as an identifying feature of ridgelike structures apart from the ones listed above. We could still have $\abs{\lambda_2} \gg \abs{\lambda_1}$ in a relative sense, but still have $\lambda_2 \approx 0$. As a rather extreme example, we should certainly wish to differentiate a point on the surface where $\lambda_2 \approx 10^{-5} $ and $\lambda_1 \approx 10^{-10}$ from another point where $\lambda_2 \approx 10000$ and $\lambda_2 = 0.1$.
+    
+    A natural fix to differentiate these points is to introduce a ``structureness'' measure to insure that there is in fact significant curvilinear activity at the point in question. Frangi used $S:= \sqrt{(\lambda_1)^2 + (\lambda_2)^2}$, which is in fact the 2-norm of the Hessian matrix. Thus the Frangi filter should also prefer areas of
+    great curvilinear content in the image first of all.
+    
+    
+    \subsection{The Frangi vesselness measure}
+    
+    Our goal then is to attach a numerical measure to each pixel in the image (at a particular scale $\sigma$) that is large when the anisotropy measure $A$ and the structureness measure $S$ is sufficiently large.
+    
+    The form Frangi arrived at in \cref{eq:frangi-vesselness-measure} in which a factor of $\exp\{...\}$ and $(1 - \exp\{\})$ are multiplied together are simply to ensure that the final vesselness measure $V$ is largest when $A$ is small and $S$ is large enough, with rapidly decay in other situations.
+    
+ Frangi further strengthened the filter by adding an additional case to in \cref{eq:frangi-vesselness-measure}, ensuring that $\lambda_2$ is not positive. If we are indeed at a curvilinear ridge, we need the second derivative of the surface in the maximal direction to be negative, which hasn't been accounted for as yet in our formulation of $A$ and $S$ -- we wish (for our purposes) to only indentify when we are finding crests. $A$ will still be small and $S$ will still be large however if we identify a ``trough''.
+ 
+ The only perceivable difference is that the maximum normal curvature will be positive--we are at a local minimum in the direction of $u_2$. In situations where we wish to only identify ridges (as is the case here) we simply exclude any points where there is not a negative curvature in the maximal direction. 
+    
+    \subsection{The Frangi vesselness filter: Choosing parameters $\beta$ and $\gamma$}
+    
+    The parameters $\beta$ and $\gamma$ are meant to scale so that the peaks of $\exp\{\cdots\}$ and $1-\exp\{\cdots\}$ coincide enough to be statistically significant but rapidly decay in areas not associated with curvilinear structure. What values of these parameters are appropriate is ultimately dependent on the context of the problem.
+    
+    Frangi suggested for $\gamma$ that half of the Frobenius norm of the Hessian matrix is appropriate, simply because the minimum value of $S$ is zero, and  its maximum value is approx the 2 norm of the Hessian.
+    For $\beta$ Frangi chose an innocuous intermediate point, $\beta=1/2$ (and thus $2\beta^2 = 1/2$).
+    As we will show later, choosing the structureness parameter $\gamma$ is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain then $\beta$ should be smaller. If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.
 
-\subsection{Intro to Hessian-based filters}
-%Basic properties and observations. Why these filters make sense. Basic strengths and weaknesses.
+	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach.
+	
+        
+    \section{Linear Scale Space Theory} \label{sec:scale-space-theory}
+    
+    %this is all as cited in GSST book (see starting in sec 6.3.1).
+    %as mentioned there, this is analogous to a discrete development
+    %(lindeberg 1990 lindeberg 1991 lindeberg 1994c lindeberg 1994e)
+    
+    There is obviously a major disconnect in the ideas presented above. 
+    Although the ideas presented above require differentiation of continuous
+    surfaces, our image is in fact a discrete pixel. That is, our previous discussions have been in terms of an image as the continuous surface in \cref{def:image_as_surface},
+    rather than the more realistic discrete pixel matrix as in \cref{def:image_as_pixel_matrix}.
+    The present section seeks to address this disconnect.
+    In particular, we seek to mitigate the bias of our limited sampling
+    of the ``true'' 3D surface. Our main goal is to counter against some of the bias of our particular sampling. In particular, we wish to not over-represent structures that
+    are clear at our resolution without giving appropriate weight to larger structures as well.
+    Koenderink \cite{Koenderink} argued that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called scale space axioms. He (and others) showed that a small set of intuitive axioms imply require that any such family of images must satisfy the heat equation
+    
+    \begin{equation} \label{eq:heat-eq-for-family}
+    \Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
+    \;\text{for}\; \sigma \ge 0
+    \;\text{such that}\; K(x,y, 0) = u_0(x,y).
+    \end{equation}
+    
+    where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
+    Much work has been done to formalize this approach \cite{GSST-book}. There is a long list of desired properties--we will to try to identify a minimal subset of axioms and show that other desired properties follow.
+    
+	  
+    
+    \subsection{Axioms}
+	 To make matters manageable, we require the one-parameter family of scaled images to be generated by an operation on the original image:
+	 
+	\[
+		\left\{\ K(x,y;\sigma) = T_\sigma u_0
+		\ \lvert \ 
+		\sigma \ge 0
+		\; ,\; K(x,y,;0) = u_0
+		\ \right\} 
+	\]
+    
+	The following axioms are then requirements on what sort
+	of operation $T_\sigma$ should be.
+		
+    \subsubsection{Linear-shift and Rotational invariance}
+    Linear-shift (or translation) invariance means that no position in the original signal is favored.  This is intuitive, as our operation should apply to any image fairly, regardless of where content is found in the image. Similarly, there should be not be favoritism toward any particular orientation of content within the image.
+    
+    \subsubsection{Continuity of scale parameter}
+    
+    There is no reason for the scale parameter to be discrete; we may alter the resolution with whatever
+    precision we desire. That is, we take the resolution
+    parameter $\sigma$ to be a nonzero real number
+    (as opposed to an integer). Moreover, we require that the operator behaves continuously with respect to the scale parameter.
+%    ; that is,
+%    
+%    \[
+%	    \abs{T_{\sigma} u_0 - T_{\sigma+h}u_0} 
+%	    \quad \textrm{as} \quad 
+%		    h \downarrow 0.
+%    \]
+    
+	An argument from functional analysis (see \cite{hille1957functional}) implies that there is a so-called ``infinitesimal generator'' $A$ which is a limit case of our desired operator $T$; that is
+	\[
+	A u = \lim_{\sigma \downarrow 0} \frac{T_\sigma u - u}{\sigma}
+	\]
+ 
+	 and moreover that there is a resultant differential equation
+	 concerning the derivative of the family and $A$:
+	 
+	 \begin{equation}
+	 \partial_{\sigma} K(x,y;\sigma)
+	 = \lim_{\sigma \downarrow 0}
+	 \frac{K(\cdot;\sigma+h) - K(\cdot; \sigma)}{h}
+	 = A(T_\sigma u) = A(K(\cdot,\sigma))
+	 \end{equation}
+	 
+	 
+    
+    \subsection{Semigroup property}
+    The semigroup property is simply that transforming
+    the original image by some resolution $\sigma$ should
+    have the same overall effect of two successive
+    transformations $\sigma_1$ and $\sigma_2$, i.e.
+    
+    \begin{equation}	
+	    T_{\sigma} u = T_{\sigma_1 + \sigma_2} u
+    \end{equation}
+    
+%     \subsubsection{Linearity of generator}
+%        ``Linearity implies that all-scale space properties valid for the original signal will transfer to its derivatives. Hence, there is no commitment to certain aspects of image structure, such as the zero-order representation, or its first- or second-order derivatives.''
+   
 
-    Hessian-based filters are a family of curvilinear filters that employ the Hessian and its eigenspaces
-    to determine regions of significant curvature within an image.
-    % as mentioned by Frangi, see Sato [13] and Lorenz [10] in their paper
-    Several such filters exist --see Sato [13] and Lorenz[10]. These filters use information about the principal curvatures (eigenvalues of the Hessian) at each point to 
+   \subsubsection{Causality condition}
+    This requirement has great implication, and is also
+    very successful in encoding our intuitive sense
+    of ``resolution''. The causality condition is the one
+    that, as resolution decreases, no finer detail is
+    introduced into the image. That is, as the scale
+    increases, there will be no creation of local extrema
+    that did not exist at a smaller scale.
+    
+    In other words, if 
+    $K(x_0,y_0 ; \sigma_0)$ is a local maximum (at the point $(x_0, y_0)$, at this fixed $\sigma_0$)
+    i.e. 
+    then an increase in scale can only weaken this peak, i.e.
+    \begin{equation}
+    \left\{\begin{aligned}
+    \nabla K(x_0,y_0; \sigma_0) &= 0 \\
+    \Delta K(x_0,y_0;\sigma_0) &< 0
+    \end{aligned}\right.
+	\quad \implies \quad
+	K(x_0,y_0;\sigma_1) \le K(x_0,y_0;\sigma_0)
+	\; \forall\; \sigma_1 \ge \sigma_0
+    \end{equation}
+    
+    Similarly, if $K(x_0,y_0;\sigma_0)$ is a local minimum (with respect to space), then an increase in scale cannot make such a valley more profound, i.e.
+   \begin{equation}
+   \left\{\begin{aligned}
+   \nabla K(x_0,y_0; \sigma_0) &= 0 \\
+	\Delta K(x_0,y_0;\sigma_0) &> 0
+	\end{aligned}\right.
+	\quad \implies \quad
+	K(x_0,y_0;\sigma_1) \ge K(x_0,y_0;\sigma_0)
+	\; \forall\; \sigma_1 \ge \sigma_0
+\end{equation}
+    
+    This implies that no image feature is sharpened by an decrease and resolution--the only result is a monotonic blurring of the image as scale parameter $\sigma$ tends to infinity.s
+    
+    
+    \subsection{Necessity of convolution}
+    Where is this.
+    \subsection{Uniqueness of the Gaussian Kernel}
+    Proved \vcomment{however artificially} by Koenderink [1984] and Babaud [1986] that such an axiomatic foundation requires that the family is generated by convolution with a kernel. The remainder of the development is to the determine that the kernel is exactly the Gaussian.
+
+    
+    
+    To this, show that:
+    \begin{itemize}
+    	\item a kernel satisfying the above axioms must satisfy the heat equation
+    	\item the gaussian kernel satisfies that.
+    	\item gaussian kernel is the only kernel that works (koenderink paper?)
+    \end{itemize}
+    
+    
+    \subsection{$G_\sigma \star u_0$ solves the heat equation}
+    given $u_0$ as a continuous image (unscaled), we construct PDE with this as a boundary condition.
+    
+    \begin{equation}
+    u: \R^2 \supset \Omega \to \R \; \textrm{with} \; u(\bm{x},t) : \;
+    \begin{cases}
+    \frac{\partial u}{\partial t} (\bm{x}, t) = \Delta u(\bm{x},t) & ,\; t \ge 0 \\
+    u(\bm{x},0) = u_0(\bm{x}) 
+    \end{cases}
+    \end{equation}
+    
+    We show that
+    \begin{equation}
+    u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})
+    \end{equation}
+    solves (the above tagged equation), where
+    \[
+    G_\sigma := \frac{1}{2\pi \sigma^2} e^{\left(-\abs{x}^2 / (2\sigma^2)\right)}
+    \]
+    First, we need a quick lemma regarding differentiation a continuous convolution.
+    \begin{lemma} \label{dconvolution}
+    	Derivative of a convolution is the way that it is (obviously rewrite this).
+    \end{lemma}
+    \begin{proof}
+    	For a single variable,
+    	\begin{align}
+    	\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
+    	&= \frac{\partial}{\partial \alpha} \left[ 
+    	\int f(t) g(\alpha - t) dt \right] \\
+    	&=  \int f(t) \frac{\partial}{\partial \alpha}\left[ g(\alpha - t)  \right] dt \\
+    	&=  \int f(t) \left(\frac{\partial g}{\partial \alpha}\right) g(\alpha - t) dt \\
+    	&=  f(\alpha) \star g'(\alpha)
+    	\end{align}
+    	By symmetry of convolution we can also conclude 
+    	\[\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
+    	= f'(\alpha) \star g(\alpha)
+    	\]
+    	
+    	If $f$ and $g$ are twice differentiable, we can compound this result to show a similar statement holds for second derivatives, and then, given the additivity of convolution,
+    	we may conclude
+    	\begin{equation}
+    	\Delta \left(f \star g \right) = \Delta(f) \star g = f \star \Delta(g) 
+    	\end{equation} 
+    \end{proof}
+    \begin{theorem}
+    	$u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})$ solves the heat equation.
+    \end{theorem}
+    \begin{proof}
+    	We focus on the particular kernel
+    	\[
+    	G_{\sqrt{2t}} = \frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)}
+    	\]
+    	
+    	
+    	Then
+    	\begin{align}
+    	\frac{\partial u}{\partial t} (\bm{x}, t)
+    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t) \star u_0(\bm{x})\right)  \\
+    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t)\right) \star u_0(\bm{x})  \\
+    	&= \frac{\partial}{\partial t} \left(
+    	\frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)} \right) \star u_0(\bm{x}) \\
+    	&= \left[
+    	-\frac{1}{4\pi t^2} e^{\left(-\abs{x}^2 / (4t)\right)}
+    	+ \frac{1}{4\pi t}\left(\frac{-\abs{x}^2}{4t^2}\right) e^{-\abs{x}^2 / (4t)}
+    	\right] \star u_0(\bm{x}) \\
+    	&= -\frac{1}{4t^2} \left( e^{\left(-\abs{x}^2 / (4t)\right)} 
+    	+ \abs{\bm{x}}^2 G_{\sqrt{2t}}(\bm{x},t)
+    	\right) \star u_0(\bm{x})
+    	\end{align}
+    	and from the previous lemma,
+    	\[
+    	\Delta u(\bm{x}, t) = \Delta\left( G_{\sqrt{2t}} \star u_0(\bm{x})\right)
+    	= \Delta\left( G_{\sqrt{2t}} \right)\star u_0(\bm{x})
+    	\]
+    	
+    	We explicitly calculate the Laplacian of $G_{\sigma}(x,y) = A \exp(-\frac{x^2 + y^2}{2\sigma^2})$ as follows:
+    	
+    	\begin{align*}
+    	\frac{\partial}{\partial x} G_{\sigma}(x,y)
+    	&= A \left( \frac{-2x}{2\sigma^2}\right) \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \\
+    	\implies \frac{\partial^2}{\partial^2 x} G_{\sigma}(x,y)
+    	&= A \cdot \frac{\partial}{\partial x}
+    	\left[ - \frac{x}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+    	&= A \left[ - \frac{1}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) 
+    	+ \frac{x}{\sigma^2} \cdot \frac{2x}{2\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+    	&= A \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right)
+    	\left[ - \frac{1}{\sigma^2} + \frac{x^2}{\sigma^4} \right] \\
+    	&= \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{x^2}{\sigma^2} - 1\right]
+    	\end{align*}
+    	
+    	By symmetry of argument we also may conclude
+    	\[
+    	\frac{\partial^2}{\partial y^2} G_{\sigma}(x,y) = \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{y^2}{\sigma^2} - 1\right]
+    	\]
+    	
+    	and so
+    	
+    	\begin{equation}
+    	\Delta G_\sigma(x,y) =
+    	\frac{\partial^2}{\partial x^2} \left(G_{\sigma}\right)
+    	+ \frac{\partial^2}{\partial y^2} \left(G_{\sigma}\right)
+    	= \frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right] 
+    	\end{equation}
+    	Then, given \cref{dconvolution}, we conclude
+    	\begin{equation}
+    	\Delta \left[ G_\sigma(x,y) \star u_0(x,y) \right] 
+    	= \left(\frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right]\right) \star u_0(x,y)
+    	\end{equation}
+    	
+    	For particular choices of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$,
+    	we see 
+    	\begin{align}
+    	\Delta \left[ G_{\sqrt{2t}}(x,y) \star u_0(x,y) \right] 
+    	&= \left(\frac{1}{2t} G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{2t} - 2\right]\right) \star u_0(x,y) \\
+    	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} - \frac{1}{t}\right]\right) \star u_0(x,y)
+    	\end{align}
+    	We then calculate the time derivative,
+    	using our particular choice of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$ as:
+    	
+    	\begin{align}
+    	\frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \star u_0(x,y) \right]
+    	&= \frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \right] \star u_0(x,y) \\
+    	&= \frac{\partial}{\partial t} \left[ G_{\sqrt{2t}}(x,y)\right] \star u_0(x,y) \\
+    	&= \frac{\partial}{\partial t} \left[
+    	\frac{1}{4\pi t} \exp\left(-\frac{x^2 + y^2}{4t}\right) \right] \star u_0(x,y) \\
+    	&= \left[ -\frac{1}{4\pi t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right) + 
+    	\frac{1}{4\pi t}\left( \frac{x^2 + y^2}{4t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right)\right)
+    	\right] \star u_0(x,y) \\
+    	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} -\frac{1}{t}\right]\right) \star u_0(x,y)
+    	\end{align}
+    	
+    	Combining these results, we find that
+    	\begin{equation}
+    	\frac{\partial}{\partial t} \left[ G_{\sqrt{2t}} \star u_0 \right]
+    	= \Delta \left[ G_{\sqrt{2t}} \star u_0 \right] 
+    	\end{equation}
+    	
+    	as desired. \end{proof}
+    
+    We now return to our discussion of the Frangi filter.
+    \subsection{A multiscale approach} \label{sec:frangi-multiscale}
+    
+    As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures. We wish to find regions that would receive a high vesselness score at any range, and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
+    
+    \begin{equation} \label{frangi-vesselness-max}
+    V(x_0, y_0) = \underset{\sigma \in \Sigma}{\max}\;  V_\sigma(x_0, y_0)
+    \end{equation}
+    
+    where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is a range of scale spaces representative enough of all scales where meaningful content is expected to be found.
+    
+    \subsection{Thresholding}
+    
+    After this procedure, we are left with a matrix with as many samples/pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image:
+    
+    \begin{equation} \label{eq:frangi-max-matrix}
+    \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
+    \end{equation}
+    
+    Whereas Frangi \cite{frangi-paper} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
+    \vcleanup{fix notation in all of this}
+    \begin{equation}
+    V_{\Sigma,\alpha}(x,y) = \begin{cases}
+    1 & \textrm{if}\quad V(x,y) \ge \alpha \\
+    0 & \textrm{else}
+    \end{cases}  \quad , \quad \alpha > 0 fixed.
+    \end{equation}
+    
+    
+    %Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
+    
+    \vtodo{Describe an alternative approach of stitching.}
+    
+    \vcleanup{this goes somewhere else}
+    
+    
+    \section{First and Second Derivatives of Discrete Images} 
+
+    	The way that you'd normally/naively describe it. Non multiscale.
+    	As in scipy or whatever.
+    	    %\begin{itemize}
+    %	\item \vtodo{Describe taking gradient with divided difference.}
+    %	It is standard practice to take the derivative of any discrete structure by taking the gradient of it.  
+    %	\item \vtodo{Describe the situation: derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.}
+    %	\item \vtodo{Mention that derivatives can be taken in frequency space?}
+    
+    %		Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
+    %					\begin{verbatim}
+    %					gaussian_filtered = fftgauss(image, sigma=sigma)
+    %					Lx, Ly = np.gradient(gaussian_filtered)
+    %					Lxx, Lxy = np.gradient(Lx)
+    %					Lxy, Lyy = np.gradient(Ly)
+    %					\end{verbatim}	
+%\end{itemize}
+%\vcomment{describe this no matter what. if you want to calculate the derivatives in frequency space, still describe this so you can compare the results.}
+    
+    
+    \section{Equivalent Methods of Calculating 2D Hessian}
+    
+    Note the following 6 methods should all theoretically be equivalent:
+    
+    \begin{itemize}
+    	\item convolve discrete image with a gaussian kernel, then take derivatives (no FFT). This is the ``classical approach''
+    	\item Take derivatives of gaussian kernel, then convolve with the image/signal (again, no FFT)(due to \vcleanup{cite theorem})
+    	\item FFT image and FFT gaussian kernel then convolve in freq. space, then IFFT, then take derivatives in xy-space (my implementation)
+    	\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
+    	\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
+    	\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
+    	
+    	\vtodo{big implementation note: you want to show equivalence of these, but the problem is that around the boundary the issue is annoying. can you fix this?}
+    	
+    \end{itemize}
+    
+    
+    
+    
     
     
 \subsection{Implementation Details: Convolution Speedup via FFT}
@@ -1053,218 +1478,7 @@ The one caveat is that the above development was for transforming sequences whos
 The inverse DFT is actually a DFT of a modified function, see \vtodo{cite DIP-GW here or show that}. \vtodo{check how fftpack does this}
 
 \hrulefill
-\section{Linear Scale Space Theory} \label{sec:scale-space-theory}
-\vcomment{this is all as cited in GSST book (see starting in sec 6.3.1).
-	as mentioned there, this is analogous to a discrete development
-	(lindeberg 1990 lindeberg 1991 lindeberg 1994c lindeberg 1994e)}
 
-Koenderink showed/asserted that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called \textit{scale space axioms}. They showed in particular that any such family must satisfy the heat equation
-\begin{equation}
-	\Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
-	\;\text{for}\; \sigma \ge 0
-	\;\text{such that}\; K(x,y, 0) = u_0(x,y).
-	\end{equation}
-	
-	where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
-Much work has been done to formalize this approach. There is a long list of desired properties
-quoted from gsst. goal is to try to find a minimal subset of axioms and show that other desired properties follow.
-
-
-\subsection{Axioms}
-To make matters manageable, [PEOPLE] have taken the approach of requiring the one-parameter family of scaled images to be generated by an operation.
-
-\subsection{Linear-shift invariance}
-	This requires that the generator is convolution by some kernel. Show or proclaim.
-	Shift-invariant means that no position in the original signal is favored (makes sense, this should apply to any image.)
-
-\subsubsection{Rotational invariance}
-	Similar to above, no favoritism to directionality.
-
-\subsubsection{Semigroup property}
-	They stack (no preferred scale)
-
-\subsubsection{Causality condition}
-	No ``spurious resolution'' can be generated as parameter increases. \vcomment{FIX NOTATION}
-	If $K(x_0,y_0;z_0)$ is a local maximum (in space)
-		(i.e. $\nabla_{x,y}K(x_0,y_0; z_0) = 0 \;,\; \Delta_{x,y} K(x_0,y_0;z_0) < 0$ ),
-		then an increase in scale can only weaken this peak, i.e.
-		\begin{equation}
-		z_0 > z_1 \implies K(x_0,y_0;z_0) \ge K(x_0,y_0;z_1)
-		\end{equation}
-	Similarly, if $K(x_0,y_0;z_0)$ is a local minimum (in space), (i.e. $\nabla_{x,y}K(x_0,y_0; z_0) = 0 \;,\; \Delta_{x,y} K(x_0,y_0;z_0) > 0$ ),
-	then an increase in scale cannot make such a valley more profound, i.e.
-	\begin{equation}
-	z_0 > z_1 \implies K(x_0,y_0;z_0) \le K(x_0,y_0;z_1)
-	\end{equation}
-
-This implies that no image feature is sharpened by an decrease and resolution--the only result is a flattening out of the image as scale parameter $z$ tends to infinity.s
-
-
-\subsubsection{Linearity of generator}
-``Linearity implies that all-scale space properties valid for the original signal will transfer to its derivatives. Hence, there is no commitment to certain aspects of image structure, such as the zero-order representation, or its first- or second-order derivatives.''
-\vcomment{this is dubious, as mentioned by JvB}
-
-
-\subsection{Necessity of convolution}
-Where is this.
-\subsection{Uniqueness of the Gaussian Kernel}
-Proved \vcomment{however artificially} by Koenderink [1984] and Babaud [1986] that such an axiomatic foundation requires that the family is generated by convolution with a kernel. The remainder of the development is to the determine that the kernel is exactly the Gaussian.
-
-\vtodo{TODO:
-	JUST EVEN OUT THE ABOVE.
-	FIND SOMETHING TO JUSTIFY CONVOLUTION.
-	CITATIONS FOR LATER FORMULATIONS.
-	BUILD UP HEAT EQUATION (HOWEVER RIGOROUSLY YOU CAN).
-	SHOW NECESSITY OF GAUSSIAN (OR DON'T).
-}
-	
-
-To this, show that:
- \begin{itemize}
-	 	\item a kernel satisfying the above axioms must satisfy the heat equation
-	 	\item the gaussian kernel satisfies that.
-	 	\item gaussian kernel is the only kernel that works (koenderink paper?)
- \end{itemize}
-
-
-\subsection{$G_\sigma \star u_0$ solves the heat equation}
-given $u_0$ as a continuous image (unscaled), we construct PDE with this as a boundary condition.
-
-\begin{equation}
-	u: \R^2 \supset \Omega \to \R \; \textrm{with} \; u(\bm{x},t) : \;
-		\begin{cases}
-			\frac{\partial u}{\partial t} (\bm{x}, t) = \Delta u(\bm{x},t) & ,\; t \ge 0 \\
-			u(\bm{x},0) = u_0(\bm{x}) 
-		\end{cases}
-	\end{equation}
-
-We show that
-\begin{equation}
-	u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})
-\end{equation}
-solves (the above tagged equation), where
-\[
-	G_\sigma := \frac{1}{2\pi \sigma^2} e^{\left(-\abs{x}^2 / (2\sigma^2)\right)}
-\]
-First, we need a quick lemma regarding differentiation a continuous convolution.
-\begin{lemma} \label{dconvolution}
-	Derivative of a convolution is the way that it is (obviously rewrite this).
-\end{lemma}
-\begin{proof}
-	For a single variable,
-	\begin{align}
-	\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
-	&= \frac{\partial}{\partial \alpha} \left[ 
-	\int f(t) g(\alpha - t) dt \right] \\
-	&=  \int f(t) \frac{\partial}{\partial \alpha}\left[ g(\alpha - t)  \right] dt \\
-	&=  \int f(t) \left(\frac{\partial g}{\partial \alpha}\right) g(\alpha - t) dt \\
-	&=  f(\alpha) \star g'(\alpha)
-	\end{align}
-	By symmetry of convolution we can also conclude 
-	\[\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
-	= f'(\alpha) \star g(\alpha)
-	\]
-	
-	If $f$ and $g$ are twice differentiable, we can compound this result to show a similar statement holds for second derivatives, and then, given the additivity of convolution,
-	we may conclude
-	\begin{equation}
-	\Delta \left(f \star g \right) = \Delta(f) \star g = f \star \Delta(g) 
-	\end{equation} 
-\end{proof}
-\begin{theorem}
-	$u(\bm{x},t) = \left(G_{\sqrt{2t}} \star u_0 \right)(\bm{x})$ solves the heat equation.
-\end{theorem}
-\begin{proof}
-	We focus on the particular kernel
-	\[
-		G_{\sqrt{2t}} = \frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)}
-		\]
-
-
-Then
-\begin{align}
-\frac{\partial u}{\partial t} (\bm{x}, t)
-	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t) \star u_0(\bm{x})\right)  \\
-	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t)\right) \star u_0(\bm{x})  \\
-	&= \frac{\partial}{\partial t} \left(
-		\frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)} \right) \star u_0(\bm{x}) \\
-	&= \left[
-	-\frac{1}{4\pi t^2} e^{\left(-\abs{x}^2 / (4t)\right)}
-		+ \frac{1}{4\pi t}\left(\frac{-\abs{x}^2}{4t^2}\right) e^{-\abs{x}^2 / (4t)}
-		\right] \star u_0(\bm{x}) \\
-		&= -\frac{1}{4t^2} \left( e^{\left(-\abs{x}^2 / (4t)\right)} 
-				+ \abs{\bm{x}}^2 G_{\sqrt{2t}}(\bm{x},t)
-					\right) \star u_0(\bm{x})
-\end{align}
-and from the previous lemma,
-\[
-\Delta u(\bm{x}, t) = \Delta\left( G_{\sqrt{2t}} \star u_0(\bm{x})\right)
-					= \Delta\left( G_{\sqrt{2t}} \right)\star u_0(\bm{x})
-\]
-
-We explicitly calculate the Laplacian of $G_{\sigma}(x,y) = A \exp(-\frac{x^2 + y^2}{2\sigma^2})$ as follows:
-
-\begin{align*}
-\frac{\partial}{\partial x} G_{\sigma}(x,y)
-	&= A \left( \frac{-2x}{2\sigma^2}\right) \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \\
-	\implies \frac{\partial^2}{\partial^2 x} G_{\sigma}(x,y)
-	&= A \cdot \frac{\partial}{\partial x}
-	\left[ - \frac{x}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
-	&= A \left[ - \frac{1}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) 
-		+ \frac{x}{\sigma^2} \cdot \frac{2x}{2\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
-		&= A \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right)
-			\left[ - \frac{1}{\sigma^2} + \frac{x^2}{\sigma^4} \right] \\
-			&= \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{x^2}{\sigma^2} - 1\right]
-\end{align*}
-
-By symmetry of argument we also may conclude
-\[
-\frac{\partial^2}{\partial y^2} G_{\sigma}(x,y) = \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{y^2}{\sigma^2} - 1\right]
-\]
-
-and so
-
-\begin{equation}
-\Delta G_\sigma(x,y) =
-	\frac{\partial^2}{\partial x^2} \left(G_{\sigma}\right)
-	+ \frac{\partial^2}{\partial y^2} \left(G_{\sigma}\right)
-	= \frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right] 
-\end{equation}
-Then, given \cref{dconvolution}, we conclude
-\begin{equation}
-\Delta \left[ G_\sigma(x,y) \star u_0(x,y) \right] 
-= \left(\frac{1}{\sigma^2} G_\sigma(x,y) \left[ \frac{x^2 + y^2}{\sigma^2} - 2\right]\right) \star u_0(x,y)
-\end{equation}
-
-For particular choices of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$,
-we see 
-\begin{align}
-	\Delta \left[ G_{\sqrt{2t}}(x,y) \star u_0(x,y) \right] 
-	&= \left(\frac{1}{2t} G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{2t} - 2\right]\right) \star u_0(x,y) \\
-	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} - \frac{1}{t}\right]\right) \star u_0(x,y)
-\end{align}
-We then calculate the time derivative,
-using our particular choice of $\sigma(t) = \sqrt{2t}$ and $A = \frac{1}{4\pi t}$ as:
-
-\begin{align}
-\frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \star u_0(x,y) \right]
-&= \frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \right] \star u_0(x,y) \\
-&= \frac{\partial}{\partial t} \left[ G_{\sqrt{2t}}(x,y)\right] \star u_0(x,y) \\
-&= \frac{\partial}{\partial t} \left[
-\frac{1}{4\pi t} \exp\left(-\frac{x^2 + y^2}{4t}\right) \right] \star u_0(x,y) \\
-&= \left[ -\frac{1}{4\pi t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right) + 
-\frac{1}{4\pi t}\left( \frac{x^2 + y^2}{4t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right)\right)
-	\right] \star u_0(x,y) \\
-	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} -\frac{1}{t}\right]\right) \star u_0(x,y)
-\end{align}
-
-Combining these results, we find that
-\begin{equation}
-\frac{\partial}{\partial t} \left[ G_{\sqrt{2t}} \star u_0 \right]
-= \Delta \left[ G_{\sqrt{2t}} \star u_0 \right] 
-\end{equation}
-
-as desired. \end{proof}
 \hrulefill
 \subsection{Alternative formulations of Scale Space Theory}
 Mention discrete treatments, mention relaxation of some of the dubious axioms.
@@ -1273,142 +1487,4 @@ Methods of merging multiscale methods.
 
 
 \hrulefill
-
-\section{Overview of Frangi vesselness measure}
-
-\vcleanup{move to next section? or cover any necessary math here}
-
-The Frangi filter \cite{frangi1998multiscale} is a widely used \vcomment{citation needed} Hessian-based filter used to detect curvilinear structures in images.  It was orignally developed for images such as MRIs and it excels in that context. It essentially relies on measuring eigenvalues of the Hessian $\Hess_\sigma(x,y)$ at some particular scale $\sigma$ at each point $(x,y)$ in the image and comparing their magnitudes.
-
-The procedure for a single scale in a 2D image is as follows:
-
-\vcleanup{redefine this in a sensible way so you can easily talk about the point in the domain of the image, etc.}
-Let $\lambda_1, \lambda_2$ be the two eigenvalues of the Hessian of the image at point $(x_0, y_0)$,
-ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, and define the Frangi vesselness measure at scale $\sigma$ as:
-
-
-\begin{equation} \label{eq:frangi-vesselness-measure}
-V_\sigma(x_0,y_0) = \begin{cases}
-0 & \text{if} \quad \lambda_2 > 0 \\
-\exp\left(-\frac{A^2}{2\beta^2}\right)
-\left(1 - \exp(-\frac{S^2}{2c^2})\right) & \text{else}
-\end{cases} \end{equation}
-where
-\begin{equation} \label{frangi-def-anisotropy-structureness}
-A := \abs{\lambda_1 / \lambda_2}
-\quad \textrm{and} \quad 
-S := \sqrt{\lambda_1^2 + \lambda_2^2}
-\end{equation}
-and $\beta$ and $c$ are tuning parameters. Before we discuss appropriate values for $\beta$ and $c$, we first seek to highlight the significance of \cref{frangi-vesselness-measure}, and in particular, the ratios defined in
-\cref{frangi-def-anisotropy-structureness}. $A$ and $S$ are known as the anisotropy measure and structureness measure, respectively. \vcleanup{define these earlier than the vesselness measure so that the definitions are easier to find}.
-
-\subsection{Anisotropy} \label{sec:frangi.anisotropy}
-The anisotropy (or directionality) measure $A$ is simply the ratio of magnitudes of $\lambda_1$ and $\lambda_2$. Since at a ridge point of a tubular structure, we should have $\lambda_1 \approx 0$ and $\abs{\lambda_2} \gg \abs{\lambda_1}$,
-a very small value of $A$ would be present at a ridge of a tubular structure.
-
-\begin{thefigure}
-\label{fig:expo-principal-curvatures}
-\begin{center}
-\includegraphics[width=0.8\linewidth]{expo_principal_curvatures}
-%\caption{The principal eigenvectors at a ridge like structure} 
-%\vtodo{fix drawing so $u_1$ is more to scale }}
-\end{center}
-\end{thefigure}
-
-In \cref{fig:expo-principal-curvatures}, this situation is demonstrated. Here, $u_1, u_2$ is the orthogonal set of Hessian eigenvectors with corresponding eigenvalues $\lambda_1$ and $\lambda_2$. At such a ridgelike structure, we could predict the largest change in curvature to be straight down the ridge (in the direction of $u_2$), and the direction of least curvature to be directly along the ridge (in the direction  of $u_1$).
-(arrows not to scale). $\lambda_1 \approx 0$ and $\lambda_2$ is large and negative.
-
-Of course, if the the ridge is perfectly circular along its cross section (as was in \cref{sec:calculate-weinmap-of-a-ridge}, it is of course apparent that $\lambda_2$ would be the same value at any place along the ridge (not just at its crest \vcleanup{fix terminology}), and $\lambda_1$ would likewise be 0 at any such point. Thus, the anisotropy measure will not necessarily be a maximum at the crest of the ridge. One could also imagine a similar situation in which the dropoff from crest to bottom gets increasing steep. In such a case, $\lambda_2$ as a function of $x$ would in fact be largest nearest to the bottom. This thought experiment should dispel a naive misunderstanding of the power of a frangi filter: a high anisotropy measure (and a large structureness measure \vcleanup{define structureness first}) will not in general identify the crests of a ridgelike structure--it only will highlight that such a pixel is on a ridgelike structure at all.
-
-Similiarly, the vessel we're trying to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure we seek to identify.  (either small parts where it goes up (so that $u_1$ is not exactly zero \vtodo{and we could fix this by checking that it's continuousish?}, there may be small divots where the thing seems to go up a bit etc etc etc or sampling error cos it's a fucking picture etcetc \vtodo{flesh this out}.
-
-\vcleanup{move elsewhere} Importantly, this formulation does allow that $\lambda_1$ is not necessarily approximately $0$, just that the curvature in the downward direction is much more significant.
-
-Also the crest could be really flat, in which case both are around zero. again, this is a scaling issue.
-
-The fix to this is to look at scale and make sure we're dealing with an appropriate scale. Also the fix is to find the ridge using a separate technique.
-
-Also look at where the stitches are (discontinuities in $u_2,$ but $u_1$ still 0?)
-
-\subsection{Structureness measure} \label{sec:frangi-structureness}
-
-There is another concern with using the pure ratio $S:= \abs{\lambda_1 / \lambda_2}$ as an identifying feature of ridgelike structures: we could still have $\abs{\lambda_2} \gg \abs{\lambda_1}$ in a relative sense, but still have $\lambda_2 \approx 0$. As a rather extreme example, we should certainly wish to differentiate a point on the surface where $\lambda_2 \approx 10^{-5} $ and $\lambda_1 \approx 10^{-10}$ from another point where $\lambda_2 \approx 10000$ and $\lambda_2 = 0.1$. A quite simple fix to differentiate these points is to introduce a ``structureness'' measure to insure that there is in fact some significant curvilinear activity at the point in question. Frangi used $S:= \sqrt{(\lambda_1)^2 + (\lambda_2)^2}$, which is in fact the 2-norm of the Hessian matrix \vcleanup{show?}.
-
-\vcleanup{note somewhere (maybe in a section called 'tuning parameters' how important this one is}
-
-
-\subsection{The Frangi vesselness filter: Basic Anatomy}
-
-Our goal then is to attach a numerical measure to each pixel in the image (at a particular scale $\sigma$) that is large when the anisotropy measure $A$ and the structureness measure $S$ is sufficiently large.
-
-The form Frangi arrived at in \cref{eq:frangi-vesselness-measure} in which a factor of $\exp\{...\}$ and $(1 - \exp\{\})$ are multiplied together are simply to ensure that the final vesselness measure $V$ is largest when $A$ is small and $S$ is large enough, with rapidly decay in other situations.
-
-We have an added case present in \cref{eq:frangi-vesselness-measure}, simply to ensure that $\lambda_2$ is not positive. If we are indeed at a curvilinear ridge, we need the second derivative of the surface in the maximal direction to be negative, which hasn't been accounted for as yet in our formulation of $A$ and $S$ -- we wish (for our purposes) to only indentify when we are finding crests. $A$ will still be small and $S$ will still be large however if we identify a ``trough''.
-The only perceivable difference is that the maximum normal curvature will be positive--we are at a local minimum in the direction of $u_2$. In situations where we wish to only identify ridges (as is the case here) we simply exclude any points where there is not a negative curvature in the maximal direction. 
-
-\vtodo{can you plot this theoretically to show when $V$ is large? Good parameters? Like show multiple peaks of $\exp(\dots)$ and  $(1 - \exp(\dots))$ arranged so that they only coincide in 'good' regions and are rapidly diminishing overlap elsewhere?}
-
-\subsection{The Frangi vesselness filter: Choosing parameters $\beta$ and $c$}
-
-The parameters $\beta$ and $c$ are meant to scale so that the peaks of $exp$ and $1-exp$ coincide enough to be statistically significant but rapidly decay in areas not associated with curvilinear structure.
-
-What values of these parameters are appropriate is ultimately dependent on the context of the problem.
-
-Frangi suggested for $c$ that half of the Frobenius norm of the Hessian matrix is appropriate , simply because the minimum value of $S$ is zero, and  its maximum value is approx the 2 norm of the Hessian. \vtodo{find your proof/add proof}. For $\beta$ we would say that a good intermediate point is 0.5.
-(thus $2\beta^2 = 1/2$). \vtodo{analyze/show an example of what this does in the context of particular values of $\lambda_1,\lambda_2$ in terms of $V$ output}.
-
-As we will show later, choosing $c$ freely is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain \vtodo{explain better or make a picture.} then $\beta$ should be smaller. If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.
-
-\subsection{A multiscale approach}
-
-As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures. We wish to find regions that would receive a high vesselness score at any range, and consider them all together. Frangi \cite{frangi1998multiscale} approached this problem by simply aggregating vesselness measure over all scales:
-
-\begin{equation} \label{frangi-vesselness-max}
-V(x_0, y_0) = \underset{\sigma \in \Sigma}{\max}\;  V_\sigma(x_0, y_0)
-\end{equation}
-
-where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is a range of scale spaces representative enough of all scales where meaningful content is expected to be found.
-
-\subsection{Thresholding}
-
-After this procedure, we are left with a matrix with as many samples/pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image:
-
-\begin{equation} \label{eq:frangi-max-matrix}
-\mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
-\end{equation}
-
-Whereas Frangi \cite{frangi1998multiscale} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
-\vcleanup{fix notation in all of this}
-\begin{equation}
-V_{\Sigma,\alpha}(x,y) = \begin{cases}
-1 & \textrm{if}\quad V(x,y) \ge \alpha \\
-0 & \textrm{else}
-\end{cases}  \quad , \quad \alpha > 0 fixed.
-\end{equation}
-
-
-%Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
-
-\vtodo{Describe an alternative approach of stitching.}
-
-\vcleanup{this goes somewhere else}
-\section{methods of calculating 2D Hessian}
-
-Note the following 6 methods should all theoretically be equivalent:
-
-\begin{itemize}
-\item convolve discrete image with a gaussian kernel, then take derivatives (no FFT). This is the ``classical approach''
-\item Take derivatives of gaussian kernel, then convolve with the image/signal (again, no FFT)(due to \vcleanup{cite theorem})
-\item FFT image and FFT gaussian kernel then convolve in freq. space, then IFFT, then take derivatives in xy-space (my implementation)
-\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
-\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
-\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
-
-\vtodo{big implementation note: you want to show equivalence of these, but the problem is that around the boundary the issue is annoying. can you fix this?}
-
-\end{itemize}
-
-
-
-
 

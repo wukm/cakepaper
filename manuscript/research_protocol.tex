@@ -81,7 +81,6 @@ These procedures are performed automatically on the 174 image in our data set us
 	\ref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Repeat with a smaller border. Maybe the issue doesn't occur with these as much? 	In the image above, $\sigma=3$ and border radius is 80 and all it does is get 	rid of the stupid natural boundary, not a weird frangi response. Which is important in itself, but I was having an error just between the edge of the image.
 	
 	The code for the above can by found by running \texttt{plate\_morphology.py} as a top-level script (that is, within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file).
-	
 \section{Multiscale Setup}
 
 	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius. This  list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
@@ -133,6 +132,3 @@ Calculate the Hessian matrix of  and then the eigenvalues using the function \te
 	
 	The are which is affected should be larger than just the standard dropoff the gaussian however, since we're interested
 	in second derivative information.
-	
-\section{Code Listings}
-\vtodo{this goes in the appendix}

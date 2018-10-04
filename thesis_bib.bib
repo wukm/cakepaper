@@ -42,7 +42,7 @@
 	publisher={Elsevier},
 	annote={A very long and maybe not useful survey/comparison of many $(>20)$(!!) vessel detection algorithms. I learned about the STARE database from this paper. Comparisons and results are nonsense to me at this point.}
 }
-@inproceedings{olabarriaga2003evaluation,
+@inproceedings{olabarriaga-hessian-comparison,
 	title={Evaluation of Hessian-based filters to enhance the axis of coronary arteries in CT images},
 	author={Olabarriaga, S{\'\i}lvia Delgado and Breeuwer, M and Niessen, WJ},
 	booktitle={International Congress Series},
@@ -134,7 +134,7 @@
 	annote={Could use the 3rd edtiion as well.}
 }
 }
-@inproceedings{frangi1998multiscale,
+@inproceedings{frangi-paper,
 	title={Multiscale vessel enhancement filtering},
 	author={Frangi, Alejandro F and Niessen, Wiro J and Vincken, Koen L and Viergever, Max A},
 	booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
@@ -144,7 +144,7 @@
 	annote={Starting point.}
 }
 
-@article{sato1998three,
+@article{sato-filter,
 	title={Three-dimensional multi-scale line filter for segmentation and visualization of curvilinear structures in medical images},
 	author={Sato, Yoshinobu and Nakajima, Shin and Shiraga, Nobuyuki and Atsumi, Hideki and Yoshida, Shigeyuki and Koller, Thomas and Gerig, Guido and Kikinis, Ron},
 	journal={Medical image analysis},
@@ -156,6 +156,24 @@
 	annote={This was cited in Frangi I believe as a different Hessian filter. Look into this! Gets compared in Olabarriaga, above. I am ignorantly assuming that this is strictly inferior to Frangi's filter. Worth looking into.}
 }
 
+@InProceedings{lorenz-filter,
+	author="Lorenz, C.
+	and Carlsen, I. -C.
+	and Buzug, T. M.
+	and Fassnacht, C.
+	and Weese, J.",
+	editor="Troccaz, Jocelyne
+	and Grimson, Eric
+	and M{\"o}sges, Ralph",
+	title="Multi-scale line segmentation with automatic estimation of width, contrast and tangential direction in 2D and 3D medical images",
+	booktitle="CVRMed-MRCAS'97",
+	year="1997",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="233--242",
+	abstract="A new multi-scale segmentation technique for line-like structures in 2D and 3D medical images is presented. It is based on normalized first and second derivatives and on the eigenvector analysis of the hessian matrix. Application areas are the segmentation and tracking of bloodvessels, electrodes, catheters and other line-like objects. It allows for the estimation of the local diameter, the longitudinal direction and the contrast of the vessel and for the distinction between edge-like and line-like structures. The method is applicable as automatic 2D and 3D line-filter, as well as for interactive algorithms that are based on local direction estimation. A 3D line-tracker has been constructed that uses the estimated longitudinal direction as step-direction. After extraction of the centerline, the hull of the structure is determined by a 2D active-contour algorithm, applied in planes, orthogonal to the longitudinal line-direction. The procedure results in a stack of contours allowing quantitative crosssection area determination and visualization by means of a triangulation based rendering.",
+	isbn="978-3-540-68499-2"
+}
 @article{lindeberg1998feature,
 	title={Feature detection with automatic scale selection},
 	author={Lindeberg, Tony},
@@ -233,6 +251,45 @@ year={2009},
 publisher={Elsevier},
 annote={Oh gee, 'non-parametric' is a great keyword! Look into this! I haven't read this at all!} 
 }
+
+@book{GSST-book,
+	author = {Sporring, Jon},
+	editor = {Florack, Luc and Nielsen, Mads and Johansen, Peter},
+	title = {Gaussian Scale-Space Theory},
+	year = {1997},
+	isbn = {0792345614},
+	publisher = {Kluwer Academic Publishers},
+	address = {Norwell, MA, USA},
+}
+
+@Article{Koenderink,
+	author="Koenderink, Jan J.",
+	title="The structure of images",
+	journal="Biological Cybernetics",
+	year="1984",
+	month="Aug",
+	day="01",
+	volume="50",
+	number="5",
+	pages="363--370",
+	abstract="In practice the relevant details of images exist only over a restricted range of scale. Hence it is important to study the dependence of image structure on the level of resolution. It seems clear enough that visual perception treats images on several levels of resolution simultaneously and that this fact must be important for the study of perception. However, no applicable mathematically formulated theory to deal with such problems appers to exist. In this paper it is shown that any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way if the constraint that no spurious detail should be generated when the resolution is diminished, is applied. The structure of this family is governed by the well known diffusion equation (a parabolic, linear, partial differential equation of the second order). As such the structure fits into existing theories that treat the front end of the visual system as a continuous tack of homogeneous layer, characterized by iterated local processing schemes. When resolution is decreased the images becomes less articulated because the extrem (``light and dark blobs'') disappear one after the other. This erosion of structure is a simple process that is similar in every case. As a result any image can be described as a juxtaposed and nested set of light and dark blobs, wherein each blod has a limited range of resolution in which it manifests itself. The structure of the family of derived images permits a derivation of the sampling density required to sample the image at multiple scales of resolution. The natural scale along the resolution axis (leading to an informationally uniform sampling density) is logarithmic, thus the structure is apt for the description of size invariances.",
+	issn="1432-0770",
+	doi="10.1007/BF00336961",
+	url="https://doi.org/10.1007/BF00336961"
+}
+
+@book{hille1957functional,
+	title={Functional Analysis and Semi-groups},
+	author={Hille, E. and Phillips, R.S.},
+	isbn={9780821874646},
+	lccn={lc58000102},
+	series={American Mathematical Society: Colloquium publications},
+	url={https://books.google.com/books?id=Y7XZLxXdkzQC},
+	year={1957},
+	publisher={American Mathematical Society},
+	annote={cited within Sporring just for one thing}
+}
+
 @article{truc2009vessel,
 	title={Vessel enhancement filter using directional filter bank},
 	author={Truc, Phan TH and Khan, Md AU and Lee, Young-Koo and Lee, Sungyoung and Kim, Tae-Seong},
