@@ -2,17 +2,35 @@
 
 \chapter{Results and Analysis}
 
+use MCC \cite{mcc-original-paper}
 \section{Sample visual output}
 \subsection{The confusion matrix}
 \section{A Source of ``False Negatives'' in the NCS data set} \label{sec:NCS-dataset-issues}
 
-Sometimes the output doesn't agree with the trace.
+Sometimes the output doesn't agree with the trace, i.e. ``the ground truth'' is not 100\% correct.
+sometimes either there's a false negative (reported) but something just wasn't traced in the original  1602443.
+
+\begin{figure} \centering
+	\includegraphics[width=0.8\textwidth]{kinds_of_false_positives}
+	\caption{''True'' false positives and ``False'' false positives}
+\end{figure}
+
+
 \begin{enumerate}
-\item Collar is stupid.
-\item Vessels suck sometimes.
-\item Umbillical cord insertion point is stupid
-\item Small vessels aren't accounted for.
+\item Collar is stupid and should really be considered like a error in marking the perimeter. Throw these away or edit. Maybe make a section called discarded samples that's stupid but yeah.
+\item Vessels suck sometimes. In the portion above, 1602443, there's a random blood clot which gets identified at large $\sigma$. But also the small forked shaped thing which is obviouslly a vessel doesn't get defined.
+\item Too much blood (not enough?? no idea) is left in the vessels. leading to the weird white border around some vessels. you could identify these along with black center and combine them somehow. no idea.Also, holy shit, some of the white vessel ``sleeves'' ARE identified in the tracing, and some aren't. Find an example of this and whine about it.
+\item Umbillical cord insertion point is stupid and obscures a lot. The tracer guesses but there's no real guiding principle AFAIK..
+\item Small vessels aren't accounted for at all. Not sure how to coincide measurement in terms of scale space anymore, but should figure out how to cut off those values before running MCC metric.
 \end{enumerate}
+
+
+\begin{figure} \centering
+	\includegraphics[width=0.8\textwidth]{shitty_threshold}
+	\caption{Luminance/brightness thresholding is bad.}
+% this should go early in your talk, showing that the problem is kind of frustrating and visually solvable  ish.
+	\label{fig:color-thresholding-sucks}
+\end{figure}
 
 
 \section{Results}

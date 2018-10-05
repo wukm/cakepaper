@@ -78,14 +78,14 @@ These procedures are performed automatically on the 174 image in our data set us
 		\caption{Demonstration of boundary dilation}
 	\end{figure}
 	
-	\ref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Repeat with a smaller border. Maybe the issue doesn't occur with these as much? 	In the image above, $\sigma=3$ and border radius is 80 and all it does is get 	rid of the stupid natural boundary, not a weird frangi response. Which is important in itself, but I was having an error just between the edge of the image.
+	\cref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Repeat with a smaller border. Maybe the issue doesn't occur with these as much? 	In the image above, $\sigma=3$ and border radius is 80 and all it does is get 	rid of the stupid natural boundary, not a weird frangi response. Which is important in itself, but I was having an error just between the edge of the image.
 	
 	The code for the above can by found by running \texttt{plate\_morphology.py} as a top-level script (that is, within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file).
 \section{Multiscale Setup}
 
 	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius. This  list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
 	 
-	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \vtodo{CITE REF}, it is reasonable to select these logarithmically; that is,
+	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \cite{Koenderink} it is reasonable and natural to select these logarithmically; that is,
 	for some selected inputs $m < M$ we have
 	
 	\begin{equation}
@@ -94,7 +94,7 @@ These procedures are performed automatically on the 174 image in our data set us
 	That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
 	\texttt{np.logspace(m,M,num=N)}. The idea is that the filter will respond better at its particular scale, but there are diminishing returns as $\sigma$ increases. While the filter's response may vary substantially between, say $\sigma=2$ and $\sigma=3$, there will be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. There was an earlier benefit as well, that is still worth mentioning for historical reasons. Previously, computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is moot with the development of FFT-based Frangi filter.
 	
-	If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which   ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding'' see section \vtodo{add ref}.
+	If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which   ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding.''
 	
 	
 	
@@ -105,8 +105,6 @@ These procedures are performed automatically on the 174 image in our data set us
 
 \section{Applying Vesselness Measure}
 Calculate the Hessian matrix of  and then the eigenvalues using the function \texttt{hfft.fft\_hessian}.
-
-\vtodo{Show at this point or move elsewhere how features of  size $\sigma$ are isolated in this step at the appropriate scale.}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{sweep_stitched_plate}
