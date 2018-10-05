@@ -1136,15 +1136,21 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     	as desired. \end{proof}
     
     We now return to our discussion of the Frangi filter.
+    
+    
     \subsection{A multiscale approach} \label{sec:frangi-multiscale}
     
-    As identified earlier \vcleanup{cite when}, scale is crucial in correctly identifying ridgelike structures. We wish to find regions that would receive a high vesselness score at any range, and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
+    Our ideas of scale developed in the previous section imply that,if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering our
+    developments in \cref{sec:frangi}, we wish to probe at multiple scales
+    regions that would receive a high vesselness score at any range,
+    and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
     
     \begin{equation} \label{frangi-vesselness-max}
     V(x_0, y_0) = \underset{\sigma \in \Sigma}{\max}\;  V_\sigma(x_0, y_0)
     \end{equation}
     
-    where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is a range of scale spaces representative enough of all scales where meaningful content is expected to be found.
+    where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is
+    a range of parameters at which to probe. These should be chosen to be representative enough of all scales where meaningful content is expected to be found.
     
     \subsection{Thresholding}
     
@@ -1154,22 +1160,21 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
     \end{equation}
     
-    Whereas Frangi \cite{frangi-paper} left it relatively open-ended, if we wish to be final about the whole matter, we can ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure or not. There are multiple methods of doing so. A naive yet enticing approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
+    Whereas Frangi \cite{frangi-paper} left relatively open-ended, we may wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. There are multiple methods of doing so. A straightforward enough approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
     \vcleanup{fix notation in all of this}
     \begin{equation}
     V_{\Sigma,\alpha}(x,y) = \begin{cases}
-    1 & \textrm{if}\quad V(x,y) \ge \alpha \\
+    1 & \textrm{if}\quad V(x,y) \; \ge\;  \alpha \\
     0 & \textrm{else}
-    \end{cases}  \quad , \quad \alpha > 0 fixed.
+    \end{cases}  \quad , \quad \alpha > 0
+	    \textrm{for } \alpha \;\textrm{fixed}.
     \end{equation}
     
+	We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
+	in \cref{ch:implementations}.
     
-    %Assuming there are no false positives, ``sensible'' scales are selected to %measure at, and the parameters $\beta, c'$ are well chosen, 
     
-    \vtodo{Describe an alternative approach of stitching.}
-    
-    \vcleanup{this goes somewhere else}
-    
+    All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discete nature of our samples.
     
     \section{First and Second Derivatives of Discrete Images} 
 
