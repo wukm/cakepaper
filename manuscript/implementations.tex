@@ -3,21 +3,13 @@
 
 
 \section{Calculating the Hessian}
-There are 6 ways to do this in theory.
-\vcleanup{cite these}
 
-To compare, standard gaussian calculation is implemented by \texttt{scipy.ndimage.filters.gaussian\_filter}.
 
-\vcleanup{figure out what how to cite this, according to \url{https://www.scipy.org/citing.html}}
-%specific page: \url{https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.ndimage.filters.gaussian_filter.html}
+	Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
+			\begin{verbatim}
+			gaussian_filtered = fftgauss(image, sigma=sigma)
+			Lx, Ly = np.gradient(gaussian_filtered)
+			Lxx, Lxy = np.gradient(Lx)
+			Lxy, Lyy = np.gradient(Ly)
+			\end{verbatim}	
 
-\section{Scale Range detection}
-
-Find smallest and largest thing
-\dots
-\section{Morphology: Plate Eroding}
-
-\dots
-\section{Morphology/Skeletonization}
-
-\dots

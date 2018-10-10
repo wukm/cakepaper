@@ -770,7 +770,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
 	We now seek to harness the ideas of this section to the task at hand: identifying curvilinear content within images.
 
-\section{The Frangi Filter} \label{sec:frangi}
+\section{The Frangi Filter: Uniscale} \label{sec:frangi}
 
     The Frangi filter, first described by Alejandro Frangi et al. in \cite{frangi-paper} is a widely used (cite) Hessian-based filter
     within image processing. Hessian-based filters make use of the
@@ -858,9 +858,6 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         
     \section{Linear Scale Space Theory} \label{sec:scale-space-theory}
     
-    %this is all as cited in GSST book (see starting in sec 6.3.1).
-    %as mentioned there, this is analogous to a discrete development
-    %(lindeberg 1990 lindeberg 1991 lindeberg 1994c lindeberg 1994e)
     
     There is obviously a major disconnect in the ideas presented above. 
     Although the ideas presented above require differentiation of continuous
@@ -897,17 +894,18 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	The following axioms are then requirements on what sort
 	of operation $T_\sigma$ should be.
 		
-    \subsubsection{Linear-shift and Rotational invariance}
+    \begin{axiom}[Linear-shift and Rotational Invariance]
+    	\label{axiom:linear-shift-and-rotation}
     Linear-shift (or translation) invariance means that no position in the original signal is favored.  This is intuitive, as our operation should apply to any image fairly, regardless of where content is found in the image. Similarly, there should be not be favoritism toward any particular orientation of content within the image.
+\end{axiom}
     
-    \subsubsection{Continuity of scale parameter}
-    
-    There is no reason for the scale parameter to be discrete; we may alter the resolution with whatever
+    \begin{axiom}[Continuity of Scale Parameter]
+    	\label{axiom:continuity} There is no reason for the scale parameter to be discrete; we may alter the resolution with whatever
     precision we desire. That is, we take the resolution
     parameter $\sigma$ to be a nonzero real number
     (as opposed to an integer). Moreover, we require that the operator behaves continuously with respect to the scale parameter.
-    What happens as $\sigma \downarrow 0$ is less clear though.
-	An argument from functional analysis (see \cite{hille1957functional}) implies that there is a so-called ``infinitesimal generator'' $A$
+        \end{axiom}
+    What happens as $\sigma \downarrow 0$ is not immediately clear though. 	An argument from functional analysis (see \cite{hille1957functional}) implies that there is a so-called ``infinitesimal generator'' $A$
 	which is a limit case of our desired operator $T$; that is
 	\begin{equation} \label{eq:infinitesimal-generator}
 	A u_0 = \lim_{\sigma \downarrow 0} \frac{T_\sigma u_0 - u_0}{\sigma}
@@ -916,16 +914,17 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	 and moreover that there is a resultant differential equation
 	 concerning the derivative of the family and $A$:
 	 
-	 \begin{equation}o
+	 \begin{equation}
 	 \partial_{\sigma} K(x,y;\sigma)
 	 = \lim_{\sigma \downarrow 0}
 	 \frac{K(\cdot;\sigma+h) - K(\cdot; \sigma)}{h}
 	 = A(T_\sigma u) = A(K(\cdot,\sigma))
 	 \end{equation}
 	 
-	 We shall return to this idea later and more concretely describe $A$ once characterize $T_\sigma$.
+	 We shall return to this idea later and more concretely describe $A$ once we actually characterize the generating 
+	 operator $T_\sigma$.
     
-    \subsection{Semigroup property}
+    \begin{axiom}[Semigroup property] \label{axiom:semigroup}
     The semigroup property is simply that transforming
     the original image by some resolution $\sigma$ should
     have the same overall effect of two successive
@@ -934,20 +933,20 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     \begin{equation}	
 	    T_{\sigma} u = T_{\sigma_1 + \sigma_2} u
     \end{equation}
-    
+    \end{axiom}
 %     \subsubsection{Linearity of generator}
 %        ``Linearity implies that all-scale space properties valid for the original signal will transfer to its derivatives. Hence, there is no commitment to certain aspects of image structure, such as the zero-order representation, or its first- or second-order derivatives.''
    
 
-   \subsubsection{Causality condition}
-    This requirement has great implication, and is also
+   \begin{axiom}[Causality Conditon] \label{axiom:causality}
+    The following requirement has great implication, and is also
     very successful in encoding our intuitive sense
     of ``resolution''. The causality condition is the one
     that, as resolution decreases, no finer detail is
     introduced into the image. That is, as the scale
     increases, there will be no creation of local extrema
     that did not exist at a smaller scale.
-    
+    \end{axiom}
     In other words, if 
     $K(x_0,y_0 ; \sigma_0)$ is a local maximum (at the point $(x_0, y_0)$, at this fixed $\sigma_0$)
     i.e. 
@@ -975,11 +974,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     
     This implies that no image feature is sharpened by an decrease and resolution--the only result is a monotonic blurring of the image as scale parameter $\sigma$ tends to infinity.
 
+
     \subsection{Uniqueness of the Gaussian Kernel}
+    
     The above requirements are actually sufficient in proving not only that the operator $T_\sigma$ is a convolution, but that the heat equation described in \cref{eq:heat-eq-for-family} must hold. This has been shown in various ways, both by Koenderink \cite{Koenderink}, Babaud \cite{babaud}, as well as Lindeberg in \cite{GSST-book}. In fact, it is shown that the Gaussian is the unique convolution kernel that works.    
     
-    \vtodo{Include or cite? If we're just citing it, how much should we really have in this entire section
-    	to begin with?}
    To this, show that:
     \begin{itemize}
     \item a kernel satisfying the above axioms must satisfy the heat equation
@@ -994,7 +993,6 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
    	G_\sigma := \frac{1}{2\pi \sigma^2} e^{\left(-\abs{x}^2 / (2\sigma^2)\right)}
     \end{equation}
     
-    \vtodo{remove this unless you plan to show more}
 	We can show that this solution solves the heat equation.
 	Given $u_0$ as a continuous image (unscaled),
 	we construct PDE with this as a boundary condition.
@@ -1135,12 +1133,73 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     	
     	as desired. \end{proof}
     
-    We now return to our discussion of the Frangi filter.
     
     
-    \subsection{A multiscale approach} \label{sec:frangi-multiscale}
+    \subsection{Scale Spaces over Discrete Structures} \label{subsec:discrete-scale-space}
     
-    Our ideas of scale developed in the previous section imply that,if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering our
+    The above developments from scale space axioms have (since their first appearance)
+    been recast in terms of discrete structures (rather than continuous surfaces) as in \cite{lindeberg-discrete}. However, we've chosen to present the above in their original continuous surface for clarity of argument. The discrete case is not much different--
+    we still have the same axioms, and it can be shown that the family of scaled images
+    must simply satisfy a discrete version of the 
+    However, viewing our actual image
+    \cref{def:image_as_pixel_matrix} as a sample of a continuous
+    surface \cref{def:image_as_surface},
+    we might na{\"i}vely expect our convolution by the Gaussian to ``commute'' with our supposed sampling of the continuous signal,
+    or even that we could simply convolve our discrete signal with a discretely sampled Gaussian kernel. The latter in fact, seems to be an often implemented interpretation of scale space theory.
+    
+    To be clear, the ``sampled'' 1D Gaussian Kernel we have in mind might be given by:
+   
+    \begin{defn}[Sampled Gaussian Kernel and Generated Family]
+    	\[
+    	g(n ; \sigma) = \frac{1}{2\pi \sigma} e^{-n^2 / 2\sigma} \;,\quad -\infty < n < \infty
+    	\]
+    	\end{defn}
+    and the  resulting (1D) convolution would be given by
+    \[
+	    K(x,\sigma) = \sum_{n=-\infty}^{\infty} g(n;\sigma) f(x-n)
+	    \quad \textrm{for} \quad x \in \Z, \; \sigma > 0
+    \]
+    The reality of the matter is that a discretely sampled Gaussian is not an appropriate kernel for creating discrete scale space. In \cite{lindeberg-discrete} and in particular
+    \cite{lindeberg1988-discreteconstruction}, Lindeberg demonstrated that the sampled Gaussian kernel violates not only semigroup property (\cref{axiom:semigroup}), but--much less forgivably--the causality property (\cref{axiom:semigroup}). There is absolutely no guarantee that convolution with a sampled Gaussian kernel will not create ``spurious'' structures as resolution increases.
+    
+    
+    Fortunately, Lindeberg was immediately able to remedy this by providing a discrete analogue of the Gaussian kernel, which does satisfy \cref{axiom:causality} and \cref{axiom:semigroup}:
+    
+    \begin{defn}[Discrete Gaussian Kernel]
+    	The discrete Gaussian kernel, which can be shown to be a suitable generator
+    	for scale space, is given by
+    	\begin{equation}
+    	T(n;\sigma) = e^{-\alpha \sigma} I_n(\alpha \sigma) ,\quad\,
+    	 I_n(\sigma) = I_{-n}(\sigma) = (-1)^n J_n(i\sigma) 
+    	 \quad n \ge 0 , \sigma,\alpha > 0
+    	 \end{equation}
+    \end{defn}
+    where $I_n$ are the modified Bessel functions of integer order based on the
+    ordinary Bessel functions $J_n$, i.e.
+    \[
+    I_n(x) = \sum_{m=0}^{\infty} \frac{1}{m! (m+n)!}
+	    	\left(\frac{x}{2}\right)^{2m+n} \;,\quad n \ge 0
+    \]
+    where we have taken the liberty of simplifying the typical definition \cite{abramowitz-stegun} (which involves the gamma function), since we only desire
+    Bessel functions of integer order. The parameter $\alpha$ above is simply an
+    optional scaling parameter which is simply set to $1$ hereforth.
+    
+    The derived family of 1D signals is then given by
+\begin{equation} \label{eq:derived-family-from-discrete}
+        K(x,\sigma) = \sum_{n=-\infty}^{\infty} T(n;t) f(x-n)
+        \quad \textrm{for} \quad x \in \Z, \; t > 0
+        \end{equation}
+    
+    The compatibility of scale space theory and derivatives on discrete structures and     extension to two dimensions was also demonstrated by Lindeberg in \cite{lindeberg-discrete-derivative} and \cite{lindeberg1998feature}. In particular, we may take derivatives of the convolutions of our discrete images
+    using, say, a central difference.
+    Lastly, the 2D version of the family given in \cref{eq:derived-family-from-discrete} can be obtained by independent convolution of its dimensions (i.e. it is separable). We will make these
+    ideas explicit in \cref{ch:implementations} and the Appendix.
+    
+    With the ideas of scale established, we may return to our discussion of the Frangi filter.
+    
+    \section{The Frangi Filter: A multiscale approach} \label{sec:frangi-multiscale}
+    
+    Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering our
     developments in \cref{sec:frangi}, we wish to probe at multiple scales
     regions that would receive a high vesselness score at any range,
     and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
@@ -1160,70 +1219,48 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
     \end{equation}
     
-    Whereas Frangi \cite{frangi-paper} left relatively open-ended, we may wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. There are multiple methods of doing so. A straightforward enough approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
+    Whereas Frangi \cite{frangi-paper} refrained from making any explicit decisions on whether something was definitely a vessel or not, we may wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. There are multiple methods of doing so. A straightforward enough approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
     \vcleanup{fix notation in all of this}
     \begin{equation}
     V_{\Sigma,\alpha}(x,y) = \begin{cases}
     1 & \textrm{if}\quad V(x,y) \; \ge\;  \alpha \\
     0 & \textrm{else}
     \end{cases}  \quad , \quad \alpha > 0
-	    \textrm{for } \alpha \;\textrm{fixed}.
+	    \; \textrm{for } \; \alpha \;\textrm{fixed}.
     \end{equation}
     
 	We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
 	in \cref{ch:implementations}.
     
     
-    All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discete nature of our samples.
+    All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discrete nature of our samples.    
     
-    \section{First and Second Derivatives of Discrete Images} 
+\section{Calculating 2D Hessian}
 
-    	The way that you'd normally/naively describe it. Non multiscale.
-    	As in scipy or whatever.
-    	    %\begin{itemize}
-    %	\item \vtodo{Describe taking gradient with divided difference.}
-    %	It is standard practice to take the derivative of any discrete structure by taking the gradient of it.  
-    %	\item \vtodo{Describe the situation: derivatives should be taken on Gaussian blur (equivalent to scale space development) [Lindeberg]. That is, you can take the derivative of either the convolved image, or you can take derivatives of the Gaussian itself, \textit{then} convolve.}
-    %	\item \vtodo{Mention that derivatives can be taken in frequency space?}
-    
-    %		Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
-    %					\begin{verbatim}
-    %					gaussian_filtered = fftgauss(image, sigma=sigma)
-    %					Lx, Ly = np.gradient(gaussian_filtered)
-    %					Lxx, Lxy = np.gradient(Lx)
-    %					Lxy, Lyy = np.gradient(Ly)
-    %					\end{verbatim}	
+According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \cite{fornberg-1988}. Specific implementation will be discussed in \cref{ch:implementations}.
+
+We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \cite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes, although we have implemented our scale spaces in the conventional way, as discussed in \cref{ch:implementations}.
+%Given that we are taking a derivative of a convolution, we first show that these operations commute--that is, we may actually take the derivative of the convolution kernel OR the function itself, and then convolve, and the result should be equivalent to taking the derivative of
+%convolving 
+
+%Note the following 6 methods should all theoretically be equivalent:
+%
+%\begin{itemize}
+%   	\item convolve discrete image with a gaussian kernel, then take derivatives (no FFT). This is the ``classical approach''
+%   	\item Take derivatives of gaussian kernel, then convolve with the image/signal (again, no FFT)(due to \vcleanup{cite theorem})
+%   	\item FFT image and FFT gaussian kernel then convolve in freq. space, then IFFT, then take derivatives in xy-space (my implementation)
+%   	\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
+%   	\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
+%   	\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
+%   	
+%   	
 %\end{itemize}
-%\vcomment{describe this no matter what. if you want to calculate the derivatives in frequency space, still describe this so you can compare the results.}
-    
-    
-    \section{Equivalent Methods of Calculating 2D Hessian}
-    
-    Note the following 6 methods should all theoretically be equivalent:
-    
-    \begin{itemize}
-    	\item convolve discrete image with a gaussian kernel, then take derivatives (no FFT). This is the ``classical approach''
-    	\item Take derivatives of gaussian kernel, then convolve with the image/signal (again, no FFT)(due to \vcleanup{cite theorem})
-    	\item FFT image and FFT gaussian kernel then convolve in freq. space, then IFFT, then take derivatives in xy-space (my implementation)
-    	\item take derivatives of gaussian kernel, then FFT it,  FFT the image, then colvolve in frequency space, then  IFFT (slower due to size of large kernels)
-    	\item FFT image, then multiply by theoretical gaussian kernel in freq. space, then IFFT, then take derivatives in xy-space.
-    	\item FFT image, then multiply by theoretical gaussian kernel in freq space, then take derivatives in freq space, then IFFT.
-    	
-    	\vtodo{big implementation note: you want to show equivalence of these, but the problem is that around the boundary the issue is annoying. can you fix this?}
-    	
-    \end{itemize}
-    
-    
-    
-    
-    
-    
-\subsection{Implementation Details: Convolution Speedup via FFT}
-\vcomment{FIRST DESCRIBE HOW YOU NEED DERIVATIVES}
 
-As described above, the actual computation of derivatives is achieved via convolution with a gaussian. In practice, this is very slow for large scales. We instead, we perform a fast Fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}
 
-\vcleanup{Fix this part of the outline}
+\section{Convolution Speedup via FFT}
+
+In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}.
+
 \section{Fourier Transforms}
 \subsubsection{Fourier Transform of a continuous 1D signal}
 
@@ -1232,30 +1269,29 @@ As described above, the actual computation of derivatives is achieved via convol
 A periodic signal (real valued function) $f(t)$ of period $T$ can \vcomment{justify?} be expanded in an infinite basis as follows:
 
 \begin{equation}
-	f(t) = \sum_{-\infty}^{\infty} c_n e^{i\frac{2\pi n}{T}t} \;,\quad
-		c_n = \frac{1}{T}\int_{-T/2}^{T/2} f(t) e^{-i\frac{2\pi n}{T}t} dt
-		\end{equation}
+f(t) = \sum_{-\infty}^{\infty} c_n e^{i\frac{2\pi n}{T}t} \;,\quad
+	c_n = \frac{1}{T}\int_{-T/2}^{T/2} f(t) e^{-i\frac{2\pi n}{T}t} dt
+	\end{equation}
 
 The Fourier transform of a 1D continuous function is defined by
 \begin{equation} \label{1D-CFT}
-	F(\mu) := \FT\{f(t)\} \;=\; \int_{-\infty}^{\infty} f(t) e^{i2\pi \mu } dt
+F(\mu) := \FT\{f(t)\} \;=\; \int_{-\infty}^{\infty} f(t) e^{i2\pi \mu } dt
 \end{equation}
 
 It can be shown \vcomment{justify?} that an inverse transform will then recover our original signal:
 \begin{equation} \label{1D-ICFT}
-	f(t) = \FT^{-1}\left\{F(\mu)\right\} = \int_{-\infty}^{\infty} F(\mu) e^{i2\pi \mu t} dt
+f(t) = \FT^{-1}\left\{F(\mu)\right\} = \int_{-\infty}^{\infty} F(\mu) e^{i2\pi \mu t} dt
 \end{equation}
 
 Together, \cref{1D-CFT} and \cref{1D-ICFT} are referred to as the \textit{Fourier transform pair} of the signal $f(t)$. 
 
 \subsubsection{Fourier Transform of a Discrete 1D signal}
 
-We wish to develop the Fourier transform pair for a discrete signal. We frame the situation
-as follows: A continuous function $f(t)$ \vcomment{right now, with domain $\R$} is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling function (also referred to
-in DIP-GW as an impulse function), an infinite series of discrete impulses with equal spacing $\Delta T$:
+We wish to develop the Fourier transform pair for a discrete signal., following \cite{DIPGW}. We frame the situation
+as follows: A continuous function $f(t)$ is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling (or impulse) function, an infinite series of discrete impulses with equal spacing $\Delta T$:
 
 \begin{equation} \label{1D-sampling-function}
-s_{\Delta T}(t) = \sum_{n=-\infty}^{\infty} \delta[t - n\Delta T] \;,\quad
+s_{\Delta T}(t) := \sum_{n=-\infty}^{\infty} \delta[t - n\Delta T] \;,\quad
 \delta[t] = \begin{cases} 1 \;,\; & t=0 \\ 0 \;,\;& t \ne 0 \end{cases}
 \end{equation}
 
@@ -1266,105 +1302,101 @@ The discrete sample $f(t)$ is then constructed from $f(t)$ by
 \tilde{f}(t) = f(t) s_{\Delta T}(t)
 \end{equation}
 
-From this (and actually the convolution theorem) we can calculate $\tilde{F}(t)$. \vtodo{Derive this. There's some groundwork here to copy between 213-220. We don't need the sampling theorem, since our signal is given as-is... i think}.
-
-\subsubsection{1D Discrete Fourier Transform (DFT)}
-
+From this (and actually the convolution theorem) we can calculate $\tilde{F}(t)$.
 Given the discrete signal $\tilde{f}$, we construct the transform
 $\tilde{F}(\mu) = \FT\{\tilde{f}(t)\}$. by simply transforming the definition \cref{1D-discrete-sample}.
-
-\vcomment{supress derivation but do explain $f_n$ notation / cleanup}
-
 \begin{equation} \label{1D-DFT-transform}
 \tilde{F}(\mu) = \sum_{n=-\infty}^{\infty} f_n e^{-i 2\pi \mu n \Delta T} \;,\quad
-	f_n = \tilde{f}(n) = f(n\Delta T)
+f_n = \tilde{f}(n) = f(n\Delta T)
 \end{equation}
 
 The transform is a continuous function with period $1 / \Delta T$. 
 
-	\begin{itemize}
-		\item \vtodo{find image processing papers that find hessian from FFT / who uses this?}
-		\item \vtodo{with above: downsides?}
-		\item \vtodo{side by side comparison in a toy example and/or a real problem?}
-	\end{itemize}
-	
-	\subsubsection{2D Discrete Fourier Transform Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
-	
-	\vcleanup{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
-	\begin{theorem}[2D DFT Convolution Theorem] 
-		\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
-	Given two discrete functions are sequences with the same length \vtodo{don't gloss over this} \vcomment{If they're not actually the same length, DIP-GW suggests to make the final length at least $P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}, that is:
-	$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
-	\begin{align}
-	F(u,v) := \mathcal{D}\{f(x,y)\} &=
-					\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)
-					e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\	
- H(u,v) := \mathcal{D}\{h(x,y)\} &=
-					\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} h(x,y)
-					e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}
-	\end{align}
-	
-	and given the convolution of the two functions
-	\begin{equation}
-	\left(f \star h\right)(x,y) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n)
-	\end{equation}
-	
-	then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
-	\begin{equation}
-	\left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
-	\end{equation}
-	\end{theorem}
-	
-	
-	The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
-	\begin{proof}
-	\begin{align}
-	\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
-	&= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
+%\begin{itemize}
+%	\item \vtodo{find image processing papers that find hessian from FFT / who uses this?}
+%	\item \vtodo{with above: downsides?}
+%	\item \vtodo{side by side comparison in a toy example and/or a real problem?}
+%\end{itemize}
+
+\subsubsection{2D DFT Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
+
+\vcleanup{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
+\begin{theorem}[2D DFT Convolution Theorem] 
+	\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
+, that is:
+Given two discrete functions are sequences with the same length.
+%\vcomment{If they're not actually the same length, DIP-GW suggests to make the final length at least $P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}
+$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
+\begin{align}
+F(u,v) := \mathcal{D}\{f(x,y)\} &=
+				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)
+				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\	
+H(u,v) := \mathcal{D}\{h(x,y)\} &=
+				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} h(x,y)
+				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}
+\end{align}
+
+and given the convolution of the two functions
+\begin{equation}
+\left(f \star h\right)(x,y) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n)
+\end{equation}
+
+then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
+\begin{equation}
+\left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
+\end{equation}
+\end{theorem}
+
+
+The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
+\begin{proof}
+\begin{align}
+\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
+&= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
+\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
+	e^{2\pi i \left(\frac{mp}{M} + \frac{nq}{N}\right)}\right)
+	\left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+	e^{2\pi i \left(\frac{u(x-m)}{M} + \frac{v(y-n)}{N}\right)} \right) \\
+&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
 	\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
-		e^{2\pi i \left(\frac{mp}{M} + \frac{nq}{N}\right)}\right)
-		\left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
-		e^{2\pi i \left(\frac{u(x-m)}{M} + \frac{v(y-n)}{N}\right)} \right) \\
+	\left(\sum_{m=0}^{M-1} e^{2\pi i \left(\frac{m(p-u)}{M}\right)}\right)
+	\left(\sum_{n=0}^{N-1} e^{2\pi i \left(\frac{n(q-v)}{N}\right)}\right)\right) \\
 	&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
-		e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
-		\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
-		\left(\sum_{m=0}^{M-1} e^{2\pi i \left(\frac{m(p-u)}{M}\right)}\right)
-		\left(\sum_{n=0}^{N-1} e^{2\pi i \left(\frac{n(q-v)}{N}\right)}\right)\right) \\
-		&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
-		e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
-		\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
-		\left( M \cdot \hat{\delta}_M(p-u) \right)
-		\left( N \cdot \hat{\delta}_M(q-v)\right)\right) \\
-		&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
-		e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
-		\cdot M N F(u,v) \\
-		&=MN \cdot \sum_{u=0}^{M-1} \sum_{v=0}^{N-1} F(u,v) H(u,v)
-		e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
-		&= MN \cdot \mathcal{D}^{-1}\left\{ FH\right\}
-	\end{align}
-	
-	where
-	\begin{equation} \label{delta_multiple}
-		\hat{\delta}_N (k) = \begin{cases}
-			1 & \text{when } k = 0 \mod N \\
-			0 & \text{else}
-			\end{cases}
-	\end{equation}
+	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
+	\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
+	\left( M \cdot \hat{\delta}_M(p-u) \right)
+	\left( N \cdot \hat{\delta}_M(q-v)\right)\right) \\
+	&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
+	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
+	\cdot M N F(u,v) \\
+	&=MN \cdot \sum_{u=0}^{M-1} \sum_{v=0}^{N-1} F(u,v) H(u,v)
+	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
+	&= MN \cdot \mathcal{D}^{-1}\left\{ FH\right\}
+\end{align}
+
+where
+\begin{equation} \label{delta_multiple}
+	\hat{\delta}_N (k) = \begin{cases}
+		1 & \text{when } k = 0 \mod N \\
+		0 & \text{else}
+		\end{cases}
+\end{equation}
 \end{proof}
 Above, we make use of the following lemma \vcomment{add this before DFT convolution theorem and embed the definition of $\hat{\delta}_N$ inside}
 \begin{lemma}
 Let $j$ and $k$ be integers and let $N$ be a positive integer. Then
 \begin{equation} \label{dft_conv_lemma}
-	\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k) 
-	\end{equation}
-	\end{lemma}
-	\begin{proof}
-	
-	Consider the complex number $e^{2\pi i (j-k)/N}$. Note first that this is an $N$-th root of unity, since
-	\[
-	\left(e^{2\pi i (j-k)/N}\right)^N = e^{2\pi i (j-k)} = \left(e^{2\pi i}\right)^{(j-k)}
-	= 1^{(j-k)} = 1
-	\]
+\sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k) 
+\end{equation}
+\end{lemma}
+\begin{proof}
+
+Consider the complex number $e^{2\pi i (j-k)/N}$. Note first that this is an $N$-th root of unity, since
+\[
+\left(e^{2\pi i (j-k)/N}\right)^N = e^{2\pi i (j-k)} = \left(e^{2\pi i}\right)^{(j-k)}
+= 1^{(j-k)} = 1
+\]
 
 In other words, $e^{2\pi i n(j-k)/N}$ is a root of $z^N -1 = 0$, which we can factor as
 \begin{equation}
@@ -1387,67 +1419,68 @@ The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (sim
 \sum_{n=0}^{N-1} \left(e^{2\pi i (j-k)/N}\right)^n = 0\]
 
 We can combine these two cases by invoking the definition of \cref{delta_multiple}, giving us the result.
-	\end{proof}
-			
-	\subsubsection{FFT}
- \vcomment{use DIP-GW p298}
-	As noted, the above result applies to the Discrete Fourier Transform. As noted, we actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of DIP-GW \vcomment{should I? or just link? or fix notation? or do for 2D at the same time}. For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.
-	
-	
-	First, a 2D DFT may actually be calculated via two successive 1D DFTs, which can be
-	seen through a basic rearrangement, as follows:
-	
-	\begin{align}
-	F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M + \nu y/N\right)} \\
-  &= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \left[ \sum_{y=0}^{N-1} f(x,y)e^{-i2\pi \nu y/N} \right] \\
-  &= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \\
-  &= \FT_y\{\FT_x \{f(x,y)\} \}
-	\end{align}
-	
-	where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
-	the variable $x'$ only.
-	
-	Thus, to calculate the fourier transform $F(u,v)$ at the point $u,v$
-	requires the computation of the transform of length $N$ for each iterated point $x \in 0..M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$ \vcomment{rectify this, is it really caused by the number of $u,v$ points that need calculating?}. (Note: the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation \vcomment{source?}.
-	
-	We now show that a considerable speedup can be achieved through elimination of redundant calculations. In particular, we wish to show that the calculation of a 1D DFT of signal length $M=2^n, n \in \Zpos$ can be reduced to calculating two half-length transforms and an additional $M/2 = 2^{n-1}$ calculations.
-	
-	\vcomment{we follow DIP-GW variable conventions, which I think are dumb}
-	
-	To "simplify" our notation we will use a new notation for the Fourier kernels/basis functions.
-	Let the 1D Fourier transform be given by
-	
-	\begin{equation} \label{FFT-defineW}
-	F(u) = \sum_{x=0}^{M-1} f(x) W_M^{ux},\quad \textrm{where} \quad W_m := e^{-i2\pi/m}
-	\end{equation} 
-	
-	We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
-	
-	We use this to rewrite the series in \cref{FFT-defineW} and split it into odd and even entries in the summation
-	
-	\begin{align}
-	F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \\
-	 &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{u(2x)}
-		 + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \label{FFT-oddevensplit}
-	\end{align}
-	
-	We'll get a few identities out of the way (where $m, n, x \in \Zpos$ arbitrary).
-	
-	\vcomment{this fixes an issue in DIP-GW where the identities were provided in terms of $M$ instead of arbitrary $m$, where the proof uses the results for some value other than $M$ anyway}
-	\begin{gather} \label{fft-kernelidentities}
-	W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \\
-	W_{m}^{(u+m)x} = e^{\frac{-i2\pi(u+m)x}{m} } = e^{\frac{-i2\pi unx}{m}} e^{\frac{-i2\pi mx}{m}}
-				= e^{\frac{-i2\pi ux }{m}} (1) = W_m^{ux} \\
-	W_{2m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{2m}} = e^{\frac{-i2\pi ux}{2m}} e^{-i\pi}
-			 = W_{2m}^{u} e^{-i\pi} = - W_{2m}^{u}
-	\end{gather}
+\end{proof}
+		
+\subsection{FFT}
+\vcomment{use DIP-GW p298}
+As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \cite{DIPGW}.
+For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.
+
+
+First, a 2D DFT may actually be calculated via two successive 1D DFTs, which can be
+seen through a basic rearrangement, as follows:
+
+\begin{align} \label{eq:2D-dft-rearrangement}
+F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M + \nu y/N\right)} \\
+&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \left[ \sum_{y=0}^{N-1} f(x,y)e^{-i2\pi \nu y/N} \right] \\
+&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \\
+&= \FT_y\{\FT_x \{f(x,y)\} \}
+\end{align}
+
+where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
+the variable $x'$ only.
+
+Thus, to calculate the fourier transform $F(u,v)$ at the point $u,v$
+requires the computation of the transform of length $N$ for each iterated point $x \in 0,\cdots,M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$ We'll also mention that the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation.
+
+We now show that a considerable speedup can be achieved through elimination of redundant calculations. In particular, we wish to show that the calculation of a 1D DFT of signal length $M=2^n, n \in \Zpos$ can be reduced to calculating two half-length transforms and an additional $M/2 = 2^{n-1}$ calculations.
+
+\vcomment{we follow DIP-GW variable conventions, which I think are dumb}
+
+To "simplify" our notation we will use a new notation for the Fourier kernels/basis functions.
+Let the 1D Fourier transform be given by
+
+\begin{equation} \label{FFT-defineW}
+F(u) = \sum_{x=0}^{M-1} f(x) W_M^{ux},\quad \textrm{where} \quad W_m := e^{-i2\pi/m}
+\end{equation} 
+
+We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
+
+We use this to rewrite the series in \cref{FFT-defineW} and split it into odd and even entries in the summation
+
+\begin{align}
+F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \\
+&= \sum_{x=0}^{K-1} f(2x) W_{2K}^{u(2x)}
+ + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \label{FFT-oddevensplit}
+\end{align}
+
+We'll get a few identities out of the way (where $m, n, x \in \Zpos$ arbitrary).
+
+\vcomment{this fixes an issue in DIP-GW where the identities were provided in terms of $M$ instead of arbitrary $m$, where the proof uses the results for some value other than $M$ anyway}
+\begin{gather} \label{fft-kernelidentities}
+W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \\
+W_{m}^{(u+m)x} = e^{\frac{-i2\pi(u+m)x}{m} } = e^{\frac{-i2\pi unx}{m}} e^{\frac{-i2\pi mx}{m}}
+			= e^{\frac{-i2\pi ux }{m}} (1) = W_m^{ux} \\
+W_{2m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{2m}} = e^{\frac{-i2\pi ux}{2m}} e^{-i\pi}
+	 = W_{2m}^{u} e^{-i\pi} = - W_{2m}^{u}
+\end{gather}
 
 Thus we can rewrite \cref{FFT-oddevensplit} as
 \begin{align}
 F(u)  &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{2ux} + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{2ux} W_{2K}^{u} \\
 \Longrightarrow \quad F(u) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{ux}\right)
 + \left(\sum_{x=0}^{K-1} f(2x+1) W_{K}^{ux}\right) W_{2K}^{u}
- \label{fft-oddeven-parens}
+\label{fft-oddeven-parens}
 \end{align} 
 
 The major advance comes via using the identities \cref{fft-kernelidentities} \vcleanup{fix multitag} to consider the Fourier transform $K$ 
@@ -1461,34 +1494,25 @@ F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{(u+K)x}\right)
 
 
 Comparing \cref{fft-oddeven-parens} and \cref{fft-oddeven-parens-plusK}, we see that the expressions within parentheses are identical.
-What's more, these parentetical expressions are functionally identical to discrete fourier transforms themselves! Let's notate them as follows:
+What's more, these parentetical expressions are functionally identical to discrete fourier transforms themselves. Let's notate them as follows:
 \begin{align} \label{fft-oddeven-subdfts}
 \DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \\
 \DFT_u\{f_{\mathrm{odd}}(t)\} &:= \sum_{x=0}^{K-1} f(2x+1)W_K^{ux}
 \end{align}
 
-If we're calculating an $M$ point transform \vtodo{vocabulary also how many frequencies do we calculate? same as \# samples? what do we need?} (i.e. we're wishing to
-calculate $F(1), ... , F(M))$, once we've calculated the first $K$ discrete frequencies (i.e. $F(1), .. , F(K))$ we may simply reuse the two values we've calculated in \cref{fft-oddeven-subdfts} to calculate the next $F(K+1),..,F(K+K) = F(M)$. Since each expression in parentheses involves $K$ complex multiplications and $K-1$ complex additions, we are effectively saving $K(2K-1)$ calculations in computing the entire spectrum  $F(1), ..,  F(M)$. When $M$ is large, the payoff is undeniable.
+If we're calculating an $M$ point transform
+%\vtodo{vocabulary also how many frequencies do we calculate? same as \# samples? what do we need?}
+(i.e. we're wishing to
+calculate $F(1), ... , F(M))$, once we've calculated the first $K$ discrete frequencies (i.e. $F(1), \cdots , F(K))$ we may simply reuse the two values we've calculated in \cref{fft-oddeven-subdfts} to calculate the next $F(K+1),..,F(K+K) = F(M)$. Since each expression in parentheses involves $K$ complex multiplications and $K-1$ complex additions, we are effectively saving $K(2K-1)$ calculations in computing the entire spectrum  $F(1), ..,  F(M)$. When $M$ is large, the payoff is undeniable.
 
-In fact, through counting calculations and then doing a proof by induction, we can show that the effective number of calculations is given by $M\log_2{M}$. \vtodo{finish this}.
+In fact, through counting calculations and then doing a proof by induction, we can show that the effective number of calculations is given by $M\log_2{M}$. % see p302 also i have a proof somewhere.
 
 Of course, since \cref{fft-oddeven-subdfts} are DFTs themselves, there's nothing stopping us from reiterating this procedure; if $M$ is substantially large, we can just as easily repeat this process a few times.
 
-Of course, our development was for $1D$.  We can extend this to $2D$ by taking note of \vcleanup{cite previous section or move section here.}
+Of course, our development was for $1D$.  We can extend this to $2D$ by taking note of \cref{eq:2D-dft-rearrangement}.
 
-The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$. Since our inputs have no reason to be this, we need to adjust for this. The explanation is \vtodo{probably} that you just do the part that's a power of 2 and  then do the rest manually or pick a different power. See \vtodo{find out how fft-pack does this}
+The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$. Since our inputs have no reason to be this, we need to adjust for this. The explanation is that you just do the part that's a power of 2 and  then do the rest manually or pick a different power.
 
+The inverse DFT can actually be found via a DFT of the complex conjugate of the original signal % see p299.
 
-The inverse DFT is actually a DFT of a modified function, see \vtodo{cite DIP-GW here or show that}. \vtodo{check how fftpack does this}
-
-\hrulefill
-
-\hrulefill
-\subsection{Alternative formulations of Scale Space Theory}
-Mention discrete treatments, mention relaxation of some of the dubious axioms.
-\section{Morphology}
-Methods of merging multiscale methods.
-
-
-\hrulefill
 
