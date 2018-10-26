@@ -217,7 +217,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   where $c'(p) = X$ will have the same curvature.
 	\end{theorem}
 	
-	\vtodo{provide a visualization of this}
+	%\vtodo{provide a visualization of this}
 	
 	In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature. To prove this, we'll require one final definition.
 	\begin{defn}[The Gauss Map] \label{def:gauss-map}
@@ -354,7 +354,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
 	and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
-	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation \cite{Kuhnel-DiffGeo} in the general case, which is certainly useful for surfaces $f$ that are not graphs. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
+	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case, which is certainly useful for surfaces $f$ that are not graphs. We refer to \cite{Kuhnel-DiffGeo} for the general proof. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
 	\begin{lemma}
 		The Weingarten map as in \cref{def:wein-map} is well-defined for graphs.
 	\end{lemma}
@@ -364,7 +364,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} \; i=1,2$
 			where $- \left.X\right|_{T_u f}$ denotes that $X \in T_u f$ is being represented in so-called
 	'local coordinates' for $T_u f$ (Strictly speaking, of course $T_u f \subset \R^3$ and thus
-	$\frac{\partial f}{\partial u_i} \in \R^3.$ Thus when we say $ \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}$ we are referring to this 3-vector expanded with respect to a basis for $T_u f$). In matrix form, we describe this situation as
+	$\frac{\partial f}{\partial u_i} \in \R^3.$ Thus when we say $ \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}$ we are referring to this 3-vector expanded with respect to the two-dimensional basis for $T_u f$). In matrix form, we describe this situation as
 	
 	\begin{align}
 	\Bigg[ \;\weinmat\; \Bigg]
@@ -379,13 +379,13 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			\begin{align}
 			\implies
 			\Bigg[ \;\weinmat\; \Bigg]
-			\begin{bmatrix} \leftarrow \frac{\partial f}{\partial u_1} \rightarrow \\
-							\leftarrow \frac{\partial f}{\partial u_2} \rightarrow
+			\begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
+				- \frac{\partial f}{\partial u_2} -
 							\end{bmatrix}
 			\left[ \mcol{\frac{\partial f}{\partial u_1}} \;
 				\mcol{\frac{\partial f}{\partial u_2}}\right]
-				&= \begin{bmatrix} \leftarrow \frac{\partial f}{\partial u_1} \rightarrow \\
-				\leftarrow \frac{\partial f}{\partial u_2} \rightarrow
+				&= \begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
+				- \frac{\partial f}{\partial u_2} -
 				\end{bmatrix}
 				\left[ \mcol{-\frac{\partial \nu}{\partial u_1}} \;
 				\mcol{-\frac{\partial \nu}{\partial u_2}}\right]
@@ -519,9 +519,9 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	Our final goal is to explicitly determine a (hopefully simplified) version of the Weingarten map in the case of a graph $f(u_1,u_2) = (u_1,u_2, h(u_1,u_2))$ and calculate
        	the principal directions and curvatures in a simple example.
        	        		
-       	\begin{theorem}
-        	When $f: U \to \R^3$ is given by $(x,y) \mapsto (x, y, h(x,y))$, the matrix
-        	representation of the Weingarten map \sout{is exactly the Hessian matrix given in (2.1)} is given by
+       	\begin{theorem}[Relationship between Hessian and Weingarten Map of a Graph]
+        	Given the graph $f: U \to \R^3$ where $(x,y) \mapsto (x, y, h(x,y))$, the matrix
+        	representation of its Weingarten map is given by
         	\begin{equation} \label{weinmatexactgraph}
         	\weinmat = \Hess(h) \tilde{G} \;,\quad \mathrm{where} \quad
 	        	\tilde{G} := \frac{1}{\sqrt{1+h_x^2 + h_y^2}}
@@ -532,7 +532,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         	\end{equation}
         	
         	In particular, given a point $u = (x,y) \in U \subset \R^2$ where $h_x \approx h_y \approx 0$, we
-        	have $\tilde{G} \approx \mathrm{Id}$, and thus $\weinmat \approx \Hess$.
+        	have $\tilde{G} \approx \mathrm{Id}$, and thus $\weinmat \approx \Hess(h)$.
+        	
        	\end{theorem}
        	\begin{proof}
        		First, we can (using chain rule) rewrite each component as in  \cref{fundamentalformcoefficients}:
@@ -555,7 +556,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        		\nu(u_1, u_2) &=
        		\frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
        		{\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}} \\
-       		&= \frac{(1, 0, h_x) \times (0, 1, h_y)}{\vnorm{\cdots}} \\
+       		&= \frac{(1, 0, h_x) \times (0, 1, h_y)}{\vnorm{(1, 0, h_x) \times (0, 1, h_y)}} \\
        		&= \frac{\left( -h_x , -h_y , 1 \right)}{\sqrt{h_x^2 + h_y^2 + 1}}
 	 \end{align}
 	 We then calculate each $h_{ij}$ as
@@ -603,7 +604,32 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	
   Thus the matrix of the Weingarten map $\weinmat$ is the Hessian matrix exactly at a critical point $u \in  U$, where $\nabla h(u) = (h_x(u), h_y(u)) = 0$. Of course this implies that $\weinmat$ and $\Hess{(h)}$ have the same eigenvalues and eigenvectors at these points.
   
-  To make this a little more explicit, we will calculate the Weingarten map for a relatively simple graph.
+But this observation is more broadly useful than that, since if $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
+\begin{equation}
+\tilde{G} = I + [\delta], \quad  [\delta] := \begin{bmatrix} h_y^2 & -h_x h_y \\ -h_x h_y & h_x^2 \end{bmatrix}
+\end{equation}
+
+We can then rewrite \cref{weinmatexactgraph} as 
+\begin{equation}
+\weinmat = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \Hess(h)
++ \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \Hess(h) [\delta]
+\end{equation}
+
+We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix (and the constant$\frac{1}{\sqrt{1+h_x^2 + h_y^2}}$ will be very close to 1 as well), and we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \cite{wilkinson-eigenvalue}, which we state without rigorous proof.
+
+% see wilkinson pg 66
+\begin{theorem}
+	If $A$, $B$ are matrices such that $\abs{A_{ij}} < 1 , \abs{B_{ij}} < 1$ (a condition that can be ignored with scaling) and $\lambda$ is a simple eigenvalue of $A$, then given $\epsilon > 0$, there exists a simple eigenvalue $\tilde{\lambda}$ of the matrix $A + \epsilon B$ with $\abs{\lambda - \tilde{\lambda}} = \bigO(\epsilon)$. Similarly, if $v$ is an eigenvector of A, then $\tilde{v}$ is an eigenvector of $A + \epsilon B$ with
+	$\abs{v - \tilde{v}} = \bigO(\epsilon)$.
+\end{theorem}
+
+The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
+$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect 
+
+In the event that we do wish to rigorously compute the Weingarten map should want to be rigorously computed "without approximation"--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
+
+  
+  To make the Weingarten map and its relationship to the Hessian more explicit, we will calculate the Weingarten map for a relatively simple graph.
   
   \subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \label{sec:calculate-weinmap-of-a-ridge}
   
@@ -617,12 +643,12 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   \end{equation} 
   \begin{figure}[h!]
   \includegraphics[width=\linewidth]{circular_trough}
-  \caption{The graph of a cylindrical ridge of radius $r$,
-	      	as given by $f(x,y)$ as given above.}
+  \caption{The graph of a cylindrical ridge of radius $r$}
+  \label{fig:ridge-graph}
   \end{figure}
   
   
-  We calculate the necessary partial derivatives of $f$ as follows:
+  The graph is shown in \cref{fig:ridge-graph}. We calculate the necessary partial derivatives of $f$ as follows:
   
   \begin{gather}
   \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
@@ -652,7 +678,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
      \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \\
     0 & 0
      \end{bmatrix} 
-     &= \begin{bmatrix}
+     = \begin{bmatrix}
      \frac{-r}{r^2 - x^2} & 0 \\
      0 & 0
      \end{bmatrix} \\
@@ -666,10 +692,10 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   \end{align}
   
   We see that $u_2 = (0,1)$ and $u_1 = (1,0)$ are eigenvectors for $\weinmat$ with respective eigenvalues
-  $\kappa_2 = -\frac{1}{r} , \kappa_1 = 0$. Given the theorem of Olinde Rodriguez suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and is $0$. The theorem of Meusnier suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable-- any curve on the trough perpendicular to the ridge should have the curvature of a circle (the negative simply indicates that we are on the ``outside'' of the surface). Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
+  $\kappa_2 = -\frac{1}{r} , \kappa_1 = 0$. Given the theorem of Olinde Rodriguez suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and is $0$. The theorem of Meusnier \cref{thm:meusnier} suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable-- any curve on the trough perpendicular to the ridge should have the curvature of a circle (the negative simply indicates that we are on the ``outside'' of the surface). Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
   
   \vcleanup{this was dropped in here. fix the transition}
-  Viewing the surface in $\R^3$, we define the Hessian \vcomment{notation here, does it need to be an operator?} $\Hess$ of the surface $L$
+  Viewing the surface in $\R^3$, we define the Hessian \vcomment{notation here, does it need to be an operator?} $\Hess(x,y)$ of the surface $L$
   at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
   \begin{equation}
   \Hess(x,y) = \begin{bmatrix}
@@ -680,12 +706,13 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
   At any point $(x,y)$ we denote the two eigenpairs of $\Hess(x,y)$ as
   \begin{equation}
-  \Hess u_i = \kappa_i u_i \; , \quad i = 1,2
+  \Hess(x,y) u_i = \kappa_i u_i \; , \quad i = 1,2
   \end{equation}
   
 \vcleanup{the eigenvectors of the Weingarten map are orthonormal. the eigenvectors of the hessian are also orthonormalizable. make the distinction!}
   where $\kappa_i$ and $u_i$ are known as the
-  \textit{principal curvatures} and \textit{principal directions} \vcomment{fixthis} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following lemma:
+  \textit{principal curvatures} and \textit{principal directions} \vcomment{fixthis} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following basic result from linear algebra,
+  \cite{burden-faires}:
   
   % from burden and faires corollary 9.17
   \begin{lemma}[Principal Axis Theorem?]
@@ -817,7 +844,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     
     Of course, if the the ridge is perfectly circular along its cross section (as was in \cref{sec:calculate-weinmap-of-a-ridge}, it is of course apparent that $\lambda_2$ would be the same value at any place along the ridge (not just at its crest \vcleanup{fix terminology}), and $\lambda_1$ would likewise be 0 at any such point.  One could also imagine a similar situation in which the dropoff from crest to bottom gets increasing steep. In such a case, $\lambda_2$ as a function of $x$ would in fact be largest nearest to the bottom. This thought experiment should dispel a naive misunderstanding of the power of a Frangi filter: a high anisotropy measure (and a large structureness measure \vcleanup{define structureness first}) will not in general identify the crests of a ridge-like structure--it only will highlight that such a pixel is on a ridge-like structure at all. Thus, the anisotropy measure will not necessarily be at a maximum at the crest of the ridge.
     
-    Similiarly, the vessel we we wish to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure, such as small divots or depressions in an overall ridge-like structure. Of importance in our data set later, there will be points where we seem to "lose" our ridgelike structure due to issues with the sample \cref{sec:NCS-data-set}.
+    Similiarly, the vessel we we wish to identify can not be reasonably expected to behave as perfectly as our toy example. There will likely be small aberrations in a ridgelike structure, such as small divots or depressions in an overall ridge-like structure. Of importance in our data set later ( \cref{sec:NCS-data-set}), there will be points where we seem to "lose" our ridgelike structure,
+    but this is simply due to an error in the sample.
     
 	Importantly, this formulation does not require $\lambda_1$ to be approximately zero, just that the curvature in the downward direction is much more significant.
     
@@ -825,7 +853,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     
     We will fix some of these issues by casting this as a multiscale problem in \cref{sec:frangi-multiscale}.
     
-    Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{sec:conclusion.future-research}.
+    Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{sec:future-research-directions}.
     
     \subsection{Structureness measure} \label{sec:frangi-structureness}
     
@@ -1211,6 +1239,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is
     a range of parameters at which to probe. These should be chosen to be representative enough of all scales where meaningful content is expected to be found.
     
+    % move to Chapter 3.
     \subsection{Thresholding}
     
     After this procedure, we are left with a matrix with as many samples/pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image:
@@ -1219,7 +1248,10 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
     \end{equation}
     
-    Whereas Frangi \cite{frangi-paper} refrained from making any explicit decisions on whether something was definitely a vessel or not, we may wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. There are multiple methods of doing so. A straightforward enough approach is to simply threshold past some certain point. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
+    Notably, Frangi \cite{frangi-paper} refrained from explicitly interpreting the probablility assigned by \cref{frangi-vesselness-max}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and that the size
+    of the vasculature cannot be determined rigorously from the filter alone.
+    
+    However, for the purposes of obtaining an intermediate result, we wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. A straightforward enough approach is to simply threshold at some fixed value. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
     \vcleanup{fix notation in all of this}
     \begin{equation}
     V_{\Sigma,\alpha}(x,y) = \begin{cases}
@@ -1230,12 +1262,16 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     \end{equation}
     
 	We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
-	in \cref{ch:implementations}.
-    
-    
-    All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discrete nature of our samples.    
-    
-\section{Calculating 2D Hessian}
+	in \cref{ch:implementations}. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion}) should not hold too much stock in this thresholded result, and analyzing the 
+	raw vesselness score \cref{eq:frangi-max-matrix}, or even
+	the un-merged scale-wise scores, would be far more
+	rewarding.    
+	
+
+All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discrete nature of our samples.    
+ 
+ 
+\section{Calculating the 2D Hessian}
 
 According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \cite{fornberg-1988}. Specific implementation will be discussed in \cref{ch:implementations}.
 
@@ -1259,9 +1295,8 @@ We note in passing that we may take the derivative of the Gaussian kernel and th
 
 \section{Convolution Speedup via FFT}
 
-In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which offers a speedup of $N^2$ operations vs $\mathscr{O}\left(n\cdot \log_2n\right)$ operations \vcomment{extend to 2D}.
+In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which requires only $\mathscr{O}\left(N\cdot \log_2N\right)$ operations for a one dimension signal of length $N$, as compared to the $N^2$ operations required of a conventional discrete Fourier transform \cite{DIPGW}. We will briefly outline the theory of Fourier transforms.
 
-\section{Fourier Transforms}
 \subsubsection{Fourier Transform of a continuous 1D signal}
 
 \vcomment{start with 1D but then extend/rewrite}
@@ -1278,7 +1313,7 @@ The Fourier transform of a 1D continuous function is defined by
 F(\mu) := \FT\{f(t)\} \;=\; \int_{-\infty}^{\infty} f(t) e^{i2\pi \mu } dt
 \end{equation}
 
-It can be shown \vcomment{justify?} that an inverse transform will then recover our original signal:
+An inverse transform will then recover our original signal:
 \begin{equation} \label{1D-ICFT}
 f(t) = \FT^{-1}\left\{F(\mu)\right\} = \int_{-\infty}^{\infty} F(\mu) e^{i2\pi \mu t} dt
 \end{equation}
@@ -1302,9 +1337,9 @@ The discrete sample $f(t)$ is then constructed from $f(t)$ by
 \tilde{f}(t) = f(t) s_{\Delta T}(t)
 \end{equation}
 
-From this (and actually the convolution theorem) we can calculate $\tilde{F}(t)$.
+From this we can calculate $\tilde{F}(t)$.
 Given the discrete signal $\tilde{f}$, we construct the transform
-$\tilde{F}(\mu) = \FT\{\tilde{f}(t)\}$. by simply transforming the definition \cref{1D-discrete-sample}.
+$\tilde{F}(\mu) = \FT\{\tilde{f}(t)\}$. by expanding $\tilde{f}$ in the same infinite basis as the continuous case.
 \begin{equation} \label{1D-DFT-transform}
 \tilde{F}(\mu) = \sum_{n=-\infty}^{\infty} f_n e^{-i 2\pi \mu n \Delta T} \;,\quad
 f_n = \tilde{f}(n) = f(n\Delta T)
@@ -1323,7 +1358,6 @@ The transform is a continuous function with period $1 / \Delta T$.
 \vcleanup{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
 \begin{theorem}[2D DFT Convolution Theorem] 
 	\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
-, that is:
 Given two discrete functions are sequences with the same length.
 %\vcomment{If they're not actually the same length, DIP-GW suggests to make the final length at least $P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}
 $f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
@@ -1513,6 +1547,6 @@ Of course, our development was for $1D$.  We can extend this to $2D$ by taking n
 
 The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$. Since our inputs have no reason to be this, we need to adjust for this. The explanation is that you just do the part that's a power of 2 and  then do the rest manually or pick a different power.
 
-The inverse DFT can actually be found via a DFT of the complex conjugate of the original signal % see p299.
+Finally we note the inverse DFT can actually be found via a DFT of the complex conjugate of the original signal, and of course we may translate that operation to a FFT. % see p299.
 
 

@@ -1,4 +1,4 @@
-\documentclass[]{csulb-thesis_april}
+\documentclass[]{csulb-thesis-old}
 %\usepackage{csulbthm} % this is broken :( need to fix% no amsthm anymore
 \usepackage{amsthm}
 
@@ -13,13 +13,16 @@
 \usepackage{hyperref}
 \usepackage{cleveref}
 
-
 \usepackage{lscape}
 \usepackage{datatool} % Allows importing tables
 \usepackage{longtable}
 \usepackage[inline]{enumitem}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
+\usepackage{minitoc}
+
+
+
 % mathy definitions?
 \newtheorem{defn}{Definition}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
@@ -102,12 +105,14 @@
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 \DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
 \DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+\newcommand{\bigO}{\mathcal{O}}
 
 \DeclareMathOperator{\FT}{\mathscr{F}} % fancy F for \FT
 \DeclareMathOperator{\DFT}{\mathscr{D}} % fancy D for \DFT
 
 
-\newcommand*\mcol[1]{\overset{\big\uparrow}{\underset{\big\downarrow}{#1}}}
+%\newcommand*\mcol[1]{\overset{\big\uparrow}{\underset{\big\downarrow}{#1}}}
+\newcommand*\mcol[1]{\overset{\big\vert}{\underset{\big\vert}{#1}}}
 %\usepackage[small,singlelinecheck=on]{caption}
 %\usepackage[font=singlespacing]{caption}
 
@@ -172,6 +177,7 @@
 
 %% This generates the Table of Contents (on a separate page).
 \setcounter{tocdepth}{3}  %%  Set how many levels to include in the TOC
+\dominitoc
 \tableofcontents
 
 %% This generates the List of Tables (on a separate page), if needed.

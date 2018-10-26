@@ -6,28 +6,30 @@
 
 \section{Samples / Image Domain}\label{sec:NCS-data-set}
 
-% see Nen's master's thesis for his descriptions of the data sets
-
-We ultimately perform a PCSVN extraction on a set of 174 color placental images from a private database called NCS (from NYMH?). These are project files in GIMP which contain multiple layers.
+We ultimately perform a PCSVN extraction on a set of 174 color placental images from a private database called NCS. These are project files in GIMP which contain multiple layers.
 The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample is given in \cref{fig:exampleNCSoutput}
 
 \begin{figure}[h]\label{fig:NCSlayers} \centering
 	\subfloat[Fixed Placental Sample]{
-		\label{fig:NCSlayers-raw}\includegraphics[width=60mm]{{{T-BN0164923.raw}}}
+		\label{fig:NCSlayers-raw}\includegraphics[width=40mm]{{{T-BN0164923.raw}}}
 		}
 	\subfloat[Arterial tracing]{
-		\label{fig:NCSlayers-A}\includegraphics[width=60mm]{{{T-BN0164923_arteryoverlay}}}
+		\label{fig:NCSlayers-A}\includegraphics[width=40mm]{{{T-BN0164923_arteryoverlay}}}
 		}
 	\subfloat[Venous tracing]{
-		\label{fig:NCSlayers-V}\includegraphics[width=60mm]{{{T-BN0164923_veinoverlay}}}
+		\label{fig:NCSlayers-V}\includegraphics[width=40mm]{{{T-BN0164923_veinoverlay}}}
 		}
 	\subfloat[Total Vascular Network]{
-		\label{fig:NCSlayers-T}\includegraphics[width=60mm]{{{T-BN0164923_traceoverlay}}}
+		\label{fig:NCSlayers-T}\includegraphics[width=40mm]{{{T-BN0164923_traceoverlay}}}
 		}
 \caption{A representative placental NCS sample with vascular tracing}
 \end{figure}
 
-In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of this procedure is given in \vtodo{some reference}. \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.) 
+In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of the data set is given in \cite{chang2016whole},
+and a description of the cleaning and fixing procedure is given in
+[UCLA REU paper].
+
+\cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.) 
 
 
 
@@ -49,13 +51,11 @@ In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed desc
 
 For our procedure, we simply operate on the placental sample itself, without any understanding of its provided tracing except for comparing the strength of our algorithm. Of course, our goal is to develop an algorithm that can produce a ``ground truth'' tracing such as in \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any intervention.
 
-For our purposes however, we will use the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using an Active Contour Model \vtodo{REF} or perhaps even any edge finding algorithm followed by morphological / watershedding as in \vtodo{REF}.
-
-
+For our purposes however, we will use the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using an Active Contour Model \vtodo{REF} or perhaps even any edge finding algorithm followed by morphological / watershedding as in \vtodo{REF}. We leave that for future work.
 
 To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We "zero" outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
 
-These procedures are performed automatically on the 174 image in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix. \vtodo{put a link here}
+These procedures are performed automatically on the 174 image in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
 (There are actually 201 images but 27 of them have mislabeled layers and were not autoprocessed correctly)
 
 
@@ -119,9 +119,6 @@ Calculate the Hessian matrix of  and then the eigenvalues using the function \te
 \section{Cleanup/Postprocessing}
 \section{Measurements}
 
-\section{NOTE DUMP}
-	\vcomment{this is just a place to put commentary to sort/ rewrite later}
-	
 	\subsection{Erode plate / dilate boundary}
 	
 	Our function considers the placenta as a nonzero surface but the surface outside is zero (or, in many situations, masked). We're currently not implementing any way to ``reflect'' along the border, so instead the second degree behavior of the surface there will be incorrect in an area proportional to the scale size.

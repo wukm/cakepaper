@@ -5,6 +5,24 @@
   school={California State University, Long Beach}
 }
 
+@inproceedings{jiao2008consistent,
+	title={Consistent computation of first-and second-order differential quantities for surface meshes},
+	author={Jiao, Xiangmin and Zha, Hongyuan},
+	booktitle={Proceedings of the 2008 ACM symposium on Solid and physical modeling},
+	pages={159--170},
+	year={2008},
+	organization={ACM}
+}
+
+@book{wilkinson-eigenvalue,
+	editor = {Wilkinson, J. H.},
+	title = {The Algebraic Eigenvalue Problem},
+	year = {1988},
+	isbn = {0-198-53418-3},
+	publisher = {Oxford University Press, Inc.},
+	address = {New York, NY, USA},
+} 
+
 @Misc{scipy,
 	author=   {Eric Jones and Travis Oliphant and Pearu Peterson and others},
 	title=    {{SciPy}: Open source scientific tools for {Python}},
@@ -40,7 +58,15 @@
 	pages={407--433},
 	year={2012},
 	publisher={Elsevier},
-	annote={A very long and maybe not useful survey/comparison of many $(>20)$(!!) vessel detection algorithms. I learned about the STARE database from this paper. Comparisons and results are nonsense to me at this point.}
+}
+
+
+@book{burden-faires,
+	title={Numerical Analysis},
+	author={Burden, R and Faires, J},
+	publisher = {Brooks/Cole},
+	year      = 2011,
+	edition   = 9,
 }
 @inproceedings{olabarriaga-hessian-comparison,
 	title={Evaluation of Hessian-based filters to enhance the axis of coronary arteries in CT images},
@@ -50,7 +76,6 @@
 	pages={1191--1196},
 	year={2003},
 	organization={Elsevier},
-	annote={Comparison of Hessian-based vesselness enhancement filters (which they call HBVF). Introduction is very good. Also note, they use ``exponentially distributed'' scales for each filter! I don't necessarily agree with their results though, and I don't see what images they're using. They do some parameter searching though, if I can understand their figures it might be useful to do myself in the thesis.}
 }
 @article{chang2012characterizing,
 	title={Characterizing placental surface shape with a high-dimensional shape descriptor},
@@ -61,7 +86,6 @@
 	pages={954},
 	year={2012},
 	publisher={Scientific Research Publishing},
-	annote={Why the shape of the placenta is important for prediciting infant well-being? Useful for the intro.}
 }
 @article{djima2017enhancing,
 	title={Enhancing placental chorionic surface vasculature from barium-perfused images with directional and multiscale methods},
@@ -71,7 +95,6 @@
 	pages={292--293},
 	year={2017},
 	publisher={Elsevier},
-	annote={Can I get a copy of this? Would be great to cite/refer to.}
 }
 @article{chang2016whole,
 	title={Whole chorionic surface vessel feature analysis with the Boruta method, and autism risk},
@@ -81,7 +104,6 @@
 	pages={75},
 	year={2016},
 	publisher={Elsevier},
-	annote={This is the Boruta paper. Is there a longer version? This is the main motivation for my thesis.}
 }
 
 @article{shah2016priori,
@@ -92,7 +114,6 @@
 	pages={76},
 	year={2016},
 	publisher={Elsevier},
-	annote="This is from looking at jm chang on google scholar--haven't read yet. Is good to cite for the introduction?"
 }
 
 @article{candes2006fast,
@@ -104,7 +125,6 @@
 	pages={861--899},
 	year={2006},
 	publisher={SIAM},
-	annote="Jump-off point for Kara's research, I think. Haven't look into this but would be useful in intro or comparison section to cf. with Kara et al's work."
 }
 
 @article{mcc-original-paper,
@@ -127,14 +147,12 @@
 	pages={125--128},
 	year={2013},
 	organization={IEEE},
-	annote={Nen published paper. Major foundation work. Cite as previous use of work, but `jump' over for all theory and development. Should I cite his thesis instead/in addition?}
 }
 @article{DIPGW,
 	title={Digital image processing prentice hall},
 	author={Gonzalez, Rafael C and Woods, Richard E},
 	journal={Upper Saddle River, NJ},
-	year={2002},
-	annote={Check this citation, find a better one.}
+	year={2002}
 }
 @book{Kuhnel-DiffGeo,
 	title={Differential Geometry: Curves - Surfaces - Manifolds},
@@ -144,9 +162,8 @@
 	series={Student mathematical library},
 	year={2006},
 	publisher={American Mathematical Society},
-	annote={Could use the 3rd edtiion as well.}
 }
-}
+
 @inproceedings{frangi-paper,
 	title={Multiscale vessel enhancement filtering},
 	author={Frangi, Alejandro F and Niessen, Wiro J and Vincken, Koen L and Viergever, Max A},
@@ -154,7 +171,6 @@
 	pages={130--137},
 	year={1998},
 	organization={Springer},
-	annote={Starting point.}
 }
 
 @article{sato-filter,
@@ -166,7 +182,6 @@
 	pages={143--168},
 	year={1998},
 	publisher={Elsevier},
-	annote={This was cited in Frangi I believe as a different Hessian filter. Look into this! Gets compared in Olabarriaga, above. I am ignorantly assuming that this is strictly inferior to Frangi's filter. Worth looking into.}
 }
 
 @InProceedings{lorenz-filter,
@@ -196,7 +211,6 @@
 	pages={79--116},
 	year={1998},
 	publisher={Kluwer Academic Publishers},
-	annote={General multiscale theory. Some high-level discussion of multiscale techniques. Introduces a scale-based parameter I'm confused about. Frangi either bought it and it's crap or I need to understand this. Does Gonzalez/woods talk about multiscale theory as well?}
 }
 
 @phdthesis{frangi20013d,
@@ -204,7 +218,6 @@
 	author={Frangi, AF},
 	year={2001},
 	school={Frangi's PhD Dissertation, Electrical and Computer Engineering, Universiteit Utrecht},
-	annote={basically Frangi's 1998 paper is copypasted in here, but might be useful to find the context.}
 }
 
 
@@ -217,7 +230,6 @@ number={3},
 pages={391--400},
 year={2004},
 organization={Wiley Online Library},
-annote={I don't remember where I got this from, but the abstract describes that it uses principal curvatures. Read this!}
 }
 @inproceedings{deng2007principal,
 title={Principal curvature-based region detector for object recognition},
@@ -226,7 +238,6 @@ booktitle={Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE Conferen
 pages={1--8},
 year={2007},
 organization={IEEE},
-annote={I don't think this is a similar problem, but it uses principal curvatures in some other context. I could name drop this or a similar study somewhere.}
 }
 
 @article{gilles2013empirical,
@@ -238,7 +249,6 @@ number={16},
 pages={3999--4010},
 year={2013},
 publisher={IEEE},
-annote={Kara research jump off point. Maybe unnecessary.}
 }
 
 @article{florack1992scale,
@@ -249,8 +259,7 @@ volume={10},
 number={6},
 pages={376--388},
 year={1992},
-publisher={Elsevier},
-annote={Scale space theory. Overly technical, similar to Lindeberg in my mind.  Also: maybe a different paper by Florack is worth looking into? They've written a few on this topic around the same time. Find the best overview you can.}
+publisher={Elsevier},}
 }
 
 @article{qian2009non,
@@ -262,7 +271,6 @@ number={1},
 pages={49--61},
 year={2009},
 publisher={Elsevier},
-annote={Oh gee, 'non-parametric' is a great keyword! Look into this! I haven't read this at all!} 
 }
 
 @book{GSST-book,
@@ -285,7 +293,6 @@ annote={Oh gee, 'non-parametric' is a great keyword! Look into this! I haven't r
 	volume="50",
 	number="5",
 	pages="363--370",
-	abstract="In practice the relevant details of images exist only over a restricted range of scale. Hence it is important to study the dependence of image structure on the level of resolution. It seems clear enough that visual perception treats images on several levels of resolution simultaneously and that this fact must be important for the study of perception. However, no applicable mathematically formulated theory to deal with such problems appers to exist. In this paper it is shown that any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way if the constraint that no spurious detail should be generated when the resolution is diminished, is applied. The structure of this family is governed by the well known diffusion equation (a parabolic, linear, partial differential equation of the second order). As such the structure fits into existing theories that treat the front end of the visual system as a continuous tack of homogeneous layer, characterized by iterated local processing schemes. When resolution is decreased the images becomes less articulated because the extrem (``light and dark blobs'') disappear one after the other. This erosion of structure is a simple process that is similar in every case. As a result any image can be described as a juxtaposed and nested set of light and dark blobs, wherein each blod has a limited range of resolution in which it manifests itself. The structure of the family of derived images permits a derivation of the sampling density required to sample the image at multiple scales of resolution. The natural scale along the resolution axis (leading to an informationally uniform sampling density) is logarithmic, thus the structure is apt for the description of size invariances.",
 	issn="1432-0770",
 	doi="10.1007/BF00336961",
 	url="https://doi.org/10.1007/BF00336961"
@@ -327,7 +334,6 @@ annote={Oh gee, 'non-parametric' is a great keyword! Look into this! I haven't r
 	pages={101--112},
 	year={2009},
 	publisher={Elsevier},
-	annote={Unread. Promising title and glance-through. `Directional filter bank' basically describes what I was doing earlier. What did they do?}
 }
 \@article{lindeberg1998feature,
 	title={Feature detection with automatic scale selection},
@@ -388,6 +394,17 @@ annote={Oh gee, 'non-parametric' is a great keyword! Look into this! I haven't r
 	pages={349--376},
 	year={1993},
 	publisher={Springer}
+}
+
+@inproceedings{almoussa-2011,
+	title={Automated vasculature extraction from placenta images},
+	author={Almoussa, Nizar and Dutra, Brittany and Lampe, Bryce and Getreuer, Pascal and Wittman, Todd and Salafia, Carolyn and Vese, Luminita},
+	booktitle={Medical Imaging 2011: Image Processing},
+	volume={7962},
+	pages={79621L},
+	year={2011},
+	organization={International Society for Optics and Photonics},
+	annote={UCLA REU}
 }
 
 @book{abramowitz-stegun,
