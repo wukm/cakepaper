@@ -6,58 +6,100 @@
 
 \section{Samples / Image Domain}\label{sec:NCS-data-set}
 
-We ultimately perform a PCSVN extraction on a set of 174 color placental images from a private database called NCS. These are project files in GIMP which contain multiple layers.
-The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample is given in \cref{fig:exampleNCSoutput}
-
-\begin{figure}[h]\label{fig:NCSlayers} \centering
-	\subfloat[Fixed Placental Sample]{
-		\label{fig:NCSlayers-raw}\includegraphics[width=40mm]{{{T-BN0164923.raw}}}
+We ultimately perform a PCSVN extraction on a subset of 201 color placental images from a private database provided by the National Children's Study, which had been prepared for a different study. A detailed description of the data set is given in \cite{chang2017},
+and a description of the cleaning and fixing procedure is given in \cite{almoussa-ucla-reu}. The samples are provided as XCF files (the native project file for GIMP) and contain four major layers.
+\subsection{A representative sample}
+The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample (with ID number ``BN0164923'') is given in \cref{fig:NCSlayers}.
+% put this on it's own page close to it's first reference
+\begin{figure}[p] \centering
+	\subfloat[Fixed Placental Sample]{		\label{fig:NCSlayers-raw}\includegraphics[width=80mm]{{{T-BN0164923.raw}}}
 		}
+	\subfloat[Perimeter tracing]{
+		\label{fig:NCSlayers-P}\includegraphics[width=80mm]{{{T-BN0164923_perimeter_overlay}}}
+	}\\
 	\subfloat[Arterial tracing]{
-		\label{fig:NCSlayers-A}\includegraphics[width=40mm]{{{T-BN0164923_arteryoverlay}}}
+		\label{fig:NCSlayers-A}\includegraphics[width=80mm]{{{T-BN0164923_arteries_overlay}}}
 		}
 	\subfloat[Venous tracing]{
-		\label{fig:NCSlayers-V}\includegraphics[width=40mm]{{{T-BN0164923_veinoverlay}}}
-		}
+		\label{fig:NCSlayers-V}\includegraphics[width=80mm]{{{T-BN0164923_veins_overlay}}}
+		}\\
 	\subfloat[Total Vascular Network]{
-		\label{fig:NCSlayers-T}\includegraphics[width=40mm]{{{T-BN0164923_traceoverlay}}}
+		\label{fig:NCSlayers-T}\includegraphics[width=80mm]{{{T-BN0164923_all_layers_overlay}}}
 		}
-\caption{A representative placental NCS sample with vascular tracing}
+	% should i use the real sample names? or obfuscate?
+\caption{A representative placental sample and tracing}
+\label{fig:NCSlayers}
 \end{figure}
 
-In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is shown. A detailed description of the data set is given in \cite{chang2016whole},
-and a description of the cleaning and fixing procedure is given in
-[UCLA REU paper].
+Each layer is roughly 1954x1200 pixels (with some subtle variation).
+In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is placed on a table with a camera a fixed distance away, and a rule and penny (presumably for redundancy) to aid registration and calibration of the resolution.
+\cref{fig:NCSlayers-P} is a tracing (in green) of the perimeter of the placenta. The point of umbilical cord insertion is notated in yellow. Two cyan marks are placed on consecutive centimeter markings on the ruler (the dots are enlarged and shown as a darker blue here for clarity).
+\cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. These layers are simultaneously overlain on the base image in\cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. The diameters are binned into 9 discrete widths, odd integers from 3 to 19 pixels. Vessels of smaller diameter are either binned to three or (quite frequently) left untraced.
+The correspondence between pencil color and (binned) vessel width is given in \cref{tab:widthcolors}.
 
-\cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are both hand traces of the PCSVN, with a layer for each the arteries and veins. In our particular use case, there is no need to consider them separately, so we simply consider them together, as in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. There is also a cord insertion point notated, as well as the perimeter of the placental plate.  These are hand-traced and rather labor intensive. A closer look at many of the samples often reveals some subjectivity in the tracings (often it's hard to see where the vein is, vascular networks are obscured, etc.) 
+\begin{table}
+	\centering
+\begin{tabular}{ccc}
+	\hline
+	\rule[-1ex]{0pt}{2.5ex}
+	vessel width & color (hex value) & color name \\
+	\hline 
+	\rule[-1ex]{0pt}{2.5ex}
+	3 pixels &  \#ff006f &   magenta \\                                      
+	\rule[-1ex]{0pt}{2.5ex}
+	5 pixels & \#a80000  & dark red \\                                      
+	\rule[-1ex]{0pt}{2.5ex}
+	7 pixels &  \#a800ff & purple \\                                          
+	\rule[-1ex]{0pt}{2.5ex}
+	9 pixel s&  \#ff00ff  & light pink \\
+	\rule[-1ex]{0pt}{2.5ex}
+	11 pixels &  \#008aff & blue \\                                          
+	\rule[-1ex]{0pt}{2.5ex}
+	13 pixels &  \#8aff00 &   green \\                                        
+	\rule[-1ex]{0pt}{2.5ex}
+	15 pixels &  \#ffc800 &  gold \\                                    
+	\rule[-1ex]{0pt}{2.5ex}
+	17 pixels & \#ff8a00  &  orange \\                                         
+	\rule[-1ex]{0pt}{2.5ex}
+	19 pixels & \#ff0015   &  bright red  \\
+	\hline
+\end{tabular}
+\caption{Vessel width color code}
+\label{tab:widthcolors}
+\end{table}
 
 
+All in all, these hand-traced and rather labor intensive--requiring between 4 and 8 hours to trace a single sample. A closer look at many of the samples often reveals that a great deal of subjectivity in providing this ``ground truth,'' as it is not often clear what the underlying truth really is; often it's hard to see where the vein is, vascular networks are obscured by the umbilical stem, the blood in the vessels dries unevenly or ruptures, and the vessel seems to disappear momentarily. These situations and more will be showcased in our results section, where we will discuss methods to simulate the subjectivity of decision.
+
+
+\subsection{Knowns and Unknowns}
+Of course, we wish to simply operate on the placental sample itself, without any understanding of its provided tracing (except for judging the strength of our algorithm);
+our goal is to develop an algorithm that can produce a ``ground truth'' tracing similar to \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any user intervention.
+
+For our purposes however, we will use a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours}, or even a simple edge finding algorithm followed by watershedding. We leave that for future work. We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
+
+Finally, we will consider the location of the umbilical insertion point as a ``known'', as the vessels around it are frequently impossible to see and we wish to exclude them from consideration. It is not unreasonable, however, to consider this to be a known--in future preparations of samples, we could simply require that this point be centered in image in a predictable location. Furthermore, we use its location as a convenience in data analysis--knowledge of this point does not inform our algorithm at all.
+
+
+To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We  zero  outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
 
 \begin{figure}\label{fig:exampleNCSoutput} 	\centering
-	\subfloat[Background Mask]{
-		\label{fig:NCSoutput-mask}\includegraphics[width=60mm]{{{T-BN0164923.mask}}}
-		}
+	\subfloat[Background Mask (in white)]{
+		\label{fig:NCSoutput-mask}\includegraphics[width=80mm]{{{T-BN0164923.mask}}}
+	}
 	\subfloat[Sample with BG removed]{
-		\label{fig:NCSoutput-base}\includegraphics[width=60mm]{{{T-BN0164923}}}
-		}
+		\label{fig:NCSoutput-base}\includegraphics[width=80mm]{{{T-BN0164923}}}
+	} \\
 	\subfloat[Grayscale]{
-		\label{fig:NCSoutput-gray}\includegraphics[width=60mm]{{{T-BN0164923.L}}}
-		}
+		\label{fig:NCSoutput-gray}\includegraphics[width=80mm]{{{T-BN0164923.L}}}
+	}
 	\subfloat[Trace / ``Ground Truth'']{
-		\label{fig:NCSoutput-trace}\includegraphics[width=60mm]{{{T-BN0164923.trace}}}
-		}
+		\label{fig:NCSoutput-trace}\includegraphics[width=80mm]{{{T-BN0164923.trace}}}
+	}
 	\caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-For our procedure, we simply operate on the placental sample itself, without any understanding of its provided tracing except for comparing the strength of our algorithm. Of course, our goal is to develop an algorithm that can produce a ``ground truth'' tracing such as in \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any intervention.
-
-For our purposes however, we will use the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using an Active Contour Model \vtodo{REF} or perhaps even any edge finding algorithm followed by morphological / watershedding as in \vtodo{REF}. We leave that for future work.
-
-To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We "zero" outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
-
-These procedures are performed automatically on the 174 image in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
-(There are actually 201 images but 27 of them have mislabeled layers and were not autoprocessed correctly)
-
+These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
 
 \section{Image Preprocessing}
 	
@@ -81,6 +123,11 @@ These procedures are performed automatically on the 174 image in our data set us
 	\cref{fig:boundary-demo} doesn't really show what I want it to, but this is what it would look like. Repeat with a smaller border. Maybe the issue doesn't occur with these as much? 	In the image above, $\sigma=3$ and border radius is 80 and all it does is get 	rid of the stupid natural boundary, not a weird frangi response. Which is important in itself, but I was having an error just between the edge of the image.
 	
 	The code for the above can by found by running \texttt{plate\_morphology.py} as a top-level script (that is, within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file).
+	
+	
+	\subsection{Variations in the Data Set and Imperfections of the Ground Truth}
+	
+	
 \section{Multiscale Setup}
 
 	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius. This  list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
