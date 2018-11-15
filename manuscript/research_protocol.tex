@@ -76,12 +76,16 @@ All in all, these hand-traced and rather labor intensive--requiring between 4 an
 Of course, we wish to simply operate on the placental sample itself, without any understanding of its provided tracing (except for judging the strength of our algorithm);
 our goal is to develop an algorithm that can produce a ``ground truth'' tracing similar to \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any user intervention.
 
-For our purposes however, we will use a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}. In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours}, or even a simple edge finding algorithm followed by watershedding. We leave that for future work. We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
+For our purposes however, we will use a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}). In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours} or, or even a simple edge finding algorithm followed by watershedding and largest object selection as in \cite{huynh2013filter}. We leave that for future work. We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
 
 Finally, we will consider the location of the umbilical insertion point as a ``known'', as the vessels around it are frequently impossible to see and we wish to exclude them from consideration. It is not unreasonable, however, to consider this to be a known--in future preparations of samples, we could simply require that this point be centered in image in a predictable location. Furthermore, we use its location as a convenience in data analysis--knowledge of this point does not inform our algorithm at all.
 
 
-To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We  zero  outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace.
+\section{Image Preprocessing}
+
+Building a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We  zero  outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace. Our preprocessed samples used by the algorithm are given in \cref{fig:exampleNCSoutput}.
+
+These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
 
 \begin{figure}\label{fig:exampleNCSoutput} 	\centering
 	\subfloat[Background Mask (in white)]{
@@ -99,17 +103,13 @@ To build a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is
 	\caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
-
-\section{Image Preprocessing}
-	
-	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary dimension input \cite{frangi1998multiscale}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
+	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary N-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
 	
 	\begin{equation} \label{eq:luma_transform}
 	L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
 	\end{equation}
-
-`	All images are grayscale, $M,N$ pixels as a masked array (of type
+	It should be noted that this choice is not automatic--several other attempts have used the green channel unmodified, as in 
+	All images are grayscale, $M,N$ pixels as a masked array (of type
 	\texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
 	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not designed to handle masked regions. Although it would be of some interest to create an algorithm that, say, calculates a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to simply exclude affected areas from consideration, and zero unwanted background pixels to speed up computation. This excluding function,
 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
