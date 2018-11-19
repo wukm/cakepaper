@@ -154,13 +154,13 @@ These procedures are performed automatically on the 201 images in our data set u
 	consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is dependent on the image domain.
 	
 		\begin{figure} 
-		\includegraphics[width=\textwidth]{preprocessing_comparison_cropped}
+		\includegraphics[width=\textwidth]{preprocessing_comparison_cropped_fig}
 		\caption{Deglaring a sample using a hybrid inpainting method}
 		\label{fig:glare-example-crop}
 		\end{figure}
 
 		\begin{figure} 
-		\includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_rescaled}
+		\includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_fig}
 		\caption{Comparison of glare inpainting methods (detail)}
 		\label{fig:glare-example-zoom}
 		\end{figure}
@@ -172,12 +172,35 @@ These procedures are performed automatically on the 201 images in our data set u
 	for in \cref{fig:glare-example-zoom}. In the top left, the glary image is shown.  In the top middle,
 	regions above the threshold intensity are masked (shown in dark red, along with the background). In the top right, the strategy is ``mean window'' with a window size of 15 pixels. The bottom left uses ``boundary median'' strategy. The middle is the more expensive ``biharmonic inpainting'' strategy, and the bottom right uses a ``hybrid'' strategy.
 	
+	The following timing demonstrates that the ``hybrid'' strategy is over 3 times faster than biharmonic inpainting, and that biharmonic painting takes 22 seconds, even when only 1\% of the placental plate is to be inpainted.
+	
+	\begin{lstlisting}
+	In [1]: %timeit inpaint_with_boundary_median(img)
+	1 loop, best of 3: 3.99 s per loop
+	
+	In [2]: %timeit inpaint_with_biharmonic(img)
+	1 loop, best of 3: 22.3 s per loop
+	
+	In [3]: %timeit inpaint_hybrid(img)
+	1 loop, best of 3: 6.49 s per loop
+	
+	In [4]: (np.logical_and(masked.mask, np.invert(img.mask))).sum()
+	Out[4]: 10055
+	
+	In [5]: np.invert(img.mask).sum()
+	Out[5]: 878591
+	
+	In [6]: 10055/878591
+	Out[6]: 0.011444460505513942
+	\end{lstlisting}
+
+	
 	We stress again that only a small subset our image domain exhibits disruptive amounts of glare.
 	Future improvements in this direction should probably seek to implement more robust method such as
-	\cite{lange2005glare} that is not dependent on an arbitrary threshold for deciding what regions
+	\cite{lange2005glare} that is not dependent on an arbitrary global threshold for deciding what regions
 	exhibit glare.
 	
-\section{Variations in the Data Set and Imperfections of the Ground Truth}
+
 	
 	Where should this go?
 	
