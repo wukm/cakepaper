@@ -144,10 +144,39 @@ These procedures are performed automatically on the 201 images in our data set u
 	
 	\subsection{Deglaring}
 	
-	Despite best intentions when harvesting samples, some placental image has substantial glare.
+	Despite best efforts when harvesting samples, some placental images have substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, at the expense of processing time.
 	
-	ADD THE IMAGES ETC.
+	The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving a
+	biharmonic equation i.e. $\nabla \nabla f = 0$ for the surface $f$ subject to boundary conditions (as
+	compared to \texttt{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
+	
+	The method for deciding what is considered glare is similar to $\cite{almoussa-ucla-reu}$, in which we
+	consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is dependent on the image domain.
+	
+		\begin{figure} 
+		\includegraphics[width=\textwidth]{preprocessing_comparison_cropped}
+		\caption{Deglaring a sample using a hybrid inpainting method}
+		\label{fig:glare-example-crop}
+		\end{figure}
 
+		\begin{figure} 
+		\includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_rescaled}
+		\caption{Comparison of glare inpainting methods (detail)}
+		\label{fig:glare-example-zoom}
+		\end{figure}
+	
+	Inpainting in the above way is rather resource intensive, so we implemented two faster and less precise methods of inpainting, which can be found in \texttt{preprocessing.py}. The first, called 
+	\texttt{inpaint\_glare()} (change this name) replaces any masked pixel with the average of all non-masked values within a certain distance (default 15 pixels). The second, called \texttt{inpaint\_with\_boundary\_median} calculates the median value of the  (non-masked) boundary and fills any masked region with that value. We argue that these less-exact methods are adequate for smaller regions, while larger regions of glare deserve a more thoughtful application of inpainting. Our final method of inpainting, \texttt{inpaint\_hybrid} implements this idea--smaller glare regions are inpainted with a boundary median, while larger areas are inpainted with the more expensive but more accurate biharmonic inpainting.
+	
+	A comparison of these methods is shown in \cref{fig:glare-example-crop}, and a zoomed in portion is shown
+	for in \cref{fig:glare-example-zoom}. In the top left, the glary image is shown.  In the top middle,
+	regions above the threshold intensity are masked (shown in dark red, along with the background). In the top right, the strategy is ``mean window'' with a window size of 15 pixels. The bottom left uses ``boundary median'' strategy. The middle is the more expensive ``biharmonic inpainting'' strategy, and the bottom right uses a ``hybrid'' strategy.
+	
+	We stress again that only a small subset our image domain exhibits disruptive amounts of glare.
+	Future improvements in this direction should probably seek to implement more robust method such as
+	\cite{lange2005glare} that is not dependent on an arbitrary threshold for deciding what regions
+	exhibit glare.
+	
 \section{Variations in the Data Set and Imperfections of the Ground Truth}
 	
 	Where should this go?
