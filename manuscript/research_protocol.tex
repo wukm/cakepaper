@@ -103,7 +103,7 @@ These procedures are performed automatically on the 201 images in our data set u
 	\caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary N-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
+	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is descaleed for arbitrary N-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
 	
 	\begin{equation} \label{eq:luma_transform}
 	L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
@@ -114,8 +114,8 @@ These procedures are performed automatically on the 201 images in our data set u
 	
 	All images are grayscale, $M,N$ pixels as a masked array (of type
 	\texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
-	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not designed to handle masked regions. Although it would be potentially useful to adapt such methods in a way to, say, calculate a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to ``zero out'' unwanted background pixels and simply exclude adjacent areas from consideration. This excluding function, 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
-	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur (which should have the same affect as using the perimeter labeled in \cref{fig:NCSlayers-P} directly, though we've chosen to not include that in our sample). That boundary itself is then dilated by the desired factor. The second is a much quicker implementation of binary dilation that is particularly efficient for our problem: we iterate through an array of indices for the image where the boundary occurs and simply extend the mask $R$ pixels in each direction (like a giant plus sign). Since these pixels are all connected, the effect is very similar to convolving with a disk of radius $R$, but is much faster.
+	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not descaleed to handle masked regions. Although it would be potentially useful to adapt such methods in a way to, say, calculate a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to ``zero out'' unwanted background pixels and simply exclude adjacent areas from consideration. This excluding function, 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
+	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur (which should have the same affect as using the perimeter labeled in \cref{fig:NCSlayers-P} directly, though we've chosen to not include that in our sample). That boundary itself is then dilated by the desired factor. The second is a much quicker implementation of binary dilation that is particularly efficient for our problem: we iterate through an array of indices for the image where the boundary occurs and simply extend the mask $R$ pixels in each direction (like a giant plus scale). Since these pixels are all connected, the effect is very similar to convolving with a disk of radius $R$, but is much faster.
 	
 	\begin{figure} 
 		\includegraphics[width=\textwidth]{boundary_dilation_demo}
@@ -184,58 +184,72 @@ These procedures are performed automatically on the 201 images in our data set u
 	In [3]: %timeit inpaint_hybrid(img)
 	1 loop, best of 3: 6.49 s per loop
 	
-	In [4]: (np.logical_and(masked.mask, np.invert(img.mask))).sum()
-	Out[4]: 10055
-	
-	In [5]: np.invert(img.mask).sum()
-	Out[5]: 878591
-	
-	In [6]: 10055/878591
+	In [4]: inpaint_count = np.sum(np.logical_and(masked.mask, np.invert(img.mask)))
+	In [5]: plate_count = np.sum(np.invert(img.mask))
+	In [6]: inpaint_count / plate_count  # ratio of inpainted pixels to total plate 
 	Out[6]: 0.011444460505513942
 	\end{lstlisting}
 
 	
 	We stress again that only a small subset our image domain exhibits disruptive amounts of glare.
-	Future improvements in this direction should probably seek to implement more robust method such as
-	\cite{lange2005glare} that is not dependent on an arbitrary global threshold for deciding what regions
-	exhibit glare.
+	Future improvements in this direction should probably seek to implement more robust method such as \cite{lange2005glare} that is not dependent on an arbitrary global threshold for deciding what regions exhibit glare.
 	
-
-	
-	Where should this go?
 	
 \section{Multiscale Setup}
 
-	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius. This  list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
-	 
-	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \cite{Koenderink} it is reasonable and natural to select these logarithmically; that is,
-	for some selected inputs $m < M$ we have
+	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius.
+	This list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
+	
+	
+	Although we cannot expect \textit{a priori} that there is an exact proportionality between our scale size $\sigma$ and the width of a particular vessel \cite{frangi-paper}, we generally expect to isolate
+	narrower curvilinear structures at smaller scales, and thicker curvilinear structures at larger scales.	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \cite{Koenderink}, it is reasonable and natural to select these logarithmically; that is, for some selected inputs $m < M$ we have
 	
 	\begin{equation}
 	\sigma_1 = 2^{m} \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \sigma_N = 2^{M} \end{equation}
 	
 	That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
-	\texttt{np.logspace(m,M,num=N)}. The idea is that the filter will respond better at its particular scale, but there are diminishing returns as $\sigma$ increases. While the filter's response may vary substantially between, say $\sigma=2$ and $\sigma=3$, there will be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. There was an earlier benefit as well, that is still worth mentioning for historical reasons. Previously, computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is moot with the development of FFT-based Frangi filter.
+	\texttt{np.logspace(m,M,num=N)}. The idea is that the curvilinear content of the image will respond better at some particular scale, but there are diminishing returns as $\sigma$ increases; while the filter's response may vary substantially between, say $\sigma=1$ and $\sigma=2$, there will probably not be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. Historically, there was another benefit of using a logarithmic scale spice: computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is much less of an issue with the present implementation.
 	
-	If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which   ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding.''
+	If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding.''
 	
-	
-	
-	
-	
-	Convolve this via fft transform to get $L_{\sigma_i}$
-	
+	Once we have this chosen set $\Sigma$, we simply convolve the image with a discrete gaussian kernel with that standard deviation, then take gradients enough to get a matrix of partial second derivatives, the Hessian. We take its eigenvalues and then compute the Frangi filter according to \cref{sec:frangi} and \cref{sec:frangi-multiscale}.
 
 \section{Applying Vesselness Measure}
-Calculate the Hessian matrix of  and then the eigenvalues using the function \texttt{hfft.fft\_hessian}.
+Calculate the Hessian matrix of and then the eigenvalues using the function \texttt{hfft.fft\_hessian}.
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{sweep_stitched_plate}
-	\caption{Frangi vesselness score at several scales}
+%\begin{figure}
+%	\includegraphics[width=\textwidth]{scalesweep_stitch_BN2315363_plate}
+%	\caption{Frangi vesselness score at several scales}
+%\end{figure}
+%\begin{figure}
+%	\includegraphics[width=\textwidth]{scalesweep_stitch_BN2315363_inset}
+%	\caption{Frangi vesselness score at several scales (inset)}
+%\end{figure}
+
+\begin{figure}[p] \centering
+	\subfloat{		\label{fig:scalesweep-1p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_plate}}}
+	} \\[-0.5cm]
+	\subfloat{		\label{fig:scalesweep-1i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_inset}}}
+	} \\[-0.5cm]
+	\subfloat{		
+		\label{fig:scalesweep-1c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
+	} \\
+	% should i use the real sample names? or obfuscate?
+	\caption{Signed Frangi output (plate and inset) (Example 1)}
+	\label{fig:scalesweep-1}
 \end{figure}
-\begin{figure}
-	\includegraphics[width=\textwidth]{sweep_stitched_inset}
-	\caption{Frangi vesselness score at several scales (inset)}
+
+\begin{figure}[p] \centering
+	\subfloat{		\label{fig:scalesweep-2p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_plate}}}
+	} \\[-0.5cm]
+	\subfloat{		\label{fig:scalesweep-2i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_inset}}}
+	} \\[-0.5cm]
+	\subfloat{		
+		\label{fig:scalesweep-2c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
+	} \\
+	% should i use the real sample names? or obfuscate?
+	\caption{Signed Frangi output (plate and inset) (Example 1)}
+	\label{fig:scalesweep-2}
 \end{figure}
 \section{Scale-space post-processing}
 \section{Multiscale Merging}
