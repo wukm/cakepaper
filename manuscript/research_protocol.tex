@@ -2,7 +2,7 @@
 \chapter{Research Protocol}
 
 \vcomment{List all decisions you make. Be very explicit.
-	Current plan: Go into depth for certain portions in the implementations chapter.}
+    Current plan: Go into depth for certain portions in the implementations chapter.}
 
 \section{Samples / Image Domain}\label{sec:NCS-data-set}
 
@@ -12,21 +12,21 @@ and a description of the cleaning and fixing procedure is given in \cite{almouss
 The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample (with ID number ``BN0164923'') is given in \cref{fig:NCSlayers}.
 % put this on it's own page close to it's first reference
 \begin{figure}[p] \centering
-	\subfloat[Fixed Placental Sample]{		\label{fig:NCSlayers-raw}\includegraphics[width=80mm]{{{T-BN0164923.raw}}}
-		}
-	\subfloat[Perimeter tracing]{
-		\label{fig:NCSlayers-P}\includegraphics[width=80mm]{{{T-BN0164923_perimeter_overlay}}}
-	}\\
-	\subfloat[Arterial tracing]{
-		\label{fig:NCSlayers-A}\includegraphics[width=80mm]{{{T-BN0164923_arteries_overlay}}}
-		}
-	\subfloat[Venous tracing]{
-		\label{fig:NCSlayers-V}\includegraphics[width=80mm]{{{T-BN0164923_veins_overlay}}}
-		}\\
-	\subfloat[Total Vascular Network]{
-		\label{fig:NCSlayers-T}\includegraphics[width=80mm]{{{T-BN0164923_all_layers_overlay}}}
-		}
-	% should i use the real sample names? or obfuscate?
+    \subfloat[Fixed Placental Sample]{        \label{fig:NCSlayers-raw}\includegraphics[width=80mm]{{{T-BN0164923.raw}}}
+        }
+    \subfloat[Perimeter tracing]{
+        \label{fig:NCSlayers-P}\includegraphics[width=80mm]{{{T-BN0164923_perimeter_overlay}}}
+    }\\
+    \subfloat[Arterial tracing]{
+        \label{fig:NCSlayers-A}\includegraphics[width=80mm]{{{T-BN0164923_arteries_overlay}}}
+        }
+    \subfloat[Venous tracing]{
+        \label{fig:NCSlayers-V}\includegraphics[width=80mm]{{{T-BN0164923_veins_overlay}}}
+        }\\
+    \subfloat[Total Vascular Network]{
+        \label{fig:NCSlayers-T}\includegraphics[width=80mm]{{{T-BN0164923_all_layers_overlay}}}
+        }
+    % should i use the real sample names? or obfuscate?
 \caption{A representative placental sample and tracing}
 \label{fig:NCSlayers}
 \end{figure}
@@ -38,31 +38,31 @@ In \cref{fig:NCSlayers-raw}, a cleaned, fixed placenta is placed on a table with
 The correspondence between pencil color and (binned) vessel width is given in \cref{tab:widthcolors}.
 
 \begin{table}
-	\centering
+    \centering
 \begin{tabular}{ccc}
-	\hline
-	\rule[-1ex]{0pt}{2.5ex}
-	vessel width & color (hex value) & color name \\
-	\hline 
-	\rule[-1ex]{0pt}{2.5ex}
-	3 pixels &  \#ff006f &   magenta \\                                      
-	\rule[-1ex]{0pt}{2.5ex}
-	5 pixels & \#a80000  & dark red \\                                      
-	\rule[-1ex]{0pt}{2.5ex}
-	7 pixels &  \#a800ff & purple \\                                          
-	\rule[-1ex]{0pt}{2.5ex}
-	9 pixel s&  \#ff00ff  & light pink \\
-	\rule[-1ex]{0pt}{2.5ex}
-	11 pixels &  \#008aff & blue \\                                          
-	\rule[-1ex]{0pt}{2.5ex}
-	13 pixels &  \#8aff00 &   green \\                                        
-	\rule[-1ex]{0pt}{2.5ex}
-	15 pixels &  \#ffc800 &  gold \\                                    
-	\rule[-1ex]{0pt}{2.5ex}
-	17 pixels & \#ff8a00  &  orange \\                                         
-	\rule[-1ex]{0pt}{2.5ex}
-	19 pixels & \#ff0015   &  bright red  \\
-	\hline
+    \hline
+    \rule[-1ex]{0pt}{2.5ex}
+    vessel width & color (hex value) & color name \\
+    \hline 
+    \rule[-1ex]{0pt}{2.5ex}
+    3 pixels &  \#ff006f &   magenta \\                                      
+    \rule[-1ex]{0pt}{2.5ex}
+    5 pixels & \#a80000  & dark red \\                                      
+    \rule[-1ex]{0pt}{2.5ex}
+    7 pixels &  \#a800ff & purple \\                                          
+    \rule[-1ex]{0pt}{2.5ex}
+    9 pixel s&  \#ff00ff  & light pink \\
+    \rule[-1ex]{0pt}{2.5ex}
+    11 pixels &  \#008aff & blue \\                                          
+    \rule[-1ex]{0pt}{2.5ex}
+    13 pixels &  \#8aff00 &   green \\                                        
+    \rule[-1ex]{0pt}{2.5ex}
+    15 pixels &  \#ffc800 &  gold \\                                    
+    \rule[-1ex]{0pt}{2.5ex}
+    17 pixels & \#ff8a00  &  orange \\                                         
+    \rule[-1ex]{0pt}{2.5ex}
+    19 pixels & \#ff0015   &  bright red  \\
+    \hline
 \end{tabular}
 \caption{Vessel width color code}
 \label{tab:widthcolors}
@@ -87,180 +87,246 @@ Building a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is
 
 These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
 
-\begin{figure}\label{fig:exampleNCSoutput} 	\centering
-	\subfloat[Background Mask (in white)]{
-		\label{fig:NCSoutput-mask}\includegraphics[width=80mm]{{{T-BN0164923.mask}}}
-	}
-	\subfloat[Sample with BG removed]{
-		\label{fig:NCSoutput-base}\includegraphics[width=80mm]{{{T-BN0164923}}}
-	} \\
-	\subfloat[Grayscale]{
-		\label{fig:NCSoutput-gray}\includegraphics[width=80mm]{{{T-BN0164923.L}}}
-	}
-	\subfloat[Trace / ``Ground Truth'']{
-		\label{fig:NCSoutput-trace}\includegraphics[width=80mm]{{{T-BN0164923.trace}}}
-	}
-	\caption{Preprocessed files from an NCS sample}
+\begin{figure}\label{fig:exampleNCSoutput}     \centering
+    \subfloat[Background Mask (in white)]{
+        \label{fig:NCSoutput-mask}\includegraphics[width=80mm]{{{T-BN0164923.mask}}}
+    }
+    \subfloat[Sample with BG removed]{
+        \label{fig:NCSoutput-base}\includegraphics[width=80mm]{{{T-BN0164923}}}
+    } \\
+    \subfloat[Grayscale]{
+        \label{fig:NCSoutput-gray}\includegraphics[width=80mm]{{{T-BN0164923.L}}}
+    }
+    \subfloat[Trace / ``Ground Truth'']{
+        \label{fig:NCSoutput-trace}\includegraphics[width=80mm]{{{T-BN0164923.trace}}}
+    }
+    \caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-	As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is descaleed for arbitrary N-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
-	
-	\begin{equation} \label{eq:luma_transform}
-	L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
-	\end{equation}
-	It should be noted that this choice is not automatic--several other attempts have used the green channel unmodified, as in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}.
-	
-	\subsection{Boundary Dilation}
-	
-	All images are grayscale, $M,N$ pixels as a masked array (of type
-	\texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
-	implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not descaleed to handle masked regions. Although it would be potentially useful to adapt such methods in a way to, say, calculate a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to ``zero out'' unwanted background pixels and simply exclude adjacent areas from consideration. This excluding function, 	\texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
-	provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur (which should have the same affect as using the perimeter labeled in \cref{fig:NCSlayers-P} directly, though we've chosen to not include that in our sample). That boundary itself is then dilated by the desired factor. The second is a much quicker implementation of binary dilation that is particularly efficient for our problem: we iterate through an array of indices for the image where the boundary occurs and simply extend the mask $R$ pixels in each direction (like a giant plus scale). Since these pixels are all connected, the effect is very similar to convolving with a disk of radius $R$, but is much faster.
-	
-	\begin{figure} 
-		\includegraphics[width=\textwidth]{boundary_dilation_demo}
-		\caption{Effect of boundary dilation on Frangi responses}
-		\label{fig:boundary-demo}
-	\end{figure}
-	
-	\cref{fig:boundary-demo} shows the effect of this so-called ``boundary dilation.'' 
-	In the image above, $\sigma=3$ and border radius is $25$ to exaggerate the effect.
-	% can i please make referencing better than this
-	The first row shows the unaltered boundary of the sample (left) and
-		the sample after boundary dilation (with radius dilation of 25 pixels).
-	The second row shows the Frangi vesselness measure at single scale ($\sigma=3$) where \texttt{DARK\_BG=False} to target dark curvilinear structures performed on the altered sample (left) and the boundary dilated sample (right). Removing an unnecessary part of
-	the placental plate prevents a small response to a non-vascular yet mildly curvilinear
-	background feature from appearing.
-	The third row of \cref{fig:boundary-demo} shows the Frangi vesselness measure at the same scale ($\sigma=3$) when we are probing for bright curvilinear structures (i.e.
-	\texttt{DARK\_BG=True}. Here, wherever the very edge of the placental plate is *any* brighter than adjacent interior, a very large Frangi response will occur, as seen on the left. Dilating the boundary completely avoids this issue, as seen by the figure on the right. Thus we prevent a visual artifact that is present in much prior work on this problem (see \cite{huynh2013filter}, \cite{almoussa-ucla-reu}).
-	It should be noted that, while the figure on the right shows a much larger interior response, this is simply because the intensity of the output in each of these
-	images is being independently scaled between the minimum and maximum intensity in the image. However, we argue that this is an appropriate and desired depiction of the situation, as we will frequently consider only the relative maxima of Frangi response per scale in our analysis.
-	
-	We end our discussion by noting that we perform this boundary dilation within the
-	Frangi algorithm itself when we set the structureness parameter $\gamma$ as half of the maximum Hessian norm found at that scale--this ensures that the maximum occurs sufficiently away from the boundary of the plate.
-	
-	The code for generating \cref{fig:boundary-demo} is found in the within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file \texttt{plate\_morphology.py},
-	(so the figure will be generated when running \texttt{plate\_morphology.py} as a top-level script from the command line). See appendix.
-	
-	\subsection{Deglaring}
-	
-	Despite best efforts when harvesting samples, some placental images have substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, at the expense of processing time.
-	
-	The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving a
-	biharmonic equation i.e. $\nabla \nabla f = 0$ for the surface $f$ subject to boundary conditions (as
-	compared to \texttt{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
-	
-	The method for deciding what is considered glare is similar to $\cite{almoussa-ucla-reu}$, in which we
-	consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is dependent on the image domain.
-	
-		\begin{figure} 
-		\includegraphics[width=\textwidth]{preprocessing_comparison_cropped_fig}
-		\caption{Deglaring a sample using a hybrid inpainting method}
-		\label{fig:glare-example-crop}
-		\end{figure}
+    As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is descaleed for arbitrary N-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
+    
+    \begin{equation} \label{eq:luma_transform}
+    L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
+    \end{equation}
+    It should be noted that this choice is not automatic--several other attempts have used the green channel unmodified, as in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}.
 
-		\begin{figure} 
-		\includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_fig}
-		\caption{Comparison of glare inpainting methods (detail)}
-		\label{fig:glare-example-zoom}
-		\end{figure}
-	
-	Inpainting in the above way is rather resource intensive, so we implemented two faster and less precise methods of inpainting, which can be found in \texttt{preprocessing.py}. The first, called 
-	\texttt{inpaint\_glare()} (change this name) replaces any masked pixel with the average of all non-masked values within a certain distance (default 15 pixels). The second, called \texttt{inpaint\_with\_boundary\_median} calculates the median value of the  (non-masked) boundary and fills any masked region with that value. We argue that these less-exact methods are adequate for smaller regions, while larger regions of glare deserve a more thoughtful application of inpainting. Our final method of inpainting, \texttt{inpaint\_hybrid} implements this idea--smaller glare regions are inpainted with a boundary median, while larger areas are inpainted with the more expensive but more accurate biharmonic inpainting.
-	
-	A comparison of these methods is shown in \cref{fig:glare-example-crop}, and a zoomed in portion is shown
-	for in \cref{fig:glare-example-zoom}. In the top left, the glary image is shown.  In the top middle,
-	regions above the threshold intensity are masked (shown in dark red, along with the background). In the top right, the strategy is ``mean window'' with a window size of 15 pixels. The bottom left uses ``boundary median'' strategy. The middle is the more expensive ``biharmonic inpainting'' strategy, and the bottom right uses a ``hybrid'' strategy.
-	
-	The following timing demonstrates that the ``hybrid'' strategy is over 3 times faster than biharmonic inpainting, and that biharmonic painting takes 22 seconds, even when only 1\% of the placental plate is to be inpainted.
-	
-	\begin{lstlisting}
-	In [1]: %timeit inpaint_with_boundary_median(img)
-	1 loop, best of 3: 3.99 s per loop
-	
-	In [2]: %timeit inpaint_with_biharmonic(img)
-	1 loop, best of 3: 22.3 s per loop
-	
-	In [3]: %timeit inpaint_hybrid(img)
-	1 loop, best of 3: 6.49 s per loop
-	
-	In [4]: inpaint_count = np.sum(np.logical_and(masked.mask, np.invert(img.mask)))
-	In [5]: plate_count = np.sum(np.invert(img.mask))
-	In [6]: inpaint_count / plate_count  # ratio of inpainted pixels to total plate 
-	Out[6]: 0.011444460505513942
-	\end{lstlisting}
+    \subsection{Boundary Dilation}
+    
+    All images are grayscale, $M,N$ pixels as a masked array (of type
+    \texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
+    implementations of algorithms, namely \texttt{numpy.gradient and scipy.signal.convolve2d} are not descaleed to handle masked regions. Although it would be potentially useful to adapt such methods in a way to, say, calculate a gradient or performs a convolution by a ``reflection'' across an arbitrary closed boundary (as opposed to the edge of the image matrix), we opted instead to ``zero out'' unwanted background pixels and simply exclude adjacent areas from consideration. This excluding function,     \texttt{plate\_morphology.dilate\_plate}, ultimately relies on two functions
+    provided by the Python library \texttt{scikit-image} \cite{skimage}. The first, \texttt{skimage.segmentation.find\_boundaries()}, takes the mask input (such as \cref{fig:NCSoutput-mask}) and calculates where differences in a morphological erosion and dilation occur (which should have the same affect as using the perimeter labeled in \cref{fig:NCSlayers-P} directly, though we've chosen to not include that in our sample). That boundary itself is then dilated by the desired factor. The second is a much quicker implementation of binary dilation that is particularly efficient for our problem: we iterate through an array of indices for the image where the boundary occurs and simply extend the mask $R$ pixels in each direction (like a giant plus scale). Since these pixels are all connected, the effect is very similar to convolving with a disk of radius $R$, but is much faster.
+    
+    \begin{figure} 
+        \includegraphics[width=\textwidth]{boundary_dilation_demo}
+        \caption{Effect of boundary dilation on Frangi responses}
+        \label{fig:boundary-demo}
+    \end{figure}
+    
+    \cref{fig:boundary-demo} shows the effect of this so-called ``boundary dilation.'' 
+    In the image above, $\sigma=3$ and border radius is $25$ to exaggerate the effect.
+    % can i please make referencing better than this
+    The first row shows the unaltered boundary of the sample (left) and
+        the sample after boundary dilation (with radius dilation of 25 pixels).
+    The second row shows the Frangi vesselness measure at single scale ($\sigma=3$) where \texttt{DARK\_BG=False} to target dark curvilinear structures performed on the altered sample (left) and the boundary dilated sample (right). Removing an unnecessary part of
+    the placental plate prevents a small response to a non-vascular yet mildly curvilinear
+    background feature from appearing.
+    The third row of \cref{fig:boundary-demo} shows the Frangi vesselness measure at the same scale ($\sigma=3$) when we are probing for bright curvilinear structures (i.e.
+    \texttt{DARK\_BG=True}. Here, wherever the very edge of the placental plate is *any* brighter than adjacent interior, a very large Frangi response will occur, as seen on the left. Dilating the boundary completely avoids this issue, as seen by the figure on the right. Thus we prevent a visual artifact that is present in much prior work on this problem (see \cite{huynh2013filter}, \cite{almoussa-ucla-reu}).
+    It should be noted that, while the figure on the right shows a much larger interior response, this is simply because the intensity of the output in each of these
+    images is being independently scaled between the minimum and maximum intensity in the image. However, we argue that this is an appropriate and desired depiction of the situation, as we will frequently consider only the relative maxima of Frangi response per scale in our analysis.
+    
+    We end our discussion by noting that we perform this boundary dilation within the
+    Frangi algorithm itself when we set the structureness parameter $\gamma$ as half of the maximum Hessian norm found at that scale--this ensures that the maximum occurs sufficiently away from the boundary of the plate.
+    
+    The code for generating \cref{fig:boundary-demo} is found in the within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file \texttt{plate\_morphology.py},
+    (so the figure will be generated when running \texttt{plate\_morphology.py} as a top-level script from the command line). See appendix.
+    
+    \subsection{Cut Removal}
+    
+    Sometimes there are small cuts that appear on the side of the placental plate, which can lead to large filter responses. We would like to filter these out to eliminate false positives in any way we can. These places are identified somewhat reliably by the tracing protocol with a blue dot. We perform a morphological watershedding in this area in an attempt to add this area to the mask.
+    The threshold for the watershed is ultimately based on the background value of the blue dot; if this is incorrectly placed (or anything else weird happens), we can manually opt to simply remove a large area from consideration from the plate, as we do the umbilicial cord insertion point. This is demonstrated in \cref{fig:cutdemo}. From left to right, we have the original masked placental sample, the cut mark notated on the perimeter layer, the improved mask after watershedding, and finally, the ``scorched earth'' approach in case the previous attempt failed.
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{T-BN0342010_cutopts}
+        \caption{Removing a ``cut'' from the placental plate.}
+        \label{fig:cutdemo}
+    \end{figure}
+    \subsection{Deglaring}
+    
+    Despite best efforts when harvesting samples, some placental images have substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, at the expense of processing time.
+    
+    The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving a
+    biharmonic equation i.e. $\nabla \nabla f = 0$ for the surface $f$ subject to boundary conditions (as
+    compared to \texttt{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
+    
+    The method for deciding what is considered glare is similar to $\cite{almoussa-ucla-reu}$, in which we
+    consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is dependent on the image domain.
+    
+        \begin{figure} 
+        \includegraphics[width=\textwidth]{preprocessing_comparison_cropped_fig}
+        \caption{Deglaring a sample using a hybrid inpainting method}
+        \label{fig:glare-example-crop}
+        \end{figure}
 
-	
-	We stress again that only a small subset our image domain exhibits disruptive amounts of glare.
-	Future improvements in this direction should probably seek to implement more robust method such as \cite{lange2005glare} that is not dependent on an arbitrary global threshold for deciding what regions exhibit glare.
-	
-	
+        \begin{figure} 
+        \includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_fig}
+        \caption{Comparison of glare inpainting methods (detail)}
+        \label{fig:glare-example-zoom}
+        \end{figure}
+    
+    Inpainting in the above way is rather resource intensive, so we implemented two faster and less precise methods of inpainting, which can be found in \texttt{preprocessing.py}. The first, called 
+    \texttt{inpaint\_glare()} (change this name) replaces any masked pixel with the average of all non-masked values within a certain distance (default 15 pixels). The second, called \texttt{inpaint\_with\_boundary\_median} calculates the median value of the  (non-masked) boundary and fills any masked region with that value. We argue that these less-exact methods are adequate for smaller regions, while larger regions of glare deserve a more thoughtful application of inpainting. Our final method of inpainting, \texttt{inpaint\_hybrid} implements this idea--smaller glare regions are inpainted with a boundary median, while larger areas are inpainted with the more expensive but more accurate biharmonic inpainting.
+    
+    A comparison of these methods is shown in \cref{fig:glare-example-crop}, and a zoomed in portion is shown
+    for in \cref{fig:glare-example-zoom}. In the top left, the glary image is shown.  In the top middle,
+    regions above the threshold intensity are masked (shown in dark red, along with the background). In the top right, the strategy is ``mean window'' with a window size of 15 pixels. The bottom left uses ``boundary median'' strategy. The middle is the more expensive ``biharmonic inpainting'' strategy, and the bottom right uses a ``hybrid'' strategy.
+    
+    The following timing demonstrates that the ``hybrid'' strategy is over 3 times faster than biharmonic inpainting, and that biharmonic painting takes 22 seconds, even when only 1\% of the placental plate is to be inpainted.
+    
+    \begin{lstlisting}
+    In [1]: %timeit inpaint_with_boundary_median(img)
+    1 loop, best of 3: 3.99 s per loop
+    
+    In [2]: %timeit inpaint_with_biharmonic(img)
+    1 loop, best of 3: 22.3 s per loop
+    
+    In [3]: %timeit inpaint_hybrid(img)
+    1 loop, best of 3: 6.49 s per loop
+    
+    In [4]: inpaint_count = np.sum(np.logical_and(masked.mask, np.invert(img.mask)))
+    In [5]: plate_count = np.sum(np.invert(img.mask))
+    In [6]: inpaint_count / plate_count  # ratio of inpainted pixels to total plate 
+    Out[6]: 0.011444460505513942
+    \end{lstlisting}
+
+    
+    We stress again that only a small subset our image domain exhibits disruptive amounts of glare.
+    Future improvements in this direction should probably seek to implement more robust method such as \cite{lange2005glare} that is not dependent on an arbitrary global threshold for deciding what regions exhibit glare.
+    
+    
 \section{Multiscale Setup}
 
-	Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius.
-	This list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
-	
-	
-	Although we cannot expect \textit{a priori} that there is an exact proportionality between our scale size $\sigma$ and the width of a particular vessel \cite{frangi-paper}, we generally expect to isolate
-	narrower curvilinear structures at smaller scales, and thicker curvilinear structures at larger scales.	The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \cite{Koenderink}, it is reasonable and natural to select these logarithmically; that is, for some selected inputs $m < M$ we have
-	
-	\begin{equation}
-	\sigma_1 = 2^{m} \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \sigma_N = 2^{M} \end{equation}
-	
-	That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
-	\texttt{np.logspace(m,M,num=N)}. The idea is that the curvilinear content of the image will respond better at some particular scale, but there are diminishing returns as $\sigma$ increases; while the filter's response may vary substantially between, say $\sigma=1$ and $\sigma=2$, there will probably not be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. Historically, there was another benefit of using a logarithmic scale spice: computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is much less of an issue with the present implementation.
-	
-	If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding.''
-	
-	Once we have this chosen set $\Sigma$, we simply convolve the image with a discrete gaussian kernel with that standard deviation, then take gradients enough to get a matrix of partial second derivatives, the Hessian. We take its eigenvalues and then compute the Frangi filter according to \cref{sec:frangi} and \cref{sec:frangi-multiscale}.
+    Our multiscale Frangi filter requires a list of scales at which to probe. Each scale is chosen to accentuate features of a particular size, i.e. vessels of a particular radius.
+    This list of scales is denoted as $\Sigma := \{ \sigma_1, \sigma_2, \dots, \sigma_N\}$. 
+    
+    
+    Although we cannot expect \textit{a priori} that there is an exact proportionality between our scale size $\sigma$ and the width of a particular vessel \cite{frangi-paper}, we generally expect to isolate
+    narrower curvilinear structures at smaller scales, and thicker curvilinear structures at larger scales.    The smallest one should be an effective size where details are expected to be found, and the largest should be an effective size as well. In fact, following \cite{Koenderink}, it is reasonable and natural to select these logarithmically; that is, for some selected inputs $m < M$ we have
+    
+    \begin{equation}
+    \sigma_1 = 2^{m} \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \sigma_N = 2^{M} \end{equation}
+    
+    That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
+    \texttt{np.logspace(m,M,num=N)}. The idea is that the curvilinear content of the image will respond better at some particular scale, but there are diminishing returns as $\sigma$ increases; while the filter's response may vary substantially between, say $\sigma=1$ and $\sigma=2$, there will probably not be not be a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. Historically, there was another benefit of using a logarithmic scale spice: computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is much less of an issue with the present implementation.
+    
+    If there is no particular care taken in selecting a minimum and maximum range at which to probe, then we should assure that there is no noise being introduced at either ends, especially if the Frangi filter at which ``throw out'' bad ones somehow. We will approach this issue in our discussion of ``variable thresholding.''
+    
+    Once we have this chosen set $\Sigma$, we simply convolve the image with a discrete gaussian kernel with that standard deviation, then take gradients enough to get a matrix of partial second derivatives, the Hessian. We take its eigenvalues and then compute the Frangi filter according to \cref{sec:frangi} and \cref{sec:frangi-multiscale}. We use these to provide a couple examples of estimating the PCSVN network. The entire decision tree can be shown in the outline below. Indentations with ``+'' and ``.'' characters are lists of options at that point, where ``+'' is the default and ``.'' is for alternatives discussed elsewhere in the text.
+    
+    \begin{spacing}{1}
+    \begin{small}
+    \begin{verbatim}
+For each sample:
 
-\section{Applying Vesselness Measure}
-Calculate the Hessian matrix of and then the eigenvalues using the function \texttt{hfft.fft\_hessian}.
-
-%\begin{figure}
-%	\includegraphics[width=\textwidth]{scalesweep_stitch_BN2315363_plate}
-%	\caption{Frangi vesselness score at several scales}
-%\end{figure}
-%\begin{figure}
-%	\includegraphics[width=\textwidth]{scalesweep_stitch_BN2315363_inset}
-%	\caption{Frangi vesselness score at several scales (inset)}
-%\end{figure}
+A) Preprocessing
+  1) RGB to single channel
+      + Luminance transform
+      . Isolate green channel only (Almoussa, Huynh)
+  2) Cut removal
+  3) Remove glare 
+    a) Mask glare
+      + Threshold (*175/255*)
+      . Threshold at *80%* of max intensity (Almoussa)
+      . Lange (2005) (multistep procedure, done in RGB space actually)
+    b) Post-process mask
+      + Dilate with radius *2*
+      . Do nothing
+    c) Inpaint glare
+      + Hybrid inpainting, with size threshold *32*
+      . Biharmonic inpainting
+      . Mean value of boundary 
+      . Median value of boundary 
+      . Windowed mean (radius: *15*)
+B) Multiscale Frangi filter
+  1) Define parameters
+    a) Scales
+      = n_scales (default: *40*)
+      = scale_range (default *[-2, 3.5]*)
+      = scale_type (*logarithmic base 2* or linear or custom)
+      -> build scales
+    b) Betas
+      = *0.5* each scale or custom range
+    c) Gammas
+      = strategy: (half L2 hessian norm or *half hessian frobenius norm*)
+                   or custom value each scale
+      = redilate plate per scale (?)
+    d) Dilate per scale 
+      + Custom function of scale
+         (default *max{10, int(4sigma)} if (sigma < 20) else int(2*sigma))*)
+      . No dilation
+    e) Scale space convolution method
+      + Discrete Gaussian kernel with FFT
+      . Sampled gaussian kernel with FFT
+      . Sample gaussian kernel, standard convolution
+  2) For each sigma: do Uniscale Frangi Filter
+    a) gauss blur image with method from (1e)
+    b) take gradient across each axis, take gradient across each axis
+    of gradient to get Hxx, Hxy, Hyy
+    c) find eigenvalues of hessian at each point (using np.eig)
+       and sort by magnitude 
+    d) zero out principal directions according to Dilate Per Scale
+    e) zero out hessian according to max(ceil(sigma),10)
+    f) Calculate Frangi Vesselness Measure
+C) Estimate PCSVN
+  1) Approximate using strategy
+    a) Calculate Fmax and Fmax.where -> Fmax
+    b) Threshold at 95th percentile -> approx
+    c) Threshold at fixed alpha
+    d) Margin adding to one of the above
+    e) Random walker after margin adding
+  2) Compare to Trace
+  3) Calculate Network Coverage and MCC score
+\end{verbatim}
+    \end{small}
+\end{spacing}
+   
 
 \begin{figure}[p] \centering
-	\subfloat{		\label{fig:scalesweep-1p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_plate}}}
-	} \\[-0.5cm]
-	\subfloat{		\label{fig:scalesweep-1i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_inset}}}
-	} \\[-0.5cm]
-	\subfloat{		
-		\label{fig:scalesweep-1c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
-	} \\
-	% should i use the real sample names? or obfuscate?
-	\caption{Signed Frangi output (plate and inset) (Example 1)}
-	\label{fig:scalesweep-1}
+    \subfloat{        \label{fig:scalesweep-1p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_plate}}}
+    } \\[-0.5cm]
+    \subfloat{        \label{fig:scalesweep-1i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN2315363_inset}}}
+    } \\[-0.5cm]
+    \subfloat{        
+        \label{fig:scalesweep-1c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
+    } \\
+    % should i use the real sample names? or obfuscate?
+    \caption{Signed Frangi output (plate and inset) (Example 1)}
+    \label{fig:scalesweep-1}
 \end{figure}
 
 \begin{figure}[p] \centering
-	\subfloat{		\label{fig:scalesweep-2p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_plate}}}
-	} \\[-0.5cm]
-	\subfloat{		\label{fig:scalesweep-2i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_inset}}}
-	} \\[-0.5cm]
-	\subfloat{		
-		\label{fig:scalesweep-2c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
-	} \\
-	% should i use the real sample names? or obfuscate?
-	\caption{Signed Frangi output (plate and inset) (Example 1)}
-	\label{fig:scalesweep-2}
+    \subfloat{        \label{fig:scalesweep-2p}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_plate}}}
+    } \\[-0.5cm]
+    \subfloat{        \label{fig:scalesweep-2i}\includegraphics[width=\linewidth]{{{scalesweep_stitch_BN5280796_inset}}}
+    } \\[-0.5cm]
+    \subfloat{        
+        \label{fig:scalesweep-2c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
+    } \\
+    % should i use the real sample names? or obfuscate?
+    \caption{Signed Frangi output (plate and inset) (Example 1)}
+    \label{fig:scalesweep-2}
 \end{figure}
 \section{Scale-space post-processing}
 \section{Multiscale Merging}
 \section{Cleanup/Postprocessing}
 \section{Measurements}
 
-	\subsection{Erode plate / dilate boundary}
-	
-	Our function considers the placenta as a nonzero surface but the surface outside is zero (or, in many situations, masked). We're currently not implementing any way to ``reflect'' along the border, so instead the second degree behavior of the surface there will be incorrect in an area proportional to the scale size.
-	
-	Describe how that function works. Earlier efforts are wrong, whatever.
-	
-	The are which is affected should be larger than just the standard dropoff the gaussian however, since we're interested
-	in second derivative information.
+    \subsection{Erode plate / dilate boundary}
+    
+    Our function considers the placenta as a nonzero surface but the surface outside is zero (or, in many situations, masked). We're currently not implementing any way to ``reflect'' along the border, so instead the second degree behavior of the surface there will be incorrect in an area proportional to the scale size.
+    
+    Describe how that function works. Earlier efforts are wrong, whatever.
+    
+    The are which is affected should be larger than just the standard dropoff the gaussian however, since we're interested
+    in second derivative information.
