@@ -3,7 +3,8 @@
 import numpy as np
 from scipy import signal
 import scipy.fftpack as fftpack
-from scipy.special import iv
+from scipy.special import iv, ive
+from itertools import combinations_with_replacement
 
 """
 hfft.py is the implementation of calculating the hessian of a real
@@ -32,7 +33,8 @@ def gauss_freq(shape, σ=1.):
     """
 
     M,  N = shape
-    fgauss = np.fromfunction(lambda μ,ν: ((μ+M+1)/2)**2 + ((ν+N+1)/2)**2, shape=shape)
+    fgauss = np.fromfunction(lambda μ,ν: ((μ+M+1)/2)**2 + ((ν+N+1)/2)**2,
+                             shape=shape)
 
     # is this used?
     coeff = (1 / (2*np.pi * σ**2))
@@ -75,10 +77,10 @@ def fft_gaussian(img,sigma,A=None):
     """
     #create a 2D gaussian kernel to take the FFT of
 
-    # scale factor!
-    A = 1 / (2*np.pi*sigma**2)
-    kernel = np.outer(A*signal.gaussian(img.shape[0], sigma),
-                        A*signal.gaussian(img.shape[1],sigma))
+    A = 1 / (2*np.pi*sigma**2) # scale factor for 2D
+
+    kernel = A*np.outer(signal.gaussian(img.shape[0], sigma),
+                        signal.gaussian(img.shape[1], sigma))
 
     return signal.fftconvolve(img, kernel, mode='same')
 
@@ -88,11 +90,15 @@ def discrete_gaussian_kernel(n_samples, t):
     will return a window centered a zero
     i.e. arange(-n_samples//2, n_samples//2+1)
 
-    this is UNnormalized, oops
+    note! to make this work similarly to fft_gaussian, you should pass
+    sigma**2 into t here. Figure out why?
+
+    by using scipy.special.ive instead we prevent blowups
     """
     dom = np.arange(-n_samples//2, n_samples // 2 + 1)
     #there should be a scaling parameter alpha but whatever
-    return np.exp(-t) * iv(dom,t)
+    #return np.exp(-t) * iv(dom,t)
+    return ive(dom,t)
 
 def fft_dgk(img,sigma,order=0,A=None):
     """
@@ -102,8 +108,8 @@ def fft_dgk(img,sigma,order=0,A=None):
     """
     m,n = img.shape
     # i don't know if this will suck if there are odd dimensions
-    kernel = np.outer(discrete_gaussian_kernel(m,sigma),
-                      discrete_gaussian_kernel(n,sigma))
+    kernel = np.outer(discrete_gaussian_kernel(m,sigma**2),
+                      discrete_gaussian_kernel(n,sigma**2))
 
     return signal.fftconvolve(img, kernel, mode='same')
 
@@ -136,19 +142,22 @@ def fft_hessian(image, sigma=1., kernel=None):
             [ [Lxx[j][k], Lxy[j][k]],
               [Lxy[j][k], Lyy[j][k]] ]
     """
-    if kernel == 'discrete':
+    if kernel in (None, 'discrete'):
         #print('using discrete kernel!')
         gaussian_filtered = fft_dgk(image, sigma=sigma)
     else:
         #print('using sampled gauss kernel')
         gaussian_filtered = fft_gaussian(image, sigma=sigma)
 
-    Lx, Ly = np.gradient(gaussian_filtered)
+    gradients = np.gradient(gaussian_filtered)
 
-    Lxx, Lxy = np.gradient(Lx)
-    Lxy, Lyy = np.gradient(Ly)
+    axes = range(image.ndim)
 
-    return (Lxx, Lxy, Lyy)
+    H_elems = [np.gradient(gradients[ax0], axis=ax1)
+               for ax0, ax1 in combinations_with_replacement(axes, 2)]
+
+    return H_elems
+
 
 def fft_gradient(image, sigma=1.):
     """ returns gradient norm """
@@ -158,6 +167,8 @@ def fft_gradient(image, sigma=1.):
     Lx, Ly = np.gradient(gaussian_filtered)
 
     return np.sqrt(Lx**2 + Ly**2)
+
+
 def _old_test():
     """
     old main function for testing.
