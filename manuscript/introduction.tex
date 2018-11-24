@@ -3,22 +3,14 @@
 
 \chapter{Introduction}
 
-	\section{The Applied Problem}
-	From [cite salafia], it is useful to develop a neonatal test for high risk of Autism Spectrum Disorder. There is some evidence as in \cite{chang2016whole} that there is some correlation between risk and
-	placental health. Most ASD cases are not diagnosed until the child reaches three or four, so the benefit of any neonatal testing would be very beneficial, as the brain may be more receptive to treatment at a young age. In particular, it was shown in \cite{chang2016whole} that measurements of the placental chorionic surface vascular network (PCSVN) may be useful in identifying such risk. Whereas previous studies have required manual tracing of the PCSVN in order to make these measurements, there was been work to automate this procedure, as in \cite{huynh2013filter} \cite{djima2017enhancing}, and so on. We continue the work of developing a procedure to automate extraction of the PCSVN.
-	
-	%\section{Context in Image Processing}
-		Our basic goal of "vascular network extraction" is a frequent one in image processing. There are have been many techniques adapted to extracting vascular networks. The placenta in particular presents a greater degree of difficulty due to the nature of the vascular network. It's a surface network and the "background" has a great degree of topology itself, causing many naive approaches to fail that work with other
-		image domains.
-		
-%		\begin{figure} \centering
-%			\includegraphics[width=0.8\textwidth]{shitty_threshold}
-%			\caption{Luminance/brightness thresholding is bad.}
-%			% this should go early in your talk, showing that the problem is kind of frustrating and visually solvable  ish.
-%			\label{fig:color-thresholding-sucks}
-%		\end{figure}
-		
-	
-	\section{Research Goals}
-	Our present work is to improve upon the vascular network extraction
-	developed in \cite{huynh2013filter} and test our extraction against the manual traces developed.
+From \cite{chang2017}, it is useful to develop a neonatal test for high risk of Autism Spectrum Disorder. There is some evidence as in \cite{chang2016whole} that there is some correlation between risk and placental health. Most ASD cases are not diagnosed until the child reaches three or four, so the benefit of any neonatal testing would be very beneficial, as the brain may be more receptive to treatment at a young age. In particular, it was shown in \cite{chang2016whole} that measurements of the placental chorionic surface vascular network (PCSVN) may be useful in identifying such risk. \cite{chang2017} has provided a method of automatically calculating such features from an extracted vascular network, but does so with manual tracing of the PCSVN in order to make these measurements.  These manual tracings are labor-intensive, requiring 4 to 8 hours of labor for each trace. There was been work to automate this procedure \cite{almoussa-ucla-reu} \cite{huynh2013filter} \cite{djima2017enhancing}. Automating this procedure would not only allow more data acquisition to study the potential effects of placental health on later conditions, but may ideally serve as a real-time diagnostic for neonatal risk factors as well. We continue the work of developing a procedure to automate extraction of the PCSVN.
+
+
+Our basic goal of "vascular network extraction" is a frequent one in image processing. There are have been many techniques adapted to extracting vascular networks. The placenta in particular presents a greater degree of difficulty due to the nature of the vascular network. It's a surface network, and the "background" has a great degree of topology itself, causing many na\"{i}ve approaches that work with other image domains to fail completely.
+
+
+Much work has been to develop reliable vascular extraction methods for well-known image domains (such as retinal MRA images) using Hessian-based filters, namely the (multiscale) Frangi filter. It is desirable to extend these technique to study placental images, but this approach is greatly hindered by the comparative irregularity of the placental surface as a whole, which introduces significant noise into the image domain.  Prior work \cite{huynh2013filter} solved this  problem by provided an additional local curvilinear filter to the Frangi result in an effort to remove some noise from the final extraction.
+
+Here we provide an in depth mathematical background of the Frangi filter and a reasonable introduction to Gaussian scale space theory. Finally, we discuss an important advancement in implementation--scale space conversion for differentiation (i.e. gaussian blur) via Fast Fourier Transform, which offers a significant speedup. This allows us faster calculation of the eigenvalues of the Hessian, from which we calculate the Frangi filter, a vesselness measure.
+
+We demonstrate the effectiveness of our sped-up implementation of the Frangi filter by performing a large (N=40) multiscale Frangi filter on a set of 201 placental images from a private database provided by the National Children's Study (NCS). Ee then compare several approaches of merging the multiscale result into an approximation of the PCSVN and compare them to manual tracings of the network. Our ability to take many more scales into consideration allows us to be pickier about our thresholding, which significantly reduces noise experienced in previous efforts. We finally suggest several ways to improve upon our approximation, namely by using the Frangi result as a prefilter for more robust techniques, providing a brief demo using a random walker segmentation.
