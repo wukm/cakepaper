@@ -4,12 +4,15 @@
 
 \section{Calculating the Hessian}
 
+% assuming that we already know how the 
+Efficient implementation of the Frangi filter ultimately relies on efficient convolution of the image with a gaussian kernel.
 
-	Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
-			\begin{verbatim}
-			gaussian_filtered = fftgauss(image, sigma=sigma)
-			Lx, Ly = np.gradient(gaussian_filtered)
-			Lxx, Lxy = np.gradient(Lx)
-			Lxy, Lyy = np.gradient(Ly)
+Pseudocode for \texttt{np.gradient} which is used in calculating Hessian (code below)
+\begin{verbatim}
+	gaussian_filtered = fftgauss(image, sigma=sigma)
+	Lx, Ly = np.gradient(gaussian_filtered)
+	Lxx, Lxy = np.gradient(Lx)
+    Lxy, Lyy = np.gradient(Ly)
 			\end{verbatim}	
 
+\section Choice of kernel
