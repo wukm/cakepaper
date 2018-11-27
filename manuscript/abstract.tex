@@ -2,12 +2,42 @@
 
 % University Guidelines suggest less than 150 words or 2 pages
 
-Recent statistical analysis of placental features has suggested the usefulness of studying key features of the placental chorionic surface vascular network (PCSVN) as a measure of overall neonatal health \cite{chang2017}. A recent study has suggested that reliable reporting of these features may be useful in identifying risks of certain neurodevelopmental disorders at birth. The necessary features can be extracted from an accurate tracing of the surface vascular network, but such tracings must still be done manually, with significant user intervention. Automating this procedure would not only allow more data acquisition to study the potential effects of placental health on later conditions, but may ideally serve as a real-time diagnostic for neonatal risk factors as well.
+Recent statistical analysis of placental features has suggested the usefulness
+of studying key features of the placental chorionic surface vascular network
+(PCSVN) as a measure of overall neonatal health \cite{chang2017}. A recent
+study has suggested that reliable reporting of these features may be useful in
+identifying risks of certain neurodevelopmental disorders at birth. The
+necessary features can be extracted from an accurate tracing of the surface
+vascular network, but such tracings must still be done manually, with
+significant user intervention. Automating this procedure would not only allow
+more data acquisition to study the potential effects of placental health on
+later conditions, but may ideally serve as a real-time diagnostic for neonatal
+risk factors as well.
 
-Much work has been to develop reliable vascular extraction methods for well-known image domains (such as retinal MRA images) using Hessian-based filters, namely the (multiscale) Frangi filter. It is desirable to extend these technique to study placental images, but this approach is greatly hindered by the comparative irregularity of the placental surface as a whole, which introduces significant noise into the image domain.  Prior work \cite{huynh2013filter} has made to apply an additional local curvilinear filter to the Frangi result in an effort to remove some noise from the final extraction.
+Much work has been to develop reliable vascular extraction methods for
+well-known image domains (such as retinal MRA images) using Hessian-based
+filters, namely the (multiscale) Frangi filter. It is desirable to extend these
+technique to study placental images, but this approach is greatly hindered by
+the comparative irregularity of the placental surface as a whole, which
+introduces significant noise into the image domain.  Prior work
+\cite{huynh2013filter} has made to apply an additional local curvilinear filter
+to the Frangi result in an effort to remove some noise from the final
+extraction.
 
-Here we provide an in depth mathematical background of the Frangi filter and a reasonable introduction to Gaussian scale space theory. Finally, we discuss an important advancement in implementation--scale space conversion for differentiation (i.e. gaussian blur) via Fast Fourier Transform, which offers a significant speedup. This allows us faster calculation of the eigenvalues of the Hessian, from which we calculate the Frangi filter, a vesselness measure.
+Here we provide an in depth mathematical background of the Frangi filter and a
+reasonable introduction to Gaussian scale space theory. Finally, we discuss an
+important advancement in implementation--scale space conversion for
+differentiation (i.e. gaussian blur) via Fast Fourier Transform, which offers a
+significant speedup. This allows us faster calculation of the eigenvalues of
+the Hessian, from which we calculate the Frangi filter, a vesselness measure.
 
-We demonstrate the effectiveness of our sped-up implementation of the Frangi filter by performing a large (N=40) multiscale Frangi filter on a set of 201 placental images from a private database provided by the National Children's Study (NCS). We then compare several approaches of merging the multiscale result into an approximation of the PCSVN and compare them to manual tracings of the network. We finally suggest several ways to improve upon our approximation, namely by using the Frangi result as a prefilter for more robust techniques, providing a brief demo using a random walker segmentation.
+We demonstrate the effectiveness of our sped-up implementation of the Frangi
+filter by performing a large (N=40) multiscale Frangi filter on a set of 201
+placental images from a private database provided by the National Children's
+Study (NCS). We then compare several approaches of merging the multiscale
+result into an approximation of the PCSVN and compare them to manual tracings
+of the network. We finally suggest several ways to improve upon our
+approximation, namely by using the Frangi result as a prefilter for more robust
+techniques, providing a brief demo using a random walker segmentation.
 
 
