@@ -20,10 +20,14 @@ import json
 import datetime
 
 
-def make_multiscale(img, scales, betas, gammas, dark_bg=True,
+def make_multiscale(img, scales, beta=0.5, gamma=0.5, c=None, dark_bg=True,
                     find_principal_directions=False, dilate_per_scale=True,
-                    signed_frangi=False, kernel=None, verbose=True):
+                    signed_frangi=False, kernel=None, verbose=True,
+                    rescale_frangi=False, gradient_filter=False):
     """Returns an ordered list of dictionaries for each scale of Frangi info.
+
+    beta, gamma, and c can all be vectors as long as scales or constants
+    if c is None it will be set.
 
     Each element in the output contains the following info:
         {'sigma': sigma,
@@ -45,25 +49,35 @@ def make_multiscale(img, scales, betas, gammas, dark_bg=True,
 
     img = ma.masked_array(img_as_float(img), mask=img.mask)
 
-    for i, (sigma, beta, gamma) in enumerate(zip(scales, betas, gammas)):
+    vectorize = lambda x: np.repeat(x, len(scales)) if (x is None or np.isscalar(x)) else x
+
+    # vectorize any scalar inputs here
+    beta = vectorize(beta)
+    gamma = vectorize(gamma)
+    c = vectorize(c)
+    print('finding multiscale targets ', end='')
+    for i, (sigma, b, g, cx) in enumerate(zip(scales, beta, gamma, c)):
+
+        print('σ', end='')
 
         if dilate_per_scale:
             if sigma > 20:
                 radius = int(2*sigma)
+            elif sigma < 3:
+                radius = 12
             else:
                 radius = int(4*sigma)
         else:
             radius = None
 
-        if verbose:
-            print(f'σ={sigma}\t, dilation radius ={radius}')
-
-        targets, this_scale = frangi_from_image(img, sigma, beta=beta,
-                                                gamma=gamma, dark_bg=dark_bg,
+        targets, this_scale = frangi_from_image(img, sigma, beta=b, gamma=g,
+                                                c=cx, dark_bg=dark_bg,
                                                 dilation_radius=radius,
                                                 kernel=kernel,
                                                 signed_frangi=signed_frangi,
-                                                return_debug_info=True)
+                                                return_debug_info=True,
+                                                rescale_frangi=rescale_frangi,
+                                                gradient_filter=gradient_filter)
 
         if find_principal_directions:
             # principal directions should only be computed for critical regions
@@ -91,12 +105,15 @@ def make_multiscale(img, scales, betas, gammas, dark_bg=True,
         # store results as a list of dictionaries
         multiscale.append(this_scale)
 
+    print()
     return multiscale
 
 
-def extract_pcsvn(img, filename, scales, betas=None, gammas=None, dark_bg=True,
-                  dilate_per_scale=True, verbose=True, generate_json=True,
-                  output_dir=None, kernel=None, signed_frangi=False):
+def extract_pcsvn(img, filename, scales, beta=0.5, gamma=0.5, c=None,
+                  dark_bg=True, dilate_per_scale=True, verbose=True,
+                  generate_json=True, output_dir=None, kernel=None,
+                  signed_frangi=False, rescale_frangi=False,
+                  gradient_filter=False):
     """Run PCSVN extraction on the sample given in the file.
 
     Despite the name, this simply returns the Frangi filter responses at
@@ -112,31 +129,20 @@ def extract_pcsvn(img, filename, scales, betas=None, gammas=None, dark_bg=True,
 
     """
 
-    # Multiscale & Frangi Parameters #########################################
-
-    # set default betas if undeclared
-    if betas is None:
-        betas = [0.5 for s in scales]  # anisotropy constant
-
-    # declare None here to calculate half of hessian's norm
-    if gammas is None:
-        gammas = [None for s in scales]  # structureness parameter
-
     # Multiscale Frangi Filter###############################################
 
     # output is a dictionary of relevant info at each scale
-    multiscale = make_multiscale(img, scales, betas, gammas,
+    multiscale = make_multiscale(img, scales, beta=beta, gamma=gamma, c=None,
                                  find_principal_directions=False,
                                  dilate_per_scale=dilate_per_scale,
                                  kernel=kernel, signed_frangi=signed_frangi,
-                                 dark_bg=dark_bg, verbose=verbose)
+                                 dark_bg=dark_bg, verbose=verbose,
+                                 rescale_frangi=rescale_frangi,
+                                 gradient_filter=gradient_filter)
 
     # extract these for logging
-    gammas = [scale['gamma'] for scale in multiscale]
+    c = [scale['c'] for scale in multiscale]
     border_radii = [scale['border_radius'] for scale in multiscale]
-
-    # removed another bordering round. i don't think it did anything but
-    # i should have checked :/
 
     # ignore targets too close to edge of plate
      # wait are we doing this twice?
@@ -167,11 +173,15 @@ def extract_pcsvn(img, filename, scales, betas=None, gammas=None, dark_bg=True,
         time_of_run = datetime.datetime.now()
         timestring = time_of_run.strftime("%y%m%d_%H%M")
 
+        # numpy arrays have to be turned into lists first
+        vectorize = lambda x: x if x is None or np.isscalar(x) else list(x)
+
         logdata = {'time': timestring,
                    'filename': filename,
-                   'betas': list(betas),
-                   'gammas': gammas,
-                   'sigmas': list(scales),
+                   'betas': vectorize(beta),
+                   'gammas': vectorize(gamma),
+                   'c': vectorize(c),
+                   'sigmas': list(scales)
                    }
 
         if dilate_per_scale:
@@ -239,8 +249,8 @@ def _build_scale_colormap(N_scales, base_colormap, basecolor=(0,0,0,1)):
 
 def scale_label_figure(wheres, scales, savefilename=None,
                        crop=None, show_only=False, image_only=False,
-                       save_colorbar_separate=False, savecolorbarfile=None,
-                       output_dir=None):
+                       base_cmap='viridis_r', save_colorbar_separate=False,
+                       savecolorbarfile=None, output_dir=None):
     """
     crop is a slice object.
     if show_only, then just plt.show (interactive).
@@ -255,7 +265,7 @@ def scale_label_figure(wheres, scales, savefilename=None,
     fig, ax = plt.subplots()  # not sure about figsize
     N = len(scales)  # number of scales / labels
 
-    tabemap = _build_scale_colormap(N, 'viridis_r')
+    tabemap = _build_scale_colormap(N, base_cmap)
 
     if image_only:
         plt.imsave(savefilename, wheres, cmap=tabemap, vmin=0, vmax=N)
@@ -276,7 +286,6 @@ def scale_label_figure(wheres, scales, savefilename=None,
         cbar.set_ticklabels(scalelabels)
         # ax.set_title(r"Scale ($\sigma$) of maximum vesselness ")
         plt.tight_layout()
-
         # plt.savefig(outname('labeled'), dpi=300)
         if show_only or (savefilename is None):
             plt.show()
