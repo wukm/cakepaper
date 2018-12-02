@@ -73,7 +73,7 @@ and simply a ``smooth enough'' interpolation of those points for all other value
 It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \cite{DIPGW}, especially when the goal is noise reduction.
 However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{def:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
 % Word salad, also rude? ask chang about this
-Moreover, though our samples in the image domain have been carefully prepared (as outlined in \label{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
+Moreover, though our samples in the image domain have been carefully prepared (as outlined in \cref{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
 Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling again to motivate our development of scale space theory in \cref{sec:scale-space-theory}, we ultimately use these techniques because we find them successful to our problem.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -901,19 +901,30 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     Thus, when $\gamma$ takes the suggested value of $\gamma = 1/2$, the above calculation suggests that
     the maximum theoretical value that the Frangi filter could attain is
     $ \max \{ V_\sigma \} \le 1 - \exp\left\{ -1 \right\} \approx .8647$.
-    This certainly explains why 
-    \begin{equation} \label{eq:frangi-vesselness-measure-v1}
+    This (among other obvious reasons) certainly justifies Frangi's description of the vesselness measure as only ``probability-like.'' Still, we would like the filter's sensitivity to relative structureness to not have the effect of dampening the Filter as a whole, so we will introduce a rescaling factor $a_\gamma$, which is a explicit function of $gamma$ that rescales $V$ so that the structureness factor has a maximum output score of 1 regardless of choice of $\gamma$. Our final Frangi vesselness measure is thus
+    
+%    \begin{minipage}{\textwidth} \centering
+    \begin{gather} \label{eq:frangi-vesselness-measure-v1}
     V_\sigma(x_0,y_0) = \begin{cases}
     0 & \text{if} \quad \lambda_2 > 0 \\
-    \exp\left\{\frac{-A^2}{2\beta^2}\right\}
+    a_\gamma \exp\left\{\frac{-A^2}{2\beta^2}\right\}
     \left(1 - \exp\left\{\frac{-S^2}{2(\gamma S_{\max})^2}\right\}\right) & \text{otherwise}
-    \end{cases} \end{equation}
-    where, as before, 
-    \begin{equation} \label{frangi-def-anisotropy-structureness-v1}
+    \end{cases} \\
+    \shortintertext{where, as before,}
+    %\begin{equation} \label{frangi-def-anisotropy-structureness-v1}
     A := \abs{\lambda_1 / \lambda_2}
-    \quad \textrm{and} \quad 
+    \;,\;
     S := \sqrt{\lambda_1^2 + \lambda_2^2}
-    \end{equation}
+    \;\textrm{and}\;
+    a_\gamma = \left(1-\exp\left(\frac{-1}{2\gamma^2}\right)\right)^{-1} \notag\\
+    %\end{equation}
+    \shortintertext{and}
+    %\begin{equation*}
+    \abs{\lambda_1} \le \abs{\lambda_2}
+    \; \textrm{are eigenvalues of}\; \Hess_\sigma(\img(x_0, y_0)) \notag
+    %\end{equation*}
+    \end{gather}
+%    \end{minipage}
     
     For $\beta$ Frangi chose an innocuous intermediate point, $\beta=1/2$ (and thus $2\beta^2 = 1/2$).
     As we will show later, choosing the structureness parameter $\gamma$ is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. If there is a lot of gain then $\beta$ should be smaller. If this is not the case, a stronger filter can be created by requiring $A$ to be much smaller.

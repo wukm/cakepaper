@@ -1,8 +1,37 @@
 \chapter{Results and Analysis} \label{ch:results-analysis}
 
-use MCC \cite{mcc-original-paper}
+We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy $\beta = .35$,
+with scales spaced logarithmcally from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
+
 \section{Sample visual output}
-\subsection{The confusion matrix}
+In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we take a partial look at the Frangi output for two particularly well-behaved samples. In the top-left, the preprocessed placenta is shown. In the top-right, the maximum of the Frangi output over $N$ scales. The bottom left and right images are simple segmentation strategies of merging the result.
+
+\begin{figure} \centering
+  \includegraphics[width=\textwidth]{montage-T-BN0164923}
+  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 1)}
+  \label{fig:output-montage-example1}
+\end{figure}
+
+\begin{figure} \centering
+  \includegraphics[width=\textwidth]{montage-T-BN0651415}
+  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 2)}
+  \label{fig:output-montage-example2}
+\end{figure}
+
+
+\subsection{Binary Classificaitons and the confusion matrix}
+
+Here, we demonstrate the visual outputs produced by \texttt{extract\_NCS\_pcsvn.py}. This particular sample, BN4569506, is a relatively well-behaved sample, and segmentation was comparatively successful.
+
+\begin{figure}
+\centering
+\includegraphics[height=\textheight]{BN4569506_output-montage}
+\caption{Demonstration of postprocessing techniques}
+  \end{figure}
+use MCC \cite{mcc-original-paper}
+
+
+
 \section{A Source of ``False Negatives'' in the NCS data set} \label{sec:NCS-dataset-issues}
 
 Sometimes the output doesn't agree with the trace, i.e. ``the ground truth'' is not 100\% correct.

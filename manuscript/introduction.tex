@@ -51,13 +51,13 @@ eigenvalues of the Hessian, from which we calculate the Frangi filter, a
 vesselness measure.
 
 We demonstrate the effectiveness of our sped-up implementation of the Frangi
-filter by performing a large ($N=40$) multiscale Frangi filter on a set of 201
+filter by performing a large ($N=20$) multiscale Frangi filter on a set of 201
 placental images from a private database provided by the National Children's
 Study (NCS). We then demonstrate several approaches to merging the multiscale
 result into an approximation of the PCSVN and compare these to manual tracings
 of the network. Our ability to take many more scales into consideration allows
-us to be pickier about our thresholding, which significantly reduces noise
+us to be pickier about our thresholding, as well as our choice of parameters,
+which significantly reduces noise
 experienced in previous efforts. We finally suggest several ways to improve
 upon our approximation, namely by using the Frangi result as a prefilter for
-more robust techniques, providing a brief demo using a random walker
-segmentation.
+more robust techniques.
