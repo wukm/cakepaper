@@ -22,10 +22,10 @@ this demonstration with a much larger sigma (say $\sigma=150$) and multiple iter
 \begin{table}
   \centering
   \begin{tabular}{c|cc}
-   blurring method   & MSE & MAE \
+   blurring method   & MSE & MAE \\
     \hline
-spatial convolution, sampled kernel & 0.00054426 & 0.02015643 \
-FFT convolution, sampled kernel & 0.00055205 & 0.02029916 \
+spatial convolution, sampled kernel & 0.00054426 & 0.02015643 \\
+FFT convolution, sampled kernel & 0.00055205 & 0.02029916 \\
 FFT convolution, discrete kernel & 0.00054406 & 0.02015336
     \end{tabular}
 \end{table}
@@ -45,11 +45,11 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
   \parbox{.45\linewidth}{
   \centering
   \begin{tabular}{c|ccc}
-    &  A & B & C \
+    &  A & B & C \\
     \hline
-  A & -  & 1.296e-03 & 6.772e-06 \
-  B & -  & - & 1.247e-03 \
-  C & -  &  - &  - \
+  A & -  & 1.296e-03 & 6.772e-06 \\
+  B & -  & - & 1.247e-03 \\
+  C & -  &  - &  - \\
   \end{tabular}
 \caption{MSE of Gaussian blurs of an image ($\sigma=0.3$)}
 \label{tab:mse-G-sigma-0.3}
@@ -57,11 +57,11 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
     \parbox{.45\linewidth}{
   \centering
   \begin{tabular}{c|ccc}
-      &  A &  B         & C \
+      &  A &  B         & C \\
       \hline
-    A &  - &  4.256e-06 & 5.537e-08 \
-    B &  - &  -         & 4.337e-06 \
-    C &  - &  -         &  - \
+    A &  - &  4.256e-06 & 5.537e-08 \\
+    B &  - &  -         & 4.337e-06 \\
+    C &  - &  -         &  - \\
   \end{tabular}
   \caption{MSE of Frangi scores $\sigma=0.3$}
   \label{tab:mse-F-sigma-0.3}
@@ -90,11 +90,11 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
   \parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
-      &  A & B & C \
+      &  A & B & C \\
       \hline
-      A & -  &  9.012e-06 & 8.629e-09 \
-      B & -  & - & 9.031e-06 \
-      C & -  &  - &  - \
+      A & -  &  9.012e-06 & 8.629e-09 \\
+      B & -  & - & 9.031e-06 \\
+      C & -  &  - &  - \\
     \end{tabular}
     \caption{MSE of Gaussian blurs of an image ($\sigma=5$)}
     \label{tab:mse-G-sigma-5}
@@ -102,11 +102,11 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
   \parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
-      &  A &  B         & C \
+      &  A &  B         & C \\
       \hline
-      A &  - &  9.388e-05 8.383e-07 \
-      B &  - &  -         & 9.599e-05 \
-      C &  - &  -         &  - \
+      A &  - &  9.388e-05 8.383e-07 \\
+      B &  - &  -         & 9.599e-05 \\
+      C &  - &  -         &  - \\
     \end{tabular}
     \caption{MSE of Frangi scores $\sigma=5$}
     \label{tab:mse-F-sigma-5}
@@ -158,31 +158,32 @@ In \cref{rw-demo-scalewise}, the first column is the Frangi vesselness score at 
 \begin{figure}[p] \centering
   \subfloat{
   \includegraphics[width=\textwidth]{rw_demo_scale_03}
-}\[-0.5cm]
+}\\[-0.5cm]
   \subfloat{
   \includegraphics[width=\textwidth]{rw_demo_scale_05}
-}\[-0.5cm]
+}\\[-0.5cm]
   \subfloat{
   \includegraphics[width=\textwidth]{rw_demo_scale_07}
-}\[-0.5cm]
+}\\[-0.5cm]
   \subfloat{
   \includegraphics[width=\textwidth]{rw_demo_scale_10}
-  \label{fig:rw-demo-scalewise}
 }
 \caption{Scale-wise random walker segmentation (select scales)}
+  \label{fig:rw-demo-scalewise}
 \end{figure}
  
  
 \begin{figure} \centering
   \subfloat{
     \includegraphics[height=0.4\textheight]{rw_demo_base}
-  }\[-0.5cm]
+  }\\[-0.5cm]
 \subfloat{
     \includegraphics[height=0.4\textheight]{rw_demo_labels}
   }
   \caption{Random walker segmentation (result and sample)}
   \label{fig:rw-demo-merged}
 \end{figure}
+
  \subsection{Method D: Scale Based Sieving}
    
   Our final approach seeks to include not only pixels at each scale that pass a high threshold, but also adjacent pixels at that scale that pass a lower threshold. We proceed as follows. At each scale, take a low threshold, then label each connected region. Then, iterate through each labeled region and add to the final approximation any labeled region that contains a pixel that passes a higher threshold.
