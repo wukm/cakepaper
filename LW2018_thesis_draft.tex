@@ -19,6 +19,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
 \usepackage{minitoc}
+%\usepackage{booktabs} % requires for pandas.DataTable.to_latex()
 
 
 
@@ -115,7 +116,7 @@
 %\usepackage[font=singlespacing]{caption}
 
 % each subfolder should be added here. also must end in a /
-\graphicspath{{figures/}{figures/frangi3d/}{figures/strict_examples/}}
+\graphicspath{{figures/}{figures/frangi3d/}{figures/strict_examples/}{figures/inset_of_sample_issues/}{figures/rw_demo/}}
 
 \makeatletter
 \def\LT@c@ption#1[#2]#3{%
@@ -123,7 +124,7 @@
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
      {\vspace*{\baselineskip}
-     \let\\\space
+     \let\space
      \addcontentsline{lot}{table}{\protect\numberline{4.}{#2}}}%
   \fi}
 \makeatother
@@ -139,8 +140,8 @@
 \gradmonth{December} 							% graduation month for current degree
 \author{Lucas Allen Wukmer}  					                %Your official CSULB name.
 
-%Enter the title in all caps force returns using \\ to form an inverted pyramid
-\title{AN OPTIMIZED FRANGI FILTER FOR FAST VASCULAR SEGMENTATION \\
+%Enter the title in all caps force returns using \ to form an inverted pyramid
+\title{AN OPTIMIZED FRANGI FILTER FOR FAST VASCULAR SEGMENTATION \
 	   TOWARDS A FAST AUTOMATIC PLACENTAL CHORIONIC SURFACE VASCULAR NETWORK EXTRACTION}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%Thesis Committe%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -201,8 +201,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
  Note as well that the velocity of this particular curve lies within $T_u f$. This
  can be seen by an elementary application of chain rule:
  \begin{align}
- -\frac{d c}{dt} &= -\frac{d}{dt}\big[ f(\theta_c(t))\big] \\
- &= -\frac{d}{dt}\big[f(\theta_1(t), \theta_2(t))\big] \\
+ -\frac{d c}{dt} &= -\frac{d}{dt}\big[ f(\theta_c(t))\big] \
+ &= -\frac{d}{dt}\big[f(\theta_1(t), \theta_2(t))\big] \
  &= \theta_1'(t)\left( \frac{\partial f}{\partial u_1} \right) + 
  \theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right) \in T_uf.
  \end{align}
@@ -270,9 +270,9 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	\begin{align}
 		\inner{c''}{\nu} &=
 		\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
-			- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
+			- \inner{c'}{\frac{\partial \nu}{\partial t}} \
 			&= \frac{\partial}{\partial t}\left[ \inner{X}{\nu} \right]
-			- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
+			- \inner{c'}{\frac{\partial \nu}{\partial t}} \
 			&= 0 - \inner{X}{\frac{\partial \nu}{\partial t}}
 			%&= \inner{X}{\wein X} = \mathbf{II}(X,X)
 			\end{align}
@@ -281,17 +281,17 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	\begin{align}
 	%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
 	\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
-	&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
+	&= \vnorm{0 + \inner{c''}{\nu}\nu} \
+	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \
+	&= - \inner{X}{\frac{\partial \nu}{\partial t}} \
 	&=  \inner{X}{-\frac{\partial \nu}{\partial t}} \label{eq:expand_accel_norm}
 	\end{align}
 	
 	We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
 	\cref{eq:expand_accel_norm} via chain rule:
 	\begin{align} \label{gaussmap_timederivative}
-	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \\
-	&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
+	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \
+	&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \
 	&= \theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
 	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \label{eq:gaussmap_dt_expanded}
 	\end{align}
@@ -314,11 +314,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		\begin{align}
 		-\frac{d \nu}{dt} &= 
 		\theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
+		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \
 		&= \theta_1'(t)\left( \wein\left(\frac{\partial f}{\partial u_1}\right) \right) + 
-		\theta_2'(t)\left( \wein\left(\frac{\partial f}{\partial u_2}\right) \right) \\
+		\theta_2'(t)\left( \wein\left(\frac{\partial f}{\partial u_2}\right) \right) \
 		&= \wein\left[\theta_1'(t)\left( \frac{\partial f}{\partial u_1}\right)  + 
-		\theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right)\right] \\
+		\theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right)\right] \
 		&= \wein\left(\frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
 		= \wein\left( \frac{d}{dt} \left[ c(t) \right] \right) = \wein\left(X\right)
 		\end{align} 
@@ -371,7 +371,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	\left[ \mcol{\left.\frac{\partial f}{\partial u_1}\right|_{T_u f}} \;
 			\mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right]
 			&= \left[ \weinmat \mcol{\left.\frac{\partial f}{\partial u_1}\right|_{T_u f}} \;
-			\weinmat \mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right] \\
+			\weinmat \mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right] \
 			&= \left[ \mcol{ \left.-\frac{\partial \nu}{\partial u_1}\right|_{T_u f}} \;
 			\mcol{\left.-\frac{\partial \nu}{\partial u_2}\right|_{T_u f}} \right]
 			\end{align}
@@ -379,12 +379,12 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			\begin{align}
 			\implies
 			\Bigg[ \;\weinmat\; \Bigg]
-			\begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
+			\begin{bmatrix} - \frac{\partial f}{\partial u_1} - \
 				- \frac{\partial f}{\partial u_2} -
 							\end{bmatrix}
 			\left[ \mcol{\frac{\partial f}{\partial u_1}} \;
 				\mcol{\frac{\partial f}{\partial u_2}}\right]
-				&= \begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
+				&= \begin{bmatrix} - \frac{\partial f}{\partial u_1} - \
 				- \frac{\partial f}{\partial u_2} -
 				\end{bmatrix}
 				\left[ \mcol{-\frac{\partial \nu}{\partial u_1}} \;
@@ -401,15 +401,15 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	so that
 	\begin{equation}
 	\Bigg[ \;\weinmat\; \Bigg]
-	\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}
-	= \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
+	\begin{bmatrix} g_{11} & g_{12} \ g_{21} & g_{22} \end{bmatrix}
+	= \begin{bmatrix} h_{11} & h_{12} \ h_{21} & h_{22} \end{bmatrix}
 	\end{equation}
 	
 	Then we rearrange to solve for $\weinmat$ as
 		\begin{equation} \label{weinmatconstruction}
 		\weinmat
-		\;=\; \begin{bmatrix} h_{11} & h_{12} \\ h_{21} & h_{22} \end{bmatrix}
-		\left.\begin{bmatrix} g_{11} & g_{12} \\ g_{21} & g_{22} \end{bmatrix}\right.^{-1}
+		\;=\; \begin{bmatrix} h_{11} & h_{12} \ h_{21} & h_{22} \end{bmatrix}
+		\left.\begin{bmatrix} g_{11} & g_{12} \ g_{21} & g_{22} \end{bmatrix}\right.^{-1}
 		\end{equation}
 	
 	where $\left[ g_{ij} \right]$ is clearly invertible, as the set
@@ -447,17 +447,17 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
                 \frac{\partial}{\partial v_i} \Big[
                 \inner{v}{Av}\Big]
                 &=  \frac{\partial}{\partial v_i} \left[
-                    \sum_{j=1}^{n} v_j {(Av)}_j\right] \\
+                    \sum_{j=1}^{n} v_j {(Av)}_j\right] \
                 &=	\frac{\partial}{\partial v_i} \left[
-                \sum_{j=1}^{n} v_j \sum_{k=1}^n a_{jk} v_k \right] \\
+                \sum_{j=1}^{n} v_j \sum_{k=1}^n a_{jk} v_k \right] \
                 &= \frac{\partial}{\partial v_i} \left[
                 a_{ii} v_i^2 + v_i \sum_{k\ne i} a_{ik} v_k
                  + v_i \sum_{j\ne i} a_{ji} v_j
-                 + \sum_{j\ne i} \sum_{k \ne i} v_j a_{jk} v_k \right] \\
+                 + \sum_{j\ne i} \sum_{k \ne i} v_j a_{jk} v_k \right] \
     &=  2 a_{ii} v_i + \sum_{k\ne i} a_{ik} v_k
-    + \sum_{j\ne i} a_{ji} v_j + 0 \\
+    + \sum_{j\ne i} a_{ji} v_j + 0 \
     &= 2 a_{ii} v_i + 2 \sum_{k\ne i} a_{ik} v_k
-     = 2 \sum_{k=1}^n a_{ik}v_{k} = 2 {\big(Av\big)}_i \\
+     = 2 \sum_{k=1}^n a_{ik}v_{k} = 2 {\big(Av\big)}_i \
      &\quad \implies \nabla_{v} \inner{v}{Av} = 2Av.
         \end{align}
     \end{proof}
@@ -490,7 +490,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         	
      \begin{equation} \label{lagrange_requirements}
      \left\{ \begin{aligned}
-      \nabla_X \inner{\weinmat X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \\
+      \nabla_X \inner{\weinmat X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 \
       \inner{X}{X} - 1 = 0
      \end{aligned} \right.
      \end{equation}
@@ -500,9 +500,9 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
      
      \begin{gather}
      \nabla_X \inner{\weinmat X}{X} - \lambda \nabla_X \left( \inner{X}{X} - 1 \right) = 0 
-     \nonumber \\
-     2\weinmat X - \lambda \left(2 X \right) = 0  \nonumber \\
-     \implies \quad \weinmat X - \lambda X = 0 \nonumber \\
+     \nonumber \
+     2\weinmat X - \lambda \left(2 X \right) = 0  \nonumber \
+     \implies \quad \weinmat X - \lambda X = 0 \nonumber \
      \implies \quad \weinmat X = \lambda X
      \end{gather}
      which implies that $X$ is an eigenvector of  $\weinmat$ with corresponding eigenvalue $\lambda$ ($X\ne 0 $ from the second equation of \cref{lagrange_requirements}).
@@ -526,8 +526,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         	\weinmat = \Hess(h) \tilde{G} \;,\quad \mathrm{where} \quad
 	        	\tilde{G} := \frac{1}{\sqrt{1+h_x^2 + h_y^2}}
 	        	\begin{bmatrix}
-		        	1 + h_y^2 & -h_x h_y \\
-		        	-h_x h_y & 1 + h_x^2 \\
+		        	1 + h_y^2 & -h_x h_y \
+		        	-h_x h_y & 1 + h_x^2 \
 	        	\end{bmatrix} 
         	\end{equation}
         	
@@ -544,7 +544,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        		\begin{equation}
        		\begin{gathered}
        		f_{x} = (1, 0, h_x) , \quad
-       		f_{y} = (0, 1, h_y)  \\
+       		f_{y} = (0, 1, h_y)  \
        		f_{xx} = (0, 0, h_{xx}) , \quad
        		f_{xy} = (0, 0, h_{xy}) = f_{yx} , \quad
        		f_{yy} = (0, 0, h_{yy})
@@ -555,19 +555,19 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        		\begin{align}
        		\nu(u_1, u_2) &=
        		\frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
-       		{\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}} \\
-       		&= \frac{(1, 0, h_x) \times (0, 1, h_y)}{\vnorm{(1, 0, h_x) \times (0, 1, h_y)}} \\
+       		{\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}} \
+       		&= \frac{(1, 0, h_x) \times (0, 1, h_y)}{\vnorm{(1, 0, h_x) \times (0, 1, h_y)}} \
        		&= \frac{\left( -h_x , -h_y , 1 \right)}{\sqrt{h_x^2 + h_y^2 + 1}}
 	 \end{align}
 	 We then calculate each $h_{ij}$ as
 	 \begin{equation}
 	 \begin{gathered}
 	 h_{11} = \inner{\frac{\partial^2 f}{\partial x^2}}{\nu} = 
-		 \frac{h_{xx}}{\sqrt{1+h_x^2 + h_y^2}} \\
+		 \frac{h_{xx}}{\sqrt{1+h_x^2 + h_y^2}} \
 	  h_{12} = \inner{\frac{\partial^2 f}{\partial x \partial y}}{\nu} = 
-	  \frac{h_{xy}}{\sqrt{1+h_x^2 + h_y^2}} = h_{21} \\
+	  \frac{h_{xy}}{\sqrt{1+h_x^2 + h_y^2}} = h_{21} \
 	  h_{22} = \inner{\frac{\partial^2 f}{\partial y^2}}{\nu} = 
-	  \frac{h_{yy}}{\sqrt{1+h_x^2 + h_y^2}} \\
+	  \frac{h_{yy}}{\sqrt{1+h_x^2 + h_y^2}} \
 	 \end{gathered}
 	 \end{equation}
 	 
@@ -583,18 +583,18 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	 
 	 \begin{equation}
 	 \begin{gathered}
-	 g_{ij} = \inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}} \\
-	 g_{11} = \inner{f_x}{f_x} = 1 + h_x^2 \\
-	 g_{12} = \inner{f_x}{f_y} = h_x h_y = g_{21} \\
+	 g_{ij} = \inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}} \
+	 g_{11} = \inner{f_x}{f_x} = 1 + h_x^2 \
+	 g_{12} = \inner{f_x}{f_y} = h_x h_y = g_{21} \
 	 g_{22} = \inner{f_y}{f_y} = 1 + h_y^2
 	 \end{gathered}
 	 \end{equation}
 	 
 	 and thus
 		\begin{equation} \label{gij_exactgraph}		 
-		[g_{ij}]^{-1} = \begin{bmatrix} 1 + h_x^2 & h_x h_y \\
+		[g_{ij}]^{-1} = \begin{bmatrix} 1 + h_x^2 & h_x h_y \
 					h_x h_y & 1 + h_y^2 \end{bmatrix}^{-1}
-					\;=\;	\begin{bmatrix} 1 + h_y^2 & -h_x h_y \\
+					\;=\;	\begin{bmatrix} 1 + h_y^2 & -h_x h_y \
 					-	h_x h_y & 1 + h_x^2 \end{bmatrix}
 		\end{equation}
        	
@@ -606,7 +606,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
 But this observation is more broadly useful than that, since if $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
 \begin{equation}
-\tilde{G} = I + [\delta], \quad  [\delta] := \begin{bmatrix} h_y^2 & -h_x h_y \\ -h_x h_y & h_x^2 \end{bmatrix}
+\tilde{G} = I + [\delta], \quad  [\delta] := \begin{bmatrix} h_y^2 & -h_x h_y \ -h_x h_y & h_x^2 \end{bmatrix}
 \end{equation}
 
 We can then rewrite \cref{weinmatexactgraph} as 
@@ -637,7 +637,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   \begin{equation}
    f: \R^2 \to \R^3 \;\textrm{by}\; f(x,y) = (x,y,h(x,y)), \;\textrm{with}\;
    h(x,y) = \begin{cases}
-    \sqrt{r^2 - x^2} & -r \le x \le r \\
+    \sqrt{r^2 - x^2} & -r \le x \le r \
     0 & \textrm{else}
     \end{cases}
   \end{equation} 
@@ -653,7 +653,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   \begin{gather}
   \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
   \quad , \quad
-  \frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \\
+  \frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \
   \frac{\partial f}{\partial y} = \left(0, 1, 0\right)
   \quad , \quad
   \frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 f}{\partial x \partial y} = 0
@@ -662,7 +662,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   \begin{gather}
   \nu(x,y) = \frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
   {\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}}
-  = \left( \frac{x}{r} ,\; 0 ,\; \frac{\sqrt{r^2 - x^2}}{r} \right) \\
+  = \left( \frac{x}{r} ,\; 0 ,\; \frac{\sqrt{r^2 - x^2}}{r} \right) \
 \implies
 \frac{\partial \nu}{\partial x}
  = \left(\frac{1}{r} \;,\; 0\;,\; \frac{-x}{r\sqrt{r^2-x^2}}\right)
@@ -675,20 +675,20 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
      &= \frac{1}{\sqrt{1+\left(\frac{x^2}{r^2-x^2}\right)}}
      \begin{bmatrix}
-     \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \\
+     \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \
     0 & 0
      \end{bmatrix} 
      = \begin{bmatrix}
-     \frac{-r}{r^2 - x^2} & 0 \\
+     \frac{-r}{r^2 - x^2} & 0 \
      0 & 0
-     \end{bmatrix} \\
-     [g_{ij}]^{-1} &= \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \\ 0 & 1 \end{bmatrix} \\
+     \end{bmatrix} \
+     [g_{ij}]^{-1} &= \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \
      \implies \weinmat = [h_{ij}]	[g_{ij}]^{-1} &=
      \begin{bmatrix}
-     \frac{-r}{r^2 - x^2} & 0 \\
+     \frac{-r}{r^2 - x^2} & 0 \
      0 & 0
-     \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \\ 0 & 1 \end{bmatrix} \\
-     &= \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}	       	
+     \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \
+     &= \begin{bmatrix} - \frac{1}{r} & 0 \ 0 & 0 	\end{bmatrix}	       	
   \end{align}
   
   We see that $u_2 = (0,1)$ and $u_1 = (1,0)$ are eigenvectors for $\weinmat$ with respective eigenvalues
@@ -699,7 +699,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
   \begin{equation}
   \Hess(x,y) = \begin{bmatrix}
-  L_{xx}(x,y) & L_{xy}(x,y) \\
+  L_{xx}(x,y) & L_{xy}(x,y) \
   L_{yx}(x,y) & L_{yy}(x,y)
   \end{bmatrix}
   \end{equation}
@@ -722,9 +722,9 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   \begin{proof}
      	Let $x\ne 0$ so that $Ax = \lambda x$. Then 
      	\begin{align*}
-     	\vnorm{Ax}_2^2 = \inner{Ax}{Ax}  &= (Ax)^{*} Ax \\
-     	&= x^{*}A^{*}Ax = x^{*}A^T A x = x*A A x \\
-     	&= x^{*} A \lambda x = \lambda x^{*} A x \\
+     	\vnorm{Ax}_2^2 = \inner{Ax}{Ax}  &= (Ax)^{*} Ax \
+     	&= x^{*}A^{*}Ax = x^{*}A^T A x = x*A A x \
+     	&= x^{*} A \lambda x = \lambda x^{*} A x \
      	&= \lambda x^{*} \lambda x = \lambda^2 x^{*} x = \lambda ^2 \vnorm{x}_2^2
      	\end{align*}
      	Upon rearrangement, we have
@@ -738,10 +738,10 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
      	
      	In the case that $\lambda_1 \ne \lambda_2$, we have
      	\begin{align*}
-     	(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \\
-     	&= (\lambda_1 v_1)^T v_2 - v_1^T (\lambda_2 v_2) \\
-     	&= (Av_1)^T v_2 - v_1^T (Av_2) \\
-     	&= v_1^T A^T v_2 - v_1^T A v_2 \\
+     	(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \
+     	&= (\lambda_1 v_1)^T v_2 - v_1^T (\lambda_2 v_2) \
+     	&= (Av_1)^T v_2 - v_1^T (Av_2) \
+     	&= v_1^T A^T v_2 - v_1^T A v_2 \
      	&= v_1^T A v_2 - v_1^T A v_2 = 0
      	\end{align*}
      	Since $\lambda_1 \ne \lambda_2$, we conclude that $v_1^T v_2 = 0$.
@@ -750,15 +750,15 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
      	(as in Gram-Schmidt orthogonalization) $u = v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1$.
      	This is an eigenvector for $\lambda=\lambda_2$, as
      	\begin{align*}
-     	Au &= A\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1\right) \\
-     	&= A v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} A v_1 \\
-     	&= \lambda v_2- \frac{v_1^Tv_2}{v_1^Tv_1} \lambda v_1 \\
+     	Au &= A\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1\right) \
+     	&= A v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} A v_1 \
+     	&= \lambda v_2- \frac{v_1^Tv_2}{v_1^Tv_1} \lambda v_1 \
      	&= \lambda \left( v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1 \right) = \lambda u
      	\end{align*}
      	and is perpendicular to $v_1$, since
      	\begin{align*}
-     	v_1^T u &= v_1^T\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1\right) \\
-     	&= v_1^T v_2 - \left(\frac{v_1^Tv_2}{v_1^Tv_1}\right) v_1^T v_1 \\
+     	v_1^T u &= v_1^T\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1\right) \
+     	&= v_1^T v_2 - \left(\frac{v_1^Tv_2}{v_1^Tv_1}\right) v_1^T v_1 \
      	&= v_1^T v_2 - v_1^Tv_2 (1) = 0.
      	\end{align*}
   \end{proof}
@@ -817,7 +817,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     
     \begin{equation} \label{eq:frangi-vesselness-measure}
     V_\sigma(x_0,y_0) = \begin{cases}
-    0 & \text{if} \quad \lambda_2 > 0 \\
+    0 & \text{if} \quad \lambda_2 > 0 \
     \exp\left\{-\frac{A^2}{2\beta^2}\right\}
     \left(1 - \exp\left\{-\frac{S^2}{2c^2}\right\}\right) & \text{otherwise}
     \end{cases} \end{equation}
@@ -886,10 +886,10 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
                             \right)
                         \max\left(
                             \left(1 - \exp\left\{\frac{-S^2}{2(\gamma S_{\max})^2}\right\}\right)
-                            \right) \\
+                            \right) \
                     &\le \max\left\{
                     \left(1 - \exp\left\{\frac{-S^2}{2(\gamma S_{\max})^2}\right\}\right)
-                    \right\} \\
+                    \right\} \
                     &= 
                     \left(1 - \exp\left\{\frac{-(S_{\max})^2}{2(\gamma S_{\max})^2}\right\}
                     \right)
@@ -906,17 +906,17 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
 %    \begin{minipage}{\textwidth} \centering
     \begin{gather} \label{eq:frangi-vesselness-measure-v1}
     V_\sigma(x_0,y_0) = \begin{cases}
-    0 & \text{if} \quad \lambda_2 > 0 \\
+    0 & \text{if} \quad \lambda_2 > 0 \
     a_\gamma \exp\left\{\frac{-A^2}{2\beta^2}\right\}
     \left(1 - \exp\left\{\frac{-S^2}{2(\gamma S_{\max})^2}\right\}\right) & \text{otherwise}
-    \end{cases} \\
+    \end{cases} \
     \shortintertext{where, as before,}
     %\begin{equation} \label{frangi-def-anisotropy-structureness-v1}
     A := \abs{\lambda_1 / \lambda_2}
     \;,\;
     S := \sqrt{\lambda_1^2 + \lambda_2^2}
     \;\textrm{and}\;
-    a_\gamma = \left(1-\exp\left(\frac{-1}{2\gamma^2}\right)\right)^{-1} \notag\\
+    a_\gamma = \left(1-\exp\left(\frac{-1}{2\gamma^2}\right)\right)^{-1} \notag\
     %\end{equation}
     \shortintertext{and}
     %\begin{equation*}
@@ -1050,7 +1050,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     then an increase in scale can only weaken this peak, i.e.
     \begin{equation}
     \left\{\begin{aligned}
-    \nabla K(x_0,y_0; \sigma_0) &= 0 \\
+    \nabla K(x_0,y_0; \sigma_0) &= 0 \
     \Delta K(x_0,y_0;\sigma_0) &< 0
     \end{aligned}\right.
 	\quad \implies \quad
@@ -1061,7 +1061,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     Similarly, if $K(x_0,y_0;\sigma_0)$ is a local minimum (with respect to space), then an increase in scale cannot make such a valley more profound, i.e.
    \begin{equation}
    \left\{\begin{aligned}
-   \nabla K(x_0,y_0; \sigma_0) &= 0 \\
+   \nabla K(x_0,y_0; \sigma_0) &= 0 \
 	\Delta K(x_0,y_0;\sigma_0) &> 0
 	\end{aligned}\right.
 	\quad \implies \quad
@@ -1097,7 +1097,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     \begin{equation}
     u: \R^2 \supset \Omega \to \R \; \textrm{with} \; u(\bm{x},t) : \;
     \begin{cases}
-    \frac{\partial u}{\partial t} (\bm{x}, t) = \Delta u(\bm{x},t) & ,\; t \ge 0 \\
+    \frac{\partial u}{\partial t} (\bm{x}, t) = \Delta u(\bm{x},t) & ,\; t \ge 0 \
     u(\bm{x},0) = u_0(\bm{x}) 
     \end{cases}
     \end{equation}
@@ -1119,9 +1119,9 @@ We make a similar presentation of the dependence of the structureness kernel on 
     	\begin{align}
     	\frac{\partial}{\partial \alpha} \left[ f(\alpha) \star g(\alpha) \right]
     	&= \frac{\partial}{\partial \alpha} \left[ 
-    	\int f(t) g(\alpha - t) dt \right] \\
-    	&=  \int f(t) \frac{\partial}{\partial \alpha}\left[ g(\alpha - t)  \right] dt \\
-    	&=  \int f(t) \left(\frac{\partial g}{\partial \alpha}\right) g(\alpha - t) dt \\
+    	\int f(t) g(\alpha - t) dt \right] \
+    	&=  \int f(t) \frac{\partial}{\partial \alpha}\left[ g(\alpha - t)  \right] dt \
+    	&=  \int f(t) \left(\frac{\partial g}{\partial \alpha}\right) g(\alpha - t) dt \
     	&=  f(\alpha) \star g'(\alpha)
     	\end{align}
     	By symmetry of convolution we can also conclude 
@@ -1148,14 +1148,14 @@ We make a similar presentation of the dependence of the structureness kernel on 
     	Then
     	\begin{align}
     	\frac{\partial u}{\partial t} (\bm{x}, t)
-    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t) \star u_0(\bm{x})\right)  \\
-    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t)\right) \star u_0(\bm{x})  \\
+    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t) \star u_0(\bm{x})\right)  \
+    	&= \frac{\partial}{\partial t} \left(G_{\sqrt{2t}}(\bm{x},t)\right) \star u_0(\bm{x})  \
     	&= \frac{\partial}{\partial t} \left(
-    	\frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)} \right) \star u_0(\bm{x}) \\
+    	\frac{1}{4\pi t} e^{\left(-\abs{x}^2 / (4t)\right)} \right) \star u_0(\bm{x}) \
     	&= \left[
     	-\frac{1}{4\pi t^2} e^{\left(-\abs{x}^2 / (4t)\right)}
     	+ \frac{1}{4\pi t}\left(\frac{-\abs{x}^2}{4t^2}\right) e^{-\abs{x}^2 / (4t)}
-    	\right] \star u_0(\bm{x}) \\
+    	\right] \star u_0(\bm{x}) \
     	&= -\frac{1}{4t^2} \left( e^{\left(-\abs{x}^2 / (4t)\right)} 
     	+ \abs{\bm{x}}^2 G_{\sqrt{2t}}(\bm{x},t)
     	\right) \star u_0(\bm{x})
@@ -1170,14 +1170,14 @@ We make a similar presentation of the dependence of the structureness kernel on 
     	
     	\begin{align*}
     	\frac{\partial}{\partial x} G_{\sigma}(x,y)
-    	&= A \left( \frac{-2x}{2\sigma^2}\right) \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \\
+    	&= A \left( \frac{-2x}{2\sigma^2}\right) \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \
     	\implies \frac{\partial^2}{\partial^2 x} G_{\sigma}(x,y)
     	&= A \cdot \frac{\partial}{\partial x}
-    	\left[ - \frac{x}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+    	\left[ - \frac{x}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \
     	&= A \left[ - \frac{1}{\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) 
-    	+ \frac{x}{\sigma^2} \cdot \frac{2x}{2\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \\
+    	+ \frac{x}{\sigma^2} \cdot \frac{2x}{2\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \right] \
     	&= A \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right)
-    	\left[ - \frac{1}{\sigma^2} + \frac{x^2}{\sigma^4} \right] \\
+    	\left[ - \frac{1}{\sigma^2} + \frac{x^2}{\sigma^4} \right] \
     	&= \frac{1}{\sigma^2} G_\sigma(x,y)  \left[ \frac{x^2}{\sigma^2} - 1\right]
     	\end{align*}
     	
@@ -1204,7 +1204,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     	we see 
     	\begin{align}
     	\Delta \left[ G_{\sqrt{2t}}(x,y) \star u_0(x,y) \right] 
-    	&= \left(\frac{1}{2t} G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{2t} - 2\right]\right) \star u_0(x,y) \\
+    	&= \left(\frac{1}{2t} G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{2t} - 2\right]\right) \star u_0(x,y) \
     	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} - \frac{1}{t}\right]\right) \star u_0(x,y)
     	\end{align}
     	We then calculate the time derivative,
@@ -1212,13 +1212,13 @@ We make a similar presentation of the dependence of the structureness kernel on 
     	
     	\begin{align}
     	\frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \star u_0(x,y) \right]
-    	&= \frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \right] \star u_0(x,y) \\
-    	&= \frac{\partial}{\partial t} \left[ G_{\sqrt{2t}}(x,y)\right] \star u_0(x,y) \\
+    	&= \frac{\partial}{\partial t} \left[ G_{\sigma(t)}(x,y) \right] \star u_0(x,y) \
+    	&= \frac{\partial}{\partial t} \left[ G_{\sqrt{2t}}(x,y)\right] \star u_0(x,y) \
     	&= \frac{\partial}{\partial t} \left[
-    	\frac{1}{4\pi t} \exp\left(-\frac{x^2 + y^2}{4t}\right) \right] \star u_0(x,y) \\
+    	\frac{1}{4\pi t} \exp\left(-\frac{x^2 + y^2}{4t}\right) \right] \star u_0(x,y) \
     	&= \left[ -\frac{1}{4\pi t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right) + 
     	\frac{1}{4\pi t}\left( \frac{x^2 + y^2}{4t^2} \exp\left(-\frac{x^2 + y^2}{4t}\right)\right)
-    	\right] \star u_0(x,y) \\
+    	\right] \star u_0(x,y) \
     	&= \left(G_{\sqrt{2t}}(x,y) \left[ \frac{x^2 + y^2}{4t^2} -\frac{1}{t}\right]\right) \star u_0(x,y)
     	\end{align}
     	
@@ -1314,7 +1314,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     After this procedure, we are left with a matrix with as many samples/pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image:
     
     \begin{equation} \label{eq:frangi-max-matrix}
-    \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \\ 0\le y<N}}
+    \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \ 0\le y<N}}
     \end{equation}
     
     Notably, Frangi \cite{frangi-paper} refrained from explicitly interpreting the probablility assigned by \cref{frangi-vesselness-max}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and that the size
@@ -1324,7 +1324,7 @@ We make a similar presentation of the dependence of the structureness kernel on 
     \vcleanup{fix notation in all of this}
     \begin{equation}
     V_{\Sigma,\alpha}(x,y) = \begin{cases}
-    1 & \textrm{if}\quad V(x,y) \; \ge\;  \alpha \\
+    1 & \textrm{if}\quad V(x,y) \; \ge\;  \alpha \
     0 & \textrm{else}
     \end{cases}  \quad , \quad \alpha > 0
 	    \; \textrm{for } \; \alpha \;\textrm{fixed}.
@@ -1396,7 +1396,7 @@ as follows: A continuous function $f(t)$ is represented as the sampled function 
 
 \begin{equation} \label{1D-sampling-function}
 s_{\Delta T}(t) := \sum_{n=-\infty}^{\infty} \delta[t - n\Delta T] \;,\quad
-\delta[t] = \begin{cases} 1 \;,\; & t=0 \\ 0 \;,\;& t \ne 0 \end{cases}
+\delta[t] = \begin{cases} 1 \;,\; & t=0 \ 0 \;,\;& t \ne 0 \end{cases}
 \end{equation}
 
 where $\delta[t]$ is the discrete unit impulse.
@@ -1433,7 +1433,7 @@ $f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the 
 \begin{align}
 F(u,v) := \mathcal{D}\{f(x,y)\} &=
 				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)
-				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\	
+				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \	
 H(u,v) := \mathcal{D}\{h(x,y)\} &=
 				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} h(x,y)
 				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}
@@ -1454,34 +1454,34 @@ then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pair
 The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
 \begin{proof}
 \begin{align}
-\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
+\left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \
 &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1}
 \left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
 	e^{2\pi i \left(\frac{mp}{M} + \frac{nq}{N}\right)}\right)
 	\left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
-	e^{2\pi i \left(\frac{u(x-m)}{M} + \frac{v(y-n)}{N}\right)} \right) \\
+	e^{2\pi i \left(\frac{u(x-m)}{M} + \frac{v(y-n)}{N}\right)} \right) \
 &= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
 	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
 	\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
 	\left(\sum_{m=0}^{M-1} e^{2\pi i \left(\frac{m(p-u)}{M}\right)}\right)
-	\left(\sum_{n=0}^{N-1} e^{2\pi i \left(\frac{n(q-v)}{N}\right)}\right)\right) \\
+	\left(\sum_{n=0}^{N-1} e^{2\pi i \left(\frac{n(q-v)}{N}\right)}\right)\right) \
 	&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
 	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
 	\left(\sum_{p=0}^{M-1} \sum_{q=0}^{N-1} F(p,q)
 	\left( M \cdot \hat{\delta}_M(p-u) \right)
-	\left( N \cdot \hat{\delta}_M(q-v)\right)\right) \\
+	\left( N \cdot \hat{\delta}_M(q-v)\right)\right) \
 	&= \left(\sum_{u=0}^{M-1} \sum_{v=0}^{N-1} H(u,v)
 	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}\right)
-	\cdot M N F(u,v) \\
+	\cdot M N F(u,v) \
 	&=MN \cdot \sum_{u=0}^{M-1} \sum_{v=0}^{N-1} F(u,v) H(u,v)
-	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
+	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \
 	&= MN \cdot \mathcal{D}^{-1}\left\{ FH\right\}
 \end{align}
 
 where
 \begin{equation} \label{delta_multiple}
 	\hat{\delta}_N (k) = \begin{cases}
-		1 & \text{when } k = 0 \mod N \\
+		1 & \text{when } k = 0 \mod N \
 		0 & \text{else}
 		\end{cases}
 \end{equation}
@@ -1534,9 +1534,9 @@ First, a 2D DFT may actually be calculated via two successive 1D DFTs, which can
 seen through a basic rearrangement, as follows:
 
 \begin{align} \label{eq:2D-dft-rearrangement}
-F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M + \nu y/N\right)} \\
-&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \left[ \sum_{y=0}^{N-1} f(x,y)e^{-i2\pi \nu y/N} \right] \\
-&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \\
+F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M + \nu y/N\right)} \
+&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \left[ \sum_{y=0}^{N-1} f(x,y)e^{-i2\pi \nu y/N} \right] \
+&= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \
 &= \FT_y\{\FT_x \{f(x,y)\} \}
 \end{align}
 
@@ -1562,7 +1562,7 @@ We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
 We use this to rewrite the series in \cref{FFT-defineW} and split it into odd and even entries in the summation
 
 \begin{align}
-F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \\
+F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \
 &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{u(2x)}
  + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \label{FFT-oddevensplit}
 \end{align}
@@ -1571,16 +1571,16 @@ We'll get a few identities out of the way (where $m, n, x \in \Zpos$ arbitrary).
 
 \vcomment{this fixes an issue in DIP-GW where the identities were provided in terms of $M$ instead of arbitrary $m$, where the proof uses the results for some value other than $M$ anyway}
 \begin{gather} \label{fft-kernelidentities}
-W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \\
+W_{(2m)}^{(2n)} = e^{\frac{-i2\pi(2m)}{2m}} = e^{\frac{-i2\pi m}{n}} = W_{m}^{n} \
 W_{m}^{(u+m)x} = e^{\frac{-i2\pi(u+m)x}{m} } = e^{\frac{-i2\pi unx}{m}} e^{\frac{-i2\pi mx}{m}}
-			= e^{\frac{-i2\pi ux }{m}} (1) = W_m^{ux} \\
+			= e^{\frac{-i2\pi ux }{m}} (1) = W_m^{ux} \
 W_{2m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{2m}} = e^{\frac{-i2\pi ux}{2m}} e^{-i\pi}
 	 = W_{2m}^{u} e^{-i\pi} = - W_{2m}^{u}
 \end{gather}
 
 Thus we can rewrite \cref{FFT-oddevensplit} as
 \begin{align}
-F(u)  &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{2ux} + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{2ux} W_{2K}^{u} \\
+F(u)  &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{2ux} + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{2ux} W_{2K}^{u} \
 \Longrightarrow \quad F(u) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{ux}\right)
 + \left(\sum_{x=0}^{K-1} f(2x+1) W_{K}^{ux}\right) W_{2K}^{u}
 \label{fft-oddeven-parens}
@@ -1590,7 +1590,7 @@ The major advance comes via using the identities \cref{fft-kernelidentities} \vc
 frequencies later \vcomment{wording?}:
 \begin{align}
 F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{(u+K)x}\right)
-+ \left(\sum_{x=0}^{K-1} f(2x+1) W_{K}^{(u+K)x}\right) W_{2K}^{(u+K)}\\
++ \left(\sum_{x=0}^{K-1} f(2x+1) W_{K}^{(u+K)x}\right) W_{2K}^{(u+K)}\
 \Longrightarrow F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{ux}\right)-\left(\sum_{x=0}^{K-1} f(2x+1)W_K^{ux}\right) W_K^{u}
 \label{fft-oddeven-parens-plusK}
 \end{align}
@@ -1599,7 +1599,7 @@ F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{(u+K)x}\right)
 Comparing \cref{fft-oddeven-parens} and \cref{fft-oddeven-parens-plusK}, we see that the expressions within parentheses are identical.
 What's more, these parentetical expressions are functionally identical to discrete fourier transforms themselves. Let's notate them as follows:
 \begin{align} \label{fft-oddeven-subdfts}
-\DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \\
+\DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \
 \DFT_u\{f_{\mathrm{odd}}(t)\} &:= \sum_{x=0}^{K-1} f(2x+1)W_K^{ux}
 \end{align}
 

@@ -32,21 +32,35 @@ use MCC \cite{mcc-original-paper}
 
 
 
-\section{A Source of ``False Negatives'' in the NCS data set} \label{sec:NCS-dataset-issues}
+\section{Variations in the Data Set and Imperfections of the Ground Truth} \label{sec:NCS-dataset-issues}
 
 Sometimes the output doesn't agree with the trace, i.e. ``the ground truth'' is not 100\% correct.
 sometimes either there's a false negative (reported) but something just wasn't traced in the original  1602443.
 
 \begin{figure} \centering
-	\includegraphics[width=0.8\textwidth]{kinds_of_false_positives}
-	\caption{''True'' false positives and ``False'' false positives}
+  \subfloat{
+  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset}
+}
+\subfloat{
+  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_ctrace}
+} \
+\subfloat{
+  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_sketches}
+} 
+\subfloat{
+  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_mark}
+}
+\caption{Issues with ground truth and sample quality}
+\label{fig:groundtruth-samplequality}
 \end{figure}
 
-\section{Variations in the Data Set and Imperfections of the Ground Truth}
+As seen in \cref{fig:groundtruth-samplequality}, there are several issues with the samples that will cause trouble in our efforts toward segmentation. Our represenative sample is BN0392644. The top left is the original (color) image, the top right is the full vessel width trace. The bottom left is a smaller skeletonization (sketch), where arteries are shown in red and veins are shown in blue. The bottom right figure contains some annotations. At the top, a blue arrow indicates a large curvilinear patch of dried blood that is not part of the vascular network. The green arrow in the middle indicates some vessels that are too small for the diameter binning and are thus not reported. We will see later that our Frangi result perfectly captures these, yet they will be reported as a false positive since they are not part of the tracing. However, there are other vessels of similar visual width in this same inset that are traced. In blue boxes (and in many other spots) the vessels cross each other. The border around these will prevent us from being able to extract the vessel directly. In the green dotted box, a major arterial and a major venous branch each connect to the umbilical cord insertion point. Whereas the arterial branch (on the right) can be seen, it will not be reported by the Frangi filter, since those points are not darker relative to the background. You can also see how much variation there is as you look along a blood vessel. There are some areas where the Frangi filter will have a very limited response. 
+
+
 
 \begin{enumerate}
 \item Collar is stupid and should really be considered like a error in marking the perimeter. Throw these away or edit. Maybe make a section called discarded samples that's stupid but yeah.
-\item Vessels suck sometimes. In the portion above, 1602443, there's a random blood clot which gets identified at large $\sigma$. But also the small forked shaped thing which is obviouslly a vessel doesn't get defined.
+\item Vessels suck sometimes. In the portion above, 1602443, there's a random blood clot which gets identified at large $\sigma$. But also the small forked shaped thing which is obviously a vessel doesn't get defined.
 \item Too much blood (not enough?? no idea) is left in the vessels. leading to the weird white border around some vessels. you could identify these along with black center and combine them somehow. no idea.Also, holy shit, some of the white vessel ``sleeves'' ARE identified in the tracing, and some aren't. Find an example of this and whine about it.
 \item Umbillical cord insertion point is stupid and obscures a lot. The tracer guesses but there's no real guiding principle AFAIK..
 \item Small vessels aren't accounted for at all. Not sure how to coincide measurement in terms of scale space anymore, but should figure out how to cut off those values before running MCC metric.
@@ -59,6 +73,18 @@ sometimes either there's a false negative (reported) but something just wasn't t
 \section{Results}
 
 This is a list of particular things I'd like to explore if I have time:
+\begin{table}
+\begin{tabular}{lrrrr}
+  \toprule
+  {} &  percentile filtering (q=95) &  fixed threshold (alpha=0.4) &  per-scale RW &  percentile sieve \\
+  \midrule
+  MCC                  &                     0.505366 &                     0.434502 &      0.511190 &          0.505440 \\
+  \% skeltrace coverage &                     0.498603 &                     0.306664 &      0.411479 &          0.527201 \\
+  precision            &                     0.857878 &                     0.906386 &      0.821095 &          0.879843 \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
 
 \begin{itemize}
 	\item Relationship between traced pixelwidths vs the scale they were pulled from.
@@ -68,4 +94,5 @@ This is a list of particular things I'd like to explore if I have time:
 	\item difference between using green channel and non-green channel.
 \end{itemize}
 
+\
 \section{Answer Research Questions}
