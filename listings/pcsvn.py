@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+the contents of this file should be split up between frangi (multiscale)
+and scoring/output
+"""
 from placenta import get_named_placenta
 from diffgeo import principal_directions
 from frangi import frangi_from_image
@@ -58,7 +62,7 @@ def make_multiscale(img, scales, beta=0.5, gamma=0.5, c=None, dark_bg=True,
     print('finding multiscale targets ', end='')
     for i, (sigma, b, g, cx) in enumerate(zip(scales, beta, gamma, c)):
 
-        print('σ', end='')
+        print('σ', end='', flush=True)
 
         if dilate_per_scale:
             if sigma > 20:
@@ -250,7 +254,8 @@ def _build_scale_colormap(N_scales, base_colormap, basecolor=(0,0,0,1)):
 def scale_label_figure(wheres, scales, savefilename=None,
                        crop=None, show_only=False, image_only=False,
                        base_cmap='viridis_r', save_colorbar_separate=False,
-                       savecolorbarfile=None, output_dir=None):
+                       basecolor=(0, 0, 0, 1), savecolorbarfile=None,
+                       output_dir=None):
     """
     crop is a slice object.
     if show_only, then just plt.show (interactive).
@@ -265,7 +270,7 @@ def scale_label_figure(wheres, scales, savefilename=None,
     fig, ax = plt.subplots()  # not sure about figsize
     N = len(scales)  # number of scales / labels
 
-    tabemap = _build_scale_colormap(N, base_cmap)
+    tabemap = _build_scale_colormap(N, base_cmap, basecolor)
 
     if image_only:
         plt.imsave(savefilename, wheres, cmap=tabemap, vmin=0, vmax=N)

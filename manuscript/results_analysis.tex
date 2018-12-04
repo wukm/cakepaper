@@ -1,6 +1,6 @@
 \chapter{Results and Analysis} \label{ch:results-analysis}
 
-We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy $\beta = .35$,
+We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy $\beta = .35$ and $\gamma=0.5$,
 with scales spaced logarithmcally from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
 
 \section{Sample visual output}
@@ -28,6 +28,8 @@ Here, we demonstrate the visual outputs produced by \texttt{extract\_NCS\_pcsvn.
 \includegraphics[height=\textheight]{BN4569506_output-montage}
 \caption{Demonstration of postprocessing techniques}
   \end{figure}
+
+There are 
 use MCC \cite{mcc-original-paper}
 
 
@@ -71,8 +73,6 @@ As seen in \cref{fig:groundtruth-samplequality}, there are several issues with t
 
 
 \section{Results}
-
-This is a list of particular things I'd like to explore if I have time:
 \begin{table}
 \begin{tabular}{lrrrr}
   {} &  PF (q=95) &  FA (alpha=0.4) &  RW &  PS \\
@@ -85,13 +85,90 @@ This is a list of particular things I'd like to explore if I have time:
 \end{table}
 
 
-\begin{itemize}
-	\item Relationship between traced pixelwidths vs the scale they were pulled from.
-	\item Frangi behavior at max scale length and if there's anything that gets too large (related to first derivatives maybe?
-	\item calculate the actual weingarten map eigenvectors (although this is
-	probably gonna be very fake in a discrete sense).
-	\item difference between using green channel and non-green channel.
-\end{itemize}
+%\begin{itemize}
+%	\item Relationship between traced pixelwidths vs the scale they were pulled from.
+%	\item Frangi behavior at max scale length and if there's anything that gets too large (related to first derivatives maybe?
+%	\item calculate the actual weingarten map eigenvectors (although this is
+%	probably gonna be very fake in a discrete sense).
+%	\item difference between using green channel and non-green channel.
+%\end{itemize}
 
-\
-\section{Answer Research Questions}
+\begin{figure}[p]
+    \centering
+  \includegraphics[height=\textheight]{M1-T-BN2050224}
+\end{figure}
+\quad
+\begin{table}[p]
+    \begin{small}
+  \begin{tabular}{l|r|r|r}
+    n  & $\sigma_n$  &  $\alpha_p$  &  $\max(V_\sigma)$ \\
+    \hline
+    0  &   0.3535 &  0.0547 &  0.986\\
+    1  &   0.4243 &  0.0590 &  0.979\\
+    2  &   0.5092 &  0.0654 &  0.970\\
+    3  &   0.6110 &  0.0765 &  0.973\\
+    4  &   0.7333 &  0.0892 &  0.988\\
+    5  &   0.8801 &  0.0962 &  0.991\\
+    6  &   1.0562 &  0.1082 &  0.991\\
+    7  &   1.2676 &  0.1308 &  0.970\\
+    8  &   1.5212 &  0.1669 &  0.973\\
+    9  &   1.8256 &  0.2232 &  0.978\\
+    10 &   2.1909 &  0.2925 &  0.984\\
+    11 &   2.6294 &  0.3196 &  0.968\\
+    12 &   3.1555 &  0.3269 &  0.994\\
+    13 &   3.7869 &  0.3558 &  0.998\\
+    14 &   4.5447 &  0.4058 &  0.999\\
+    15 &   5.4542 &  0.3764 &  0.963\\
+    16 &   6.5456 &  0.3184 &  0.950\\
+    17 &   7.8553 &  0.3047 &  0.958\\
+    18 &   9.4272 &  0.3287 &  0.916\\
+    19 &  11.3137 &  0.3524 &  0.916\\
+    \end{tabular}
+\end{small}
+  \caption{Vesselness scores and percentile thresholds}
+\end{table}
+\clearpage
+
+
+\begin{figure}[p] \centering
+ \includegraphics[width=\linewidth]{M2-T-BN2050224}
+ \caption{Sample of Frangi-based Segmentation Methods (pt. 2)}
+  \end{figure}
+
+\begin{table}[p]\centering
+  \begin{tabular}{l|rrrr}
+    {} &        PF &        FA &        RW &        PS \\
+    \hline
+    MCC           &  0.4872 &  0.4208 &  0.5249 &  0.4877 \\
+    %\hline
+    skel coverage &  0.5085 &  0.3245 &  0.4493 &  0.4650 \\
+    %\hline
+    precision     &  0.8044 &  0.9472 &  0.8858 &  0.8697 \\
+  \end{tabular}
+\caption{Scores for merging techniques}
+\end{table}
+
+\begin{figure}[p]
+  \includegraphics[width=\textwidth]{test-scale-width}
+  \caption{Pixel Width of Ground Truth vs. Scale Length for True Positives}
+\end{figure}
+
+\begin{figure}[p]\centering
+  \subfloat{
+  \includegraphics[width=0.85\textwidth]{Vmax_to_scale_normalized}
+  }\\[-0.5cm]
+  \subfloat{
+  \includegraphics[width=0.85\textwidth]{frangi_argmax-trace}
+  }
+  \caption{Scale of maximum Frangi score for true positives and false negatives}
+\end{figure}
+
+\begin{figure}[p]\centering
+  \subfloat{
+    \includegraphics[width=0.85\textwidth]{Vmax_to_scale_normalized_with_approx}
+  }\\[-0.5cm]
+  \subfloat{
+    \includegraphics[width=0.85\textwidth]{frangi_argmax-trace-approx}
+  }
+  \caption{Scale of maximum Frangi score for true positives only (percentile filtering)}
+\end{figure}

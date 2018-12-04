@@ -45,12 +45,10 @@ from postprocessing import random_walk_fill, random_walk_scalewise
 # placentas = list_placentas('T-BN')
 # load placentas from a certain quality category 0=good, 1=okay, 2=fair, 3=poor
 
-placentas = list_by_quality(0, N=1)
-#placentas = list()
-#placentas.extend(list_by_quality(1))
-#placentas.extend(list_by_quality(2))
+#placentas = list_by_quality(2)
 #placentas.extend(list_by_quality(3))
 
+placentas = list_by_quality(0, N=1)
 # load from a file (sample names are keys of the json file)
 # placentas = list_by_quality(json_file='manual_batch.json')
 
@@ -63,8 +61,8 @@ placentas = list_by_quality(0, N=1)
 
 MAKE_NPZ_FILES = False # pickle frangi targets if you can
 USE_NPZ_FILES = False # use old npz files if you can
-NPZ_DIR = 'output/181201-L'  # where to look for npz files
-OUTPUT_DIR = 'output/181201-L'  # where to save outputs
+NPZ_DIR = 'output/181204-test'  # where to look for npz files
+OUTPUT_DIR = 'output/181204-test'  # where to save outputs
 
 # add in a meta switch for verbosity (or levels)
 #VERBOSE = False
@@ -92,7 +90,7 @@ REMOVE_GLARE = True
 REMOVE_CUTS = True
 
 # Which scales to use
-SCALE_RANGE = (-1.0, 3.5); SCALE_TYPE = 'logarithmic'
+SCALE_RANGE = (-1.5, 3.5); SCALE_TYPE = 'logarithmic'
 #SCALE_RANGE = (.2, 12); SCALE_TYPE = 'linear'
 N_SCALES = 20
 
@@ -106,14 +104,14 @@ BETAS = 0.35
 GAMMAS = 0.5
 CS = None # pass scalar, array, or None
 ALPHAS = None # set custom alphas or calculate later
-FIXED_ALPHA = .3
+FIXED_ALPHA = .4
 
 RESCALE_FRANGI = True
 GRADIENT_FILTER = False
 
 
 # Scoring Decisions (don't need to touch these)
-UCIP_RADIUS = 50  # area around the umbilical cord insertion point to ignore
+UCIP_RADIUS = 60  # area around the umbilical cord insertion point to ignore
 INV_SIGMA = 0.8
 # some other initializations, don't mind me
 
@@ -135,6 +133,7 @@ else:
 
 mccs = dict()  # empty dict to store MCC's of each sample
 pncs = dict()  # empty dict to store percent network covered for each sample
+precisions = dict()
 
 n_samples = len(placentas)
 
@@ -299,12 +298,7 @@ for i, filename in enumerate(placentas):
     #                                                     DARK_BG)
 
     approx_rw, labs_rw = random_walk_scalewise(F, .4, return_labels=True)
-    #confuse_margins = confusion(margins_added, trace, bg_mask=ucip_mask)
 
-    high_alphas = np.array([nz_percentile(F[..., k], 98.0)
-                           for k in range(N_SCALES)]
-                          )
-    high_frangi = apply_threshold(F,high_alphas, return_labels=False)
     confuse_rw = confusion(approx_rw, trace, bg_mask=ucip_mask)
     m_score_rw, counts_rw = mcc(approx_rw, trace, ucip_mask,
                                 return_counts=True)
@@ -312,8 +306,13 @@ for i, filename in enumerate(placentas):
 
 
     # --- Generating Visual Outputs--------------------------------------------
+
+    SCALE_CMAP = ('plasma', (1,1,1,1))
+
     crop = cropped_args(img)  # these indices crop out the mask significantly
 
+    fmax_colors = plt.cm.plasma
+    fmax_colors.set_bad('k', 1)
     # save the raw, unaltered image
     plt.imsave(outname('0_raw'), raw_img[crop].filled(0), cmap=plt.cm.gray)
 
@@ -321,22 +320,25 @@ for i, filename in enumerate(placentas):
     plt.imsave(outname('1_img'), img[crop].filled(0), cmap=plt.cm.gray)
 
     # save the maximum frangi output over all scales
-    plt.imsave(outname('2_fmax'), Fmax[crop], vmin=0, vmax=1.0,
-               cmap=plt.cm.nipy_spectral)
+    plt.imsave(outname('2_fmax'), ma.masked_where(Fmax==0,Fmax)[crop], vmin=0,
+               vmax=1.0, cmap=fmax_colors)
 
     # only save the colorbar the first time
     save_colorbar = (i==0)
     scale_label_figure(labs, scales, crop=crop,
                        savefilename=outname('3_labeled'), image_only=True,
                        save_colorbar_separate=save_colorbar,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        output_dir=OUTPUT_DIR)
+
+    plt.imsave(outname('4_confusion'), confuse[crop])
 
     scale_label_figure(labs_rw, scales, crop=crop,
                        savefilename=outname('A_labeled_rw'), image_only=True,
                        save_colorbar_separate=save_colorbar,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        output_dir=OUTPUT_DIR)
 
-    plt.imsave(outname('4_confusion'), confuse[crop])
 
     plt.imsave(outname('7_confusion_FA'), confuse_FA[crop])
     plt.imsave(outname('B_confusion_rw'), confuse_rw[crop])
@@ -366,6 +368,7 @@ for i, filename in enumerate(placentas):
 
     scale_label_figure(labs_FA, scales, crop=crop,
                        savefilename=outname('6_labeled_FA'), image_only=True,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        save_colorbar_separate=False, output_dir=OUTPUT_DIR)
 
     V = np.transpose(F, axes=(2, 0, 1))
@@ -380,6 +383,7 @@ for i, filename in enumerate(placentas):
 
     scale_label_figure(labs_S, scales, crop=crop,
                        savefilename=outname('D_labeled_S'), image_only=True,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        save_colorbar_separate=False, output_dir=OUTPUT_DIR)
 
     plt.imsave(outname('E_confusion_S'), confuse_S[crop])
@@ -389,6 +393,7 @@ for i, filename in enumerate(placentas):
 
     mccs[filename] =  (m_score, m_score_FA, m_score_rw, m_score_S )
     pncs[filename] = (percent_covered, percent_covered_FA, pnc_rw, pnc_S)
+
 
     print('percentage of skeltrace covered:(percentile filtering)',
           f'{percent_covered:.2%}')
@@ -403,8 +408,32 @@ for i, filename in enumerate(placentas):
     print(f'mcc score of {m_score_FA:.3} with fixed alpha {FIXED_ALPHA}')
     print(f'mcc score of {m_score_rw:.3} after random walker')
     print(f'mcc score of {m_score_S:.3} after sieving')
-    ### THIS IS ALL A HORRIBLE MESS. FIX IT
 
+
+    precision_score = lambda t: int(t[0]) / int(t[0] + t[2])
+
+    precision = precision_score(counts)
+    precision_FA = precision_score(counts_FA)
+    precision_rw = precision_score(counts_rw)
+    precision_S = precision_score(counts_S)
+
+    precisions[filename] = (precision, precision_FA, precision_rw, precision_S)
+
+    print(f'precision of {precision:.3} for percentile filtering')
+    print(f'precision of {precision_FA:.3} for fixed alpha')
+    print(f'precision of {precision_rw:.3} for random walker')
+    print(f'precision of {precision_S:.3} for sieving')
+
+    scoretable = pandas.DataFrame(np.vstack((mccs[filename], pncs[filename],
+                                            precisions[filename])),
+                                  columns=('PF', 'FA', 'RW', 'PS'),
+                        index=('MCC', 'skel coverage', 'precision'))
+
+    print(scoretable)
+    print('\n\n')
+    print(scoretable.to_latex())
+
+    ### THIS IS ALL A HORRIBLE MESS. FIX IT
     # why don't you just return the dict instead
     with open(jfile, 'r') as f:
         slog = json.load(f)
@@ -414,10 +443,13 @@ for i, filename in enumerate(placentas):
     slog['counts'] = c2d(counts)
     slog['counts_FA'] = c2d(counts_FA)
     slog['counts_rw'] = c2d(counts_rw)
+    slog['counts_S'] = c2d(counts_S)
     slog['pnc'] = pncs[filename]
     slog['mcc'] = mccs[filename]
     slog['scale_maxes'] = list(scale_maxes)
     slog['ALPHAS'] = list(ALPHAS)
+    slog['precision'] = precisions[filename]
+
 
     with open(jfile, 'w') as f:
         json.dump(slog, f)
@@ -445,7 +477,8 @@ runlog = {
     'remove_glare': REMOVE_GLARE,
     'files': list(placentas),
     'MCCS': mccs,
-    'PNC': pncs
+    'PNC': pncs,
+    'precisions': precisions
 }
 
 # save to a json file
