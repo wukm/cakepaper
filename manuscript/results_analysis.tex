@@ -73,17 +73,6 @@ As seen in \cref{fig:groundtruth-samplequality}, there are several issues with t
 
 
 \section{Results}
-\begin{table}
-\begin{tabular}{lrrrr}
-  {} &  PF (q=95) &  FA (alpha=0.4) &  RW &  PS \\
-  \hline
-  MCC                  &                     0.505366 &                     0.434502 &      0.511190 &          0.505440 \\
-  \% skeltrace coverage &                     0.498603 &                     0.306664 &      0.411479 &          0.527201 \\
-  precision            &                     0.857878 &                     0.906386 &      0.821095 &          0.879843 \\
-\end{tabular}
-\caption{various metrics for gauging success of Frangi thresholding demos}
-\end{table}
-
 
 %\begin{itemize}
 %	\item Relationship between traced pixelwidths vs the scale they were pulled from.
@@ -93,13 +82,12 @@ As seen in \cref{fig:groundtruth-samplequality}, there are several issues with t
 %	\item difference between using green channel and non-green channel.
 %\end{itemize}
 
-\begin{figure}[p]
-    \centering
-  \includegraphics[height=\textheight]{M1-T-BN2050224}
-\end{figure}
+\begin{figure}
+\begin{minipage}[tp]{0.5\textwidth}
+  \includegraphics[height=0.95\textheight]{M1-T-BN2050224}
+  \end{minipage}
 \quad
-\begin{table}[p]
-    \begin{small}
+  \begin{minipage}[tp]{0.35\textwidth}
   \begin{tabular}{l|r|r|r}
     n  & $\sigma_n$  &  $\alpha_p$  &  $\max(V_\sigma)$ \\
     \hline
@@ -123,12 +111,10 @@ As seen in \cref{fig:groundtruth-samplequality}, there are several issues with t
     17 &   7.8553 &  0.3047 &  0.958\\
     18 &   9.4272 &  0.3287 &  0.916\\
     19 &  11.3137 &  0.3524 &  0.916\\
-    \end{tabular}
-\end{small}
+    \end{tabular} \\
+\end{minipage}
   \caption{Vesselness scores and percentile thresholds}
-\end{table}
-\clearpage
-
+\end{figure}
 
 \begin{figure}[p] \centering
  \includegraphics[width=\linewidth]{M2-T-BN2050224}
