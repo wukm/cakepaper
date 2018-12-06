@@ -106,22 +106,22 @@ def frangi_from_image(img, sigma, beta=0.5, gamma=0.5, c=None, dark_bg=True,
     # using frob norm = sqrt(trace(AA^T))
     # alternatively you could use gamma = .5 * np.abs(k2).max()
     #hnorm = hessian_norm(hesh, mask=collar)
-    #print(f'σ={sigma:2f}')
+    #print(f'$\sigma $={sigma:2f}')
     #gamma0 = .5*hessian_norm(hesh).max()
-    #print(f'\t{gamma0:.5f} = frob-norm γ pre-dilation')
+    #print(f'\t{gamma0:.5f} = frob-norm $\gamma $ pre-dilation')
 
     #gamma1 = .5*hessian_norm(hesh, mask=collar).max()
-    #print(f'\t{gamma1:.5f} = frob-norm γ post-collar dilation {dilation_radius}')
+    #print(f'\t{gamma1:.5f} = frob-norm $\gamma $ post-collar dilation {dilation_radius}')
     #l2gamma = .5*np.max(np.abs(k2))
-    #print(f'\t{l2gamma:.5f} =  from L2-norm γ (K2 with collar)')
+    #print(f'\t{l2gamma:.5f} =  from L2-norm $\gamma $ (K2 with collar)')
 
     #hdilation = int(max(np.ceil(sigma),10))
     #hcollar = dilate_boundary(None, radius=hdilation, mask=img.mask)
     #gamma = .5 * max_hessian_norm(hesh, mask=hcollar)
 
-    #print(f'\t{gamma:.5f} = γ post-hdilation (radius {hdilation}) (old γ)')
+    #print(f'\t{gamma:.5f} = $\gamma $ post-hdilation (radius {hdilation}) (old $\gamma $)')
 
-    #print('changing γ to L2-norm with collar')
+    #print('changing $\gamma $ to L2-norm with collar')
     #gamma = max(gamma1, l2gamma, gamma, gamma0)
 
     # wish this scaled a little better
@@ -150,7 +150,7 @@ def frangi_from_image(img, sigma, beta=0.5, gamma=0.5, c=None, dark_bg=True,
     #c = gamma*S.max()
 
     if verbose:
-        print(f'finding Frangi targets with β={beta} and γ={c:.2}')
+        print(f'finding Frangi targets with $\beta  $={beta} and $\gamma $={c:.2}')
 
     targets = get_frangi_targets(k1, k2, beta=beta, gamma=gamma, c=c,
                                  dark_bg=dark_bg, signed=signed_frangi,
@@ -331,7 +331,7 @@ def anisotropy(K1,K2, beta=0.5):
     """
 
     A = (K1 / K2) ** 2
-    #print(f'inside anisotropy, β={beta}')
+    #print(f'inside anisotropy, $\beta  $={beta}')
     if beta == 0:
         return np.zeros_like(A)  # the limiting case as beta -> 0
 
@@ -355,7 +355,7 @@ def structureness(K1, K2, gamma=0.5, c=None):
     if c is None:
         c = gamma * np.sqrt(S).max()  # the max Frob norm of the Hessian
 
-    #print(f'inside structureness, γ={gamma}, c={c}')
+    #print(f'inside structureness, $\gamma $={gamma}, c={c}')
 
     if c == 0:
         return np.zeros_like(S)

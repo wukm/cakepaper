@@ -153,7 +153,7 @@ def sieve_scales(multiscale, high_percentile, low_percentile, min_size=None,
 
     print('sieving ', end='')
     for n, v in enumerate(V):
-        print('σ', end='', flush=True)
+        print('$\sigma $', end='', flush=True)
 
         if min_size is not None:
             z = remove_small_objects(v, min_size=min_size[n])

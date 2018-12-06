@@ -49,7 +49,7 @@ for n, sigma in enumerate(scales):
 
         ax[0].imshow(f0.filled(0)[crop], vmin=0, vmax=1, cmap='nipy_spectral')
         ax[0].axis('off')
-        ax[0].set_title(f'Standard Frangi σ={sigma:.2f}', fontsize=10)
+        ax[0].set_title(f'Standard Frangi $\sigma $={sigma:.2f}', fontsize=10)
 
         ax[1].imshow(f1.filled(0)[crop], vmin=0, vmax=1, cmap='nipy_spectral')
         ax[1].axis('off')
@@ -57,7 +57,7 @@ for n, sigma in enumerate(scales):
 
         #ax[2].imshow(g_filter[crop].T, cmap='nipy_spectral')
         #ax[2].axis('off')
-        #ax[2].set_title(f'Gradient filter σ={sigma:.2f}')
+        #ax[2].set_title(f'Gradient filter $\sigma $={sigma:.2f}')
 
         #plt.show()
         plt.tight_layout()

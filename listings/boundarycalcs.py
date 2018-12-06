@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 MSE
 plt.show()
 ms(A)

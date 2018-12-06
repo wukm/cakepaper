@@ -180,23 +180,23 @@ def demo(img=None):
 
         axes[cax, 0].imshow(xy_sampled, cmap='gray', vmin=0, vmax=1)
         axes[cax, 0].set_ylabel(r'$\sigma={}$'.format(sigma))
-        #axes[cax, 0].set_title(f'ndi.gaussian_filter, σ={sigma}')
+        #axes[cax, 0].set_title(f'ndi.gaussian_filter, $\sigma $={sigma}')
         #axes[cax, 0].axis('off')
         axes[cax, 0].set_xticks([])
         axes[cax, 0].set_yticks([])
 
         axes[cax, 1].imshow(fft_sampled, cmap='gray', vmin=0, vmax=1)
         #axes[cax, 1].imshow(fft_sampled, cmap='gray')
-        #axes[cax, 1].set_title(f'fft sampled kernel, σ={sigma}')
+        #axes[cax, 1].set_title(f'fft sampled kernel, $\sigma $={sigma}')
         axes[cax, 1].axis('off')
 
         axes[cax, 2].imshow(fft_dgk, cmap='gray', vmin=0, vmax=1)
-        #axes[cax, 2].set_title(f'fft discrete kernel, σ={sigma}')
+        #axes[cax, 2].set_title(f'fft discrete kernel, $\sigma $={sigma}')
         axes[cax, 2].axis('off')
 
 
         axes[cax, 3].plot(dom, sgk, 'k', dom, dgk, 'g:')
-        #axes[cax, 3].set_title(f'discrete vs. sampled kernel σ={sigma}')
+        #axes[cax, 3].set_title(f'discrete vs. sampled kernel $\sigma $={sigma}')
         #axes[cax, 3].axes.set_aspect('equal')
 
     # set titles for the first column

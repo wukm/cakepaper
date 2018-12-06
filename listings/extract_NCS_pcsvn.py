@@ -154,8 +154,10 @@ for i, filename in enumerate(placentas):
     ucip = open_typefile(filename, 'ucip')
 
     if REMOVE_CUTS:
-        img, has_cut = mask_cuts_simple(raw_img, ucip, return_success=True)
-        img.data[img.mask] = 0 # actually zero out that area
+        #img, has_cut = mask_cuts_simple(raw_img, ucip, return_success=True)
+        #img.data[img.mask] = 0 # actually zero out that area
+        print("removing cuts doesn't do anything anymore")
+        pass
     else:
         img = raw_img.copy()
 
@@ -223,7 +225,7 @@ for i, filename in enumerate(placentas):
     scale_maxes = np.array([F[...,i].max() for i in range(F.shape[-1])])
 
     table = pandas.DataFrame(np.dstack((scales, ALPHAS, scale_maxes)).squeeze(),
-                                columns=('σ', 'α_p', 'max(F_σ)'))
+                                columns=('$\sigma $', '$\alpha $_p', 'max(F_$\sigma $)'))
 
     print(table)
     # threshold the responses at each of these values and get labels of max

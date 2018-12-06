@@ -119,7 +119,7 @@ test_sigmas = [.3, .6, 1.0, 5.0, 15, 30, 60, 90]
 
 for sigma in test_sigmas:
 
-    print("*"*80, '\n\n', f"σ={sigma}")
+    print("*"*80, '\n\n', f"$\sigma $={sigma}")
     #print('applying standard gauss blur')
 
     # this is exactly how it's passed to skimage.feature.hessian_matrix(...)

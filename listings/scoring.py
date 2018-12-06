@@ -6,7 +6,6 @@ from skimage.morphology import thin
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
 
 import itertools
 from collections import deque
@@ -299,7 +298,7 @@ def confusion(test, truth, bg_mask=None, colordict=None, tint_mask=True):
         colordict = {
                      'TP': (0,0,0),
                      'TN': (226,226,226),
-                     'FN': (201,80,80),
+                     'FN': (201,152,152),
                      'FP': (30,69,230),
                      'mask': (209,209,209)
                      }
@@ -625,7 +624,7 @@ def scale_to_width_plots(multiscale_approx, max_labels, widths, scales,
     ax[1].set_xlim(2,21)
 
     title = 'pixels reported per scale'
-    max_title = r'pixel widths of true positives by scale of $V_\max$'
+    max_title = r'pixel widths of true positives by scale of $V_{\max}$'
     if approx_method is not None:
         title += f'({approx_method})'
         max_title += f'({approx_method})'
@@ -732,7 +731,7 @@ def scale_to_argmax_plot(max_labels, widths, scales, normalize=False,
 
     ax.set_xlim(2,21)
 
-    max_title = r'pixel widths of true positives by scale of $V_\max$'
+    max_title = r'pixel widths of true positives by scale of $V_{\max}$'
 
     ax.set_title(max_title)
     ax.legend(loc='best', labelspacing=0.2)

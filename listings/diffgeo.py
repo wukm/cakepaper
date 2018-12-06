@@ -10,9 +10,9 @@ from numpy.linalg import eig
 def principal_curvatures(img, sigma=1.0, H=None):
     """Calculate the approximated principal curvatures of an image
 
-    Return the (approximated) principal curvatures {κ1, κ2} of an image,
+    Return the (approximated) principal curvatures {$\kappa $1, $\kappa $2} of an image,
     that is, the eigenvalues of the Hessian at each point (x,y). The output
-    is arranged such that |κ1| <= |κ2|.  Note that the Hessian of the image,
+    is arranged such that |$\kappa $1| <= |$\kappa $2|.  Note that the Hessian of the image,
     if not provided, is computed using skimage.feature.hessian_matrix, which
     can be very slow for large sigmas.
 
@@ -37,7 +37,7 @@ def principal_curvatures(img, sigma=1.0, H=None):
     -------
     (K1, K2):   tuple of arrays
         K1, K2 each are the exact dimension of the input image, ordered in
-        magnitude such that |κ1| <= |κ2| in all locations.
+        magnitude such that |$\kappa $1| <= |$\kappa $2| in all locations.
 
     Examples
     --------
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     #for sigma in [0.5, 1, 2, 3, 5, 10]:
 
     #    print('-'*80)
-    #    print('σ=',sigma)
+    #    print('$\sigma $=',sigma)
     #    print('calculating hessian H')
 
     #    tic = time.time()
@@ -250,12 +250,12 @@ if __name__ == "__main__":
     #    toc = time.time()
     #    print('time elapsed: ', toc - tic)
     #    tic = time.time()
-    #    print('calculating principal curvatures for σ={}'.format(sigma))
+    #    print('calculating principal curvatures for $\sigma $={}'.format(sigma))
     #    K1,K2 = principal_curvatures(img, sigma=sigma, H=H)
     #    toc = time.time()
     #    print('time elapsed: ', toc - tic)
     #    tic = time.time()
-    #    print('calculating principal curvatures for σ={} (fast)'.format(sigma))
+    #    print('calculating principal curvatures for $\sigma $={} (fast)'.format(sigma))
     #    k1,k2 = principal_curvatures(img, sigma=sigma, H=h)
 
     #    toc = time.time()
@@ -264,14 +264,14 @@ if __name__ == "__main__":
 
     #    #####
 
-    #    print('calculating targets for σ={}'.format(sigma))
+    #    print('calculating targets for $\sigma $={}'.format(sigma))
     #    T = get_targets(K1,K2, threshold=False)
 
     #    toc = time.time()
     #    print('time elapsed: ', toc - tic)
     #    tic = time.time()
 
-    #    print('calculating targets for σ={} (fast)'.format(sigma))
+    #    print('calculating targets for $\sigma $={} (fast)'.format(sigma))
     #    t = get_targets(k1,k2, threshold=False)
 
     #    toc = time.time()
@@ -286,13 +286,13 @@ if __name__ == "__main__":
     #    img2 = ma.masked_where( t < t.mean(), img)
 
     #    tic = time.time()
-    #    print('calculating principal directions for σ={}'.format(sigma))
+    #    print('calculating principal directions for $\sigma $={}'.format(sigma))
     #    T1,T2 = principal_directions(img1, sigma=sigma, H=H)
     #    toc = time.time()
     #    print('time elapsed: ', toc - tic)
     #    tic = time.time()
 
-    #    print('calculating principal directions for σ={} (fast)'.format(sigma))
+    #    print('calculating principal directions for $\sigma $={} (fast)'.format(sigma))
     #    t1,t2 = principal_directions(img2, sigma=sigma, H=h)
     #    toc = time.time()
     #    print('time elapsed: ', toc - tic)

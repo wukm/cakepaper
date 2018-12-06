@@ -80,7 +80,7 @@ def rotating_box_filter(img, thetas, sigma, length_ratio=4, verbose=True):
     thetas.put(thetas==180, 0) # these angles are redundant
 
     if verbose:
-        print('running vessel_filter with σ={}: w={}, l={}'.format(
+        print('running vessel_filter with $\sigma $={}: w={}, l={}'.format(
             sigma, width,length), flush=True)
 
     if verbose:
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     img = preprocess(raw)
     img = raw
 
-    # which σ to use (in order)
+    # which $\sigma $ to use (in order)
     scale_range = np.logspace(0,5, num=30, base=2)
 
     frangi_only = np.zeros((img.shape[0],img.shape[1],len(scale_range)))
@@ -217,7 +217,7 @@ if __name__ == "__main__":
 
         beta = min(.09*sigma - .04, .5)
         print('-'*80)
-        print('σ={}'.format(sigma))
+        print('$\sigma $={}'.format(sigma))
 
         print('finding hessian')
         h = fft_hessian(img,sigma)
@@ -225,7 +225,7 @@ if __name__ == "__main__":
         print('finding curvatures')
         k1,k2 = principal_curvatures(img, sigma=sigma,H=h)
 
-        print('finding targets with β={}'.format(beta))
+        print('finding targets with $\beta  $={}'.format(beta))
         t = get_frangi_targets(k1,k2,
                 beta=beta, dark_bg=False, threshold=False)
         t = t > t.mean()
