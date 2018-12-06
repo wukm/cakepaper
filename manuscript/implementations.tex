@@ -15,18 +15,18 @@ In \cref{fig:fft-gaussian-demo}, we demonstrate the compatibility of standard co
 \end{figure}
 
 In \cref{fig:semigroup-demo}, we show these same three methods of Gaussian blur but for a large scale
-($\sigma=45$). For each method of taking the Gaussian blur ((a) - standard convolution with sampled kernel, (b) fft with sampled kernel, (c) fft with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted below. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
+($\sigma=45$). For each method of taking the Gaussian blur ((a) - standard convolution with sampled kernel, (b) fft with sampled kernel, (c) FFT with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted below. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
 The discrete kernel performs very slightly better than the sampled versions. We originally attempted
-this demonstration with a much larger sigma (say $\sigma=150$) and multiple iterations, but unfortunately multiple passes cause the ``noise'' from zeroing out around the boundaries to become very noticable after several iterations (here, we've opted to crop out a radius of pixels from around the edges equal to the standard deviation of the Gaussian before we calculated the MAE or MSE). We could show this again with a zero border or maybe even just a 1D signal.
+this demonstration with a much larger sigma (say $\sigma=150$) and multiple iterations, but unfortunately multiple passes cause the ``noise'' from zeroing out around the boundaries to become very noticable after several iterations (here, we've opted to crop out a radius of pixels from around the edges equal to the standard deviation of the Gaussian before we calculated the MAE or MSE), which is an honest concern in image processing.
 
 \begin{table}
   \centering
   \begin{tabular}{c|cc}
    blurring method   & MSE & MAE \\
     \hline
-spatial convolution, sampled kernel & 0.00054426 & 0.02015643 \\
-FFT convolution, sampled kernel & 0.00055205 & 0.02029916 \\
-FFT convolution, discrete kernel & 0.00054406 & 0.02015336
+spatial convolution, sampled kernel (A) & 0.00054426 & 0.02015643 \\
+FFT convolution, sampled kernel (B) & 0.00055205 & 0.02029916 \\
+FFT convolution, discrete kernel (C) & 0.00054406 & 0.02015336
     \end{tabular}
 \end{table}
 
