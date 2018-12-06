@@ -1,0 +1,795 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+1D-CFT	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{1D-CFT}$/;"	l
+1D-DFT-transform	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{1D-DFT-transform}$/;"	l
+1D-ICFT	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{1D-ICFT}$/;"	l
+1D-discrete-sample	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{1D-discrete-sample}$/;"	l
+1D-sampling-function	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{1D-sampling-function}$/;"	l
+2D DFT Convolution Theorem	manuscript/mathematical_methods.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:Mathematical Methods""Convolution Speedup via FFT
+A	listings/cutfixer.py	/^A = get_named_placenta(Afile)$/;"	v
+A	listings/hfft_accuracy.py	/^    A = gaussian_filter(img.filled(0), sigma, mode='constant', cval=0)$/;"	v
+A	listings/score.py	/^    A = binary_blobs()$/;"	v
+A	listings/scoring.py	/^    A = binary_blobs()$/;"	v
+A	listings/vessel_filters.py	/^    A = all_targets.sum(axis=-1)$/;"	v
+A Source of ``False Negatives'' in the NCS data set	manuscript/results_analysis.tex	/^\\section{A Source of ``False Negatives'' in the NCS data set} \\label{sec:NCS-dataset-issues}$/;"	s	chapter:Results and Analysis
+A representative sample	manuscript/research_protocol.tex	/^\\subsection{A representative sample}$/;"	u	section:Research Protocol""Samples / Image Domain
+A_trace	listings/extract_NCS_pcsvn.py	/^    A_trace = open_typefile(filename, 'arteries')$/;"	v
+Afile	listings/cutfixer.py	/^Afile = 'T-BN5852719.png'$/;"	v
+Agrad	listings/hfft_accuracy.py	/^    Agrad = np.gradient(A)$/;"	v
+Anisotropy Measure	manuscript/mathematical_methods.tex	/^    \\subsection{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	u	section:Mathematical Methods""The Frangi Filter: Uniscale
+Answer Research Questions	manuscript/results_analysis.tex	/^\\section{Answer Research Questions}$/;"	s	chapter:Results and Analysis
+Axioms	manuscript/mathematical_methods.tex	/^    \\subsection{Axioms}$/;"	u	section:Mathematical Methods""Linear Scale Space Theory
+B	listings/cut_demo.py	/^            B = np.zeros_like(img.mask)$/;"	v
+B	listings/cut_demo.py	/^        B = np.all(ucip==(0,0,255), axis=-1)$/;"	v
+B	listings/hfft_accuracy.py	/^    B = fft_gaussian(img, sigma)$/;"	v
+B	listings/score.py	/^    B = binary_blobs()$/;"	v
+B	listings/scoring.py	/^    B = binary_blobs()$/;"	v
+Bgrad	listings/hfft_accuracy.py	/^    Bgrad = np.gradient(B)$/;"	v
+Boundary Dilation	manuscript/research_protocol.tex	/^    \\subsection{Boundary Dilation}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
+Bs	listings/hfft_accuracy.py	/^    Bs = rescale_intensity(B, out_range=(0, A.max()))$/;"	v
+C	listings/cut_demo.py	/^    C, has_cut = mask_cuts(img, ucip, return_success=True, in_place=False)$/;"	v
+C	listings/hfft_accuracy.py	/^    C = fft_dgk(img, sigma)$/;"	v
+C	listings/score.py	/^    C = confusion(A,B)$/;"	v
+C	listings/scoring.py	/^    C = confusion(A,B)$/;"	v
+CMAP	listings/scale_sweep_demo.py	/^    CMAP = plt.cm.nipy_spectral$/;"	v
+CMAP	listings/scale_sweep_demo_old.py	/^    CMAP = plt.cm.viridis$/;"	v
+CMAP	listings/signed_sweep_demo.py	/^    CMAP = plt.cm.Spectral$/;"	v
+CYAN	listings/placenta.py	/^CYAN = [0, 255, 255]$/;"	v
+Calculating the 2D Hessian	manuscript/mathematical_methods.tex	/^\\section{Calculating the 2D Hessian}$/;"	s	chapter:Mathematical Methods
+Calculating the Hessian via FFT	manuscript/implementations.tex	/^\\section{Calculating the Hessian via FFT}$/;"	s	chapter:Implementations
+Cgrad	listings/hfft_accuracy.py	/^    Cgrad = np.gradient(C)$/;"	v
+Conclusion	manuscript/conclusion.tex	/^\\chapter{Conclusion} \\label{ch:conclusion}$/;"	c
+Convolution Speedup via FFT	manuscript/mathematical_methods.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:Mathematical Methods
+Curvature of a surface and its calculation	manuscript/mathematical_methods.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Mathematical Methods""Differential Geometry
+Cut Removal	manuscript/research_protocol.tex	/^    \\subsection{Cut Removal}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
+D	listings/cut_demo.py	/^            D = disk(r)$/;"	v
+D	listings/plate_morphology.py	/^    D = dilate_boundary(img, radius=radius)$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, 100, np.invert(img.mask))$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, 20, np.invert(img.mask))$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, 40, np.invert(img.mask))$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, 50, np.invert(img.mask))$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, mask=img.mask, radius=20)$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, mask=img.mask, radius=40)$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, mask=img.mask, radius=60)$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, radius=50, mask=img.mask)$/;"	v
+D	listings/recentmash.py	/^D = dilate_boundary(None, radius=50, mask=np.invert(img.mask))$/;"	v
+DARK_BG	listings/alpha_sweep_demo.py	/^DARK_BG = True$/;"	v
+DARK_BG	listings/extract_NCS_pcsvn.py	/^DARK_BG = False$/;"	v
+DARK_RED	listings/preprocessing.py	/^DARK_RED = np.array([103, 15, 23]) \/ 255.$/;"	v
+DILATE_PER_SCALE	listings/extract_NCS_pcsvn.py	/^DILATE_PER_SCALE = True$/;"	v
+Data Cleaning and Preprocessing	manuscript/research_protocol.tex	/^\\section{Data Cleaning and Preprocessing}$/;"	s	chapter:Research Protocol
+Deglaring	manuscript/research_protocol.tex	/^    \\subsection{Deglaring}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
+Differential Geometry	manuscript/mathematical_methods.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	s	chapter:Mathematical Methods
+E	listings/recentmash.py	/^E = dilate_boundary(None, radius=40, mask=np.invert(img.mask))$/;"	v
+F	listings/alpha_sweep_demo.py	/^    F, img, _ , _ = extract_pcsvn(filename, DARK_BG=DARK_BG,$/;"	v
+F	listings/extract_NCS_pcsvn.py	/^        F = np.load(npz_filename)['F']$/;"	v
+F	listings/extract_NCS_pcsvn.py	/^        F, jfile = extract_pcsvn(img, filename, dark_bg=DARK_BG, betas=betas,$/;"	v
+F	listings/scale_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+F	listings/scale_sweep_demo_old.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+F	listings/signed_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+FA	listings/hfft_accuracy.py	/^    FA = get_frangi_targets(ak1,ak2, dark_bg=False).filled(0)$/;"	v
+FB	listings/hfft_accuracy.py	/^    FB = get_frangi_targets(bk1,bk2, dark_bg=False).filled(0)$/;"	v
+FC	listings/hfft_accuracy.py	/^    FC = get_frangi_targets(ck1,ck2, dark_bg=False).filled(0)$/;"	v
+FD	listings/plate_morphology.py	/^    FD = frangi_from_image(D, sigma, dark_bg=False)$/;"	v
+FDinv	listings/plate_morphology.py	/^    FDinv = frangi_from_image(D, sigma, dark_bg=True)$/;"	v
+FFT	manuscript/mathematical_methods.tex	/^\\subsection{FFT}$/;"	u	section:Mathematical Methods""Convolution Speedup via FFT
+FFT-defineW	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{FFT-defineW}$/;"	l
+FFT-oddevensplit	manuscript/mathematical_methods.tex	/^ + \\sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \\label{FFT-oddevensplit}$/;"	l
+FN	listings/alpha_sweep_demo.py	/^    TP, TN, FP, FN = counts$/;"	v
+FN	listings/extract_NCS_pcsvn.py	/^    TP, TN, FP, FN = counts # return these for more analysis?$/;"	v
+FP	listings/alpha_sweep_demo.py	/^    TP, TN, FP, FN = counts$/;"	v
+FP	listings/extract_NCS_pcsvn.py	/^    TP, TN, FP, FN = counts # return these for more analysis?$/;"	v
+Fimg	listings/plate_morphology.py	/^    Fimg = frangi_from_image(img, sigma, dark_bg=False, dilation_radius=None)$/;"	v
+Finv	listings/plate_morphology.py	/^    Finv = frangi_from_image(img, sigma, dark_bg=True, dilation_radius=None)$/;"	v
+Fmax	listings/extract_NCS_pcsvn.py	/^    Fmax = F.max(axis=-1)$/;"	v
+Fneg	figures/add_sobel_border_demo/sobelmashfinal.py	/^Fneg, _ = extract_pcsvn(filename, DARK_BG=True, alphas=None, betas=betas, scales=scales, gammas=/;"	v
+Fourier Transform of a Discrete 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:Mathematical Methods""Convolution Speedup via FFT
+Fourier Transform of a continuous 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:Mathematical Methods""Convolution Speedup via FFT
+Future research directions	manuscript/conclusion.tex	/^\\section{Future research directions} \\label{sec:future-research-directions}$/;"	s	chapter:Conclusion
+G	listings/cut_demo.py	/^        G = np.all(ucip==(0,255,0), axis=-1)$/;"	v
+H_A	listings/hfft_accuracy.py	/^    H_A = [np.gradient(Agrad[ax0], axis=ax1)$/;"	v
+H_B	listings/hfft_accuracy.py	/^    H_B = [np.gradient(Bgrad[ax0], axis=ax1)$/;"	v
+H_C	listings/hfft_accuracy.py	/^    H_C = [np.gradient(Cgrad[ax0], axis=ax1)$/;"	v
+IMGS	listings/preprocessing.py	/^    IMGS = np.vstack(($/;"	v
+Implementations	manuscript/implementations.tex	/^\\chapter{Implementations} \\label{ch:implementations}$/;"	c
+Introduction	manuscript/introduction.tex	/^\\chapter{Introduction} \\label{ch:introduction}$/;"	c
+Knowns and Unknowns	manuscript/research_protocol.tex	/^\\subsection{Knowns and Unknowns}$/;"	u	section:Research Protocol""Samples / Image Domain
+L	listings/scale_sweep_demo.py	/^            L = fi$/;"	v
+L	listings/scale_sweep_demo_old.py	/^            L = fi$/;"	v
+L	listings/signed_sweep_demo.py	/^            L = fi$/;"	v
+LO_offset	listings/extract_NCS_pcsvn.py	/^LO_offset = 8$/;"	v
+Linear Scale Space Theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	s	chapter:Mathematical Methods
+M	listings/boundarycalcs.py	/^M = img.mask$/;"	v
+M	listings/farm_samples.py	/^M = perimeter.copy()$/;"	v
+MAKE_NPZ_FILES	listings/extract_NCS_pcsvn.py	/^MAKE_NPZ_FILES = True  # pickle frangi targets if you can$/;"	v
+Mathematical Methods	manuscript/mathematical_methods.tex	/^\\chapter{Mathematical Methods} \\label{ch:mathematical-methods}$/;"	c
+Multiscale Setup	manuscript/research_protocol.tex	/^\\section{Multiscale Setup}$/;"	s	chapter:Research Protocol
+N	listings/hfft_demo.py	/^N = 5$/;"	v
+NOT	listings/recentmash.py	/^NOT = np.invert$/;"	v
+NPZ_DIR	listings/extract_NCS_pcsvn.py	/^NPZ_DIR = 'output\/181122-bigrun'  # where to look for npz files$/;"	v
+OUTPUT_DIR	listings/alpha_sweep_demo.py	/^OUTPUT_DIR = 'output\/newalpha'$/;"	v
+OUTPUT_DIR	listings/extract_NCS_pcsvn.py	/^OUTPUT_DIR = 'output\/181122-bigrun'  # where to save outputs$/;"	v
+OUTPUT_DIR	listings/vessel_filters.py	/^    OUTPUT_DIR = 'fpd_new_output'$/;"	v
+Preliminaries of Differential Geometry	manuscript/mathematical_methods.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Mathematical Methods""Differential Geometry
+Principal Curvatures and Principal Directions	manuscript/mathematical_methods.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Mathematical Methods""Differential Geometry
+Problem Setup in Image Processing	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Mathematical Methods
+R	listings/scale_sweep_demo.py	/^        R = max(int(sigma*3), 10) # only really necessary for signed$/;"	v
+R	listings/signed_sweep_demo.py	/^        R = max(int(sigma*3), 10)$/;"	v
+REMOVE_GLARE	listings/extract_NCS_pcsvn.py	/^REMOVE_GLARE = True$/;"	v
+Research Protocol	manuscript/research_protocol.tex	/^\\chapter{Research Protocol} \\label{ch:research-protocol}$/;"	c
+Results	manuscript/results_analysis.tex	/^\\section{Results}$/;"	s	chapter:Results and Analysis
+Results and Analysis	manuscript/results_analysis.tex	/^\\chapter{Results and Analysis} \\label{ch:results-analysis}$/;"	c
+Review of Work	manuscript/conclusion.tex	/^\\section{Review of Work}$/;"	s	chapter:Conclusion
+S	figures/add_sobel_border_demo/sobelmashfinal.py	/^S = dilate_boundary(S, radius=20, mask=img.mask)$/;"	v
+S	figures/add_sobel_border_demo/sobelmashfinal.py	/^S = sobel(img)$/;"	v
+S	listings/finalfigstoshowmash.py	/^S = dilate_boundary(S, mask=img.mask, radius=10).filled(0)$/;"	v
+S	listings/finalfigstoshowmash.py	/^S = sobel(img)$/;"	v
+S	listings/recentmash.py	/^S = sr > .05$/;"	v
+S	listings/visualize_sobel.py	/^S = dilate_boundary(S, mask=img.mask).filled(0)$/;"	v
+S	listings/visualize_sobel.py	/^S = sobel(img)$/;"	v
+SIGNED_FRANGI	listings/extract_NCS_pcsvn.py	/^SIGNED_FRANGI = False$/;"	v
+SUBDIR	listings/vessel_filters.py	/^    SUBDIR = ''.join(('', n.strftime('%y%m%d_%H%M')))$/;"	v
+Sample visual output	manuscript/results_analysis.tex	/^\\section{Sample visual output}$/;"	s	chapter:Results and Analysis
+Samples / Image Domain	manuscript/research_protocol.tex	/^\\section{Samples \/ Image Domain}\\label{sec:NCS-data-set}$/;"	s	chapter:Research Protocol
+Scale Spaces over Discrete Structures	manuscript/mathematical_methods.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	section:Mathematical Methods""Linear Scale Space Theory
+Sthresh	figures/add_sobel_border_demo/sobelmashfinal.py	/^Sthresh = (S > nz_percentile(S,90))$/;"	v
+Structureness measure	manuscript/mathematical_methods.tex	/^    \\subsection{Structureness measure} \\label{sec:frangi-structureness}$/;"	u	section:Mathematical Methods""The Frangi Filter: Uniscale
+T	listings/finalfigstoshowmash.py	/^T = merge_widths(TA, TV, strategy='arteries')$/;"	v
+TA	listings/finalfigstoshowmash.py	/^TA = open_typefile(filename, 'arteries')$/;"	v
+TN	listings/alpha_sweep_demo.py	/^    TP, TN, FP, FN = counts$/;"	v
+TN	listings/extract_NCS_pcsvn.py	/^    TP, TN, FP, FN = counts # return these for more analysis?$/;"	v
+TP	listings/alpha_sweep_demo.py	/^    TP, TN, FP, FN = counts$/;"	v
+TP	listings/extract_NCS_pcsvn.py	/^    TP, TN, FP, FN = counts # return these for more analysis?$/;"	v
+TRACE_COLORS	listings/score.py	/^TRACE_COLORS = {$/;"	v
+TRACE_COLORS	listings/scoring.py	/^TRACE_COLORS = {$/;"	v
+TT	listings/finalfigstoshowmash.py	/^TT = _$/;"	v
+TV	listings/finalfigstoshowmash.py	/^TV = open_typefile(filename, 'veins')$/;"	v
+The Frangi Filter: A multiscale approach	manuscript/mathematical_methods.tex	/^    \\section{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	s	chapter:Mathematical Methods
+The Frangi Filter: Uniscale	manuscript/mathematical_methods.tex	/^\\section{The Frangi Filter: Uniscale} \\label{sec:frangi}$/;"	s	chapter:Mathematical Methods
+The Frangi vesselness filter: Choosing parameters $\\beta$ and $c$	manuscript/mathematical_methods.tex	/^    \\subsection{The Frangi vesselness filter: Choosing parameters $\\beta$ and $c$}$/;"	u	section:Mathematical Methods""The Frangi Filter: Uniscale
+The Frangi vesselness measure	manuscript/mathematical_methods.tex	/^    \\subsection{The Frangi vesselness measure}$/;"	u	section:Mathematical Methods""The Frangi Filter: Uniscale
+The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mathematical_methods.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Mathematical Methods""Differential Geometry
+The confusion matrix	manuscript/results_analysis.tex	/^\\subsection{The confusion matrix}$/;"	u	section:Results and Analysis""Sample visual output
+Thresholding	manuscript/mathematical_methods.tex	/^    \\subsection{Thresholding}$/;"	u	section:Mathematical Methods""The Frangi Filter: A multiscale approach
+USE_NPZ_FILES	listings/extract_NCS_pcsvn.py	/^USE_NPZ_FILES = True   # use old npz files if you can$/;"	v
+Uniqueness of the Gaussian Kernel	manuscript/mathematical_methods.tex	/^    \\subsection{Uniqueness of the Gaussian Kernel}$/;"	u	section:Mathematical Methods""Linear Scale Space Theory
+V_trace	listings/extract_NCS_pcsvn.py	/^    V_trace = open_typefile(filename, 'veins')$/;"	v
+Variations in the Data Set and Imperfections of the Ground Truth	manuscript/results_analysis.tex	/^\\section{Variations in the Data Set and Imperfections of the Ground Truth}$/;"	s	chapter:Results and Analysis
+WA	listings/finalfigstoshowmash.py	/^WA = get_widths_from_trace(TA)$/;"	v
+WV	listings/finalfigstoshowmash.py	/^WV = get_widths_from_trace(TV)$/;"	v
+WV	listings/finalfigstoshowmash.py	/^WV = get_widths_from_veins(TV)$/;"	v
+X	listings/cutfixer.py	/^X, Y = cutmarks[0][0], cutmarks[1][0]$/;"	v
+Y	listings/cutfixer.py	/^X, Y = cutmarks[0][0], cutmarks[1][0]$/;"	v
+YELLOW	listings/placenta.py	/^YELLOW = [255, 255, 0]$/;"	v
+Z	listings/recentmash.py	/^Z = imread('zigg.jpg', 'RGB')$/;"	v
+Z	listings/visualize_sobel.py	/^Z = np.zeros_like(S)$/;"	v
+_	figures/add_sobel_border_demo/sobelmashfinal.py	/^Fneg, _ = extract_pcsvn(filename, DARK_BG=True, alphas=None, betas=betas, scales=scales, gammas=/;"	v
+_	figures/add_sobel_border_demo/sobelmashfinal.py	/^negapprox, _ = apply_threshold(Fneg, negalphas)$/;"	v
+_	listings/abbreviate_NCS_names.py	/^    newbase, _  = basename.split('_', maxsplit=1)$/;"	v
+_	listings/alpha_sweep_demo.py	/^    F, img, _ , _ = extract_pcsvn(filename, DARK_BG=DARK_BG,$/;"	v
+_	listings/cut_demo.py	/^        filestub, _ = os.path.splitext(filename)$/;"	v
+_build_scale_colormap	listings/pcsvn.py	/^def _build_scale_colormap(N_scales, base_colormap, basecolor=(0,0,0,1)):$/;"	f
+_cropped_bounds	listings/get_placenta.py	/^def _cropped_bounds(img, mask=None):$/;"	f
+_cropped_bounds	listings/placenta.py	/^def _cropped_bounds(img, mask=None):$/;"	f
+_hex_to_rgb	listings/score.py	/^def _hex_to_rgb(hexstring):$/;"	f
+_hex_to_rgb	listings/scoring.py	/^def _hex_to_rgb(hexstring):$/;"	f
+_longest_chain_1d	listings/scoring.py	/^def _longest_chain_1d(iterable):$/;"	f
+_old_test	listings/hfft.py	/^def _old_test():$/;"	f
+_outname	listings/process_NCS_xcfs.py	/^def _outname(base, s=None):$/;"	f
+a	listings/vessel_filters.py	/^    a = all_targets$/;"	v
+abbreviations	listings/abbreviate_NCS_names.py	/^abbreviations = dict()$/;"	v
+add_ucip_to_mask	listings/placenta.py	/^def add_ucip_to_mask(m, radius=100, mask=None, size_like=None):$/;"	f
+ak1	listings/hfft_accuracy.py	/^    ak1 = ma.masked_array(ak1,new_mask)$/;"	v
+ak1	listings/hfft_accuracy.py	/^    ak1, ak2 = principal_curvatures(img, sigma=sigma, H=H_A)$/;"	v
+ak2	listings/hfft_accuracy.py	/^    ak1, ak2 = principal_curvatures(img, sigma=sigma, H=H_A)$/;"	v
+ak2	listings/hfft_accuracy.py	/^    ak2 = ma.masked_array(ak2,new_mask)$/;"	v
+all_targets	listings/vessel_filters.py	/^    all_targets = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
+alphas	listings/alpha_sweep_demo.py	/^alphas = scales**(2\/3) \/ scales[-1]$/;"	v
+alphas	listings/extract_NCS_pcsvn.py	/^        alphas = np.array([nz_percentile(F[:, :, k], 95.0)$/;"	v
+alphas	listings/extract_NCS_pcsvn.py	/^alphas = None # none to set later$/;"	v
+anisotropy	listings/frangi.py	/^def anisotropy(K1,K2, beta=None):$/;"	f
+ans	listings/vessel_filters.py	/^        ans = input('save path already exists! would you like to continue? [y\/N]')$/;"	v
+apply_threshold	listings/merging.py	/^def apply_threshold(targets, alphas, return_labels=True):$/;"	f
+approx	listings/alpha_sweep_demo.py	/^    approx, labs = apply_threshold(F, alphas, return_labels=True)$/;"	v
+approx	listings/extract_NCS_pcsvn.py	/^    approx, labs = apply_threshold(F, alphas, return_labels=True)$/;"	v
+approx2	listings/finalfigstoshowmash.py	/^approx2 = _$/;"	v
+approx3	listings/finalfigstoshowmash.py	/^approx3=(F[:,:,5:-5].max(axis=-1) > .15)$/;"	v
+approx3	listings/finalfigstoshowmash.py	/^approx3=(F[:,:,:5].max(axis=-1) > .15)$/;"	v
+approx_FA	listings/extract_NCS_pcsvn.py	/^    approx_FA, labs_FA = apply_threshold(F, fixed_alpha)$/;"	v
+approx_rw	listings/add_margins.py	/^approx_rw = (rw==2)$/;"	v
+approx_rw	listings/extract_NCS_pcsvn.py	/^    approx_rw = (rw == 2)$/;"	v
+ax1	listings/scale_sweep_demo.py	/^        ax1 = fig.add_axes([0.15, 0.25, 0.75, 0.5])$/;"	v
+ax1	listings/signed_sweep_demo.py	/^        ax1 = fig.add_axes([0.15, 0.25, 0.75, 0.5])$/;"	v
+axes	listings/hfft_accuracy.py	/^    axes = range(img.ndim)$/;"	v
+axes	listings/plate_morphology.py	/^    fig, axes = plt.subplots(ncols=2, nrows=3)$/;"	v
+axes	listings/preprocessing.py	/^    fig, axes = plt.subplots(ncols=3, nrows=2)$/;"	v
+axes	listings/scale_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
+axes	listings/signed_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
+axiom:causality	manuscript/mathematical_methods.tex	/^   \\begin{axiom}[Causality Conditon] \\label{axiom:causality}$/;"	l
+axiom:continuity	manuscript/mathematical_methods.tex	/^    	\\label{axiom:continuity} There is no reason for the scale parameter to be discrete; we may/;"	l
+axiom:linear-shift-and-rotation	manuscript/mathematical_methods.tex	/^    	\\label{axiom:linear-shift-and-rotation}$/;"	l
+axiom:semigroup	manuscript/mathematical_methods.tex	/^    \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
+b	listings/boundarycalcs.py	/^b = _$/;"	v
+b	listings/vessel_filters.py	/^b = partial(plt.imshow, cmap=plt.cm.Blues)$/;"	v
+basename	listings/abbreviate_NCS_names.py	/^        basename, subtype = os.path.splitext(basename)$/;"	v
+basename	listings/abbreviate_NCS_names.py	/^    basename, ext = os.path.splitext(f)$/;"	v
+beta	listings/vessel_filters.py	/^        beta = min(.09*sigma - .04, .5)$/;"	v
+betas	listings/alpha_sweep_demo.py	/^betas = None$/;"	v
+betas	listings/extract_NCS_pcsvn.py	/^betas = None  # None -> use default parameters (0.5)$/;"	v
+binpainted	listings/preprocessing.py	/^    binpainted = inpaint_with_biharmonic(img)$/;"	v
+binpainted_view	listings/preprocessing.py	/^    binpainted_view = show_mask(binpainted, interactive=False,$/;"	v
+bk1	listings/hfft_accuracy.py	/^    bk1 = ma.masked_array(bk1,new_mask)$/;"	v
+bk1	listings/hfft_accuracy.py	/^    bk1, bk2 = principal_curvatures(img, sigma=sigma, H=H_B)$/;"	v
+bk2	listings/hfft_accuracy.py	/^    bk1, bk2 = principal_curvatures(img, sigma=sigma, H=H_B)$/;"	v
+bk2	listings/hfft_accuracy.py	/^    bk2 = ma.masked_array(bk2,new_mask)$/;"	v
+blur	listings/hfft.py	/^def blur(img, sigma):$/;"	f
+bottom	listings/scale_sweep_demo_old.py	/^        bottom = np.concatenate(L[4:],axis=1)$/;"	v
+bound	listings/boundarycalcs.py	/^bound = mark_boundaries(np.zeros_like(M),M)$/;"	v
+bounds	listings/boundarycalcs.py	/^bounds = find_boundaries(img.mask)$/;"	v
+c	listings/scale_sweep_demo.py	/^            c = plt.colorbar()$/;"	v
+c	listings/scale_sweep_demo_old.py	/^            c = plt.colorbar()$/;"	v
+c2d	listings/extract_NCS_pcsvn.py	/^    c2d = lambda t: dict(zip(('TP','TN', 'FP', 'FN'), [int(c) for c in t]))$/;"	f
+capprox	listings/finalfigstoshowmash.py	/^capprox = np.logical_or(fs > .0005,approx)$/;"	v
+cbar	listings/scale_sweep_demo.py	/^        cbar = mpl.colorbar.ColorbarBase(ax1, cmap=CMAP,$/;"	v
+cbar	listings/signed_sweep_demo.py	/^        cbar = mpl.colorbar.ColorbarBase(ax1, cmap=CMAP,$/;"	v
+cfile	listings/scale_sweep_demo.py	/^        cfile = 'demo_output\/scalesweep_colorbar.png'$/;"	v
+cfile	listings/signed_sweep_demo.py	/^        cfile = 'demo_output\/signsweep_colorbar.png'$/;"	v
+ch:conclusion	manuscript/conclusion.tex	/^\\chapter{Conclusion} \\label{ch:conclusion}$/;"	l
+ch:implementations	manuscript/implementations.tex	/^\\chapter{Implementations} \\label{ch:implementations}$/;"	l
+ch:introduction	manuscript/introduction.tex	/^\\chapter{Introduction} \\label{ch:introduction}$/;"	l
+ch:mathematical-methods	manuscript/mathematical_methods.tex	/^\\chapter{Mathematical Methods} \\label{ch:mathematical-methods}$/;"	l
+ch:research-protocol	manuscript/research_protocol.tex	/^\\chapter{Research Protocol} \\label{ch:research-protocol}$/;"	l
+ch:results-analysis	manuscript/results_analysis.tex	/^\\chapter{Results and Analysis} \\label{ch:results-analysis}$/;"	l
+chain_lengths	listings/scoring.py	/^def chain_lengths(iterable):$/;"	f
+check_filetype	listings/get_placenta.py	/^def check_filetype(filename, assert_png=True, assert_standard=False):$/;"	f
+check_filetype	listings/placenta.py	/^def check_filetype(filename, assert_png=True, assert_standard=False):$/;"	f
+ck1	listings/hfft_accuracy.py	/^    ck1 = ma.masked_array(ck1,new_mask)$/;"	v
+ck1	listings/hfft_accuracy.py	/^    ck1, ck2 = principal_curvatures(img, sigma=sigma, H=H_C)$/;"	v
+ck2	listings/hfft_accuracy.py	/^    ck1, ck2 = principal_curvatures(img, sigma=sigma, H=H_C)$/;"	v
+ck2	listings/hfft_accuracy.py	/^    ck2 = ma.masked_array(ck2,new_mask)$/;"	v
+cmax	listings/cut_demo.py	/^                cmin, cmax = max(0, P[1]-W), min(img.shape[1], P[1]+W)$/;"	v
+cmax	listings/scale_sweep_demo.py	/^    cmin, cmax = (0, 0.4)$/;"	v
+cmax	listings/scale_sweep_demo_old.py	/^    cmin, cmax = (0, 0.4)$/;"	v
+cmax	listings/signed_sweep_demo.py	/^    cmin, cmax = (-0.4, 0.4)$/;"	v
+cmaxv	listings/cut_demo.py	/^        cminv, cmaxv = max(0, cmin-W\/\/2), min(img.shape[1], cmax+W\/\/2)$/;"	v
+cmin	listings/cut_demo.py	/^                cmin, cmax = max(0, P[1]-W), min(img.shape[1], P[1]+W)$/;"	v
+cmin	listings/scale_sweep_demo.py	/^    cmin, cmax = (0, 0.4)$/;"	v
+cmin	listings/scale_sweep_demo_old.py	/^    cmin, cmax = (0, 0.4)$/;"	v
+cmin	listings/signed_sweep_demo.py	/^    cmin, cmax = (-0.4, 0.4)$/;"	v
+cminv	listings/cut_demo.py	/^        cminv, cmaxv = max(0, cmin-W\/\/2), min(img.shape[1], cmax+W\/\/2)$/;"	v
+collar	listings/recentmash.py	/^collar = _449$/;"	v
+collar	listings/recentmash.py	/^collar = np.logical_and(D, img.mask)$/;"	v
+collar	listings/recentmash.py	/^collar = np.logical_and(D, np.invert(img.mask))$/;"	v
+collar	listings/recentmash.py	/^collar = np.logical_and(D, np.ones_like(img.mask))$/;"	v
+collar	listings/recentmash.py	/^collar = np.logical_or(D, img.mask)$/;"	v
+comb	listings/visualize_sobel.py	/^comb = np.dstack((Fmax \/ Fmax.max(),S,Z))$/;"	v
+compare_trace	listings/score.py	/^def compare_trace(approx, trace=None, filename=None,$/;"	f
+compare_trace	listings/scoring.py	/^def compare_trace(approx, trace=None, filename=None,$/;"	f
+confuse	listings/extract_NCS_pcsvn.py	/^    confuse = confusion(approx, trace, bg_mask=ucip_mask)$/;"	v
+confuse_FA	listings/extract_NCS_pcsvn.py	/^    confuse_FA = confusion(approx_FA, trace, bg_mask=ucip_mask)$/;"	v
+confuse_margins	listings/extract_NCS_pcsvn.py	/^    confuse_margins = confusion(margins_added, trace, bg_mask=ucip_mask)$/;"	v
+confuse_rw	listings/extract_NCS_pcsvn.py	/^    confuse_rw = confusion(approx_rw, trace, bg_mask=ucip_mask)$/;"	v
+confusion	listings/alpha_sweep_demo.py	/^    confusion = compare_trace(approx, filename=filename)$/;"	v
+confusion	listings/score.py	/^def confusion(test, truth, bg_mask=None, colordict=None, tint_mask=True):$/;"	f
+confusion	listings/scoring.py	/^def confusion(test, truth, bg_mask=None, colordict=None, tint_mask=True):$/;"	f
+confusion_rw	listings/add_margins.py	/^confusion_rw = confusion(approx_rw, trace, bg_mask=ucip_mask)$/;"	v
+counts	listings/alpha_sweep_demo.py	/^    m_score, counts = mcc(approx, trace, img.mask, return_counts=True)$/;"	v
+counts	listings/extract_NCS_pcsvn.py	/^    m_score, counts = mcc(approx, trace, ucip_mask, return_counts=True)$/;"	v
+counts_FA	listings/extract_NCS_pcsvn.py	/^    m_score_FA, counts_FA = mcc(approx_FA, trace, ucip_mask,$/;"	v
+counts_rw	listings/extract_NCS_pcsvn.py	/^    m_score_rw, counts_rw = mcc(approx_rw, trace, ucip_mask,$/;"	v
+crop	listings/alpha_sweep_demo.py	/^    crop = cropped_args(img)$/;"	v
+crop	listings/extract_NCS_pcsvn.py	/^    crop = cropped_args(img)  # these indices crop out the mask significantly$/;"	v
+crop	listings/preprocessing.py	/^    crop = np.s_[150:500, 150:800]  # indices to zoom in on the region$/;"	v
+crop	listings/scale_sweep_demo.py	/^    crop = cropped_args(img)$/;"	v
+crop	listings/signed_sweep_demo.py	/^    crop = cropped_args(img)$/;"	v
+cropped_args	listings/get_placenta.py	/^def cropped_args(img, mask=None):$/;"	f
+cropped_args	listings/placenta.py	/^def cropped_args(img, mask=None):$/;"	f
+cropped_view	listings/get_placenta.py	/^def cropped_view(img, mask=None):$/;"	f
+cropped_view	listings/placenta.py	/^def cropped_view(img, mask=None):$/;"	f
+ctrace	figures/add_sobel_border_demo/sobelmashfinal.py	/^ctrace = open_typefile(filename, 'ctrace')$/;"	v
+cutfix	listings/cutfixer.py	/^cutfix = watershed(A.filled(255) < threshold, markers=markers)$/;"	v
+cutfix	listings/cutfixer.py	/^cutfix = watershed(img.filled(255) < threshold, markers=markers)$/;"	v
+cutinds	listings/cut_demo.py	/^        cutinds = np.stack(cutmarks)$/;"	v
+cutmarks	listings/cut_demo.py	/^        cutmarks = np.nonzero(thin(B))$/;"	v
+cutmarks	listings/cutfixer.py	/^cutmarks = np.nonzero(np.all(ucip==(0,0,255), axis=-1))$/;"	v
+cutregion	listings/cutfixer.py	/^cutregion = np.s_[X-100:X+100, Y-100:Y+100]$/;"	v
+cx	listings/farm_samples.py	/^cx, cy = img.height \/\/ 2 , img.width \/\/ 2$/;"	v
+cy	listings/farm_samples.py	/^cx, cy = img.height \/\/ 2 , img.width \/\/ 2$/;"	v
+d	listings/recentmash.py	/^d = dilate_boundary(None, radius=20, mask=img.mask)$/;"	v
+dconvolution	manuscript/mathematical_methods.tex	/^    \\begin{lemma} \\label{dconvolution}$/;"	l
+def:curve-on-a-surface	manuscript/mathematical_methods.tex	/^ \\begin{defn}[Surface curve] \\label{def:curve-on-a-surface}$/;"	l
+def:differential-map	manuscript/mathematical_methods.tex	/^\\begin{defn}[The differential of $f$ at a point $u$] \\label{def:differential-map}$/;"	l
+def:gauss-map	manuscript/mathematical_methods.tex	/^	\\begin{defn}[The Gauss Map] \\label{def:gauss-map}$/;"	l
+def:graph	manuscript/mathematical_methods.tex	/^    \\begin{defn} \\label{def:graph}$/;"	l
+def:image_as_pixel_matrix	manuscript/mathematical_methods.tex	/^\\begin{defn}[Image as a pixel matrix] \\label{def:image_as_pixel_matrix}$/;"	l
+def:image_as_surface	manuscript/mathematical_methods.tex	/^\\begin{defn}[Image as an interpolated surface] \\label{def:image_as_surface}$/;"	l
+def:normal-curvature	manuscript/mathematical_methods.tex	/^	\\begin{defn} \\label{def:normal-curvature}$/;"	l
+def:tangent-at-U	manuscript/mathematical_methods.tex	/^    \\begin{defn}[Tangent space of $U$ at $u$] \\label{def:tangent-at-U}$/;"	l
+def:tangent-plane	manuscript/mathematical_methods.tex	/^\\begin{defn}[Tangent plane of a graph]\\label{def:tangent-plane}$/;"	l
+def:wein-map	manuscript/mathematical_methods.tex	/^	\\begin{defn}[The Weingarten Map] \\label{def:wein-map}$/;"	l
+delta_multiple	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{delta_multiple}$/;"	l
+demo1	listings/scale_sweep_demo.py	/^demo1 = 'BN2315363', np.s_[370:670, 530:930]$/;"	v
+demo1	listings/scale_sweep_demo_old.py	/^demo1 = 'BN2315363', np.s_[370:670, 530:930]$/;"	v
+demo1	listings/signed_sweep_demo.py	/^demo1 = 'BN2315363', np.s_[370:670, 530:930]$/;"	v
+demo2	listings/scale_sweep_demo.py	/^demo2 = 'BN5280796', np.s_[150:450, 530:930]$/;"	v
+demo2	listings/scale_sweep_demo_old.py	/^demo2 = 'BN5280796', np.s_[150:450, 530:930]$/;"	v
+demo2	listings/signed_sweep_demo.py	/^demo2 = 'BN5280796', np.s_[150:450, 530:930]$/;"	v
+dest_dir	listings/plate_morphology.py	/^    dest_dir = 'demo_output'$/;"	v
+dft_conv_lemma	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{dft_conv_lemma}$/;"	l
+dft_conv_lemma_factors	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{dft_conv_lemma_factors}$/;"	l
+diff	listings/hfft_demo.py	/^    diff = np.abs(f \/ norm(f) - s \/ norm(s))$/;"	v
+dilate_boundary	listings/plate_morphology.py	/^def dilate_boundary(img, radius=10, mask=None):$/;"	f
+dilated_border	listings/boundarycalcs.py	/^dilated_border = binary_dilation(bounds, selem=disk(20))$/;"	v
+dilated_border	listings/boundarycalcs.py	/^dilated_border = binary_dilation(bounds, selem=disk(int(sigma)))$/;"	v
+dilcut	listings/cut_demo.py	/^        dilcut = img.copy()$/;"	v
+discrete_gaussian_kernel	listings/hfft.py	/^def discrete_gaussian_kernel(n_samples, t):$/;"	f
+e	listings/vessel_filters.py	/^        e = extracted_all[:,:,i]$/;"	v
+el	listings/vessel_filters.py	/^        el, nl = label(e, return_num=True)$/;"	v
+eq:2D-dft-rearrangement	manuscript/mathematical_methods.tex	/^\\begin{align} \\label{eq:2D-dft-rearrangement}$/;"	l
+eq:derived-family-from-discrete	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{eq:derived-family-from-discrete}$/;"	l
+eq:expand_accel_norm	manuscript/mathematical_methods.tex	/^	&=  \\inner{X}{-\\frac{\\partial \\nu}{\\partial t}} \\label{eq:expand_accel_norm}$/;"	l
+eq:expand_accel_norm_final	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{eq:expand_accel_norm_final}$/;"	l
+eq:frangi-max-matrix	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:frangi-max-matrix}$/;"	l
+eq:frangi-vesselness-measure	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:frangi-vesselness-measure}$/;"	l
+eq:frangi-vesselness-measure-v1	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:frangi-vesselness-measure-v1}$/;"	l
+eq:gaussmap_dt_expanded	manuscript/mathematical_methods.tex	/^	\\theta_2'(t)\\left( - \\frac{\\partial \\nu}{\\partial u_2} \\right) \\label{eq:gaussmap_dt_ex/;"	l
+eq:heat-eq-for-family	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:heat-eq-for-family}$/;"	l
+eq:infinitesimal-generator	manuscript/mathematical_methods.tex	/^	\\begin{equation} \\label{eq:infinitesimal-generator}$/;"	l
+eq:luma_transform	manuscript/research_protocol.tex	/^    \\begin{equation} \\label{eq:luma_transform}$/;"	l
+eq:meusnier_acceleration	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{eq:meusnier_acceleration}$/;"	l
+ext	listings/abbreviate_NCS_names.py	/^    basename, ext = os.path.splitext(f)$/;"	v
+extract_pcsvn	listings/pcsvn.py	/^def extract_pcsvn(img, filename, scales, betas=None, gammas=None, dark_bg=True,$/;"	f
+extracted	listings/vessel_filters.py	/^        extracted = vessel_filter(t, t1, sigma, length_ratio=.5, verbose=True)$/;"	v
+extracted_all	listings/vessel_filters.py	/^    extracted_all = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
+f	listings/hfft_demo.py	/^    f = eval(fft_test_statement)$/;"	v
+false_neg_color	listings/score.py	/^    false_neg_color = np.array([241,163,64], dtype='f')# 'f1a340'$/;"	v
+false_neg_color	listings/scoring.py	/^    false_neg_color = np.array([241,163,64], dtype='f')# 'f1a340'$/;"	v
+false_pos_color	listings/score.py	/^    false_pos_color = np.array([153,142,195], dtype='f') # '998ec4'$/;"	v
+false_pos_color	listings/scoring.py	/^    false_pos_color = np.array([153,142,195], dtype='f') # '998ec4'$/;"	v
+fft-kernelidentities	manuscript/mathematical_methods.tex	/^\\begin{gather} \\label{fft-kernelidentities}$/;"	l
+fft-oddeven-parens	manuscript/mathematical_methods.tex	/^\\label{fft-oddeven-parens}$/;"	l
+fft-oddeven-parens-plusK	manuscript/mathematical_methods.tex	/^\\label{fft-oddeven-parens-plusK}$/;"	l
+fft-oddeven-subdfts	manuscript/mathematical_methods.tex	/^\\begin{align} \\label{fft-oddeven-subdfts}$/;"	l
+fft_dgk	listings/hfft.py	/^def fft_dgk(img,sigma,order=0,A=None):$/;"	f
+fft_fdgk	listings/hfft.py	/^def fft_fdgk(img,sigma):$/;"	f
+fft_gaussian	listings/hfft.py	/^def fft_gaussian(img,sigma,A=None):$/;"	f
+fft_gradient	listings/hfft.py	/^def fft_gradient(image, sigma=1.):$/;"	f
+fft_hessian	listings/hfft.py	/^def fft_hessian(image, sigma=1., kernel=None):$/;"	f
+fft_results	listings/hfft_demo.py	/^fft_results = list()$/;"	v
+fft_test_statement	listings/hfft_demo.py	/^    fft_test_statement = 'fft_gaussian(img,{})'.format(sigma)$/;"	v
+fftpack	listings/hfft.py	/^import scipy.fftpack as fftpack$/;"	I
+fi	listings/scale_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+fi	listings/scale_sweep_demo_old.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+fi	listings/signed_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
+fig	listings/plate_morphology.py	/^    fig, axes = plt.subplots(ncols=2, nrows=3)$/;"	v
+fig	listings/preprocessing.py	/^    fig, axes = plt.subplots(ncols=3, nrows=2)$/;"	v
+fig	listings/scale_sweep_demo.py	/^        fig = plt.figure(figsize=(figsize[0],2))$/;"	v
+fig	listings/scale_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
+fig	listings/signed_sweep_demo.py	/^        fig = plt.figure(figsize=(figsize[0],2))$/;"	v
+fig	listings/signed_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
+fig:NCSlayers	manuscript/research_protocol.tex	/^\\label{fig:NCSlayers}$/;"	l
+fig:NCSlayers-A	manuscript/research_protocol.tex	/^        \\label{fig:NCSlayers-A}\\includegraphics[width=80mm]{{{T-BN0164923_arteries_overlay}}}$/;"	l
+fig:NCSlayers-P	manuscript/research_protocol.tex	/^        \\label{fig:NCSlayers-P}\\includegraphics[width=80mm]{{{T-BN0164923_perimeter_overlay}}}$/;"	l
+fig:NCSlayers-T	manuscript/research_protocol.tex	/^        \\label{fig:NCSlayers-T}\\includegraphics[width=80mm]{{{T-BN0164923_all_layers_overlay}}/;"	l
+fig:NCSlayers-V	manuscript/research_protocol.tex	/^        \\label{fig:NCSlayers-V}\\includegraphics[width=80mm]{{{T-BN0164923_veins_overlay}}}$/;"	l
+fig:NCSlayers-raw	manuscript/research_protocol.tex	/^    \\subfloat[Fixed Placental Sample]{        \\label{fig:NCSlayers-raw}\\includegraphics[width/;"	l
+fig:NCSoutput-base	manuscript/research_protocol.tex	/^        \\label{fig:NCSoutput-base}\\includegraphics[width=80mm]{{{T-BN0164923}}}$/;"	l
+fig:NCSoutput-gray	manuscript/research_protocol.tex	/^        \\label{fig:NCSoutput-gray}\\includegraphics[width=80mm]{{{T-BN0164923.L}}}$/;"	l
+fig:NCSoutput-mask	manuscript/research_protocol.tex	/^        \\label{fig:NCSoutput-mask}\\includegraphics[width=80mm]{{{T-BN0164923.mask}}}$/;"	l
+fig:NCSoutput-trace	manuscript/research_protocol.tex	/^        \\label{fig:NCSoutput-trace}\\includegraphics[width=80mm]{{{T-BN0164923.trace}}}$/;"	l
+fig:Tuf	manuscript/mathematical_methods.tex	/^		\\label{fig:Tuf} $/;"	l
+fig:anisotropy-parameter-demo	manuscript/mathematical_methods.tex	/^      \\label{fig:anisotropy-parameter-demo}$/;"	l
+fig:boundary-demo	manuscript/research_protocol.tex	/^        \\label{fig:boundary-demo}$/;"	l
+fig:cross-sec-F-sigma=0.3	manuscript/implementations.tex	/^    \\label{fig:cross-sec-F-sigma=0.3}$/;"	l
+fig:cross-sec-F-sigma=5	manuscript/implementations.tex	/^  \\label{fig:cross-sec-F-sigma=5}$/;"	l
+fig:cross-sec-G-sigma=0.3	manuscript/implementations.tex	/^  \\label{fig:cross-sec-G-sigma=0.3}$/;"	l
+fig:cross-sec-G-sigma=5	manuscript/implementations.tex	/^  \\label{fig:cross-sec-G-sigma=5}$/;"	l
+fig:cutdemo	manuscript/research_protocol.tex	/^        \\label{fig:cutdemo}$/;"	l
+fig:exampleNCSoutput	manuscript/research_protocol.tex	/^\\begin{figure}\\label{fig:exampleNCSoutput}     \\centering$/;"	l
+fig:expo-principal-curvatures	manuscript/mathematical_methods.tex	/^    	 \\label{fig:expo-principal-curvatures}$/;"	l
+fig:fft-gaussian-demo	manuscript/implementations.tex	/^  \\label{fig:fft-gaussian-demo}$/;"	l
+fig:glare-example-crop	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-crop}$/;"	l
+fig:glare-example-zoom	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-zoom}$/;"	l
+fig:ridge-graph	manuscript/mathematical_methods.tex	/^  \\label{fig:ridge-graph}$/;"	l
+fig:scalesweep-1	manuscript/research_protocol.tex	/^    \\label{fig:scalesweep-1}$/;"	l
+fig:scalesweep-1c	manuscript/research_protocol.tex	/^        \\label{fig:scalesweep-1c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}/;"	l
+fig:scalesweep-1i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-1i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
+fig:scalesweep-1p	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-1p}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
+fig:scalesweep-2	manuscript/research_protocol.tex	/^    \\label{fig:scalesweep-2}$/;"	l
+fig:scalesweep-2c	manuscript/research_protocol.tex	/^        \\label{fig:scalesweep-2c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}/;"	l
+fig:scalesweep-2i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
+fig:scalesweep-2p	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2p}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
+fig:semigroup-demo	manuscript/implementations.tex	/^  \\label{fig:semigroup-demo}$/;"	l
+fig:signsweep-1	manuscript/conclusion.tex	/^	\\label{fig:signsweep-1}$/;"	l
+fig:signsweep-1c	manuscript/conclusion.tex	/^		\\label{fig:signsweep-1c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
+fig:signsweep-1i	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-1i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-1p	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-1p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-2	manuscript/conclusion.tex	/^	\\label{fig:signsweep-2}$/;"	l
+fig:signsweep-2c	manuscript/conclusion.tex	/^		\\label{fig:signsweep-2c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
+fig:signsweep-2i	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-2i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-2p	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-2p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:structureness-parameter-demo	manuscript/mathematical_methods.tex	/^    \\label{fig:structureness-parameter-demo}$/;"	l
+figsize	listings/scale_sweep_demo.py	/^            figsize = (12, 6)$/;"	v
+figsize	listings/scale_sweep_demo.py	/^            figsize = (12, 9)$/;"	v
+figsize	listings/signed_sweep_demo.py	/^            figsize = (12, 6)$/;"	v
+figsize	listings/signed_sweep_demo.py	/^            figsize = (12, 9)$/;"	v
+filename	listings/hfft_accuracy.py	/^filename = list_by_quality(0)[5]$/;"	v
+filename	listings/preprocessing.py	/^    filename = 'T-BN0204423.png'  # a particularly glary sample$/;"	v
+filestub	listings/cut_demo.py	/^        filestub, _ = os.path.splitext(filename)$/;"	v
+filter_widths	listings/score.py	/^def filter_widths(W, widths=None, min_width=3, max_width=19):$/;"	f
+filter_widths	listings/scoring.py	/^def filter_widths(W, widths=None, min_width=3, max_width=19):$/;"	f
+finv	listings/add_margins.py	/^finv = frangi_from_image(s, sigma=0.8, dark_bg=True)$/;"	v
+finv	listings/extract_NCS_pcsvn.py	/^    finv = frangi_from_image(s, sigma=0.8, dark_bg=True, dilation_radius=10)$/;"	v
+finv_thresh	listings/add_margins.py	/^finv_thresh = nz_percentile(finv, 80)$/;"	v
+finv_thresh	listings/extract_NCS_pcsvn.py	/^    finv_thresh = nz_percentile(finv, 80)$/;"	v
+fixed_alpha	listings/extract_NCS_pcsvn.py	/^fixed_alpha = .2$/;"	v
+flens	listings/recentmash.py	/^flocs, flens = _$/;"	v
+flocs	listings/recentmash.py	/^flocs, flens = _$/;"	v
+frangi-def-anisotropy-structureness	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{frangi-def-anisotropy-structureness}$/;"	l
+frangi-def-anisotropy-structureness-v1	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{frangi-def-anisotropy-structureness-v1}$/;"	l
+frangi-vesselness-max	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{frangi-vesselness-max}$/;"	l
+frangi_from_image	listings/frangi.py	/^def frangi_from_image(img, sigma, beta=0.5, gamma=None, dark_bg=True,$/;"	f
+frangi_only	listings/vessel_filters.py	/^    frangi_only = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
+fs	listings/finalfigstoshowmash.py	/^fs = frangi_from_image(ma.masked_array(S, mask=img.mask), sigma=1).filled(0)$/;"	v
+full_skel	listings/vessel_filters.py	/^    full_skel = skeletonize(cumulative!=0)$/;"	v
+fundamentalformcoefficients	manuscript/mathematical_methods.tex	/^	\\begin{equation}\\label{fundamentalformcoefficients}$/;"	l
+gammas	listings/extract_NCS_pcsvn.py	/^gammas = None # None -> use default parameters (calculate half of hessian norm)$/;"	v
+gauss_freq	listings/hfft.py	/^def gauss_freq(shape, σ=1.):$/;"	f
+gaussmap_timederivative	manuscript/mathematical_methods.tex	/^	\\begin{align} \\label{gaussmap_timederivative}$/;"	l
+get_frangi_targets	listings/frangi.py	/^def get_frangi_targets(K1, K2, beta=0.5, gamma=None, dark_bg=True,$/;"	f
+get_frangi_targets	listings/vessel_filters.py	/^def get_frangi_targets(K1,K2, beta=0.5, c=15, dark_bg=True, threshold=None):$/;"	f
+get_named_placenta	listings/get_placenta.py	/^def get_named_placenta(filename, sample_dir=None, masked=True,$/;"	f
+get_named_placenta	listings/placenta.py	/^def get_named_placenta(filename, sample_dir=None, masked=True,$/;"	f
+get_outname_lambda	listings/pcsvn.py	/^def get_outname_lambda(filename, output_dir=None, timestring=None):$/;"	f
+get_targets	listings/vessel_filters.py	/^def get_targets(K1,K2, method='F', threshold=True):$/;"	f
+gij_exactgraph	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{gij_exactgraph}		 $/;"	l
+h	listings/vessel_filters.py	/^        h = fft_hessian(img,sigma)$/;"	v
+has_cut	listings/cut_demo.py	/^    C, has_cut = mask_cuts(img, ucip, return_success=True, in_place=False)$/;"	v
+hij_exactgraph	manuscript/mathematical_methods.tex	/^	 \\begin{equation} \\label{hij_exactgraph}$/;"	l
+hinpainted	listings/preprocessing.py	/^    hinpainted = inpaint_hybrid(img)$/;"	v
+hinpainted_view	listings/preprocessing.py	/^    hinpainted_view = show_mask(hinpainted, interactive=False,$/;"	v
+hlens	listings/recentmash.py	/^hlocs, hlens = longest_chain(F > alphas, -1)$/;"	v
+hlocs	listings/recentmash.py	/^hlocs, hlens = longest_chain(F > alphas, -1)$/;"	v
+img	listings/alpha_sweep_demo.py	/^    F, img, _ , _ = extract_pcsvn(filename, DARK_BG=DARK_BG,$/;"	v
+img	listings/cut_demo.py	/^    img = get_named_placenta(filename)$/;"	v
+img	listings/extract_NCS_pcsvn.py	/^        img = inpaint_hybrid(raw_img)$/;"	v
+img	listings/farm_samples.py	/^img = gimp.image_list()[0]$/;"	v
+img	listings/get_placenta.py	/^    img =  get_named_placenta(test_filename, maskfile=None)$/;"	v
+img	listings/hfft_accuracy.py	/^img = get_named_placenta(filename)$/;"	v
+img	listings/hfft_accuracy.py	/^img = ma.masked_array(img_as_float(img), mask=img.mask)$/;"	v
+img	listings/hfft_demo.py	/^img = imread('samples\/barium1.png', as_grey=True) \/ 255.$/;"	v
+img	listings/placenta.py	/^    img = get_named_placenta(test_filename, maskfile=None)$/;"	v
+img	listings/plate_morphology.py	/^    img = get_named_placenta('T-BN0164923.png')$/;"	v
+img	listings/preprocessing.py	/^    img = get_named_placenta(filename)$/;"	v
+img	listings/preprocessing.py	/^    img = ma.masked_array(img_as_float(img), mask=img.mask)$/;"	v
+img	listings/scale_sweep_demo.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
+img	listings/scale_sweep_demo_old.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
+img	listings/signed_sweep_demo.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
+img	listings/vessel_filters.py	/^    img = preprocess(raw)$/;"	v
+img	listings/vessel_filters.py	/^    img = raw$/;"	v
+img_view	listings/preprocessing.py	/^    img_view = show_mask(img, interactive=False,$/;"	v
+imga	listings/scale_sweep_demo_old.py	/^        imga = plt.imshow(stitched, cmap=CMAP)$/;"	v
+imgview	listings/scale_sweep_demo.py	/^            imgview = img[crop].filled(0)$/;"	v
+imgview	listings/scale_sweep_demo.py	/^            imgview = img[inset_slice].filled(0)$/;"	v
+imgview	listings/scale_sweep_demo_old.py	/^            imgview = cropped_view(img).filled(0)$/;"	v
+imgview	listings/scale_sweep_demo_old.py	/^            imgview = img[inset_slice].filled(0)$/;"	v
+imgview	listings/signed_sweep_demo.py	/^            imgview = img[crop].filled(0)$/;"	v
+imgview	listings/signed_sweep_demo.py	/^            imgview = img[inset_slice].filled(0)$/;"	v
+inner	listings/recentmash.py	/^inner = np.logical_and(d, img.mask)$/;"	v
+inner	listings/recentmash.py	/^inner = np.logical_and(d, np.invert(img.mask))$/;"	v
+inner	listings/recentmash.py	/^inner = np.logical_and(dilate_boundary(None, radius=40, mask=img.mask), img.mask)$/;"	v
+inpaint_glare	listings/preprocessing.py	/^def inpaint_glare(img, threshold=175, window_size=15, mask=None):$/;"	f
+inpaint_hybrid	listings/preprocessing.py	/^def inpaint_hybrid(img, threshold=175, min_size=64, boundary_radius=10):$/;"	f
+inpaint_with_biharmonic	listings/preprocessing.py	/^def inpaint_with_biharmonic(img, threshold=175):$/;"	f
+inpaint_with_boundary_median	listings/preprocessing.py	/^def inpaint_with_boundary_median(img, threshold=175, mask=None):$/;"	f
+inpainted	listings/preprocessing.py	/^    inpainted = inpaint_glare(img)$/;"	v
+inpainted_view	listings/preprocessing.py	/^    inpainted_view = show_mask(inpainted, interactive=False,$/;"	v
+inset	listings/plate_morphology.py	/^    inset = np.s_[800:1000, 500:890]$/;"	v
+inset	listings/preprocessing.py	/^    inset = zoom  # which view to use$/;"	v
+inset	listings/scale_sweep_demo.py	/^        inset = target[inset_slice].filled(0)$/;"	v
+inset	listings/scale_sweep_demo_old.py	/^        inset = target[inset_slice]$/;"	v
+inset	listings/signed_sweep_demo.py	/^        inset = target[inset_slice].filled(0)$/;"	v
+jfile	listings/extract_NCS_pcsvn.py	/^        F, jfile = extract_pcsvn(img, filename, dark_bg=DARK_BG, betas=betas,$/;"	v
+k1	listings/vessel_filters.py	/^        k1,k2 = principal_curvatures(img, sigma=sigma,H=h)$/;"	v
+k2	listings/vessel_filters.py	/^        k1,k2 = principal_curvatures(img, sigma=sigma,H=h)$/;"	v
+l2_dist	listings/cut_demo.py	/^def l2_dist(p,q):$/;"	f
+labs	listings/alpha_sweep_demo.py	/^    approx, labs = apply_threshold(F, alphas, return_labels=True)$/;"	v
+labs	listings/extract_NCS_pcsvn.py	/^    approx, labs = apply_threshold(F, alphas, return_labels=True)$/;"	v
+labs_FA	listings/extract_NCS_pcsvn.py	/^    approx_FA, labs_FA = apply_threshold(F, fixed_alpha)$/;"	v
+lagrange_requirements	manuscript/mathematical_methods.tex	/^     \\begin{equation} \\label{lagrange_requirements}$/;"	l
+lemma:f_ui-is-a-basis	manuscript/mathematical_methods.tex	/^\\begin{lemma} \\label{lemma:f_ui-is-a-basis}$/;"	l
+lines	listings/hfft_demo.py	/^lines = plt.plot(sigmas, fft_results, 'go', sigmas, std_results, 'bo')$/;"	v
+list_by_quality	listings/placenta.py	/^def list_by_quality(quality=0, N=None, json_file=None, return_empty=False):$/;"	f
+list_placentas	listings/get_placenta.py	/^def list_placentas(label=None, sample_dir=None):$/;"	f
+list_placentas	listings/placenta.py	/^def list_placentas(label=None, sample_dir=None):$/;"	f
+log_range	listings/alpha_sweep_demo.py	/^log_range = (-2, 4.5)$/;"	v
+log_range	listings/extract_NCS_pcsvn.py	/^log_range = (-1, 3.5)$/;"	v
+longest_chain	listings/scoring.py	/^def longest_chain(arr, axis):$/;"	f
+m	listings/hfft_demo.py	/^m = 8$/;"	v
+m	listings/recentmash.py	/^m = m.astype('b')$/;"	v
+m	listings/recentmash.py	/^m = np.zeros_like(sr)$/;"	v
+m_score	listings/alpha_sweep_demo.py	/^    m_score, counts = mcc(approx, trace, img.mask, return_counts=True)$/;"	v
+m_score	listings/extract_NCS_pcsvn.py	/^    m_score, counts = mcc(approx, trace, ucip_mask, return_counts=True)$/;"	v
+m_score_FA	listings/extract_NCS_pcsvn.py	/^    m_score_FA, counts_FA = mcc(approx_FA, trace, ucip_mask,$/;"	v
+m_score_rw	listings/extract_NCS_pcsvn.py	/^    m_score_rw, counts_rw = mcc(approx_rw, trace, ucip_mask,$/;"	v
+ma	listings/alpha_sweep_demo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/cut_demo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/diffgeo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/extract_NCS_pcsvn.py	/^import numpy.ma as ma$/;"	I
+ma	listings/get_placenta.py	/^import numpy.ma as ma$/;"	I
+ma	listings/hfft_accuracy.py	/^import numpy.ma as ma$/;"	I
+ma	listings/merging.py	/^import numpy.ma as ma$/;"	I
+ma	listings/pcsvn.py	/^import numpy.ma as ma$/;"	I
+ma	listings/placenta.py	/^import numpy.ma as ma$/;"	I
+ma	listings/plate_morphology.py	/^import numpy.ma as ma$/;"	I
+ma	listings/preprocessing.py	/^import numpy.ma as ma$/;"	I
+ma	listings/scale_sweep_demo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/scale_sweep_demo_old.py	/^import numpy.ma as ma$/;"	I
+ma	listings/signed_sweep_demo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/vessel_filters.py	/^import numpy.ma as ma$/;"	I
+make_individual	listings/scale_sweep_demo.py	/^make_individual = False$/;"	v
+make_multiscale	listings/pcsvn.py	/^def make_multiscale(img, scales, betas, gammas, dark_bg=True,$/;"	f
+manuscript/appendix	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}$/;"	i
+manuscript/conclusion	LW2018_thesis_draft.tex	/^\\include{manuscript\/conclusion}$/;"	i
+manuscript/extra_figures	LW2018_thesis_draft.tex	/^\\include{manuscript\/extra_figures}$/;"	i
+manuscript/implementations	LW2018_thesis_draft.tex	/^\\include{manuscript\/implementations}$/;"	i
+manuscript/introduction	LW2018_thesis_draft.tex	/^\\include{manuscript\/introduction}		$/;"	i
+manuscript/mathematical_methods	LW2018_thesis_draft.tex	/^\\include{manuscript\/mathematical_methods}$/;"	i
+manuscript/research_protocol	LW2018_thesis_draft.tex	/^\\include{manuscript\/research_protocol}$/;"	i
+manuscript/results_analysis	LW2018_thesis_draft.tex	/^\\include{manuscript\/results_analysis}$/;"	i
+margin	listings/finalfigstoshowmash.py	/^margin = _$/;"	v
+margins	listings/add_margins.py	/^margins = remove_small_objects((finv > ft).filled(0), min_size=32)$/;"	v
+margins	listings/extract_NCS_pcsvn.py	/^    margins = remove_small_objects((finv > finv_thresh).filled(0), min_size=32)$/;"	v
+margins_added	listings/add_margins.py	/^margins_added = remove_small_holes(np.logical_or(margins, approx),$/;"	v
+margins_added	listings/extract_NCS_pcsvn.py	/^    margins_added = np.logical_or(margins, approx)$/;"	v
+margins_added	listings/extract_NCS_pcsvn.py	/^    margins_added = remove_small_holes(margins_added, area_threshold=100,$/;"	v
+markers	listings/add_margins.py	/^markers = np.zeros(img.shape, dtype=np.uint8)$/;"	v
+markers	listings/cutfixer.py	/^markers = np.zeros(A.shape, dtype='int32')$/;"	v
+markers	listings/cutfixer.py	/^markers = np.zeros(img.shape, dtype='int32')$/;"	v
+markers	listings/extract_NCS_pcsvn.py	/^    markers = np.zeros(img.shape, dtype=np.uint8)$/;"	v
+mask	listings/boundarycalcs.py	/^mask = img.mask$/;"	v
+mask	listings/hfft_demo.py	/^mask = imread('samples\/barium1.mask.png', as_grey=True)$/;"	v
+mask_background	listings/get_placenta.py	/^def mask_background(img):$/;"	f
+mask_cuts	listings/plate_morphology.py	/^def mask_cuts(img, ucip, mask_only=False, in_place=False, return_success=False):$/;"	f
+mask_glare	listings/preprocessing.py	/^def mask_glare(img, threshold=175, mask_only=False):$/;"	f
+masked	listings/preprocessing.py	/^    masked = mask_glare(img)  # for viewing$/;"	v
+masked_view	listings/preprocessing.py	/^    masked_view = show_mask(masked, interactive=False,$/;"	v
+matched	listings/vessel_filters.py	/^                matched = np.logical_or(matched, el==region)$/;"	v
+matched	listings/vessel_filters.py	/^        matched = np.zeros_like(matched_all)$/;"	v
+matched_all	listings/vessel_filters.py	/^        matched_all = np.logical_or(matched_all, matched)$/;"	v
+matched_all	listings/vessel_filters.py	/^    matched_all = np.zeros_like(skel)$/;"	v
+max_hessian_norm	listings/frangi.py	/^def max_hessian_norm(hesh, mask=None):$/;"	f
+mcc	listings/score.py	/^def mcc(test, truth, bg_mask=None, score_bg=False, return_counts=False):$/;"	f
+mcc	listings/scoring.py	/^def mcc(test, truth, bg_mask=None, score_bg=False, return_counts=False):$/;"	f
+mccfile	listings/extract_NCS_pcsvn.py	/^mccfile = os.path.join(OUTPUT_DIR, f"runlog_{timestring}.json")$/;"	v
+mccs	listings/extract_NCS_pcsvn.py	/^mccs = dict()  # empty dict to store MCC's of each sample$/;"	v
+mccs_rw	listings/add_margins.py	/^mccs_rw = mccs(approx_rw, trace, bg_mask=ucip_mask)$/;"	v
+mean_squared_error	listings/score.py	/^def mean_squared_error(A,B):$/;"	f
+mean_squared_error	listings/scoring.py	/^def mean_squared_error(A,B):$/;"	f
+measure_ncs_markings	listings/placenta.py	/^def measure_ncs_markings(ucip_img=None, filename=None, verbose=True):$/;"	f
+merge_widths_from_traces	listings/score.py	/^def merge_widths_from_traces(A_trace, V_trace, strategy='minimum'):$/;"	f
+merge_widths_from_traces	listings/scoring.py	/^def merge_widths_from_traces(A_trace, V_trace, strategy='minimum'):$/;"	f
+minpainted	listings/preprocessing.py	/^    minpainted = inpaint_with_boundary_median(img)$/;"	v
+minpainted_view	listings/preprocessing.py	/^    minpainted_view = show_mask(minpainted, interactive=False,$/;"	v
+montage	listings/cut_demo.py	/^        montage = np.hstack((gray2rgb(img.filled(0)[view]),$/;"	v
+mpl	listings/pcsvn.py	/^import matplotlib as mpl$/;"	I
+mpl	listings/scale_sweep_demo.py	/^import matplotlib as mpl$/;"	I
+mpl	listings/signed_sweep_demo.py	/^import matplotlib as mpl$/;"	I
+multiway_comparison	listings/hfft_accuracy.py	/^def multiway_comparison(arrs, scorefunc):$/;"	f
+n	listings/vessel_filters.py	/^    n = datetime.datetime.now()$/;"	v
+n_samples	listings/alpha_sweep_demo.py	/^n_samples = len(placentas)$/;"	v
+n_samples	listings/extract_NCS_pcsvn.py	/^n_samples = len(placentas)$/;"	v
+n_scales	listings/alpha_sweep_demo.py	/^n_scales = 10$/;"	v
+n_scales	listings/extract_NCS_pcsvn.py	/^n_scales = 40$/;"	v
+ncols	listings/scale_sweep_demo.py	/^        nrows, ncols = 2, 4$/;"	v
+ncols	listings/signed_sweep_demo.py	/^        nrows, ncols = 2, 4$/;"	v
+ndi	listings/vessel_filters.py	/^import scipy.ndimage as ndi$/;"	I
+negalphas	figures/add_sobel_border_demo/sobelmashfinal.py	/^negalphas = np.array([nz_percentile(Fneg[:,:,k],95.0) for k in range(n_scales)])$/;"	v
+negapprox	figures/add_sobel_border_demo/sobelmashfinal.py	/^negapprox, _ = apply_threshold(Fneg, negalphas)$/;"	v
+new_mask	listings/boundarycalcs.py	/^new_mask = np.logical_or(img.mask, dilated_border)$/;"	v
+new_mask	listings/boundarycalcs.py	/^new_mask = np.logical_or(mask, dilated_border)$/;"	v
+new_mask	listings/cutfixer.py	/^new_mask = A.mask.copy()$/;"	v
+new_mask	listings/cutfixer.py	/^new_mask = img.mask.copy()$/;"	v
+new_mask	listings/hfft_accuracy.py	/^    new_mask = dilate_boundary(None, radius=int(3*sigma), mask=img.mask)$/;"	v
+newbase	listings/abbreviate_NCS_names.py	/^    newbase, _  = basename.split('_', maxsplit=1)$/;"	v
+newname	listings/abbreviate_NCS_names.py	/^        newname = ''.join((newbase,ext))$/;"	v
+nl	listings/vessel_filters.py	/^        el, nl = label(e, return_num=True)$/;"	v
+np	figures/add_sobel_border_demo/sobelmashfinal.py	/^import numpy as np$/;"	I
+np	listings/alpha_sweep_demo.py	/^import numpy as np$/;"	I
+np	listings/cut_demo.py	/^import numpy as np$/;"	I
+np	listings/diffgeo.py	/^import numpy as np$/;"	I
+np	listings/extract_NCS_pcsvn.py	/^import numpy as np$/;"	I
+np	listings/frangi.py	/^import numpy as np$/;"	I
+np	listings/get_placenta.py	/^import numpy as np$/;"	I
+np	listings/hfft.py	/^import numpy as np$/;"	I
+np	listings/hfft_accuracy.py	/^import numpy as np$/;"	I
+np	listings/hfft_demo.py	/^import numpy as np$/;"	I
+np	listings/merging.py	/^import numpy as np$/;"	I
+np	listings/pcsvn.py	/^import numpy as np$/;"	I
+np	listings/placenta.py	/^import numpy as np$/;"	I
+np	listings/plate_morphology.py	/^import numpy as np$/;"	I
+np	listings/preprocessing.py	/^import numpy as np$/;"	I
+np	listings/scale_sweep_demo.py	/^import numpy as np$/;"	I
+np	listings/scale_sweep_demo_old.py	/^import numpy as np$/;"	I
+np	listings/score.py	/^import numpy as np$/;"	I
+np	listings/scoring.py	/^import numpy as np$/;"	I
+np	listings/signed_sweep_demo.py	/^import numpy as np$/;"	I
+np	listings/vessel_filters.py	/^import numpy as np$/;"	I
+npz_filename	listings/extract_NCS_pcsvn.py	/^                npz_filename = os.path.join(NPZ_DIR, f.name)$/;"	v
+npz_filename	listings/extract_NCS_pcsvn.py	/^            npz_filename = None$/;"	v
+npzfile	listings/extract_NCS_pcsvn.py	/^            npzfile = ".".join((outname("F").rsplit('.', maxsplit=1)[0], 'npz')$/;"	v
+nrows	listings/scale_sweep_demo.py	/^        nrows, ncols = 2, 4$/;"	v
+nrows	listings/signed_sweep_demo.py	/^        nrows, ncols = 2, 4$/;"	v
+nz_median	listings/preprocessing.py	/^def nz_median(A):$/;"	f
+nz_percentile	listings/merging.py	/^def nz_percentile(A, q, axis=None, interpolation='linear'):$/;"	f
+oD	listings/recentmash.py	/^oD = dilate_boundary(None, radius=50, mask=np.invert(img.mask))$/;"	v
+ob	listings/recentmash.py	/^ob = sks.find_boundaries(D)$/;"	v
+open_tracefile	listings/get_placenta.py	/^def open_tracefile(tracefile):$/;"	f
+open_tracefile	listings/placenta.py	/^def open_tracefile(base_filename, as_binary=True,$/;"	f
+open_typefile	listings/get_placenta.py	/^def open_typefile(filename, filetype, sample_dir=None):$/;"	f
+open_typefile	listings/placenta.py	/^def open_typefile(filename, filetype, sample_dir=None, mode=None):$/;"	f
+outname	listings/alpha_sweep_demo.py	/^    outname = get_outname_lambda(filename, output_dir=OUTPUT_DIR)$/;"	v
+outname	listings/extract_NCS_pcsvn.py	/^    outname = get_outname_lambda(filename, output_dir=OUTPUT_DIR)$/;"	v
+outname	listings/scale_sweep_demo.py	/^            outname = f'demo_output\/scalesweep_{sample_name}_{label}_{n}.png'$/;"	v
+outname	listings/scale_sweep_demo_old.py	/^            outname = f'demo_output\/scalesweep_{sample_name}_{label}_{n}.png'$/;"	v
+percent_covered	listings/extract_NCS_pcsvn.py	/^    percent_covered = np.logical_and(skeltrace, approx).sum() \/ skeltrace.sum()$/;"	v
+percent_covered_FA	listings/extract_NCS_pcsvn.py	/^    percent_covered_FA = np.logical_and(skeltrace,$/;"	v
+percentage	listings/vessel_filters.py	/^        percentage = timg.count() \/ img.size$/;"	v
+perimeter	listings/cut_demo.py	/^        perimeter = np.nonzero(G)$/;"	v
+perimeter	listings/farm_samples.py	/^perimeter = pdb.gimp_image_get_layer_by_name(img, 'perimeter')$/;"	v
+pinds	listings/cut_demo.py	/^                pinds = [(x,y) for x, y in zip(*perimeter)$/;"	v
+placentas	listings/alpha_sweep_demo.py	/^placentas = list_placentas('T-BN')$/;"	v
+placentas	listings/cut_demo.py	/^placentas = list_placentas('T-BN')$/;"	v
+placentas	listings/extract_NCS_pcsvn.py	/^placentas = list_placentas('T-BN')$/;"	v
+plate	listings/scale_sweep_demo.py	/^        plate = target[crop].filled(0)$/;"	v
+plate	listings/scale_sweep_demo_old.py	/^        plate = cropped_view(target).filled(0)$/;"	v
+plate	listings/signed_sweep_demo.py	/^        plate = target[crop].filled(0)$/;"	v
+plot_image_slices	listings/hfft_accuracy.py	/^def plot_image_slices(arrs, fixed_axis=0, fixed_index=None, labels=None,$/;"	f
+plt	listings/alpha_sweep_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/cut_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/extract_NCS_pcsvn.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/get_placenta.py	/^    import matplotlib.pyplot as plt$/;"	I
+plt	listings/get_placenta.py	/^    import matplotlib.pyplot as plt$/;"	I	function:show_mask	file:
+plt	listings/hfft.py	/^    import matplotlib.pyplot as plt$/;"	I	function:_old_test	file:
+plt	listings/hfft_accuracy.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/hfft_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/pcsvn.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/placenta.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/plate_morphology.py	/^    import matplotlib.pyplot as plt$/;"	I
+plt	listings/preprocessing.py	/^    import matplotlib.pyplot as plt$/;"	I
+plt	listings/scale_sweep_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/scale_sweep_demo_old.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/score.py	/^    import matplotlib.pyplot as plt$/;"	I
+plt	listings/scoring.py	/^    import matplotlib.pyplot as plt$/;"	I
+plt	listings/signed_sweep_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/vessel_filters.py	/^import matplotlib.pyplot as plt$/;"	I
+pnc_rw	listings/add_margins.py	/^pnc_rw = np.logical_and(skeltrace, rw2==2).sum() \/ skeltrace.sum()$/;"	v
+pnc_rw	listings/extract_NCS_pcsvn.py	/^    pnc_rw = np.logical_and(skeltrace, approx_rw).sum() \/ skeltrace.sum()$/;"	v
+pncs	listings/extract_NCS_pcsvn.py	/^pncs = dict()  # empty dict to store percent network covered for each sample$/;"	v
+principal_curvatures	listings/diffgeo.py	/^def principal_curvatures(img, sigma=1.0, H=None):$/;"	f
+principal_directions	listings/diffgeo.py	/^def principal_directions(img, sigma, H=None, mask=None):$/;"	f
+printable	listings/scale_sweep_demo.py	/^                printable = inset$/;"	v
+printable	listings/scale_sweep_demo_old.py	/^                printable = inset$/;"	v
+process_NCS_xcf	listings/process_NCS_xcfs.py	/^def process_NCS_xcf(timg,tdrawable):$/;"	f
+q	listings/recentmash.py	/^q = _428$/;"	v
+r	listings/cut_demo.py	/^            r = int(np.max([l2_dist(P, pp) for pp in pinds])) + 1$/;"	v
+radius	listings/plate_morphology.py	/^    radius = 25$/;"	v
+raw	listings/recentmash.py	/^raw = _$/;"	v
+raw	listings/vessel_filters.py	/^    raw = ndi.imread('samples\/clahe_raw.png')$/;"	v
+raw	listings/vessel_filters.py	/^    raw = preregister(raw)$/;"	v
+raw_diff	listings/hfft_demo.py	/^    raw_diff = np.abs(f - s)$/;"	v
+raw_img	listings/extract_NCS_pcsvn.py	/^    raw_img = get_named_placenta(filename)$/;"	v
+raw_img	listings/farm_samples.py	/^raw_img = pdb.gimp_layer_new_from_visible(img,img,'raw_img')$/;"	v
+rawg	listings/recentmash.py	/^rawg = _$/;"	v
+reorder_eigs	listings/diffgeo.py	/^def reorder_eigs(L):$/;"	f
+resolution	listings/extract_NCS_pcsvn.py	/^    ucip_midpoint, resolution = measure_ncs_markings(filename=filename)$/;"	v
+rgb_to_widths	listings/score.py	/^def rgb_to_widths(T):$/;"	f
+rgb_to_widths	listings/scoring.py	/^def rgb_to_widths(T):$/;"	f
+rmax	listings/cut_demo.py	/^                rmin, rmax = max(0, P[0]-W), min(img.shape[0], P[0]+W)$/;"	v
+rmaxv	listings/cut_demo.py	/^        rminv, rmaxv = max(0, rmin-W\/\/2), min(img.shape[0], rmax+W\/\/2)$/;"	v
+rmin	listings/cut_demo.py	/^                rmin, rmax = max(0, P[0]-W), min(img.shape[0], P[0]+W)$/;"	v
+rminv	listings/cut_demo.py	/^        rminv, rmaxv = max(0, rmin-W\/\/2), min(img.shape[0], rmax+W\/\/2)$/;"	v
+rotating_box_filter	listings/vessel_filters.py	/^def rotating_box_filter(img, thetas, sigma, length_ratio=4, verbose=True):$/;"	f
+runlog	listings/extract_NCS_pcsvn.py	/^runlog = {$/;"	v
+rw	listings/add_margins.py	/^rw = random_walker(img, markers)$/;"	v
+rw	listings/extract_NCS_pcsvn.py	/^    rw = random_walker(img, markers, beta=1000)$/;"	v
+s	listings/add_margins.py	/^s = dilate_boundary(s, mask=img.mask, radius=20)$/;"	v
+s	listings/add_margins.py	/^s = sobel(img)$/;"	v
+s	listings/extract_NCS_pcsvn.py	/^    s = dilate_boundary(s, mask=img.mask, radius=20)$/;"	v
+s	listings/extract_NCS_pcsvn.py	/^    s = sobel(img)$/;"	v
+s	listings/hfft_demo.py	/^    s = eval(std_test_statement)$/;"	v
+s	listings/vessel_filters.py	/^s = plt.show$/;"	v
+samples_with_cuts	listings/cut_demo.py	/^samples_with_cuts = list()$/;"	v
+save_colorbar	listings/extract_NCS_pcsvn.py	/^    save_colorbar = (i==0)$/;"	v
+savefile	listings/vessel_filters.py	/^        savefile = ''.join(('%02d' % sigma, '.png'))$/;"	v
+scale_label_figure	listings/pcsvn.py	/^def scale_label_figure(wheres, scales, savefilename=None,$/;"	f
+scale_maxes	listings/extract_NCS_pcsvn.py	/^    scale_maxes = np.array([F[...,i].max() for i in range(F.shape[-1])])$/;"	v
+scale_range	listings/vessel_filters.py	/^    scale_range = np.logspace(0,5, num=30, base=2)$/;"	v
+scales	listings/alpha_sweep_demo.py	/^scales = np.logspace(log_range[0], log_range[1], num=n_scales, base=2)$/;"	v
+scales	listings/extract_NCS_pcsvn.py	/^scales = np.logspace(log_range[0], log_range[1], num=n_scales, base=2)$/;"	v
+scales	listings/scale_sweep_demo.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
+scales	listings/scale_sweep_demo_old.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
+scales	listings/signed_sweep_demo.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
+sec:NCS-data-set	manuscript/research_protocol.tex	/^\\section{Samples \/ Image Domain}\\label{sec:NCS-data-set}$/;"	l
+sec:NCS-dataset-issues	manuscript/results_analysis.tex	/^\\section{A Source of ``False Negatives'' in the NCS data set} \\label{sec:NCS-dataset-issues}$/;"	l
+sec:calculate-weinmap-of-a-ridge	manuscript/mathematical_methods.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	l
+sec:differential-geometry	manuscript/mathematical_methods.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	l
+sec:frangi	manuscript/mathematical_methods.tex	/^\\section{The Frangi Filter: Uniscale} \\label{sec:frangi}$/;"	l
+sec:frangi-multiscale	manuscript/mathematical_methods.tex	/^    \\section{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	l
+sec:frangi-structureness	manuscript/mathematical_methods.tex	/^    \\subsection{Structureness measure} \\label{sec:frangi-structureness}$/;"	l
+sec:frangi.anisotropy	manuscript/mathematical_methods.tex	/^    \\subsection{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	l
+sec:future-research-directions	manuscript/conclusion.tex	/^\\section{Future research directions} \\label{sec:future-research-directions}$/;"	l
+sec:image-processing-setup	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	l
+sec:scale-space-theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	l
+show_mask	listings/get_placenta.py	/^def show_mask(img):$/;"	f
+show_mask	listings/placenta.py	/^def show_mask(img, mask=None, interactive=False, mask_color=None):$/;"	f
+sigma	listings/plate_morphology.py	/^    sigma = 3$/;"	v
+sigmas	listings/hfft_demo.py	/^sigmas = np.logspace(0,m, num=N, base=2)$/;"	v
+skel	listings/vessel_filters.py	/^    skel = remove_small_objects(full_skel, min_size=50, connectivity=2)$/;"	v
+skeletonize_trace	listings/scoring.py	/^def skeletonize_trace(T, T2=None):$/;"	f
+skeltrace	listings/extract_NCS_pcsvn.py	/^    skeltrace = skeletonize_trace(A_trace, V_trace)$/;"	v
+sks	listings/recentmash.py	/^import skimage.segmentation as sks$/;"	I
+slog	listings/extract_NCS_pcsvn.py	/^        slog = json.load(f)$/;"	v
+sr	listings/recentmash.py	/^sr = _$/;"	v
+st_colors	listings/extract_NCS_pcsvn.py	/^    st_colors = {$/;"	v
+std_results	listings/hfft_demo.py	/^std_results = list()$/;"	v
+std_test_statement	listings/hfft_demo.py	/^    std_test_statement = 'gaussian_filter(img,{})'.format(sigma)$/;"	v
+stitched	listings/scale_sweep_demo_old.py	/^        stitched = np.concatenate((top,bottom),axis=0)$/;"	v
+structureness	listings/frangi.py	/^def structureness(K1,K2, gamma=None):$/;"	f
+stub	listings/extract_NCS_pcsvn.py	/^        stub = filename.rstrip('.png')$/;"	v
+subsec:discrete-scale-space	manuscript/mathematical_methods.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	l
+subtype	listings/abbreviate_NCS_names.py	/^        basename, subtype = os.path.splitext(basename)$/;"	v
+t	listings/vessel_filters.py	/^        t = get_frangi_targets(k1,k2,$/;"	v
+t	listings/vessel_filters.py	/^        t = t > t.mean()$/;"	v
+t1	listings/vessel_filters.py	/^        t1,t2 = principal_directions(timg, sigma=sigma, H=h)$/;"	v
+t2	listings/vessel_filters.py	/^        t1,t2 = principal_directions(timg, sigma=sigma, H=h)$/;"	v
+tab:mse-F-sigma-0.3	manuscript/implementations.tex	/^  \\label{tab:mse-F-sigma-0.3}$/;"	l
+tab:mse-F-sigma-5	manuscript/implementations.tex	/^    \\label{tab:mse-F-sigma-5}$/;"	l
+tab:mse-G-sigma-0.3	manuscript/implementations.tex	/^\\label{tab:mse-G-sigma-0.3}$/;"	l
+tab:mse-G-sigma-5	manuscript/implementations.tex	/^    \\label{tab:mse-G-sigma-5}$/;"	l
+tab:widthcolors	manuscript/research_protocol.tex	/^\\label{tab:widthcolors}$/;"	l
+table	listings/extract_NCS_pcsvn.py	/^    table = pandas.DataFrame(np.dstack((scales, alphas, scale_maxes)).squeeze(),$/;"	v
+target	listings/scale_sweep_demo.py	/^        target = frangi_from_image(img, sigma, dark_bg=False,$/;"	v
+target	listings/scale_sweep_demo_old.py	/^        target = frangi_from_image(img, sigma, dark_bg=False,$/;"	v
+target	listings/signed_sweep_demo.py	/^        target = frangi_from_image(img, sigma, dark_bg=False,$/;"	v
+test_filename	listings/get_placenta.py	/^    test_filename = 'barium1.png'$/;"	v
+test_filename	listings/placenta.py	/^    test_filename = 'barium1.png'$/;"	v
+test_sigmas	listings/hfft_accuracy.py	/^test_sigmas = [0.12, .3, .6, 1.0, 5.0, 15, 30, 60, 90]$/;"	v
+thm:meusnier	manuscript/mathematical_methods.tex	/^	\\begin{theorem}[Theorem of Meusnier] \\label{thm:meusnier}$/;"	l
+threshold	listings/cutfixer.py	/^threshold = A[cutmarks].mean()*.85$/;"	v
+threshold	listings/cutfixer.py	/^threshold = img[cutmarks].mean() * .85$/;"	v
+timestring	listings/extract_NCS_pcsvn.py	/^timestring = datetime.datetime.now()$/;"	v
+timestring	listings/extract_NCS_pcsvn.py	/^timestring = timestring.strftime("%y%m%d_%H%M")$/;"	v
+timg	listings/vessel_filters.py	/^        timg = ma.masked_where(t < t.mean(), img)$/;"	v
+top	listings/scale_sweep_demo_old.py	/^        top = np.concatenate(L[:4],axis=1)$/;"	v
+total	listings/alpha_sweep_demo.py	/^    total = np.invert(img.mask).sum()$/;"	v
+total	listings/extract_NCS_pcsvn.py	/^    total = np.invert(ucip_mask).sum()$/;"	v
+trace	listings/alpha_sweep_demo.py	/^    trace = np.invert(trace)$/;"	v
+trace	listings/alpha_sweep_demo.py	/^    trace = open_typefile(filename, 'trace').astype('bool')$/;"	v
+trace	listings/extract_NCS_pcsvn.py	/^    trace = open_tracefile(filename, as_binary=True)$/;"	v
+trace	listings/farm_samples.py	/^trace = pdb.gimp_layer_new_from_visible(img,img,'trace')$/;"	v
+true_neg_color	listings/score.py	/^    true_neg_color = np.array([247,247,247], dtype='f') # 'f7f7f7'$/;"	v
+true_neg_color	listings/scoring.py	/^    true_neg_color = np.array([247,247,247], dtype='f') # 'f7f7f7'$/;"	v
+true_pos_color	listings/score.py	/^    true_pos_color = np.array([0, 0, 0] , dtype='f')  # '000000'$/;"	v
+true_pos_color	listings/scoring.py	/^    true_pos_color = np.array([0, 0, 0] , dtype='f')  # '000000'$/;"	v
+ucip	listings/cut_demo.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
+ucip	listings/cutfixer.py	/^ucip = open_typefile(Afile, 'ucip')$/;"	v
+ucip_mask	listings/extract_NCS_pcsvn.py	/^    ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=int(ucip_radius),$/;"	v
+ucip_midpoint	listings/extract_NCS_pcsvn.py	/^    ucip_midpoint, resolution = measure_ncs_markings(filename=filename)$/;"	v
+ucip_radius	listings/extract_NCS_pcsvn.py	/^ucip_radius = 50  # area around the umbilical cord insertion point to ignore$/;"	v
+view	listings/cut_demo.py	/^        view = np.s_[rminv:rmaxv, cminv:cmaxv]$/;"	v
+weinmatconstruction	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{weinmatconstruction}$/;"	l
+weinmatexactgraph	manuscript/mathematical_methods.tex	/^        	\\begin{equation} \\label{weinmatexactgraph}$/;"	l
+widths	listings/extract_NCS_pcsvn.py	/^    widths = merge_widths_from_traces(A_trace, V_trace, strategy='arteries')$/;"	v
+widths_to_rgb	listings/score.py	/^def widths_to_rgb(w, show_non_matches=False):$/;"	f
+widths_to_rgb	listings/scoring.py	/^def widths_to_rgb(w, show_non_matches=False):$/;"	f
+window	figures/add_sobel_border_demo/sobelmashfinal.py	/^window = np.s_[130:630,70:570]$/;"	v
+window	listings/cut_demo.py	/^                window = np.s_[rmin:rmax, cmin:cmax]$/;"	v
+winx	listings/cut_demo.py	/^            winx = max(P[0]-r,0), min(P[0]+r+1,B.shape[0])$/;"	v
+winy	listings/cut_demo.py	/^            winy = max(P[1]-r,0), min(P[1]+r+1,B.shape[1])$/;"	v
+zoom	listings/preprocessing.py	/^    zoom = np.s_[300:380, 300:380]  # even smaller region$/;"	v
