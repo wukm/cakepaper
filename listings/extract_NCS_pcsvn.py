@@ -10,7 +10,8 @@ from placenta import (get_named_placenta, cropped_args, cropped_view,
                       list_placentas, list_by_quality, open_typefile,
                       open_tracefile, add_ucip_to_mask, measure_ncs_markings)
 
-from merging import nz_percentile, apply_threshold
+from merging import nz_percentile, apply_threshold, sieve_scales, view_slices
+
 from scoring import (compare_trace, rgb_to_widths, merge_widths_from_traces,
                      filter_widths, mcc, confusion, skeletonize_trace)
 
@@ -31,38 +32,37 @@ import pandas
 # for some post_processing, this needs to be moved elsewhere
 from skimage.filters import sobel
 from frangi import frangi_from_image
-from plate_morphology import dilate_boundary
+from plate_morphology import dilate_boundary, mask_cuts_simple
 from skimage.morphology import remove_small_holes, remove_small_objects
 from skimage.segmentation import random_walker
+from postprocessing import random_walk_fill, random_walk_scalewise
 
 
 # INITIALIZE SAMPLES ________________________________________________________
 #   There are several ways to initialize samples. Uncomment one.
 
 # load all 201 samples
-placentas = list_placentas('T-BN')
+# placentas = list_placentas('T-BN')
 # load placentas from a certain quality category 0=good, 1=okay, 2=fair, 3=poor
 
-#placentas = list_by_quality(0, N=2)
-#placentas.extend(list_by_quality(1, N=1))
-#placentas.extend(list_by_quality(2, N=1))
-#placentas.extend(list_by_quality(3, N=1))
+#placentas = list_by_quality(2)
+#placentas.extend(list_by_quality(3))
 
+placentas = list_by_quality(0, N=1)
 # load from a file (sample names are keys of the json file)
 # placentas = list_by_quality(json_file='manual_batch.json')
 
 # for a single named sample, use a 1 element list.
 # placentas = ['T-BN0204423.png']
 
-n_samples = len(placentas)
-
+#placentas = ['barium1.png',]
 # RUNTIME OPTIONS ___________________________________________________________
 #   Where to save and whether or not to use old targets.
 
-MAKE_NPZ_FILES = True  # pickle frangi targets if you can
-USE_NPZ_FILES = True   # use old npz files if you can
-NPZ_DIR = 'output/181122-bigrun'  # where to look for npz files
-OUTPUT_DIR = 'output/181122-bigrun'  # where to save outputs
+MAKE_NPZ_FILES = False # pickle frangi targets if you can
+USE_NPZ_FILES = False # use old npz files if you can
+NPZ_DIR = 'output/181204-test'  # where to look for npz files
+OUTPUT_DIR = 'output/181204-test'  # where to save outputs
 
 # add in a meta switch for verbosity (or levels)
 #VERBOSE = False
@@ -85,26 +85,34 @@ SIGNED_FRANGI = False
 DILATE_PER_SCALE = True
 
 # Attempt to remove glare from sample (some are OK, some are bad)
+FLATTEN_MODE = 'L' # 'G' or 'L'
 REMOVE_GLARE = True
+REMOVE_CUTS = True
 
-# What scales to use!
-log_range = (-1, 3.5)
-n_scales = 40
+# Which scales to use
+SCALE_RANGE = (-1.5, 3.5); SCALE_TYPE = 'logarithmic'
+#SCALE_RANGE = (.2, 12); SCALE_TYPE = 'linear'
+N_SCALES = 20
 
-# when showing "large scales only", this is where to start
-# (some index between 0 and n_scales)
-LO_offset = 8
+# use this if you want to use a custom argument (comment out the above)
+SCALES = None
+#SCALE_RANGE = None, SCALE_TYPE == 'custom'
 
-# Explicit Frangi Parameters (pass an array as long as scales or pass None)
-betas = None  # None -> use default parameters (0.5)
-gammas = None # None -> use default parameters (calculate half of hessian norm)
-alphas = None # none to set later
-fixed_alpha = .2
+
+# Explicit Frangi Parameters (pass a scalar, array as long as scales)
+BETAS = 0.35
+GAMMAS = 0.5
+CS = None # pass scalar, array, or None
+ALPHAS = None # set custom alphas or calculate later
+FIXED_ALPHA = .4
+
+RESCALE_FRANGI = True
+GRADIENT_FILTER = False
 
 
 # Scoring Decisions (don't need to touch these)
-ucip_radius = 50  # area around the umbilical cord insertion point to ignore
-
+UCIP_RADIUS = 60  # area around the umbilical cord insertion point to ignore
+INV_SIGMA = 0.8
 # some other initializations, don't mind me
 
 
@@ -112,10 +120,22 @@ ucip_radius = 50  # area around the umbilical cord insertion point to ignore
 
 # CODE BEGINS HERE ____________________________________________________________
 
-n_samples = len(placentas)
-scales = np.logspace(log_range[0], log_range[1], num=n_scales, base=2)
+if SCALES is None:
+    if SCALE_TYPE == 'linear':
+        scales = np.linspace(*SCALE_RANGE, num=N_SCALES)
+    elif SCALE_TYPE == 'logarithmic':
+        scales = np.logspace(*SCALE_RANGE, num=N_SCALES, base=2)
+else:
+    scales = SCALES
+    SCALE_TYPE = 'custom'  # this and the next three lines are just for logging
+    N_SCALES = len(SCALES)
+    SCALES = (min(SCALES), max(SCALES))
+
 mccs = dict()  # empty dict to store MCC's of each sample
 pncs = dict()  # empty dict to store percent network covered for each sample
+precisions = dict()
+
+n_samples = len(placentas)
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
@@ -129,12 +149,19 @@ for i, filename in enumerate(placentas):
 
     # --- Setup, Preprocessing, Frangi Filter (it's mixed up) -----------------
 
-    raw_img = get_named_placenta(filename)
+    raw_img = get_named_placenta(filename, mode=FLATTEN_MODE)
+
+    ucip = open_typefile(filename, 'ucip')
+
+    if REMOVE_CUTS:
+        img, has_cut = mask_cuts_simple(raw_img, ucip, return_success=True)
+        img.data[img.mask] = 0 # actually zero out that area
+    else:
+        img = raw_img.copy()
 
     if REMOVE_GLARE:
-        img = inpaint_hybrid(raw_img)
-    else:
-        img = raw_img  # in case preprocessing happens in extract_pcsvn
+        img = inpaint_hybrid(img)
+
 
     if USE_NPZ_FILES:
         # find the first npz file with the sample name in it in the
@@ -165,12 +192,14 @@ for i, filename in enumerate(placentas):
     else:
         print('finding multiscale frangi targets')
 
-        # F is an array of frangi scores of shape (*img.shape, n_scales)
-        F, jfile = extract_pcsvn(img, filename, dark_bg=DARK_BG, betas=betas,
-                                 scales=scales, gammas=gammas,
+        # F is an array of frangi scores of shape (*img.shape, N_SCALES)
+        F, jfile = extract_pcsvn(img, filename, dark_bg=DARK_BG, beta=BETAS,
+                                 scales=scales, gamma=GAMMAS, c=CS,
                                  kernel='discrete', dilate_per_scale=True,
                                  verbose=False, signed_frangi=SIGNED_FRANGI,
-                                 generate_json=True, output_dir=OUTPUT_DIR)
+                                 generate_json=True, output_dir=OUTPUT_DIR,
+                                 rescale_frangi=RESCALE_FRANGI,
+                                 gradient_filter=GRADIENT_FILTER)
 
         if MAKE_NPZ_FILES:
             npzfile = ".".join((outname("F").rsplit('.', maxsplit=1)[0], 'npz')
@@ -185,42 +214,48 @@ for i, filename in enumerate(placentas):
 
     print("...making outputs")
 
-    if alphas is None:
-        print("thresholding alphas with top 5% scores at each scale")
-        alphas = np.array([nz_percentile(F[:, :, k], 95.0)
-                           for k in range(n_scales)]
+    if ALPHAS is None:
+        print("thresholding ALPHAS with top 5% scores at each scale")
+        ALPHAS = np.array([nz_percentile(F[..., k], 95.0)
+                           for k in range(N_SCALES)]
                           )
+    # the maximum value of the entire image at each scale
     scale_maxes = np.array([F[...,i].max() for i in range(F.shape[-1])])
-    #print('percentile alphas:', alphas)
-    #print('max at each scale:', scale_maxes)
-    table = pandas.DataFrame(np.dstack((scales, alphas, scale_maxes)).squeeze(),
+
+    table = pandas.DataFrame(np.dstack((scales, ALPHAS, scale_maxes)).squeeze(),
                                 columns=('σ', 'α_p', 'max(F_σ)'))
 
     print(table)
     # threshold the responses at each of these values and get labels of max
-    approx, labs = apply_threshold(F, alphas, return_labels=True)
+    approx, labs = apply_threshold(F, ALPHAS, return_labels=True)
 
     # --- Scoring and Outputs -------------------------------------------------
 
     # get the main (boolean) tracefile and the RGB tracefiles
     trace = open_tracefile(filename, as_binary=True)
     A_trace = open_typefile(filename, 'arteries')
-    V_trace = open_typefile(filename, 'veins')
-    skeltrace = skeletonize_trace(A_trace, V_trace)
+    if A_trace is None:
+        # there are no special trace files for this sample
+        skeltrace = skeletonize_trace(trace)
+    else:
+        V_trace = open_typefile(filename, 'veins')
+        skeltrace = skeletonize_trace(A_trace, V_trace)
 
-    # get a matrix of pixel widths in the trace
-    widths = merge_widths_from_traces(A_trace, V_trace, strategy='arteries')
+        # get a matrix of pixel widths in the trace
+        widths = merge_widths_from_traces(A_trace, V_trace, strategy='arteries')
 
     # find cord insertion point and resolution of the image
-    ucip_midpoint, resolution = measure_ncs_markings(filename=filename)
-
+    ucip_midpoint, resolution = measure_ncs_markings(ucip)
     # if verbose:
     # print(f"The umbilicial cord insertion point is at {ucip_midpoint}")
     # print(f"The resolution of the image is {resolution} pixels per cm.")
 
+    if ucip_midpoint is None:
+        ucip_mask = img.mask
     # mask anywhere close to the UCIP
-    ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=int(ucip_radius),
-                                 mask=img.mask)
+    else:
+        ucip_mask = add_ucip_to_mask(ucip_midpoint,
+                                     radius=int(UCIP_RADIUS), mask=img.mask)
 
     # The following are examples of things you can do:
 
@@ -233,8 +268,8 @@ for i, filename in enumerate(placentas):
     # trace_smaller_only != 0
 
     # use only some scales
-    #approx_LO, labs_LO = apply_threshold(F[:,:, LO_offset:], alphas[LO_offset:])
-    approx_FA, labs_FA = apply_threshold(F, fixed_alpha)
+    #approx_LO, labs_LO = apply_threshold(F[:,:, LO_offset:], ALPHAS[LO_offset:])
+    approx_FA, labs_FA = apply_threshold(F, FIXED_ALPHA)
 
     # fix labels to incorporate offset
     #labs_LO = (labs_LO != 0)*(labs_LO + LO_offset)
@@ -253,42 +288,31 @@ for i, filename in enumerate(placentas):
     # placental plate.
     TP, TN, FP, FN = counts # return these for more analysis?
 
-    total = np.invert(ucip_mask).sum()
-    print(f'TP: {TP}\t TN: {TN}\nFP: {FP}\tFN: {FN}')
+    total = np.sum(~ucip_mask)
+    #print(f'TP: {TP}\t TN: {TN}\nFP: {FP}\tFN: {FN}')
     # just a sanity check
-    print(f'TP+TN+FP+FN={TP+TN+FP+FN}\ttotal pixels={total}')
+    #print(f'TP+TN+FP+FN={TP+TN+FP+FN}\ttotal pixels={total}')
 
-    # MOVE THIS ELSEWHERE
-    s = sobel(img)
-    s = dilate_boundary(s, mask=img.mask, radius=20)
-    finv = frangi_from_image(s, sigma=0.8, dark_bg=True, dilation_radius=10)
-    finv_thresh = nz_percentile(finv, 80)
-    margins = remove_small_objects((finv > finv_thresh).filled(0), min_size=32)
-    margins_added = np.logical_or(margins, approx)
-    margins_added = remove_small_holes(margins_added, area_threshold=100,
-                                       connectivity=2)
 
-    confuse_margins = confusion(margins_added, trace, bg_mask=ucip_mask)
+    #approx_rw, markers, margins_added = random_walk_fill(img, Fmax, .3, .01,
+    #                                                     DARK_BG)
 
-    # random walker markers
-    markers = np.zeros(img.shape, dtype=np.uint8)
-    markers[Fmax < .1] = 1
-    markers[margins_added] = 2
-    rw = random_walker(img, markers, beta=1000)
-    approx_rw = (rw == 2)
+    approx_rw, labs_rw = random_walk_scalewise(F, .4, return_labels=True)
+
     confuse_rw = confusion(approx_rw, trace, bg_mask=ucip_mask)
     m_score_rw, counts_rw = mcc(approx_rw, trace, ucip_mask,
                                 return_counts=True)
-    pnc_rw = np.logical_and(skeltrace, approx_rw).sum() / skeltrace.sum()
+    pnc_rw = (skeltrace & approx_rw).sum() / skeltrace.sum()
 
-    mccs[filename] =  (m_score, m_score_FA, m_score_rw)
 
-    print(f'mcc score of {m_score:.3} for {filename}')
-    #print(f'mcc score of {m_score_LO:.3} with larger sigmas only')
-    print(f'mcc score of {m_score_rw:.3} after random walker')
     # --- Generating Visual Outputs--------------------------------------------
+
+    SCALE_CMAP = ('plasma', (1,1,1,1))
+
     crop = cropped_args(img)  # these indices crop out the mask significantly
 
+    fmax_colors = plt.cm.plasma
+    fmax_colors.set_bad('k', 1)
     # save the raw, unaltered image
     plt.imsave(outname('0_raw'), raw_img[crop].filled(0), cmap=plt.cm.gray)
 
@@ -296,28 +320,32 @@ for i, filename in enumerate(placentas):
     plt.imsave(outname('1_img'), img[crop].filled(0), cmap=plt.cm.gray)
 
     # save the maximum frangi output over all scales
-    plt.imsave(outname('2_fmax'), Fmax[crop], vmin=0, vmax=1.0,
-               cmap=plt.cm.nipy_spectral)
+    plt.imsave(outname('2_fmax'), ma.masked_where(Fmax==0,Fmax)[crop], vmin=0,
+               vmax=1.0, cmap=fmax_colors)
 
     # only save the colorbar the first time
     save_colorbar = (i==0)
     scale_label_figure(labs, scales, crop=crop,
                        savefilename=outname('3_labeled'), image_only=True,
                        save_colorbar_separate=save_colorbar,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        output_dir=OUTPUT_DIR)
 
     plt.imsave(outname('4_confusion'), confuse[crop])
 
-    #plt.imsave(outname('7_confusion_LO'), confuse_LO[crop])
+    scale_label_figure(labs_rw, scales, crop=crop,
+                       savefilename=outname('A_labeled_rw'), image_only=True,
+                       save_colorbar_separate=save_colorbar,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
+                       output_dir=OUTPUT_DIR)
+
+
     plt.imsave(outname('7_confusion_FA'), confuse_FA[crop])
-    plt.imsave(outname('A_confusion_rw'), confuse_rw[crop])
-
-    plt.imsave(outname('9_margin_for_rw'), confuse_margins[crop])
-    percent_covered = np.logical_and(skeltrace, approx).sum() / skeltrace.sum()
-    percent_covered_FA = np.logical_and(skeltrace,
-                                        approx_FA).sum() / skeltrace.sum()
-
-    pncs[filename] = (percent_covered, percent_covered_FA, pnc_rw)
+    plt.imsave(outname('B_confusion_rw'), confuse_rw[crop])
+    #plt.imsave(outname('A_markers_rw'), markers[crop])
+    #plt.imsave(outname('9_margin_for_rw'), confuse_margins[crop])
+    percent_covered = (skeltrace & approx).sum() / skeltrace.sum()
+    percent_covered_FA = (skeltrace & approx_FA).sum() / skeltrace.sum()
 
 
 
@@ -329,29 +357,83 @@ for i, filename in enumerate(placentas):
         'mask': (247, 200, 200)  # mask color (not used in MCC calculation)
     }
 
-    print('percentage of skeltrace covered:', f'{percent_covered:.2%}')
-    print('percentage of skeltrace covered (larger sigmas only):',
-          f'{percent_covered_FA:.2%}')
-    print('percentage of skeltrace covered (random_walker):',
-          f'{pnc_rw:.2%}')
     plt.imsave(outname('5_coverage'), confusion(approx, skeltrace,
                                                 colordict=st_colors)[crop])
-    #plt.imsave(outname('8_coverage_LO'), confusion(approx_LO, skeltrace)[crop])
     plt.imsave(outname('8_coverage_FA'), confusion(approx_FA, skeltrace,
                                                    colordict=st_colors)[crop])
-    plt.imsave(outname('B_coverage_rw'), confusion(approx_rw, skeltrace,
+    plt.imsave(outname('C_coverage_rw'), confusion(approx_rw, skeltrace,
                                                    colordict=st_colors)[crop])
 
     # make the graph that shows what scale the max was pulled from
 
     scale_label_figure(labs_FA, scales, crop=crop,
                        savefilename=outname('6_labeled_FA'), image_only=True,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
                        save_colorbar_separate=False, output_dir=OUTPUT_DIR)
-    plt.close('all')  # something's leaking :(
 
+    V = np.transpose(F, axes=(2, 0, 1))
+
+    #view_slices(F[crop], axis=-1, scales=scales)
+
+    print('starting to sieve')
+    sieved = sieve_scales(V, 98, 95)
+
+    approx_S, labs_S = (sieved != 0), sieved
+    confuse_S = confusion(approx_S, trace, bg_mask=ucip_mask)
+
+    scale_label_figure(labs_S, scales, crop=crop,
+                       savefilename=outname('D_labeled_S'), image_only=True,
+                       basecolor=SCALE_CMAP[1], base_cmap=SCALE_CMAP[0],
+                       save_colorbar_separate=False, output_dir=OUTPUT_DIR)
+
+    plt.imsave(outname('E_confusion_S'), confuse_S[crop])
+
+    m_score_S, counts_S = mcc(approx_S, trace, ucip_mask, return_counts=True)
+    pnc_S = (skeltrace & approx_S).sum() / skeltrace.sum()
+
+    mccs[filename] =  (m_score, m_score_FA, m_score_rw, m_score_S )
+    pncs[filename] = (percent_covered, percent_covered_FA, pnc_rw, pnc_S)
+
+
+    print('percentage of skeltrace covered:(percentile filtering)',
+          f'{percent_covered:.2%}')
+    print('percentage of skeltrace covered (fixed alpha):',
+          f'{percent_covered_FA:.2%}')
+    print('percentage of skeltrace covered (random_walker):',
+          f'{pnc_rw:.2%}')
+    print('percentage of skeltrace covered (sieving):',
+          f'{pnc_S:.2%}')
+
+    print(f'mcc score of {m_score:.3} for percentile filtering')
+    print(f'mcc score of {m_score_FA:.3} with fixed alpha {FIXED_ALPHA}')
+    print(f'mcc score of {m_score_rw:.3} after random walker')
+    print(f'mcc score of {m_score_S:.3} after sieving')
+
+
+    precision_score = lambda t: int(t[0]) / int(t[0] + t[2])
+
+    precision = precision_score(counts)
+    precision_FA = precision_score(counts_FA)
+    precision_rw = precision_score(counts_rw)
+    precision_S = precision_score(counts_S)
+
+    precisions[filename] = (precision, precision_FA, precision_rw, precision_S)
+
+    print(f'precision of {precision:.3} for percentile filtering')
+    print(f'precision of {precision_FA:.3} for fixed alpha')
+    print(f'precision of {precision_rw:.3} for random walker')
+    print(f'precision of {precision_S:.3} for sieving')
+
+    scoretable = pandas.DataFrame(np.vstack((mccs[filename], pncs[filename],
+                                            precisions[filename])),
+                                  columns=('PF', 'FA', 'RW', 'PS'),
+                        index=('MCC', 'skel coverage', 'precision'))
+
+    print(scoretable)
+    print('\n\n')
+    print(scoretable.to_latex())
 
     ### THIS IS ALL A HORRIBLE MESS. FIX IT
-
     # why don't you just return the dict instead
     with open(jfile, 'r') as f:
         slog = json.load(f)
@@ -361,15 +443,18 @@ for i, filename in enumerate(placentas):
     slog['counts'] = c2d(counts)
     slog['counts_FA'] = c2d(counts_FA)
     slog['counts_rw'] = c2d(counts_rw)
+    slog['counts_S'] = c2d(counts_S)
     slog['pnc'] = pncs[filename]
     slog['mcc'] = mccs[filename]
     slog['scale_maxes'] = list(scale_maxes)
-    slog['alphas'] = list(alphas)
+    slog['ALPHAS'] = list(ALPHAS)
+    slog['precision'] = precisions[filename]
+
 
     with open(jfile, 'w') as f:
         json.dump(slog, f)
-    
 
+    plt.close('all')
 
 # Post-run Meta-Output and Logging ____________________________________________
 
@@ -380,18 +465,20 @@ mccfile = os.path.join(OUTPUT_DIR, f"runlog_{timestring}.json")
 
 runlog = {
     'time': timestring,
-    'dark_bg': DARK_BG,
-    'dilate_per_scale': DILATE_PER_SCALE,
-    'log_range': log_range,
-    'n_scales': n_scales,
+    'DARK_BG': DARK_BG,
+    'DILATE_PER_SCALE': DILATE_PER_SCALE,
+    'SCALE_RANGE': SCALE_RANGE,
+    'SCALE_TYPE' : SCALE_TYPE,
+    'N_SCALES': N_SCALES,
     'scales': list(scales),
-    'alphas': list(alphas),
-    'betas': None,
+    'ALPHAS': list(ALPHAS),
+    'BETAS': None,
     'use_npz_files': False,
     'remove_glare': REMOVE_GLARE,
     'files': list(placentas),
     'MCCS': mccs,
-    'PNC': pncs
+    'PNC': pncs,
+    'precisions': precisions
 }
 
 # save to a json file

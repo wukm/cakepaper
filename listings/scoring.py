@@ -4,6 +4,10 @@ import numpy as np
 from placenta import open_typefile, open_tracefile
 from skimage.morphology import thin
 
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+
 import itertools
 from collections import deque
 
@@ -114,7 +118,7 @@ def merge_widths_from_traces(A_trace, V_trace, strategy='minimum'):
     V = rgb_to_widths(V_trace)
 
     # collisions (where are widths both reported)
-    c = np.logical_and(A!=0, V!=0)
+    c = (A!=0)& (V!=0)
 
     W = np.maximum(A,V)  # get the nonzero value
     if strategy == 'maximum':
@@ -168,7 +172,7 @@ def filter_widths(W, widths=None, min_width=3, max_width=19):
         # use numpy.isin(T, widths) but that's only in version 1.13 and up
         # of numpy this is basically the code for that though
         to_keep = np.in1d(W, widths, assume_unique=True).reshape(W.shape)
-        Wout[np.invert(to_keep)] = 0
+        Wout[~to_keep] = 0
     return Wout
 
 
@@ -235,6 +239,8 @@ def skeletonize_trace(T, T2=None):
     """
     if T.ndim == 3:
         trace = (rgb_to_widths(T) > 0)  # booleanize it
+    else:
+        trace = T.astype('bool')
 
     thinned = thin(trace)
 
@@ -282,13 +288,21 @@ def confusion(test, truth, bg_mask=None, colordict=None, tint_mask=True):
 #            'mask': (247, 200, 200)  # mask color (not used in MCC calculation)
 #            }
 #
+        #colordict = {
+        #    'TN': (49,49,49),  # true negative# 'f7f7f7'
+        #    'TP': (0, 0, 0),  # true positive  # '000000'
+        #    'FN': (201,53,108),  # false negative # 'f1a340' orange
+        #    'FP': (0,112,163),  # false positive # '998ec4' purple
+        #    'mask': (247, 200, 200)  # mask color (not used in MCC calculation)
+        #    }
+
         colordict = {
-            'TN': (49,49,49),  # true negative# 'f7f7f7'
-            'TP': (0, 0, 0),  # true positive  # '000000'
-            'FN': (201,53,108),  # false negative # 'f1a340' orange
-            'FP': (0,112,163),  # false positive # '998ec4' purple
-            'mask': (247, 200, 200)  # mask color (not used in MCC calculation)
-            }
+                     'TP': (0,0,0),
+                     'TN': (226,226,226),
+                     'FN': (201,80,80),
+                     'FP': (30,69,230),
+                     'mask': (209,209,209)
+                     }
     #TODO: else check if mask is specified and add it as color of TN otherwise
 
     true_neg_color = np.array(colordict['TN'], dtype='f')/255
@@ -306,10 +320,10 @@ def confusion(test, truth, bg_mask=None, colordict=None, tint_mask=True):
     output = np.zeros((test.shape[0], test.shape[1], 3), dtype='f')
 
     # truth conditions
-    true_pos = np.bitwise_and(test==truth, truth)
-    true_neg = np.bitwise_and(test==truth, np.invert(truth))
-    false_neg = np.bitwise_and(truth, np.invert(test))
-    false_pos = np.bitwise_and(test, np.invert(truth))
+    true_pos = (test==truth & truth)
+    true_neg = (test==truth & ~truth)
+    false_neg = (truth & ~test)
+    false_pos = (test & ~truth)
 
     output[true_pos,:] = true_pos_color
     output[true_neg,:] = true_neg_color
@@ -386,10 +400,11 @@ def mcc(test, truth, bg_mask=None, score_bg=False, return_counts=False):
     false positives will be inflated.
 
     """
-    true_pos = np.logical_and(test==truth, truth)
-    true_neg = np.logical_and(test==truth, np.invert(truth))
-    false_neg = np.logical_and(truth, np.invert(test))
-    false_pos = np.logical_and(test, np.invert(truth))
+
+    true_pos = ((test == truth) & truth)
+    true_neg = ((test == truth) & ~truth)
+    false_neg = (truth & ~test)
+    false_pos = (test & ~truth)
 
     if score_bg:
         # take the classifications above as they are (nothing is masked)
@@ -416,9 +431,10 @@ def mcc(test, truth, bg_mask=None, score_bg=False, return_counts=False):
     FN = false_neg.sum()
 
     if not score_bg:
-        total = np.invert(bg_mask).sum()
+        total = np.sum(~bg_mask)
     else:
         total = test.size
+
     #print('TP: {}\t TN: {}\nFP: {}\tFN: {}'.format(TP,TN,FP,FN))
     #print('TP+TN+FN+FP={}\ntotal pixels={}'.format(TP+TN+FP+TN,total))
     # prevent potential overflow
@@ -487,7 +503,7 @@ def _longest_chain_1d(iterable):
     """ will return a tuple of ind, length
     where ind is the position in the iterable the chain starts and length is the
     length of the chain
-    """ 
+    """
     return max(chain_lengths(iterable), key=lambda x: x[1])
 
 
@@ -497,10 +513,232 @@ def longest_chain(arr, axis):
     """
 
     C = np.apply_along_axis(_longest_chain_1d, axis, arr.astype('bool'))
-    
+
     start_inds, chain_lens =  np.split(C, 2, axis)
 
     return np.squeeze(start_inds), np.squeeze(chain_lens)
+
+
+def _bunch_hists(H, bunches):
+
+    return np.stack((np.sum(np.atleast_2d(H[b,:]), axis=0) for b in bunches))
+
+
+def scale_to_width_plots(multiscale_approx, max_labels, widths, scales,
+                         bunches=None, cmap=None, approx_method=None,
+                         figsize=(13,14), style='seaborn', bunch_until=None):
+    """
+    multiscale_approx is a 3d boolean array whose first dimension is scale
+    max_labels is a 2d array of integers that say where the max value of
+    F occured. you can get max_labels by running V.argmax(axis=0)
+
+    in widths, each pixel has a unique width
+
+    bunches.flatten() should be the same as arange(scales)
+    but can be something like
+    ( (0,1,2,3), (4,5), 6, 7, 8, (9,10,11) )
+
+    or even
+
+    (2,3,4,5,(0,1,6,7))
+
+    this is to prevent similar scales from clogging, you can just bin them
+    all together.
+
+    approx method is a label to use in the fig titles
+    """
+
+    if bunches is None:
+        if bunch_until is not None:
+            indices = list(range(len(scales)))
+            bunches = [indices[:bunch_until],] + indices[bunch_until:]
+
+    plt.style.use(style)
+
+    fig, ax = plt.subplots(nrows=2, ncols=1, figsize=figsize)
+
+    A = multiscale_approx  # easier to work with
+
+    wbins = np.arange(3,20,2)  # bins of widths in ground truth
+
+    max_hists = [[np.sum((max_labels == s) & (widths==w)) for w in wbins]
+                  for s in range(len(scales))]
+
+    hists = np.array([[np.sum((widths==w) & A[n]) for w in wbins]
+                      for n in range(len(scales))]
+                     )
+
+
+    if cmap is None:
+        # this will just use the default cycle of colors
+        colors = np.repeat(None, len(scales))
+    else:
+        if not isinstance(cmap, mpl.colors.LinearSegmentedColormap):
+            # try this
+            cmap = plt.get_cmap(cmap)
+
+        colors = cmap(np.linspace(0,1,len(scales)))
+
+    labels = [rf'$\sigma_{{{k}}}={sigma:.2f}$'
+              for k, sigma in enumerate(scales,1)]
+
+    # number of true positives, false negatives for each width
+    tp_hists = [np.sum((widths==w) & A.any(axis=0)) for w in wbins]
+    fn_hists = [np.sum((widths==w) & ~A.any(axis=0)) for w in wbins]
+
+    if bunches is not None:
+        hists = _bunch_hists(hists, bunches)
+
+        # just return \sigma_{1,2,3} or something rather than listing
+        bunch_label = lambda b: r"$\sigma_{{{}}}$".format(','.join(( str(x+1)
+                                                                    for x in b)
+                                                                   ))
+
+        labels = [labels[b] if np.isscalar(b) else bunch_label(b)
+                  for b in bunches]
+
+        if cmap is None:
+            # just make it the appropriate length
+            cmap = np.repeat(None, len(bunches))
+        else:
+            colors = [colors[b] if np.isscalar(b) else colors[b[0]]
+                      for b in bunches]
+
+    ax[0].bar(wbins, tp_hists, color=(0.6,0.6,0.6),
+            label='# true positives')
+    ax[0].bar(wbins, fn_hists, bottom=tp_hists, color=(1,.8,.8),
+            label='# false negatives')
+
+    for h, mh, label, color in zip(hists, max_hists, labels, colors):
+        ax[0].plot(wbins, h, label=label, color=color)
+        ax[1].plot(wbins, mh, label=label, color=color)
+
+
+    ax[0].set_xticks(wbins)
+    ax[0].set_xlabel('vessel widths (ground truth), pixels')
+    ax[0].set_ylabel('# pixels')
+    ax[0].set_xlim(2,21)
+
+    ax[1].set_xticks(wbins)
+    ax[1].set_xlabel('vessel widths (ground truth), pixels')
+    ax[1].set_ylabel('# pixels')
+    ax[1].set_xlim(2,21)
+
+    title = 'pixels reported per scale'
+    max_title = r'pixel widths of true positives by scale of $V_\max$'
+    if approx_method is not None:
+        title += f'({approx_method})'
+        max_title += f'({approx_method})'
+
+    ax[0].set_title(title)
+    ax[1].set_title(max_title)
+    ax[0].legend(loc='best', labelspacing=0.2)
+    ax[1].legend(loc='best', labelspacing=0.2)
+
+    fig.tight_layout()
+    return fig, ax
+
+
+def scale_to_argmax_plot(max_labels, widths, scales, normalize=False,
+                         bunches=None, cmap=None, figsize=(13,10),
+                         style='seaborn-paper', bunch_until=None):
+    """
+    if normalize, normalize each scale over columns (i.e. all widths)
+    multiscale_approx is a 3d boolean array whose first dimension is scale
+    max_labels is a 2d array of integers that say where the max value of
+    F occured. you can get max_labels by running V.argmax(axis=0)
+
+    in widths, each pixel has a unique width
+
+    bunches.flatten() should be the same as arange(scales)
+    but can be something like
+    ( (0,1,2,3), (4,5), 6, 7, 8, (9,10,11) )
+
+    or even
+
+    (2,3,4,5,(0,1,6,7))
+
+    this is to prevent similar scales from clogging, you can just bin them
+    all together.
+
+    approx method is a label to use in the fig titles
+    """
+
+    if bunches is None:
+        if bunch_until is not None:
+            indices = list(range(len(scales)))
+            bunches = [indices[:bunch_until],] + indices[bunch_until:]
+
+    plt.style.use(style)
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    wbins = np.arange(3,20,2)  # bins of widths in ground truth
+
+    max_hists = np.array([[np.sum((max_labels == s) & (widths==w)) for w in wbins]
+                  for s in range(len(scales))])
+    if normalize:
+        max_hists = max_hists / max_hists.sum(axis=1, keepdims=True)
+
+    if cmap is None:
+        # this will just use the default cycle of colors
+        colors = np.repeat(None, len(scales))
+    else:
+        if not isinstance(cmap, mpl.colors.LinearSegmentedColormap):
+            # try this
+            cmap = plt.get_cmap(cmap)
+
+        colors = cmap(np.linspace(0,1,len(scales)))
+
+    labels = [rf'$\sigma_{{{k}}}={sigma:.2f}$'
+              for k, sigma in enumerate(scales,1)]
+
+    # number of true positives, false negatives for each width
+
+    if bunches is not None:
+
+        # just return \sigma_{1,2,3} or something rather than listing
+        bunch_label = lambda b: r"$\sigma_{{{}}}$".format(','.join(( str(x+1)
+                                                                    for x in b)
+                                                                   ))
+
+        labels = [labels[b] if np.isscalar(b) else bunch_label(b)
+                  for b in bunches]
+
+        if cmap is None:
+            # just make it the appropriate length
+            cmap = np.repeat(None, len(bunches))
+        else:
+            colors = [colors[b] if np.isscalar(b) else colors[b[0]]
+                      for b in bunches]
+
+    #ax.bar(wbins, tp_hists, color=(0.6,0.6,0.6),
+    #        label='# true positives')
+    #ax.bar(wbins, fn_hists, bottom=tp_hists, color=(1,.8,.8),
+    #        label='# false negatives')
+
+    for mh, label, color in zip(max_hists, labels, colors):
+        ax.plot(wbins, mh, label=label, color=color)
+
+
+
+    ax.set_xticks(wbins)
+    ax.set_xlabel('vessel widths (ground truth), pixels')
+    if normalize:
+        ax.set_ylabel('# pixels identified by scale /'
+                      '# pixels identified by all scales')
+    else:
+        ax.set_ylabel('# pixels')
+
+    ax.set_xlim(2,21)
+
+    max_title = r'pixel widths of true positives by scale of $V_\max$'
+
+    ax.set_title(max_title)
+    ax.legend(loc='best', labelspacing=0.2)
+
+    fig.tight_layout()
+    return fig, ax
 
 
 if __name__ == "__main__":

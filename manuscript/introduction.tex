@@ -1,45 +1,44 @@
-% introduction - describe the motivation and how previously published
-%% on the topic integrates with the current work
-
 \chapter{Introduction} \label{ch:introduction}
 
 From \cite{chang2017}, it is useful to develop a neonatal test for high risk of
 Autism Spectrum Disorder. There is some evidence as in \cite{chang2016whole}
-that there is some correlation between risk and placental health. Most ASD
+of correlation between this risk and placental health factors.. Most ASD
 cases are not diagnosed until the child reaches three or four, so the benefit
-of any neonatal testing would be very beneficial, as the brain may be more
+of an early detection technique would be massive, as the brain may be more
 receptive to treatment at a young age. In particular, it was shown in
 \cite{chang2016whole} that measurements of the placental chorionic surface
 vascular network (PCSVN) may be useful in identifying such risk.
 \cite{chang2017} has provided a method of automatically calculating such
 features from an extracted vascular network, but does so with manual tracing of
 the PCSVN in order to make these measurements.  These manual tracings are
-labor-intensive, requiring 4 to 8 hours of labor for each trace. There was been
-work to automate this procedure \cite{almoussa-ucla-reu} \cite{huynh2013filter}
-\cite{djima2017enhancing}. Automating this procedure would not only allow more
-data acquisition to study the potential effects of placental health on later
-conditions, but may ideally serve as a real-time diagnostic for neonatal risk
-factors as well. We continue the work of developing a procedure to automate
-extraction of the PCSVN.
+labor-intensive, requiring 4 to 8 hours of user intervention to generate each trace.
+The present work follows several other efforts towards an automated extraction
+technique, such as \cite{almoussa-ucla-reu}, \cite{huynh2013filter}, and
+most recently \cite{djima2017enhancing}. Automating this procedure would not
+only allow more data acquisition to study the potential connection between ASD
+and placental health, but could even potentially serve as the basis of real-time
+diagnostic for neonatal risk factors as well. We continue the work of
+developing a procedure to automate extraction of the PCSVN.
 
 
-Our basic goal of "vascular network extraction" is a frequent one in image
+Our basic goal of "vascular network extraction" is a common one in image
 processing. There are have been many techniques adapted to extracting vascular
-networks. The placenta in particular presents a greater degree of difficulty
-due to the nature of the vascular network. It's a surface network, and the
-"background" has a great degree of topology itself, causing many na\"{i}ve
-approaches that work with other image domains to fail completely.
+networks. However, the placenta in particular poses as a particularly difficult
+image domain to work with. It is a surface network with much irregularity: the are
+frequent gaps and crossings, the "background" has a great degree of variation in
+color intensity and structure itself, causing many na\"{i}ve
+approaches to fail completely.
 
-
-Much work has been to develop reliable vascular extraction methods for
-well-known image domains (such as retinal MRA images) using Hessian-based
-filters, namely the (multiscale) Frangi filter. It is desirable to extend these
-technique to study placental images, but this approach is greatly hindered by
-the comparative irregularity of the placental surface as a whole, which
-introduces significant noise into the image domain.  Prior work
-\cite{huynh2013filter} solved this problem by provided an additional local
-curvilinear filter to the Frangi result in an effort to remove some noise from
-the final extraction.
+Reliable vascular extraction methods do exist for well-known image domains
+(such as retinal MRA images) using Hessian-based filters, namely the (multiscale) Frangi filter.
+It is desirable to extend this technique to study placental images, but this
+approach is greatly hindered by the comparative irregularity of the placental
+surface as a whole, which introduces significant noise into the image domain.
+Previous attempts to implement the Frangi filter in this context \cite{huynh2013filter}
+dealt with this noise by passing the Frangi filtered result to an additional local
+curvilinear filter (a directional filter bank) in an effort to retrieve a partial
+segmentation. Other more recent efforts \cite{djima2017enhancing} are very promising
+but are considerably more resource-intensive.
 
 Here we provide an in depth mathematical background of the Frangi filter and
 its justification as an image-processing technique, as well as an introduction
@@ -51,13 +50,14 @@ eigenvalues of the Hessian, from which we calculate the Frangi filter, a
 vesselness measure.
 
 We demonstrate the effectiveness of our sped-up implementation of the Frangi
-filter by performing a large ($N=40$) multiscale Frangi filter on a set of 201
+filter by performing a large ($N=20$) multiscale Frangi filter on a set of 201
 placental images from a private database provided by the National Children's
-Study (NCS). We then demonstrate several approaches to merging the multiscale
-result into an approximation of the PCSVN and compare these to manual tracings
-of the network. Our ability to take many more scales into consideration allows
-us to be pickier about our thresholding, which significantly reduces noise
-experienced in previous efforts. We finally suggest several ways to improve
-upon our approximation, namely by using the Frangi result as a prefilter for
-more robust techniques, providing a brief demo using a random walker
-segmentation.
+Study (NCS). We then appeal to the usefulness of our multiscale output by
+then demonstrating several approaches to determining a segmentation
+of the PCSVN. These will range from naive (i.e direct thresholding) to
+rather viable (scalewise random walks). We compare each of these results to
+manual tracings of the network.
+We shall our ability to take many more scales into consideration (by virtue of
+the sped up Frangi filter) allows us to be pickier about our thresholding,
+as well as our choice of parameters, which significantly reduces noise
+experienced in previous efforts.

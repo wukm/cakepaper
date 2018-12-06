@@ -1,25 +1,23 @@
 \chapter{Conclusion} \label{ch:conclusion}
 
-Brief recap.
-
-\section{Review of Work}
-
-Estimation of success. Areas of success and struggle.
+We justified the use of differential geometry in 2D discrete image processing, and vastly improved upon the implementation of the Frangi filter. Our improved implementation allowed us to take more steps in our multiscale method and thus choose stricter parameters for Frangi scale. We used our multiscale Frangi vesselness measure to suggest several alternative approaches at merging the vesselness and compared their effectiveness as a precursor to segmentation and eventually network completion.
 
 \section{Future research directions} \label{sec:future-research-directions}
 
+
+Our goal is to eventually solve the network connection problem.
 \begin{itemize}
+
 	\item Solve the Network Connection Problem (PICTURE OF GAPS)
-	Try something like \cite{laptev2000automatic}.
-	\item Refine variable thresholding and automate.
-	\item Combine with a ridge search.
-	\item Use this as pre-processing for a Neural Network or something
+	Try something like \cite{laptev2000automatic} or use of principal curvatures.
+	\item Implement the automatic scale selection and normalization of derivates as mentioned in Lindeberg \cite{lindeberg1998feature} to relieve ourselves of
+        our current dependency on manual selection of $\sigma_{\min}$ and  $\sigma_{\max}$.
+	\item Look into gradient prefiltering more as well as varying $\gamma$ more, especially in areas where we suspect the network could be completed.
+  \item Look into using signed frangi arguments.
+	\item Use this as preprocessing for a Neural Network.
 	(cite kara's work, katalinas work)
-	\item Apply to more image domains (STARE, WORSE PLACENTAS, ETC.)
-	\item Automate Measurements (more quantative results too)
-	\item Optimize; Better Use of Scales
-	\item Use of Color Data
-	
+	\item Apply to more image domains (STARE, other placental domains).
+	\end{itemize}
 \begin{figure}[p] \centering
 	\subfloat{		\label{fig:signsweep-1p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_plate}}}
 	} \\[-0.5cm]
@@ -45,5 +43,4 @@ Estimation of success. Areas of success and struggle.
 	\caption{Signed Frangi output (plate and inset) (Example 1)}
 	\label{fig:signsweep-2}
 \end{figure}
-
-\end{itemize}
+f

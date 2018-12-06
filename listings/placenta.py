@@ -21,6 +21,7 @@ from scipy.ndimage import imread
 
 from numpy.ma import is_masked
 from skimage.color import gray2rgb
+from skimage.util import img_as_float
 import matplotlib.pyplot as plt
 
 
@@ -65,7 +66,7 @@ def open_typefile(filename, filetype, sample_dir=None, mode=None):
 
     except FileNotFoundError:
         print('Could not find file', typefile)
-        raise
+        return None
 
     return img
 
@@ -101,9 +102,18 @@ def open_tracefile(base_filename, as_binary=True,
     else:
         return T
 
+def mimg_as_float(mimg):
+
+    if not ma.is_masked(mimg):
+
+        return img_as_float(mimg)
+
+    else:
+        return ma.masked_array(img_as_float(mimg.data),
+                               mask=mimg.mask)
 
 def get_named_placenta(filename, sample_dir=None, masked=True,
-                       maskfile=None):
+                       maskfile=None, mode='L'):
     """
     This function is to be replaced by a more ingenious/natural
     way of accessing a database of unregistered and/or registered
@@ -141,7 +151,12 @@ def get_named_placenta(filename, sample_dir=None, masked=True,
 
     full_filename = os.path.join(sample_dir, filename)
 
-    raw_img = imread(full_filename, mode='L')
+    if mode.lower() in ('g', 'green'):
+        # first channel of RGBA (or RGBA!)
+        raw_img = imread(full_filename)[...,1]
+
+    else:
+        raw_img = imread(full_filename, mode=mode)
 
     if maskfile is None:
         # try to open what the mask *should* be named
@@ -418,6 +433,10 @@ def measure_ncs_markings(ucip_img=None, filename=None, verbose=True):
     if ucip_img is None:
         ucip_img = open_typefile(filename, 'ucip')
 
+    if ucip_img is None:
+        # if it's still none (no file), return None
+        return None, None
+
     # just in case it's got an alpha channel, remove it
     img = ucip_img[:, :, 0:3]
 
@@ -496,7 +515,7 @@ def add_ucip_to_mask(m, radius=100, mask=None, size_like=None):
     to_add[m[0]-radius:m[0]+radius+1, m[1]-radius:m[1]+radius+1] = D
 
     # merge with supplied mask
-    return np.logical_or(mask, to_add)
+    return mask | to_add
 
 
 if __name__ == "__main__":
