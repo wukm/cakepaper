@@ -85,9 +85,10 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     Our development of curvature ultimately will hinge upon a careful consideration of the tangent plane of $f$ at a point $p$, for we will require a concrete definition of both the tangent space within the domain and image of $f$,
     as well as the so called "differential" of $f$,
     % shit or not because we need it later!
-    the lattermost of which we will only define for the immediate case required
-    Seeing that $f$ is one-to-one should make a lot of this
-    futzing about complete overkill, but I've yet to find a way to distill it. That is, this development works for any parametrized surface element, not necessarily a graph. Whatever for now.
+    the lattermost of which we will only define for the immediate case required.
+	%    Seeing that $f$ is one-to-one should make a lot of this
+	%    futzing about complete overkill, but I've yet to find a way to distill it.
+	%    That is, this development works for any parametrized surface element, not necessarily a graph. Whatever for now.
     
     
     \begin{defn}[Tangent space of $U$ at $u$] \label{def:tangent-at-U}
@@ -584,9 +585,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	
   Thus the matrix of the Weingarten map $\weinmat$ is the Hessian matrix exactly at a critical point $u \in  U$, where $\nabla h(u) = (h_x(u), h_y(u)) = 0$. Of course this implies that $\weinmat$ and $\Hess{(h)}$ have the same eigenvalues and eigenvectors at these points.
   
-But this observation is more broadly useful than that, since if $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
+But this observation is more broadly useful than for analyzing critical points alone. If $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
 \begin{equation}
-\tilde{G} = I + [\delta], \quad  [\delta] := \begin{bmatrix} h_y^2 & -h_x h_y \ -h_x h_y & h_x^2 \end{bmatrix}
+\tilde{G} = I + [\delta], \quad  [\delta]
+	:= \begin{bmatrix} h_y^2 & -h_x h_y \\
+					  -h_x h_y & h_x^2 \end{bmatrix}
 \end{equation}
 
 We can then rewrite \cref{weinmatexactgraph} as 
@@ -679,12 +682,12 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
   \begin{equation}
   \Hess(x,y) = \begin{bmatrix}
-  L_{xx}(x,y) & L_{xy}(x,y) \
+  L_{xx}(x,y) & L_{xy}(x,y) \\
   L_{yx}(x,y) & L_{yy}(x,y)
   \end{bmatrix}
   \end{equation}
   
-  At any point $(x,y)$ we denote the two eigenpairs of $\Hess(x,y)$ as
+  At any point $(x,y)$ we denote the two eigenpairs of the Hessian matrix of $h$ as
   \begin{equation}
   \Hess(x,y) u_i = \kappa_i u_i \; , \quad i = 1,2
   \end{equation}

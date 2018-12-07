@@ -20,7 +20,7 @@ ordered such that $\abs{\lambda_1} \leq \abs{\lambda_2}$, and define the Frangi 
 as:
 
 \begin{equation} \label{eq:frangi-vesselness-measure}
-V_\sigma(x_0,y_0) = \begin{cases}
+\Vsigma(x_0,y_0) = \begin{cases}
 0 & \text{if} \quad \lambda_2 > 0 \\
 \exp\left\{-\frac{A^2}{2\beta^2}\right\}
 \left(1 - \exp\left\{-\frac{S^2}{2c^2}\right\}\right) & \text{otherwise}
@@ -85,7 +85,7 @@ Frangi suggested for $c$ that half of (the Frobenius norm of the) Hessian matrix
 $\gamma$, so that $ c = \gamma S_{\max}$. This creates a minor annoyance though: although the anisotropy factor can certainly attain a value of 1, if $c$ is to take this ``appropriate'' value, the maximum value of the structureness factor is somewhat smaller than 1. In fact,
 \begin{equation}
 \begin{aligned}
-\max\{V_\sigma\} &\le \max\left(
+\max\{\Vsigma\} &\le \max\left(
 \exp\left\{\frac{-A^2}{2\beta^2}\right\}
 \right)
 \max\left(
@@ -103,13 +103,13 @@ $\gamma$, so that $ c = \gamma S_{\max}$. This creates a minor annoyance though:
 \end{equation}
 
 Thus, when $\gamma$ takes the suggested value of $\gamma = 1/2$, the above calculation suggests that
-the maximum theoretical value that the Frangi filter could attain is
-$ \max \{ V_\sigma \} \le 1 - \exp\left\{ -1 \right\} \approx .8647$.
-This (among other obvious reasons) certainly justifies Frangi's description of the vesselness measure as only ``probability-like.'' Still, we would like the filter's sensitivity to relative structureness to not have the effect of dampening the Filter as a whole, so we will introduce a rescaling factor $a_\gamma$, which is a explicit function of $gamma$ that rescales $V$ so that the structureness factor has a maximum output score of 1 regardless of choice of $\gamma$. Our final Frangi vesselness measure is thus
+the maximum theoretical value that the Frangi filter could attain at any scale is
+$ \max \{ \Vsigma \} \le 1 - \exp\left\{ -1 \right\} \approx .8647$.
+This (among other obvious reasons) certainly justifies Frangi's description of the vesselness measure as only ``probability-like.'' Still, we would like the filter's sensitivity to relative structureness to not have the effect of dampening the Filter as a whole, so we will introduce a rescaling factor $a_\gamma$, which is a explicit function of $gamma$ that rescales $\Vsigma$ so that the structureness factor has a maximum output score of 1 regardless of choice of $\gamma$. Our final Frangi vesselness measure is thus
 
 %    \begin{minipage}{\textwidth} \centering
 \begin{gather} \label{eq:frangi-vesselness-measure-v1}
-V_\sigma(x_0,y_0) = \begin{cases}
+\Vsigma(x_0,y_0) = \begin{cases}
 0 & \text{if} \quad \lambda_2 > 0 \\
 a_\gamma \exp\left\{\frac{-A^2}{2\beta^2}\right\}
 \left(1 - \exp\left\{\frac{-S^2}{2(\gamma S_{\max})^2}\right\}\right) & \text{otherwise}
@@ -150,4 +150,4 @@ We make a similar presentation of the dependence of the structureness kernel on 
   \label{fig:structureness-parameter-demo}
 \end{figure}
 
-	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach
+	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach.
