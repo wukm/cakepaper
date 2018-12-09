@@ -31,7 +31,7 @@ We end up with a boolean matrix the size of the image, and compare it to the gro
 
 \end{figure}
 	
-Although there are many measures to gauge the succcess of binary classification, we will focus on two. The first is precision, 
+Although there are many measures to gauge the succcess of binary classification, we will focus on two that we find particularly illustrative. The first is precision, given by
 
 \begin{equation}
 \label{eq:precision}
@@ -118,15 +118,13 @@ In \cref{fig:segmentation-demo} we demonstrate the visual outputs produced by \t
 \
 \begin{sidewaysfigure}
 	\includegraphics[width=\textwidth]{annotations-montage-2by2}
-	\caption{Issues in ground truth manifesting in Frangi vesselness scores}
-	\label{fig-annotated-montage}
+	\caption{Issues with the ground truth manifesting in Frangi vesselness scores}
+	\label{fig:annotated-montage}
 \end{sidewaysfigure}
 
+We must qualify our binary classification. There are limitations to our ``the ground truth'' is not 100\% correct. In \cref{fig:annotated-montage} we demonstrate a few common issues with the samples. The four figures show (top left) the original colored raw sample, (top right) the ground truth tracing, (bottom left) \Vmax, and (bottom right) the confusion matrix after the "sieving strategy."  The green arrow points to the umbilical stump. You can see there is circular noise around this point, and in general perfusion around this point is very low--many of these vessels have been estimated by the tracer. The orange arrows represent points where perfusion is very low, like there is a clot in the vessel or something. The pink arrows point to vessels that were not traced, although they are clearly visible. The blue arrows point to where the shape of the vessel and the trace clearly do not agree. There any many more examples of these in the frame, and many more across all samples.
 
-
-
-Sometimes the output doesn't agree with the trace, i.e. ``the ground truth'' is not 100\% correct.
-sometimes either there's a false negative (reported) but something just wasn't traced in the original  1602443.
+The red arrow points to an issue unrelated to the ground truth, but an issue that arise when selecting scales-- this is a point of dark curvature that represents noise at larger scales. As you can see from the \Vmax of this inset, there is a positive response in this dead space between vessels, and there is another one that appears in the bottom left between two close vessels of similar size. 
 
 \begin{figure} \centering
   \subfloat{
