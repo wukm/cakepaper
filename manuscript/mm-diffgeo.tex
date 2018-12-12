@@ -507,8 +507,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
         	\weinmat = \Hess(h) \tilde{G} \;,\quad \mathrm{where} \quad
 	        	\tilde{G} := \frac{1}{\sqrt{1+h_x^2 + h_y^2}}
 	        	\begin{bmatrix}
-		        	1 + h_y^2 & -h_x h_y \
-		        	-h_x h_y & 1 + h_x^2 \
+		        	1 + h_y^2 & -h_x h_y \\
+		        	-h_x h_y & 1 + h_x^2 \\
 	        	\end{bmatrix} 
         	\end{equation}
         	
@@ -607,7 +607,17 @@ We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close t
 \end{theorem}
 
 The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
-$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect 
+$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large.
+
+
+REPLACE BY THIS THEOREM INSTEAD:
+
+From \cite{matrix-analysis-horn}, we can bound the perturbation of eigenvalues from $\weinmat$ to $\Hess(h)$ by
+
+\begin{theorem}
+	Let A be a $n\times n$ normal matrix with eigenvalues $\lambda_1, \dots, \lambda_n$ and $E$ an $n \times n$ arbitrary matrix. If $\hat{\lambda} $ in an eigenvalue of $A + E$, then there is an eigenvalue $\lambda_i$ of A for which
+		$\abs{\hat{\lambda} - \lambda_i} \leq \vnorm{E}_2$
+\end{theorem}
 
 In the event that we do wish to rigorously compute the Weingarten map should want to be rigorously computed "without approximation"--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
 
@@ -747,36 +757,6 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
   \end{proof}
   
   Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
-  
-%  \vcomment{The following unverified (but intuitive) theorem is currently unnecessary but could be useful if I still want to implement the idea of tracking direction of eigenvectors along potential ridges, useful for filling in the ridge network. Like approximating the surface using derivatives.}
-%  The following is an \textbf{unverified claim} (which might be useful for later):
-%  The frame varies continuously along paths in $\R^2$
-%  except at points where $\Hess(x,y)$ is singular.
-%  To make this explicit:
-%  
-%  \begin{theorem}[Continuity of the leading principal direction]
-%     	Let $\theta: I:= [0,1] \to \R^2$ be a parametrized regular curve in $\R^2$ and
-%     	$H_\theta := \Hess_f  \circ \theta(t)$ be the matrix-valued function
-%     	% use the same notation as the Hessian before and cite the eqn. number from earlier
-%     	(where $\Hess_f$ is the $2\times 2$ Hessian of the smooth surface $f$)
-%     	Let $U:I \to \R^2$ be the implicitly-defined vector valued function s.t.
-%     	$U(t)$ is the leading eigenvector of $H_\theta$
-%     	(and therefore the leading principal direction of $f$). That is,
-%     	\begin{equation}
-%     	H_\theta \; U(t) = \lambda U(t) \quad \textrm{with}\quad \lambda = \rho(H_\theta)
-%     	\end{equation}
-%     	In other words, $\abs{\lambda} \ge \abs{\tilde{\lambda}}$ for any
-%     	$\tilde{\lambda} : H_\theta \; u = \tilde{\lambda} u$ for some $u \ne 0$.
-%     	
-%     	Then, $U(t)$ is continuous in $t$ whenever $H_f(t)$ is non-singular.
-%     	\vcomment{Maybe fix this so that the path avoids any nonsingular points?
-%     		$U(t)$ isn't even well-defined at such points anyway.}
-%  \end{theorem}
-%  \begin{proof}
-%     	First, we show that $U(t)$ is a well-defined function at all points $t$ where
-%     	$H_f(t)$ is non-singular.
-%     	\vtodo{FIX PROOF OR REMOVE}
-%  \end{proof}
   
 
 
