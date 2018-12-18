@@ -4,43 +4,15 @@ We justified the use of differential geometry in 2D discrete image processing, a
 
 \section{Future research directions} \label{sec:future-research-directions}
 
-
 Our goal is to eventually solve the network connection problem.
 \begin{itemize}
-
-	\item Solve the Network Connection Problem (PICTURE OF GAPS)
-	Try something like \cite{laptev2000automatic} or use of principal curvatures.
+	\item Perfect stump removal and watershedding to not rely on use of maxes/improve vesselness measure.
+	\item Try something like \cite{laptev2000automatic} or use of principal curvatures.
 	\item Implement the automatic scale selection and normalization of derivates as mentioned in Lindeberg \cite{lindeberg1998feature} to relieve ourselves of
-        our current dependency on manual selection of $\sigma_{\min}$ and  $\sigma_{\max}$.
-	\item Look into gradient prefiltering more as well as varying $\gamma$ more, especially in areas where we suspect the network could be completed.
-  \item Look into using signed frangi arguments.
-	\item Use this as preprocessing for a Neural Network.
+        our current dependency on manual selection of $\sigma_{\min}$ and  $\sigma_{\max}$. 
+\item Use this as preprocessing for a Neural Network.
 	(cite kara's work, katalinas work)
 	\item Apply to more image domains (STARE, other placental domains).
 	\end{itemize}
-\begin{figure}[p] \centering
-	\subfloat{		\label{fig:signsweep-1p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_plate}}}
-	} \\[-0.5cm]
-	\subfloat{		\label{fig:signsweep-1i}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_inset}}}
-	} \\[-0.5cm]
-	\subfloat{		
-		\label{fig:signsweep-1c}\includegraphics[width=.75\linewidth]{{{signsweep_colorbar}}}
-	} \\
-	% should i use the real sample names? or obfuscate?
-	\caption{Signed Frangi output (plate and inset) (Example 1)}
-	\label{fig:signsweep-1}
-\end{figure}
 
-\begin{figure}[p] \centering
-	\subfloat{		\label{fig:signsweep-2p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN5280796_plate}}}
-	} \\[-0.5cm]
-	\subfloat{		\label{fig:signsweep-2i}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN5280796_inset}}}
-	} \\[-0.5cm]
-	\subfloat{		
-		\label{fig:signsweep-2c}\includegraphics[width=.75\linewidth]{{{signsweep_colorbar}}}
-	} \\
-	% should i use the real sample names? or obfuscate?
-	\caption{Signed Frangi output (plate and inset) (Example 1)}
-	\label{fig:signsweep-2}
-\end{figure}
 f

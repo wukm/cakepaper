@@ -304,7 +304,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		= \wein\left( \frac{d}{dt} \left[ c(t) \right] \right) = \wein\left(X\right)
 		\end{align} 
 		With this, we can re-express the curvature of our curve from
-		\cref{eq:expand_accel_norm} as the much simpler
+		\cref{eq:expand_accel_norm} as the much simplified
 		
 		\begin{equation} \label{eq:expand_accel_norm_final}
 		\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein(X)}
@@ -335,11 +335,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
 	and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
-	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case, which is certainly useful for surfaces $f$ that are not graphs. We refer to \cite{Kuhnel-DiffGeo} for the general proof. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
+	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case (that is, for surfaces $f$ that are not graphs). We refer to \cite{Kuhnel-DiffGeo} for the general proof. Our present situation is much less delicate, as we're only concerned for cases when $f$ is a graph. In this case, the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
 	\begin{lemma}
 		The Weingarten map as in \cref{def:wein-map} is well-defined for graphs.
 	\end{lemma}
-	To find a matrix representation for $\wein$, (which we will denote $\weinmat \in R^{2\times2}$) we simply wish to find a linear transformation
+	To find a matrix representation for $\wein$ (which we will denote $\weinmat \in R^{2\times2}$), we simply wish to find a linear transformation
 	such that
 	$\weinmat \left.\frac{\partial f}{\partial u_i}\right|_{T_u f}
 		= - \left.\frac{\partial \nu}{\partial u_i}\right|_{T_u f} \quad \textrm{for} \; i=1,2$
@@ -405,7 +405,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	
 	
 	\subsection{Principal Curvatures and Principal Directions}
-	To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ in that direction at some specified $u$.
+	To do so, we shall consider the relationship between the direction $X$ and the normal curvature $\kappa_\nu$ \cref{def:normal-curvature} in that direction at some specified $u$.
 
 
 	
@@ -607,10 +607,7 @@ We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close t
 \end{theorem}
 
 The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
-$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large.
-
-
-REPLACE BY THIS THEOREM INSTEAD:
+$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large. 
 
 From \cite{matrix-analysis-horn}, we can bound the perturbation of eigenvalues from $\weinmat$ to $\Hess(h)$ by
 
@@ -726,9 +723,8 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
      	To prove that a set of orthonormalizable eigenvectors exists,
      	let $A$ be real, symmetric as above and consider the eigenpairs
      	$Av_1 = \lambda_1 v_1$, $Av_2 = \lambda_2 v_2$ with $v_1, v_2 \ne 0$.
-     	\footnote{To simplify notation, we simplify our argument to consider two explicit eigenvectors only, since we're only concerned with the $2\times 2$ matrix $\Hess$
-     		anyway.}
-     	
+
+     	5
      	In the case that $\lambda_1 \ne \lambda_2$, we have
      	\begin{align*}
      	(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \\

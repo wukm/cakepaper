@@ -1,10 +1,9 @@
 \chapter{Linear Scale Space Theory} \label{sec:scale-space-theory}
     
     Although the ideas presented above require differentiation of continuous
-    surfaces, our image is in fact a discrete pixel. That is, our previous discussions have been in terms of an image as the continuous surface in \cref{def:image_as_surface},
+    surfaces, our image is in fact composed of discrete pixels. That is, our previous discussions have been in terms of an image as the continuous surface in \cref{def:image_as_surface},
     rather than the more realistic discrete pixel matrix as in \cref{def:image_as_pixel_matrix}.
-    The present section seeks to address this disconnect. Divided differences can serve as an analogue of differentiation in discrete contexts, but our "derivative" and any use of it is then completely dependent on the bias of our limited sampling of the ``true'' 3D surface. Our main goal is to counter against some of the bias of our particular sampling. In particular, we wish to not over-represent structures that
-    are clear at our resolution without giving appropriate weight to larger structures as well. Ideally, we would like statements we make about higher order phenomena to be stable enough at least that we would arrive at the same conclusions from analyzing a higher resolution image of the same surface.
+    The present section seeks to address this disconnect. Divided differences can serve as an analogue of differentiation in discrete contexts, but our "derivative" and any use of it is then completely dependent on the bias of our limited sampling of the ``true'' 3D surface. Our main goal is to counter against some of the bias of our particular sampling. In particular, we wish to not over-represent structures that are clear at our resolution without giving appropriate weight to larger structures as well. Ideally, we would like statements we make about higher order phenomena to be stable enough at least that we would arrive at the same conclusions from analyzing a higher resolution image of the same surface.
     Koenderink \cite{Koenderink} argued that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called scale space axioms. He (and others) showed that a small set of intuitive axioms imply that any such family of images $\{K_\sigma\}$ must satisfy the heat equation
     
     \begin{equation} \label{eq:heat-eq-for-family}

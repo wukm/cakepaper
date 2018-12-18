@@ -155,21 +155,38 @@ As seen in \cref{fig:groundtruth-samplequality}, there are several issues with t
 \item Small vessels aren't accounted for at all. Not sure how to coincide measurement in terms of scale space anymore, but should figure out how to cut off those values before running MCC metric.
 \end{enumerate}
 
+An example of bad samples that performed comparatively poorly across all segmentation methods can be found in the \cref{bad_gallery}. You can see that there is a lot of "noise" on the sample itself, and in some cases the vessels are much larger than other samples and therefore weren't picked up.
 
-
-
+\begin{figure}[p]
+	\includegraphics[width=\textwidth]{bad_gallery}
+	\caption{Bad samples}
+	\label{fig:bad-gallery}
+\end{figure}
 
 \section{Results}
 
-%\begin{itemize}
-%	\item Relationship between traced pixelwidths vs the scale they were pulled from.
-%	\item Frangi behavior at max scale length and if there's anything that gets too large (related to first derivatives maybe?
-%	\item calculate the actual weingarten map eigenvectors (although this is
-%	probably gonna be very fake in a discrete sense).
-%	\item difference between using green channel and non-green channel.
-%\end{itemize}
+In \cref{fig:compare_parameters}, we demonstrate the usefulness of scricter parameters for the Frangi filter. Since the Frangi vesselness measure is a "probability-like" score, we should be interested--without doing any actual segmentation yet--to what extent this score aligns with the ground truth in a cumulative sense. We define the cumulative vesselness ratio by ``integrating'' the max vesselness score over pixels in the ground truth and over the entire image and considering the ratio:
 
+\begin{defn} The cumulative vesselness ratio for a particular parametrization of the multiscale Frangi filter is given by
+	\begin{equation}
+	CVR\left(\Vmax\right) := \frac{\sum_{G\subset\img} \Vmax(x_0, y_0)}{\sum_{\img} \Vmax(x_0,y_0)}
+	\end{equation}
+	where the sums on top and bottom are being carried out for all pixels $(x_0,y_0)$ in the "ground truth" subset $G$ in the image $\img$
+	and over the entire image $\img$ itself, respectively.
+\end{defn}
 
+\cref{fig:compare_parameters} shows $\Vmax$ for two well-behaved samples with reported $CVR$. We see in both cases that stricter parameters (smaller $\beta$ and larger $\gamma$) correspond to an increased $CVR$. Each of these sample was run over the same scales (logarithmically spaced from $2^{-1.5}$ to $2^{3.5}$ with $N=20$ and the color output of each $\Vmax$ is normalized between 0 and 1.
+
+\begin{figure}[p]\centering
+	\subfloat{
+		\includegraphics[width=\textwidth]{compare_parameters_BN0164923}
+	}\\
+	\subfloat{
+		\includegraphics[width=\textwidth]{compare_parameters_BN0651415}
+	}
+	\caption{\Vmax  and $CVR$ for different parameter choices}
+	\label{fig:compare_parameters}
+\end{figure}
 
 \begin{figure}[p]
   \includegraphics[width=\textwidth]{test-scale-width}
