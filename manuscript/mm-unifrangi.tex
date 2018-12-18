@@ -53,9 +53,7 @@ but this is simply due to an error in the sample.
 
 Importantly, this formulation does not require $\lambda_1$ to be approximately zero, just that the curvature in the downward direction is much more significant than in the transverse direction.
 
-Also the crest could be really flat (``hangar shaped''), in which case both are around zero. At the crest of the ridge, we would actually expect both $u_1$ and $u_2$ to be around 0, whereas a point somewhere between the crest and the ``foot'' of the ridge to contain the maximum $u_2$.
-
-We will fix some of these issues by casting this as a multiscale problem in \cref{sec:frangi-multiscale}.
+Also the crest could be really flat (``hangar shaped''), in which case both are around zero. At the crest of the ridge, we would actually expect both $u_1$ and $u_2$ to be around 0, whereas a point somewhere between the crest and the ``foot'' of the ridge to contain the maximum $u_2$. We will fix this issue specificially by casting this as a multiscale problem in \cref{sec:frangi-multiscale}.
 
 Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{sec:future-research-directions}.
 
@@ -105,7 +103,7 @@ $\gamma$, so that $ c = \gamma S_{\max}$. This creates a minor annoyance though:
 Thus, when $\gamma$ takes the suggested value of $\gamma = 1/2$, the above calculation suggests that
 the maximum theoretical value that the Frangi filter could attain at any scale is
 $ \max \{ \Vsigma \} \le 1 - \exp\left\{ -1 \right\} \approx .8647$.
-This (among other obvious reasons) certainly justifies Frangi's description of the vesselness measure as only ``probability-like.'' Still, we would like the filter's sensitivity to relative structureness to not have the effect of dampening the Filter as a whole, so we will introduce a rescaling factor $a_\gamma$, which is a explicit function of $gamma$ that rescales $\Vsigma$ so that the structureness factor has a maximum output score of 1 regardless of choice of $\gamma$. Our final Frangi vesselness measure is thus
+This (among other obvious reasons) certainly justifies Frangi's description of the vesselness measure as only ``probability-like.'' Still, we would like the filter's sensitivity to relative structureness to not have the effect of dampening the Filter as a whole, so we will introduce a rescaling factor $a_\gamma$, which is a explicit function of $\gamma$ that rescales $\Vsigma$ so that the structureness factor has a maximum output score of 1 regardless of choice of $\gamma$. Our final Frangi vesselness measure is thus
 
 %    \begin{minipage}{\textwidth} \centering
 \begin{gather} \label{eq:frangi-vesselness-measure-v1}
@@ -133,25 +131,26 @@ a_\gamma = \left(1-\exp\left(\frac{-1}{2\gamma^2}\right)\right)^{-1} \notag\\
 For $\beta$, Frangi suggested an innocuous intermediate point, $\beta=1/2$ (and thus $2\beta^2 = 1/2$).
 As we will show later, choosing the structureness parameter $\gamma$ is rather important for the context especially if the background (non-ridgelike structure) is significant and noisy. $\beta$ should be strengthened/relaxed depending on how ``flat'' the ridgelike structure is. We shall show empirically that contexts in which more 'bloblike' structures are known to be present than that for which the Frangi filter was originally designed, we will benefit from a smaller choice of $\beta$.
 
-Considering as the anisotropy measure $(\lambda_1 / \lambda_2) \in [0,1]$ (simply since $\abs{\lambda_1} \ge \abs{\lambda_2}$), we can actually visualize how much the 
+Considering as the anisotropy measure $\abs{\lambda_1 / \lambda_2} \in [0,1]$ (simply since $\abs{\lambda_1} \le \abs{\lambda_2}$), we can actually visualize how much the 
 anisotropy factor varies depending on our choice of $\beta$, as seen in \cref{fig:anisotropy-parameter-demo}.
 
+We can theoretically choose any values $0 < \beta, \gamma < \infty$ for the two parameters. Two particular limits are of theoretical interest:
+as $\beta \to \infty$, the anisotropy factor tends to $1$, and as $\gamma \to 0$, the structureness factor tends to $1$, make the that measure entirely irrelevant. (Of course, in the limit that $\beta \to 0$ or $\gamma \to \infty$, their respective factors become 0, making the entire filter irrelevant). We will 
 \begin{figure}
   \includegraphics[width=\linewidth]{anisotropy_parameter_demo}
   \caption{Dependence of the Anisotropy Factor on its Parameter}
   \label{fig:anisotropy-parameter-demo}
 \end{figure}
 
-We make a similar presentation of the dependence of the structureness kernel on its parameter $\gamma$, as you can see in
-\cref{fig:structureness-parameter-demo}
+We make a similar presentation of the dependence of the structureness kernel on its parameter $\gamma$, as you can see in \cref{fig:structureness-parameter-demo}.
 \begin{figure}
   \includegraphics[width=\linewidth]{structureness_parameter_demo}
   \caption{Dependence of the Structureness Factor on its Parameter}
   \label{fig:structureness-parameter-demo}
 \end{figure}
 
-The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall effect of tuning the selectivity of the Frangi filter itself. In the figures in %\cref{appendix-extra-frangi-figures}
-the second appendix, we plot the Frangi vesselness measure itself as a function of $S$ and $A$, while sweep through different choices of $\beta$ and $\gamma$. 
+The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall effect of tuning the selectivity of the Frangi filter itself.
+In the figures in \cref{app:extra-figures}, we plot the Frangi vesselness measure itself as a function of $S$ and $A$ while sweeping through different choices of $\beta$ and $\gamma$. 
 
 
 	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach.

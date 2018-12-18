@@ -87,7 +87,7 @@
 2	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:sigmas
 2	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	z	array:c
 2D DFT Convolution Theorem	manuscript/mathematical_methods.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-2D DFT Convolution Theorem	manuscript/mm-hfft.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:Implementations""Convolution Speedup via FFT
+2D DFT Convolution Theorem	manuscript/mm-hfft.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:ALPHAS
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:border_radii
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:mcc
@@ -145,7 +145,6 @@ Anisotropy Measure	manuscript/mm-unifrangi.tex	/^\\subsection{Anisotropy Measure
 Arrow1Lend	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
 Arrow1Lstart	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
 Axioms	manuscript/mathematical_methods.tex	/^    \\subsection{Axioms}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
-Axioms	manuscript/mm-scalespaces.tex	/^    \\subsection{Axioms}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
 B	listings/frangi-plottesting.py	/^B = [indices[:6],indices[6:8], *indices[8:], indices[9:-3], indices[-3:]]$/;"	v
 B	listings/frangi-plottesting.py	/^B = [indices[:6],indices[6:8], *indices[8:]]$/;"	v
 B	listings/frangi-plottesting.py	/^B = [indices[:6],indices[6:8], indices[8:9], *indices[9:-3], indices[-3:]]$/;"	v
@@ -161,7 +160,7 @@ BETA	listings/gradient_filter_demo.py	/^BETA = .5$/;"	v
 BETAS	listings/extract_NCS_pcsvn.py	/^BETAS = 0.35$/;"	v
 Baa	listings/scaledecay.py	/^Baa = dilate(aa(gB), 20).filled(0)$/;"	v
 Bgrad	listings/hfft_accuracy.py	/^    Bgrad = np.gradient(B)$/;"	v
-Binary Classificaitons and the confusion matrix	manuscript/results_analysis.tex	/^\\subsection{Binary Classificaitons and the confusion matrix}$/;"	u	section:Results and Analysis""Sample visual output
+Binary Classifications and the confusion matrix	manuscript/results_analysis.tex	/^\\subsection{Binary Classifications and the confusion matrix}$/;"	u	section:Results and Analysis""Sample visual output
 Boundary Dilation	manuscript/research_protocol.tex	/^    \\subsection{Boundary Dilation}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
 C	listings/hfft_accuracy.py	/^    C = C[crop]$/;"	v
 C	listings/hfft_accuracy.py	/^    C = fft_gaussian(img, sigma, kernel='discrete')$/;"	v
@@ -174,12 +173,12 @@ CS	listings/extract_NCS_pcsvn.py	/^CS = None # pass scalar, array, or None$/;"	v
 CYAN	listings/placenta.py	/^CYAN = [0, 255, 255]$/;"	v
 Caa	listings/scaledecay.py	/^Caa = dilate(aa(gC), 20).filled(0)$/;"	v
 Calculating the 2D Hessian	manuscript/mathematical_methods.tex	/^\\section{Calculating the 2D Hessian}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Calculating the 2D Hessian	manuscript/mm-hfft.tex	/^\\section{Calculating the 2D Hessian}$/;"	s	chapter:Implementations
 Calculating the Hessian via FFT	manuscript/implementations.tex	/^\\section{Calculating the Hessian via FFT}$/;"	s	chapter:Implementations
 Cgrad	listings/hfft_accuracy.py	/^    Cgrad = np.gradient(C)$/;"	v
+Choosing parameters $\\beta$ and $c$	manuscript/mm-unifrangi.tex	/^\\subsection{Choosing parameters $\\beta$ and $c$}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
 Conclusion	manuscript/conclusion.tex	/^\\chapter{Conclusion} \\label{ch:conclusion}$/;"	c
 Convolution Speedup via FFT	manuscript/mathematical_methods.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Convolution Speedup via FFT	manuscript/mm-hfft.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:Implementations
+Convolution Speedup via FFT	manuscript/mm-hfft.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:FFT-based Discrete Derivatives
 Curvature of a surface and its calculation	manuscript/mathematical_methods.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 Curvature of a surface and its calculation	manuscript/mm-diffgeo.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 D	listings/plate_morphology.py	/^    D = dilate_boundary(img, radius=radius)$/;"	v
@@ -230,7 +229,8 @@ FC	listings/hfft_accuracy.py	/^    FC = get_frangi_targets(ck1,ck2, dark_bg=Fals
 FD	listings/plate_morphology.py	/^    FD = frangi_from_image(D, sigma, dark_bg=False)$/;"	v
 FDinv	listings/plate_morphology.py	/^    FDinv = frangi_from_image(D, sigma, dark_bg=True)$/;"	v
 FFT	manuscript/mathematical_methods.tex	/^\\subsection{FFT}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-FFT	manuscript/mm-hfft.tex	/^\\subsection{FFT}$/;"	u	section:Implementations""Convolution Speedup via FFT
+FFT	manuscript/mm-hfft.tex	/^\\subsection{FFT}$/;"	u	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
+FFT-based Discrete Derivatives	manuscript/mm-hfft.tex	/^\\chapter{FFT-based Discrete Derivatives}$/;"	c
 FFT-defineW	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{FFT-defineW}$/;"	l
 FFT-defineW	manuscript/mm-hfft.tex	/^\\begin{equation} \\label{FFT-defineW}$/;"	l
 FFT-oddevensplit	manuscript/mathematical_methods.tex	/^ + \\sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \\label{FFT-oddevensplit}$/;"	l
@@ -254,9 +254,9 @@ Finv	listings/plate_morphology.py	/^    Finv = frangi_from_image(img, sigma, dar
 Fmax	listings/extract_NCS_pcsvn.py	/^    Fmax = F.max(axis=-1)$/;"	v
 Fneg	figures/add_sobel_border_demo/sobelmashfinal.py	/^Fneg, _ = extract_pcsvn(filename, DARK_BG=True, alphas=None, betas=betas, scales=scales, gammas=/;"	v
 Fourier Transform of a Discrete 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-Fourier Transform of a Discrete 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:Implementations""Convolution Speedup via FFT
+Fourier Transform of a Discrete 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
 Fourier Transform of a continuous 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-Fourier Transform of a continuous 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:Implementations""Convolution Speedup via FFT
+Fourier Transform of a continuous 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
 Future research directions	manuscript/conclusion.tex	/^\\section{Future research directions} \\label{sec:future-research-directions}$/;"	s	chapter:Conclusion
 G	listings/gradient_filter_mash.py	/^G = _$/;"	v
 G	listings/gradient_filter_mash.py	/^G = dilate_boundary(G, mask=img.mask, radius=20).filled(0)$/;"	v
@@ -281,7 +281,7 @@ L	listings/scaledecay.py	/^    L = dilate(Lnorm, max(20,int(sigma))).filled(0)$/
 L	listings/scaledecay.py	/^    L = dilate(Lnorm, min(20,int(sigma))).filled(0)$/;"	v
 L	listings/signed_sweep_demo.py	/^            L = fi$/;"	v
 Linear Scale Space Theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
+Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^\\chapter{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	c
 Lnorm	listings/scaledecay.py	/^    Lnorm = hnorm*Dcc$/;"	v
 Ls	listings/scaledecay.py	/^Ls = list()$/;"	v
 M	listings/boundarycalcs.py	/^M = img.mask$/;"	v
@@ -296,6 +296,7 @@ Method A: Fixed Threshold	manuscript/implementations.tex	/^\\subsection{Method A
 Method B: Percentile Based Merging	manuscript/implementations.tex	/^\\subsection{Method B: Percentile Based Merging}$/;"	u	section:Implementations""Postprocessing Techniques
 Method C: Scale-Based Random Walker	manuscript/implementations.tex	/^\\subsection{Method C: Scale-Based Random Walker}$/;"	u	section:Implementations""Postprocessing Techniques
 Method D: Scale Based Sieving	manuscript/implementations.tex	/^ \\subsection{Method D: Scale Based Sieving}$/;"	u	section:Implementations""Postprocessing Techniques
+Morphological Image Processing	manuscript/mm-morphology.tex	/^\\chapter{Morphological Image Processing}$/;"	c
 Multiscale Setup	manuscript/research_protocol.tex	/^\\section{Multiscale Setup}$/;"	s	chapter:Research Protocol
 N	listings/hfft_demo.py	/^N = 32$/;"	v
 NOT	listings/recentmash.py	/^NOT = np.invert$/;"	v
@@ -310,10 +311,12 @@ P_THRESHOLD	listings/rwpf_demo.py	/^P_THRESHOLD = 95$/;"	v
 Postprocessing Techniques	manuscript/implementations.tex	/^\\section{Postprocessing Techniques}$/;"	s	chapter:Implementations
 Preliminaries of Differential Geometry	manuscript/mathematical_methods.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 Preliminaries of Differential Geometry	manuscript/mm-diffgeo.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
+Primitive Network Completion	manuscript/network_completion.tex	/^\\section{Primitive Network Completion}$/;"	s	chapter:Trough Filling and Primitive Network Completion
 Principal Curvatures and Principal Directions	manuscript/mathematical_methods.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 Principal Curvatures and Principal Directions	manuscript/mm-diffgeo.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 Problem Setup in Image Processing	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
 Problem Setup in Image Processing	manuscript/mm-diffgeo.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
+Properties/Axioms of Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^    \\subsection{Properties\/Axioms of Linear Scale Space Theory}$/;"	u	chapter:Linear Scale Space Theory
 R	listings/scale_sweep_demo.py	/^        R = max(int(sigma*3), 10) # only really necessary for signed$/;"	v
 R	listings/signed_sweep_demo.py	/^        R = max(int(sigma*3), 10)$/;"	v
 REMOVE_CUTS	listings/extract_NCS_pcsvn.py	/^REMOVE_CUTS = True$/;"	v
@@ -342,9 +345,11 @@ SUBDIR	listings/vessel_filters.py	/^    SUBDIR = ''.join(('', n.strftime('%y%m%d
 Sample visual output	manuscript/results_analysis.tex	/^\\section{Sample visual output}$/;"	s	chapter:Results and Analysis
 Samples / Image Domain	manuscript/research_protocol.tex	/^\\section{Samples \/ Image Domain}\\label{sec:NCS-data-set}$/;"	s	chapter:Research Protocol
 Scale Spaces over Discrete Structures	manuscript/mathematical_methods.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
-Scale Spaces over Discrete Structures	manuscript/mm-scalespaces.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
+Scale Spaces over Discrete Structures	manuscript/mm-scalespaces.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	chapter:Linear Scale Space Theory
+Segmentation	manuscript/segmentation.tex	/^\\chapter{Segmentation}$/;"	c
 Sthresh	figures/add_sobel_border_demo/sobelmashfinal.py	/^Sthresh = (S > nz_percentile(S,90))$/;"	v
 Structureness measure	manuscript/mm-unifrangi.tex	/^\\subsection{Structureness measure} \\label{sec:frangi-structureness}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
+Sufficiency of the Gaussian Kernel	manuscript/mm-scalespaces.tex	/^    \\subsection{Sufficiency of the Gaussian Kernel}$/;"	u	chapter:Linear Scale Space Theory
 T	listings/dilate_by_distance.py	/^T = thin(FP.max(axis=0) > .3)$/;"	v
 T	listings/finalfigstoshowmash.py	/^T = merge_widths(TA, TV, strategy='arteries')$/;"	v
 T	listings/scaledecay.py	/^T = np.array(table)$/;"	v
@@ -366,17 +371,16 @@ TV	listings/finalfigstoshowmash.py	/^TV = open_typefile(filename, 'veins')$/;"	v
 The Frangi Filter: A multiscale approach	manuscript/mathematical_methods.tex	/^    \\section{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
 The Frangi Filter: A multiscale approach	manuscript/mm-multifrangi.tex	/^ \\chapter{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	c
 The Frangi Filter: Uniscale	manuscript/mm-unifrangi.tex	/^\\section{The Frangi Filter: Uniscale} \\label{sec:frangi}$/;"	s	chapter:The Uniscale Frangi Filter
-The Frangi vesselness filter: Choosing parameters $\\beta$ and $c$	manuscript/mm-unifrangi.tex	/^\\subsection{The Frangi vesselness filter: Choosing parameters $\\beta$ and $c$}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
 The Frangi vesselness measure	manuscript/mm-unifrangi.tex	/^\\subsection{The Frangi vesselness measure}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
 The Uniscale Frangi Filter	manuscript/mm-unifrangi.tex	/^\\chapter{The Uniscale Frangi Filter}$/;"	c
 The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mathematical_methods.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mm-diffgeo.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
 Thresholding	manuscript/mathematical_methods.tex	/^    \\subsection{Thresholding}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""The Frangi Filter: A multiscale approach
 Thresholding	manuscript/mm-multifrangi.tex	/^    \\subsection{Thresholding}$/;"	u	chapter:The Frangi Filter: A multiscale approach
+Trough Filling and Primitive Network Completion	manuscript/network_completion.tex	/^\\chapter{Trough Filling and Primitive Network Completion}$/;"	c
 UCIP_RADIUS	listings/extract_NCS_pcsvn.py	/^UCIP_RADIUS = 60  # area around the umbilical cord insertion point to ignore$/;"	v
 USE_NPZ_FILES	listings/extract_NCS_pcsvn.py	/^USE_NPZ_FILES = False # use old npz files if you can$/;"	v
 Uniqueness of the Gaussian Kernel	manuscript/mathematical_methods.tex	/^    \\subsection{Uniqueness of the Gaussian Kernel}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
-Uniqueness of the Gaussian Kernel	manuscript/mm-scalespaces.tex	/^    \\subsection{Uniqueness of the Gaussian Kernel}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
 V	listings/extract_NCS_pcsvn.py	/^    V = np.transpose(F, axes=(2, 0, 1))$/;"	v
 V	listings/rw_demo.py	/^    V = np.zeros((len(scales), *img.shape))$/;"	v
 V	listings/rwpf_demo.py	/^    V = np.zeros((len(scales), *img.shape))$/;"	v
@@ -436,6 +440,8 @@ all_targets	listings/vessel_filters.py	/^    all_targets = np.zeros((img.shape[0
 alphas	listings/alpha_sweep_demo.py	/^alphas = scales**(2\/3) \/ scales[-1]$/;"	v
 anisotropy	listings/frangi.py	/^def anisotropy(K1,K2, beta=0.5):$/;"	f
 ans	listings/vessel_filters.py	/^        ans = input('save path already exists! would you like to continue? [y\/N]')$/;"	v
+app:extra-figures	LW2018_thesis_draft.tex	/^\\myappendix{3D Visualization of the Frangi Filter} \\label{app:extra-figures}$/;"	l
+app:listings	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}\\label{app:listings}$/;"	l
 apply_threshold	listings/merging.py	/^def apply_threshold(targets, alphas, return_labels=True):$/;"	f
 approx	listings/alpha_sweep_demo.py	/^    approx, labs = apply_threshold(F, alphas, return_labels=True)$/;"	v
 approx	listings/extract_NCS_pcsvn.py	/^    approx, labs = apply_threshold(F, ALPHAS, return_labels=True)$/;"	v
@@ -473,13 +479,13 @@ axes	listings/preprocessing.py	/^    fig, axes = plt.subplots(ncols=3, nrows=2)$
 axes	listings/scale_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
 axes	listings/signed_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
 axiom:causality	manuscript/mathematical_methods.tex	/^   \\begin{axiom}[Causality Conditon] \\label{axiom:causality}$/;"	l
-axiom:causality	manuscript/mm-scalespaces.tex	/^   \\begin{axiom}[Causality Conditon] \\label{axiom:causality}$/;"	l
+axiom:causality	manuscript/mm-scalespaces.tex	/^   \\begin{axiom}[Causality Condition] \\label{axiom:causality}$/;"	l
 axiom:continuity	manuscript/mathematical_methods.tex	/^    	\\label{axiom:continuity} There is no reason for the scale parameter to be discrete; we may/;"	l
 axiom:continuity	manuscript/mm-scalespaces.tex	/^    	\\label{axiom:continuity} There is no reason for the scale parameter to be discrete; we may/;"	l
 axiom:linear-shift-and-rotation	manuscript/mathematical_methods.tex	/^    	\\label{axiom:linear-shift-and-rotation}$/;"	l
 axiom:linear-shift-and-rotation	manuscript/mm-scalespaces.tex	/^    	\\label{axiom:linear-shift-and-rotation}$/;"	l
 axiom:semigroup	manuscript/mathematical_methods.tex	/^    \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
-axiom:semigroup	manuscript/mm-scalespaces.tex	/^    \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
+axiom:semigroup	manuscript/mm-scalespaces.tex	/^     \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
 b	listings/boundarycalcs.py	/^b = _$/;"	v
 b	listings/vessel_filters.py	/^b = partial(plt.imshow, cmap=plt.cm.Blues)$/;"	v
 base	figures/strict_examples/output_montage_2_by_2.py	/^    base = filename.split('_', 1)[0]$/;"	v
@@ -622,7 +628,6 @@ d	listings/recentmash.py	/^d = dilate_boundary(None, radius=20, mask=img.mask)$/
 data	listings/scaledecay.py	/^data = _$/;"	v
 data	listings/scaledecay.py	/^data = list()$/;"	v
 dconvolution	manuscript/mathematical_methods.tex	/^    \\begin{lemma} \\label{dconvolution}$/;"	l
-dconvolution	manuscript/mm-scalespaces.tex	/^    \\begin{lemma} \\label{dconvolution}$/;"	l
 dds	listings/scaledecay.py	/^    dds = hnorm[~dil].min(), hnorm[~dil].max()$/;"	v
 def:curve-on-a-surface	manuscript/mathematical_methods.tex	/^ \\begin{defn}[Surface curve] \\label{def:curve-on-a-surface}$/;"	l
 def:curve-on-a-surface	manuscript/mm-diffgeo.tex	/^ \\begin{defn}[Surface curve] \\label{def:curve-on-a-surface}$/;"	l
@@ -674,6 +679,8 @@ e	listings/vessel_filters.py	/^        e = extracted_all[:,:,i]$/;"	v
 el	listings/vessel_filters.py	/^        el, nl = label(e, return_num=True)$/;"	v
 eq:2D-dft-rearrangement	manuscript/mathematical_methods.tex	/^\\begin{align} \\label{eq:2D-dft-rearrangement}$/;"	l
 eq:2D-dft-rearrangement	manuscript/mm-hfft.tex	/^\\begin{align} \\label{eq:2D-dft-rearrangement}$/;"	l
+eq:MCC	manuscript/results_analysis.tex	/^\\begin{equation} \\label{eq:MCC}$/;"	l
+eq:Vmax	manuscript/mm-multifrangi.tex	/^    \\begin{equation} \\label{eq:Vmax}$/;"	l
 eq:derived-family-from-discrete	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{eq:derived-family-from-discrete}$/;"	l
 eq:derived-family-from-discrete	manuscript/mm-scalespaces.tex	/^\\begin{equation} \\label{eq:derived-family-from-discrete}$/;"	l
 eq:expand_accel_norm	manuscript/mathematical_methods.tex	/^	&=  \\inner{X}{-\\frac{\\partial \\nu}{\\partial t}} \\label{eq:expand_accel_norm}$/;"	l
@@ -681,7 +688,6 @@ eq:expand_accel_norm	manuscript/mm-diffgeo.tex	/^	&=  \\inner{X}{-\\frac{\\parti
 eq:expand_accel_norm_final	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{eq:expand_accel_norm_final}$/;"	l
 eq:expand_accel_norm_final	manuscript/mm-diffgeo.tex	/^		\\begin{equation} \\label{eq:expand_accel_norm_final}$/;"	l
 eq:frangi-max-matrix	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:frangi-max-matrix}$/;"	l
-eq:frangi-max-matrix	manuscript/mm-multifrangi.tex	/^    \\begin{equation} \\label{eq:frangi-max-matrix}$/;"	l
 eq:frangi-vesselness-measure	manuscript/mm-unifrangi.tex	/^\\begin{equation} \\label{eq:frangi-vesselness-measure}$/;"	l
 eq:frangi-vesselness-measure-v1	manuscript/mm-unifrangi.tex	/^\\begin{gather} \\label{eq:frangi-vesselness-measure-v1}$/;"	l
 eq:gaussmap_dt_expanded	manuscript/mathematical_methods.tex	/^	\\theta_2'(t)\\left( - \\frac{\\partial \\nu}{\\partial u_2} \\right) \\label{eq:gaussmap_dt_ex/;"	l
@@ -689,10 +695,10 @@ eq:gaussmap_dt_expanded	manuscript/mm-diffgeo.tex	/^	\\theta_2'(t)\\left( - \\fr
 eq:heat-eq-for-family	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:heat-eq-for-family}$/;"	l
 eq:heat-eq-for-family	manuscript/mm-scalespaces.tex	/^    \\begin{equation} \\label{eq:heat-eq-for-family}$/;"	l
 eq:infinitesimal-generator	manuscript/mathematical_methods.tex	/^	\\begin{equation} \\label{eq:infinitesimal-generator}$/;"	l
-eq:infinitesimal-generator	manuscript/mm-scalespaces.tex	/^	\\begin{equation} \\label{eq:infinitesimal-generator}$/;"	l
 eq:luma_transform	manuscript/research_protocol.tex	/^    \\begin{equation} \\label{eq:luma_transform}$/;"	l
 eq:meusnier_acceleration	manuscript/mathematical_methods.tex	/^		\\begin{equation} \\label{eq:meusnier_acceleration}$/;"	l
 eq:meusnier_acceleration	manuscript/mm-diffgeo.tex	/^		\\begin{equation} \\label{eq:meusnier_acceleration}$/;"	l
+eq:precision	manuscript/results_analysis.tex	/^\\label{eq:precision}$/;"	l
 eroded	listings/find_plate.py	/^eroded = binary_erosion(w-1, disk(10))$/;"	v
 ext	listings/abbreviate_NCS_names.py	/^    basename, ext = os.path.splitext(f)$/;"	v
 extract_pcsvn	listings/pcsvn.py	/^def extract_pcsvn(img, filename, scales, beta=0.5, gamma=0.5, c=None,$/;"	f
@@ -756,23 +762,33 @@ fig:NCSoutput-trace	manuscript/research_protocol.tex	/^        \\label{fig:NCSou
 fig:Tuf	manuscript/mathematical_methods.tex	/^		\\label{fig:Tuf} $/;"	l
 fig:Tuf	manuscript/mm-diffgeo.tex	/^		\\label{fig:Tuf} $/;"	l
 fig:anisotropy-parameter-demo	manuscript/mm-unifrangi.tex	/^  \\label{fig:anisotropy-parameter-demo}$/;"	l
+fig:annotated-montage	manuscript/results_analysis.tex	/^	\\label{fig:annotated-montage}$/;"	l
+fig:bad-gallery	manuscript/results_analysis.tex	/^	\\label{fig:bad-gallery}$/;"	l
 fig:boundary-demo	manuscript/research_protocol.tex	/^        \\label{fig:boundary-demo}$/;"	l
+fig:compare_parameters	manuscript/results_analysis.tex	/^	\\label{fig:compare_parameters}$/;"	l
 fig:cross-sec-F-sigma=0.3	manuscript/implementations.tex	/^    \\label{fig:cross-sec-F-sigma=0.3}$/;"	l
 fig:cross-sec-F-sigma=5	manuscript/implementations.tex	/^  \\label{fig:cross-sec-F-sigma=5}$/;"	l
 fig:cross-sec-G-sigma=0.3	manuscript/implementations.tex	/^  \\label{fig:cross-sec-G-sigma=0.3}$/;"	l
 fig:cross-sec-G-sigma=5	manuscript/implementations.tex	/^  \\label{fig:cross-sec-G-sigma=5}$/;"	l
+fig:endpoint_labels	manuscript/network_completion.tex	/^	\\label{fig:endpoint_labels}$/;"	l
 fig:exampleNCSoutput	manuscript/research_protocol.tex	/^\\begin{figure}\\label{fig:exampleNCSoutput}     \\centering$/;"	l
 fig:expo-principal-curvatures	manuscript/mm-unifrangi.tex	/^  \\label{fig:expo-principal-curvatures}$/;"	l
 fig:fft-gaussian-demo	manuscript/implementations.tex	/^  \\label{fig:fft-gaussian-demo}$/;"	l
 fig:glare-example-crop	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-crop}$/;"	l
 fig:glare-example-zoom	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-zoom}$/;"	l
 fig:groundtruth-samplequality	manuscript/results_analysis.tex	/^\\label{fig:groundtruth-samplequality}$/;"	l
+fig:network-completion-all-pairs	manuscript/network_completion.tex	/^	\\label{fig:network-completion-all-pairs}$/;"	l
+fig:network-completion-demo-1	manuscript/network_completion.tex	/^	\\label{fig:network-completion-demo-1}$/;"	l
+fig:network-completion-demo-2	manuscript/network_completion.tex	/^	\\label{fig:network-completion-demo-2}$/;"	l
+fig:network-completion-end-result	manuscript/network_completion.tex	/^	\\label{fig:network-completion-end-result}$/;"	l
 fig:output-montage-example1	manuscript/results_analysis.tex	/^  \\label{fig:output-montage-example1}$/;"	l
 fig:output-montage-example2	manuscript/results_analysis.tex	/^  \\label{fig:output-montage-example2}$/;"	l
+fig:qthresh_demo	manuscript/mm-multifrangi.tex	/^		\\label{fig:qthresh_demo}$/;"	l
 fig:ridge-graph	manuscript/mathematical_methods.tex	/^  \\label{fig:ridge-graph}$/;"	l
 fig:ridge-graph	manuscript/mm-diffgeo.tex	/^  \\label{fig:ridge-graph}$/;"	l
 fig:rw-demo-merged	manuscript/implementations.tex	/^  \\label{fig:rw-demo-merged}$/;"	l
 fig:rw-demo-scalewise	manuscript/implementations.tex	/^  \\label{fig:rw-demo-scalewise}$/;"	l
+fig:sample-confusion	manuscript/results_analysis.tex	/^	\\label{fig:sample-confusion}$/;"	l
 fig:scalesweep-1	manuscript/research_protocol.tex	/^    \\label{fig:scalesweep-1}$/;"	l
 fig:scalesweep-1c	manuscript/research_protocol.tex	/^        \\label{fig:scalesweep-1c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}/;"	l
 fig:scalesweep-1i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-1i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
@@ -782,14 +798,14 @@ fig:scalesweep-2c	manuscript/research_protocol.tex	/^        \\label{fig:scalesw
 fig:scalesweep-2i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
 fig:scalesweep-2p	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2p}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
 fig:semigroup-demo	manuscript/implementations.tex	/^  \\label{fig:semigroup-demo}$/;"	l
-fig:signsweep-1	manuscript/conclusion.tex	/^	\\label{fig:signsweep-1}$/;"	l
-fig:signsweep-1c	manuscript/conclusion.tex	/^		\\label{fig:signsweep-1c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
-fig:signsweep-1i	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-1i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
-fig:signsweep-1p	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-1p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
-fig:signsweep-2	manuscript/conclusion.tex	/^	\\label{fig:signsweep-2}$/;"	l
-fig:signsweep-2c	manuscript/conclusion.tex	/^		\\label{fig:signsweep-2c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
-fig:signsweep-2i	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-2i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
-fig:signsweep-2p	manuscript/conclusion.tex	/^	\\subfloat{		\\label{fig:signsweep-2p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-1	manuscript/network_completion.tex	/^	\\label{fig:signsweep-1}$/;"	l
+fig:signsweep-1c	manuscript/network_completion.tex	/^		\\label{fig:signsweep-1c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
+fig:signsweep-1i	manuscript/network_completion.tex	/^	\\subfloat{		\\label{fig:signsweep-1i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-1p	manuscript/network_completion.tex	/^	\\subfloat{		\\label{fig:signsweep-1p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-2	manuscript/network_completion.tex	/^	\\label{fig:signsweep-2}$/;"	l
+fig:signsweep-2c	manuscript/network_completion.tex	/^		\\label{fig:signsweep-2c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
+fig:signsweep-2i	manuscript/network_completion.tex	/^	\\subfloat{		\\label{fig:signsweep-2i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
+fig:signsweep-2p	manuscript/network_completion.tex	/^	\\subfloat{		\\label{fig:signsweep-2p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_B/;"	l
 fig:structureness-parameter-demo	manuscript/mm-unifrangi.tex	/^  \\label{fig:structureness-parameter-demo}$/;"	l
 figs	listings/output-montages.py	/^figs = ['examples\/'+f for f in os.listdir('examples\/') if f.startswith(stub)]$/;"	v
 figs	listings/output-montages.py	/^figs = [f for f in os.listdir('examples\/') if f.startswith(stub)]$/;"	v
@@ -828,7 +844,6 @@ fp	listings/dilate_by_distance.py	/^fp = (F).max(axis=0)$/;"	v
 fp	listings/dilate_by_distance.py	/^fp = dilate_boundary(fp,radius=30).filled(0)$/;"	v
 frangi-def-anisotropy-structureness	manuscript/mm-unifrangi.tex	/^\\begin{equation} \\label{frangi-def-anisotropy-structureness}$/;"	l
 frangi-vesselness-max	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{frangi-vesselness-max}$/;"	l
-frangi-vesselness-max	manuscript/mm-multifrangi.tex	/^    \\begin{equation} \\label{frangi-vesselness-max}$/;"	l
 frangi_from_image	listings/frangi.py	/^def frangi_from_image(img, sigma, beta=0.5, gamma=0.5, c=None, dark_bg=True,$/;"	f
 frangi_only	listings/vessel_filters.py	/^    frangi_only = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
 fs	listings/finalfigstoshowmash.py	/^fs = frangi_from_image(ma.masked_array(S, mask=img.mask), sigma=1).filled(0)$/;"	v
@@ -1002,18 +1017,21 @@ ma	listings/stump_test.py	/^import numpy.ma as ma$/;"	I
 ma	listings/vessel_filters.py	/^import numpy.ma as ma$/;"	I
 make_individual	listings/scale_sweep_demo.py	/^make_individual = False$/;"	v
 make_multiscale	listings/pcsvn.py	/^def make_multiscale(img, scales, beta=0.5, gamma=0.5, c=None, dark_bg=True,$/;"	f
-manuscript/appendix	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}$/;"	i
+manuscript/appendix	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}\\label{app:listings}$/;"	i
 manuscript/conclusion	LW2018_thesis_draft.tex	/^\\include{manuscript\/conclusion}$/;"	i
 manuscript/extra_figures	LW2018_thesis_draft.tex	/^\\include{manuscript\/extra_figures}$/;"	i
 manuscript/implementations	LW2018_thesis_draft.tex	/^\\include{manuscript\/implementations}$/;"	i
 manuscript/introduction	LW2018_thesis_draft.tex	/^\\include{manuscript\/introduction}		$/;"	i
 manuscript/mm-diffgeo	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-diffgeo}$/;"	i
 manuscript/mm-hfft	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-hfft}$/;"	i
+manuscript/mm-morphology	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-morphology}$/;"	i
 manuscript/mm-multifrangi	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-multifrangi}$/;"	i
 manuscript/mm-scalespaces	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-scalespaces}$/;"	i
 manuscript/mm-unifrangi	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-unifrangi}$/;"	i
+manuscript/network_completion	LW2018_thesis_draft.tex	/^\\include{manuscript\/network_completion}$/;"	i
 manuscript/research_protocol	LW2018_thesis_draft.tex	/^\\include{manuscript\/research_protocol}$/;"	i
 manuscript/results_analysis	LW2018_thesis_draft.tex	/^\\include{manuscript\/results_analysis}$/;"	i
+manuscript/segmentation	LW2018_thesis_draft.tex	/^\\include{manuscript\/segmentation}$/;"	i
 margin	listings/finalfigstoshowmash.py	/^margin = _$/;"	v
 margins	listings/add_margins.py	/^margins = remove_small_objects((finv > ft).filled(0), min_size=32)$/;"	v
 margins_added	listings/add_margins.py	/^margins_added = remove_small_holes(np.logical_or(margins, approx),$/;"	v
@@ -1291,7 +1309,7 @@ sec:future-research-directions	manuscript/conclusion.tex	/^\\section{Future rese
 sec:image-processing-setup	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	l
 sec:image-processing-setup	manuscript/mm-diffgeo.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	l
 sec:scale-space-theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	l
-sec:scale-space-theory	manuscript/mm-scalespaces.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	l
+sec:scale-space-theory	manuscript/mm-scalespaces.tex	/^\\chapter{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	l
 semigroup_demo	listings/hfft.py	/^def semigroup_demo(img=None):$/;"	f
 show_added	listings/rw_demo.py	/^        show_added = rw.copy()$/;"	v
 show_added	listings/rwpf_demo.py	/^        show_added = rw.copy()$/;"	v

@@ -230,10 +230,13 @@
 \HalfPage{Appendices}
 %% Renews chapter command so type appendix files in the same way
 
-\myappendix{Code Listings}
+% I can't figure out how to cref these weird 'myappendix' sections the way I want to.
+\myappendix{Code Listings}\label[appendix]{app:listings}
 \include{manuscript/appendix}
-\myappendix{3D Visualization of the Frangi Filter}
+
+\myappendix{3D Visualization of the Frangi Filter}\label[appendix]{app:extra-figures}
 \include{manuscript/extra_figures}
+
 
 %Here is the list of cited works.
 \HalfPage{Bibliography}
