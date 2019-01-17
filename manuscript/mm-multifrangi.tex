@@ -20,7 +20,7 @@
     After the maximization in \cref{eq:Vmax}, we are left with a matrix with as many pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image.
        
     At this point, Frangi \cite{frangi-paper} refrained from explicitly interpreting the score assigned by \cref{eq:Vmax}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and moreover that the width of the vasculature cannot be determined rigorously from the filter alone.   
-    Nonetheless, we wish to demonstrate the usefulness of the Frangi filter within our image domain, and will therefore consider this vesselness score further. A straightforward enough approach if we wanted a set of seeds on the image with a high likelood of corresponding to curvilinear content, is to threshold $V_\Sigma$ at some fixed value $\alpha$:
+    Nonetheless, we wish to demonstrate the usefulness of the Frangi filter within our image domain towards the segmentation problem, and will therefore, like \cite{huynh2013filter}, consider a thresholded \Vmax as a crude segmentation. 
     \begin{equation}
     {\VSigma}_{\alpha}(x_0,y_0) = \begin{cases}
     1 & \textrm{if}\quad \Vmax(x,y) \; \ge\;  \alpha \\
@@ -29,7 +29,7 @@
 	    \; \textrm{for } \; \alpha \;\textrm{fixed}.
     \end{equation}
     
-    If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy. For lack of any better strategy, we could calculate a high percentile of the data and threshold there. Due to the large number of zeros outputted by the filter, we opt instead to take the $q$th percentile of only nonzero values of $V_\Sigma$.
+    If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy (referred to in the code as \texttt{nz-percentile}. For lack of any better strategy, we could calculate a high percentile of the data and threshold there. Due to the large number of zeros outputted by the filter, we opt instead to take the $q$th percentile of only nonzero values of $V_\Sigma$.
 	We briefly demonstrate this in \cref{fig:qthresh_demo} on a particularly well-behaved sample. The top left value image is the original (grayscale image), the top right is $\Vmax$, the bottom left is the 95th percentile of nonzero scores of each scale, and the bottom right is the 98th percentile of nonzero scores at each scale.
 	
 	\begin{figure} \centering
@@ -40,7 +40,7 @@
 		\caption{Nonzero-percentile thresholding of \Vmax}.
 		\label{fig:qthresh_demo}
 	\end{figure}
-
+A more sincere use of thresholding might be to select a very high threshold, and then use those as seeds for a further technique.
 	We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
 	in \cref{ch:implementations}. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion}) should not hold too much stock in this thresholded result, and analyzing the 
 	raw vesselness score \cref{eq:Vmax}, or even

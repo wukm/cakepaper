@@ -1,8 +1,8 @@
 \chapter{Results and Analysis} \label{ch:results-analysis}
 
-We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy $\beta = .35$ and $\gamma=0.5$,
+We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy parameter $\beta = .35$ and standard structureness parameter $\gamma=0.5$,
 with scales spaced logarithmcally from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
-
+Our goal in this section is to provide a close up look at the Frangi filter on two samples, and then provide some measures of the Frangi output's correspondence with the ``ground truth'' network tracings across all 201 images, without explicitly performing segmentation.
 \section{Sample visual output}
 In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we take a partial look at the Frangi output for two particularly well-behaved samples. In the top-left, the preprocessed placenta is shown. In the top-right, the maximum of the Frangi output over $N$ scales. The bottom left and right images are simple segmentation strategies of merging the result.
 
@@ -19,36 +19,7 @@ In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we 
 \end{figure}
 
 
-\subsection{Binary Classifications and the confusion matrix}
 
-We wish to come up wish a means of gauging the success of our segmentations and will adopt a binary classification model to do so.
-We end up with a boolean matrix the size of the image, and compare it to the ground truth, the trace, and then compare them to get the number of true positives, true negatives, false positives, and false negatives. We demonstrate these visually with a confusion matrix, as in cref{fig:sample-confusion}.
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{sample_confusion}
-	\caption{Sample confusion matrix}
-	\label{fig:sample-confusion}
-
-\end{figure}
-	
-Although there are many measures to gauge the succcess of binary classification, we will focus on two that we find particularly illustrative. The first is precision, given by
-
-\begin{equation}
-\label{eq:precision}
-\textrm{precision} \;=\; \frac{TP}{TP+FP}
-\end{equation}
-
-and the second is the Matthews Correlation Constant (MCC), given by
-
-\begin{equation} \label{eq:MCC}
-MCC = \frac{TP\times TN - FP \times FN}{\sqrt{ (TP + FP)(TP+FN)(TN+FP)(TN+FN)}}
-\end{equation}
-
-where precision is a ratio between 0 \% and 100\% and the MCC is a measure between -1 and 1. Precision (or positive predictive power) is of course a ratio between how many labels we got correct over all pixels we labeled as positive. This is a useful score for us--if we are using Frangi as a prefiltering for a more robust technique, we would not want to provide any wrong information or seeds to that algorithm. Precision therefore does an okay job of representing that scenario: we are not penalized for what we do not label as true, as long as our reports of true are correct.
-
-Of course, we cannot rely on precision as our sole quantiative factor alone--we could simply return everything negative and recieve a perfect score of 100\% precision. Therefore we will gauge that measure with that of the MCC \cite{mcc-original-paper}. The main advantage of the MCC is that is well balanced no matter what the size of the two classes are, and will only be high if the approximation scores well against both labels. A score of $1.0$ means the approximation is 100\% correct, a score of $-1$ means that everything is completely incorrect, and a score of $0$ means that the test peforms as well as random guessing.  We will consider these two measures at the same time--saying that we would like an MCC score as high as possible, but will contextually settle for a lower score as long as the approximation is still textit{precise}.
-
-One final point about these measures is that we have decided to report their scores only within the placental plate, rather than the entire rectangular image. Since the area outside of plate is masked from consideration, those points will be true negatives no matter what, and we don't want this artificial padding to influence our score. That being said, we do currently concede one part right now: we will also mask an area around the umbilical cord insertion point, as the large amount of noise here will mean that our scores are artificially low. We would like to remove these areas, but for now we will simply not score them. 
 
 
 
@@ -115,7 +86,6 @@ In \cref{fig:segmentation-demo} we demonstrate the visual outputs produced by \t
 \end{table}
 
 \section{Variations in the Data Set and Imperfections of the Ground Truth} \label{sec:NCS-dataset-issues}
-\
 \begin{sidewaysfigure}
 	\includegraphics[width=\textwidth]{annotations-montage-2by2}
 	\caption{Issues with the ground truth manifesting in Frangi vesselness scores}

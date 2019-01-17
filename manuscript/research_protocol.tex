@@ -40,40 +40,39 @@ In \cref{fig:NCSlayers}, we see these four layers of a characteristic sample. \c
     vessel width & color (hex value) & color name \\
     \hline 
     \rule[-1ex]{0pt}{2.5ex}
-    3 pixels &  \#ff006f &   magenta \\                                      
+    3 pixels &  \texttt{\#ff006f} &   magenta \\                                      
     \rule[-1ex]{0pt}{2.5ex}
-    5 pixels & \#a80000  & dark red \\                                      
+    5 pixels & \texttt{\#a80000}  & dark red \\                                      
     \rule[-1ex]{0pt}{2.5ex}
-    7 pixels &  \#a800ff & purple \\                                          
+    7 pixels &  \texttt{\#a800ff} & purple \\                                          
     \rule[-1ex]{0pt}{2.5ex}
-    9 pixel s&  \#ff00ff  & light pink \\
+    9 pixel s&  \texttt{\#ff00ff}  & light pink \\
     \rule[-1ex]{0pt}{2.5ex}
-    11 pixels &  \#008aff & blue \\                                          
+    11 pixels &  \texttt{\#008aff} & blue \\                                          
     \rule[-1ex]{0pt}{2.5ex}
-    13 pixels &  \#8aff00 &   green \\                                        
+    13 pixels &  \texttt{\#8aff00} &   green \\                                        
     \rule[-1ex]{0pt}{2.5ex}
-    15 pixels &  \#ffc800 &  gold \\                                    
+    15 pixels &  \texttt{\#ffc800} &  gold \\                                    
     \rule[-1ex]{0pt}{2.5ex}
-    17 pixels & \#ff8a00  &  orange \\                                         
+    17 pixels & \texttt{\#ff8a00}  &  orange \\                                         
     \rule[-1ex]{0pt}{2.5ex}
-    19 pixels & \#ff0015   &  bright red  \\
+    19 pixels & \texttt{\#ff0015}   &  bright red  \\
     \hline
 \end{tabular}
-\caption{Vessel width color code}
+\caption{Vessel width color code for manual tracing protocol}
 \label{tab:widthcolors}
 \end{table}
 
 
-As stated in the introduction, the task of creating these samples, in particular the tracing and estimation involved in creating \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V}  is very labor intensive--requiring between 4 and 8 hours to trace a single sample.
-A closer look at many of the samples often reveals that a great deal of subjectivity in providing this ``ground truth,'' as it is not often clear what the underlying truth really is. Often it's hard to see where the vein is, vascular networks are obscured by the umbilical stem, the blood in the vessels dries unevenly or ruptures, and the vessel seems to disappear momentarily. These situations and more will be showcased in our results section, and our efforts at the eventual task of network completion must deal with these shortcomings and simulate the subjectivity of the manual tracer.
+As stated in the introduction, the task of creating these samples, in particular the tracing and estimation involved in creating \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} is very labor intensive--requiring between 4 and 8 hours to trace a single sample.
+A closer look at many of the samples often reveals that a great deal of subjectivity in providing this ``ground truth,'' as it is not often clear what the underlying truth really is. Often it's hard to see where the vein is, vascular networks are obscured by the umbilical stem, the blood in the vessels dries unevenly or ruptures, and the vessel seems to disappear momentarily. These situations and more will be showcased in \cref{fig:annotated-montage}, where we will demonstrate how the Frangi filter reacts to these problem areas. Our efforts at the eventual task of network completion must deal with these shortcomings and, in some circumstances, make subjective decisions like the manual tracer did.
 
 
 \subsection{Knowns and Unknowns}
-Of course, our Frangi we wish to simply operate on the placental sample itself, without any understanding of its provided tracing (except for judging the strength of our algorithm);
+Since our final goal is a fully automated procedure, we wish to simply operate on the placental sample itself, without any understanding of its provided tracing (except for judging the strength of our algorithm);
 our goal is to develop an algorithm that can produce a ``ground truth'' tracing similar to \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any user intervention.
 
-% write this better
-For our purposes however, we will concede a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}). In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours} or, or even a simple edge finding algorithm followed by watershedding and largest object selection. In fact, we have implemented this later algorithm, but unfortunately we achieve a subpar result on several images, and therefore we currently use it to improve upon the perimeter by removing ``cuts'', which were previously reported as being inside the plate and sometimes led to large false positives. %We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
+For our purposes however, we will concede and provide a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}). In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours} or, or even a simple edge finding algorithm followed by watershedding and largest object selection. In fact, we have implemented this later algorithm, but unfortunately we achieve a subpar result on several images, and therefore we currently use it to improve upon the perimeter by removing ``cuts'', which were previously reported as being inside the plate and sometimes led to large false positives. %We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
 
 Finally, we will consider the location of the umbilical insertion point as a ``known'', as the vessels around it are frequently impossible to see and we wish to exclude them from consideration. It is not unreasonable, however, to consider this to be a known--in future preparations of samples, we could simply require that this point be centered in image in a predictable location. Furthermore, we use its location as a convenience in data analysis--knowledge of this point does not inform our algorithm at the present time.
 
@@ -159,7 +158,7 @@ These procedures are performed automatically on the 201 images in our data set u
     compared to \texttt{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
     
     The method for deciding what is considered glare is similar to $\cite{almoussa-ucla-reu}$, in which we
-    consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is dependent on the image domain.
+    consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is unfortunately dependent on the image domain.
     
         \begin{figure} 
         \includegraphics[width=\textwidth]{preprocessing_comparison_cropped_fig}
@@ -199,7 +198,7 @@ These procedures are performed automatically on the 201 images in our data set u
     \end{lstlisting}
 
     
-    We stress again that only a small subset our image domain exhibits disruptive amounts of glare. Future improvements in this direction should probably seek to implement more robust method such as \cite{lange2005glare} that is not dependent on an arbitrary global
+    We stress again that only a small subset our image domain exhibits disruptive amounts of glare. Future improvements in this direction should probably seek to implement more robust method such as \cite{lange2005glare} that are not dependent on an arbitrary global
     threshold for deciding what regions exhibit glare.
     
     
