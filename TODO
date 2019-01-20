@@ -1,0 +1,58 @@
+TODO for the paper:
+! - quick
+~ - complicated / involved / fuzzy / rerunning code
+? - decision involved
+
+0. Multisection
+---------------
+    A. [~] Use correct style sheet
+    B. [~] Consistent coloration of graphs (nipy-spectral or plasma/magma?).
+    C. [!] Fix chapter titles
+
+1. Introduction
+---------------
+
+2. Mathematical Methods: Differential Geometry and Surface Curvature
+--------------------------------------------------------------------
+
+3. The Uniscale Frangi Filter
+-----------------------------
+
+4. Linear Scale Space Theory
+----------------------------
+
+5. The Multiscale Frangi Filter
+-------------------------------
+
+6. FFT-Based Discrete Derivatives
+---------------------------------
+
+7. Morphological Image Processing
+---------------------------------
+
+8. Research Protocol
+--------------------
+    A. [?] Decision Tree is Better Formatted or as a Diagram (with the
+        alternate steps just within the body)
+
+9. Results and Analysis
+-----------------------
+    A. Decision Tree as flow chart or just in paper
+    B. Remerge / Reallow Thesholded/Percentile Segmentations but just for
+        demo purposes. give them scores later
+    C. [~] Bad samples in terms of CVR
+
+10. Segmentation
+----------------
+
+11. Trough Filling and Primitive Network Completion
+---------------------------------------------------
+
+12. Conclusion
+--------------
+
+
+
+
+
+

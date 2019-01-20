@@ -1,6 +1,6 @@
 \chapter{Results and Analysis} \label{ch:results-analysis}
 
-We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy parameter $\beta = .35$ and standard structureness parameter $\gamma=0.5$,
+We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy parameter $\beta = 0s.35$ and standard structureness parameter $\gamma=0.5$,
 with scales spaced logarithmcally from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
 Our goal in this section is to provide a close up look at the Frangi filter on two samples, and then provide some measures of the Frangi output's correspondence with the ``ground truth'' network tracings across all 201 images, without explicitly performing segmentation.
 \section{Sample visual output}
@@ -26,12 +26,12 @@ In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we 
 
 In \cref{fig:segmentation-demo} we demonstrate the visual outputs produced by \texttt{extract\_NCS\_pcsvn.py}. This particular sample, BN4569506, is a relatively well-behaved sample, and segmentation was comparatively successful. On the left column we have 
 
-%\begin{figure}
-%\centering
-%\includegraphics[height=\textheight]{BN4569506_output-montage}
-%\caption{Demonstration of postprocessing techniques}
-%\label{fig:segmentation-demo}
-%\end{figure}
+\begin{figure}
+\centering
+\includegraphics[height=\textheight]{BN4569506_output-montage}
+\caption{Demonstration of postprocessing techniques}
+\label{fig:segmentation-demo}
+\end{figure}
 
 \begin{figure}
 	\begin{minipage}[tp]{0.5\textwidth}
@@ -135,7 +135,7 @@ An example of bad samples that performed comparatively poorly across all segment
 
 \section{Results}
 
-In \cref{fig:compare_parameters}, we demonstrate the usefulness of scricter parameters for the Frangi filter. Since the Frangi vesselness measure is a "probability-like" score, we should be interested--without doing any actual segmentation yet--to what extent this score aligns with the ground truth in a cumulative sense. We define the cumulative vesselness ratio by ``integrating'' the max vesselness score over pixels in the ground truth and over the entire image and considering the ratio:
+In \cref{fig:compare_parameters}, we demonstrate the usefulness of scricter parameters for the Frangi filter. Since the Frangi vesselness measure is a "probability-like" score, we should be interested--without doing any actual segmentation yet--to what extent this score aligns with the ground truth in a cumulative sense. We should hope at least that larger values of We define the cumulative vesselness ratio by ``integrating'' the max vesselness score over pixels in the ground truth and over the entire image and considering the ratio:
 
 \begin{defn} The cumulative vesselness ratio for a particular parametrization of the multiscale Frangi filter is given by
 	\begin{equation}
