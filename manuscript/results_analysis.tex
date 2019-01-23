@@ -1,8 +1,9 @@
 \chapter{Results and Analysis} \label{ch:results-analysis}
 
-We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy parameter $\beta = 0s.35$ and standard structureness parameter $\gamma=0.5$,
-with scales spaced logarithmcally from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
-Our goal in this section is to provide a close up look at the Frangi filter on two samples, and then provide some measures of the Frangi output's correspondence with the ``ground truth'' network tracings across all 201 images, without explicitly performing segmentation.
+We demonstrate the output of the Frangi filter on our samples after running a multiscale technique with $N=20$ scales with a stricter anisotropy parameter $\beta = 0.35$ and standard structureness parameter $\gamma=0.5$,
+with scales spaced logarithmically from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.5}$, performing glare and cut removal in preprocessing, and using a discrete gaussian kernel and dilation border of 20.
+Our goal in this section is to provide a close up look at the Frangi filter on two samples, and then provide some measures of the Frangi output's correspondence with the ``ground truth'' network tracings across all 201 images, without explicitly performing segmentation. However, for visual demonstration, we will employ both simple thresholding techniques (arbitrary fixed and nonzero-percentile) described in \cref{ch:multifrangi}. In \cref{ch:segmentation} we will develop and analyze more sophisticated Frangi-based segmentation techniques and compare their performance to these rudimentary thresholding techniques across the entire dataset.
+
 \section{Sample visual output}
 In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we take a partial look at the Frangi output for two particularly well-behaved samples. In the top-left, the preprocessed placenta is shown. In the top-right, the maximum of the Frangi output over $N$ scales. The bottom left and right images are simple segmentation strategies of merging the result.
 
@@ -18,20 +19,6 @@ In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we 
   \label{fig:output-montage-example2}
 \end{figure}
 
-
-
-
-
-
-
-In \cref{fig:segmentation-demo} we demonstrate the visual outputs produced by \texttt{extract\_NCS\_pcsvn.py}. This particular sample, BN4569506, is a relatively well-behaved sample, and segmentation was comparatively successful. On the left column we have 
-
-\begin{figure}
-\centering
-\includegraphics[height=\textheight]{BN4569506_output-montage}
-\caption{Demonstration of postprocessing techniques}
-\label{fig:segmentation-demo}
-\end{figure}
 
 \begin{figure}
 	\begin{minipage}[tp]{0.5\textwidth}

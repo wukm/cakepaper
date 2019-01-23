@@ -24,6 +24,7 @@ TODO for the paper:
 5. The Multiscale Frangi Filter
 -------------------------------
 
+    A. Make sure rest of paper reflects that simple thresholding was moved here
 6. FFT-Based Discrete Derivatives
 ---------------------------------
 
@@ -40,13 +41,15 @@ TODO for the paper:
     A. Decision Tree as flow chart or just in paper
     B. Remerge / Reallow Thesholded/Percentile Segmentations but just for
         demo purposes. give them scores later
-    C. [~] Bad samples in terms of CVR
+    C. [~] Calculate CVR of "bad samples"
 
 10. Segmentation
 ----------------
 
 11. Trough Filling and Primitive Network Completion
 ---------------------------------------------------
+
+    A. Merge trough filling into the segmentation section and discuss the results there
 
 12. Conclusion
 --------------

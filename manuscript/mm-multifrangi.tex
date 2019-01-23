@@ -1,10 +1,8 @@
- \chapter{The Frangi Filter: A multiscale approach} \label{sec:frangi-multiscale}
+ \chapter{The Multiscale Frangi Filter} \label{ch:multifrangi}
     
      With the ideas of scale established, we may return to our discussion of the Frangi filter.
-    Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering our
-    developments in \cref{sec:frangi}, we wish to probe at multiple scales
-    regions that would receive a high vesselness score at any range,
-    and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply taking the maximum vesselness measure over all scales. Thus the multiscale Frangi vesselness score at the pixel $(x_0, y_0$) would be 
+    Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering the dependence of the Frangi filter's response on choice of scale (as demonstrated in \cref{sec:frangi}), we wish to probe at multiple scales
+    regions that would receive a high vesselness score at any range and somehow merge the result. Frangi \cite{frangi-paper} approached this problem by simply taking the maximum vesselness measure over all scales. Thus the multiscale Frangi vesselness score at the pixel $(x_0, y_0$) would be 
     
     \begin{equation} \label{eq:Vmax}
     \Vmax(x_0, y_0) =
@@ -12,14 +10,47 @@
     \end{equation}
     
     where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_N \right\}$ is
-    the range of scales at which to probe. These should be chosen to be representative enough of all scales where meaningful content is expected to be found.
+    the set of scales at which to probe, and \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $(x_0,y_0)$. The set of scales $\Sigma$ should be chosen to be representative enough of all scales where meaningful content is expected to be found.
     
    
-    \subsection{Thresholding}
+    \subsection{Rudimentary Thresholding}
     
     After the maximization in \cref{eq:Vmax}, we are left with a matrix with as many pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image.
-       
-    At this point, Frangi \cite{frangi-paper} refrained from explicitly interpreting the score assigned by \cref{eq:Vmax}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and moreover that the width of the vasculature cannot be determined rigorously from the filter alone.   
+         
+    At this point, Frangi \cite{frangi-paper} refrained from explicitly interpreting the score assigned by \cref{eq:Vmax}; that is--whether a particular pixel $(x_0,y_0)$ in the image definitely respresents a vessel or not based on its Frangi score. Instead, he cautioned that the result should not be used as a segmentation method alone, and moreover that the width of the vasculature cannot be determined rigorously from the Frangi filter (as discussed in \cref{ch:unifrangi}).
    
+    Nonetheless, we wish to demonstrate the usefulness of the Frangi filter within our image domain towards segmentation. We should at least expect that a well-tuned Frangi filter (on an appropriately registered and denoised sample) should assign its highest scores to vessel pixels. We can select these strong Frangi responses and use them as seeds for some subsequent algorithm. A straightforward enough approach would be to simply threshold at some fixed value $\alpha$. Such thresholding was used in \cite{huynh2013filter}. 
+   
+
+   \begin{equation}	    
+      {\VSigma}_{\alpha}(x_0,y_0) = \begin{cases}
+   1 & \textrm{if}\quad \Vmax(x_0,y_0) \; \ge\;  \alpha \\
+   0 & \textrm{else}
+  \end{cases}
+   \quad , \; \alpha > 0
+   \; \textrm{for } \; \alpha \;\textrm{fixed}.
+   \end{equation}
+ 
+
+If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy. We would hope that some normalization of our data set would permit a single choice of $\alpha$ across all samples, but unfortunately we cannot guarantee this. Without prior knowledge of an appropriate choice of $\alpha$, we may have to simply select $\alpha$ by trial and error.
+
+
+A good alternative method of thresholding would be to simply select the highest scores from each responses: we calculate a high percentile score and threshold at that value. Due to the large number of zeros outputted by the filter, we opt instead to take the $q$th percentile of only nonzero values of $V_\Sigma$. 
+We briefly demonstrate this in \cref{fig:qthresh_demo} on a particularly well-behaved sample. The top left value image is the base image, the top right is $\Vmax$, the bottom left is $\Vmax$ thresholded at the 95th percentile, and the bottom left is thresholded at the 98th percentile.
+
+\begin{figure} \centering
+\subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_img}}
+\subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_Fmax}} \\
+\subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q95}}
+\subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q98}} \\
+\caption{Nonzero-percentile thresholding of \Vmax (95th and 98th percentile)}.
+\label{fig:qthresh_demo}
+\end{figure}
+
+Of course, the downside of this method is that we do not know in general the size of the network, and  we may miss entire branches of the vascular network if there is a large amount of curvilinear content elsewhere in the image.
+
+We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
+in \cref{ch:segmentation}. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion} need not proceed from either of these thresholdings; analyzing the raw vesselness score \Vmax, or even the un-merged scale-wise scores may prove far more rewarding.
+
 
 All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discrete nature of our samples.    
