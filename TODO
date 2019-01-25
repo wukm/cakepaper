@@ -1,19 +1,30 @@
-TODO for the paper:
-! - quick
-~ - complicated / involved / fuzzy / rerunning code
-? - decision involved
+TODO for cakepaper
+------------------
+
+legend for tags:
+[!] - quick
+[~] - complicated / involved / fuzzy
+[.] - incremental (make sure gets done but don't need to do directly)
+[#] - involves running code
+[?] - decision / external input required
+[_] - other / undecided
 
 0. Multisection
 ---------------
     A. [~] Use correct style sheet
-    B. [~] Consistent coloration of graphs (nipy-spectral or plasma/magma?).
-    C. [!] Fix chapter titles
+    B. [#] Consistent coloration of graphs (nipy-spectral or plasma/magma?).
+    C. [?] Less awkward way to describe figure grids (not inline or smoothly inline).
+           This also involves standardizing subfigure titles. 
 
 1. Introduction
 ---------------
+    A. [!] Fix ending to reflect current scope
+    B. [_] Reword so that what is developed in detail is apparent
+    C. [?] Realign context with current developments in research group
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
+    A. [~] Make sure notation is consistent and clear
 
 3. The Uniscale Frangi Filter
 -----------------------------
@@ -23,13 +34,18 @@ TODO for the paper:
 
 5. The Multiscale Frangi Filter
 -------------------------------
+    A. [.] Make sure rest of paper reflects that simple thresholding was moved here
+    B. [#] Visual demonstration needs to have
+        - Fixed threshold examples
+        - Example of lower percentile (like 90 or 85)
+    C. [!] Develop / migrate discussion of "automatic scale selection" here
 
-    A. Make sure rest of paper reflects that simple thresholding was moved here
 6. FFT-Based Discrete Derivatives
 ---------------------------------
 
 7. Morphological Image Processing
 ---------------------------------
+    A. [~] Write this section!
 
 8. Research Protocol
 --------------------
@@ -42,7 +58,8 @@ TODO for the paper:
     B. Remerge / Reallow Thesholded/Percentile Segmentations but just for
         demo purposes. give them scores later
     C. [~] Calculate CVR of "bad samples"
-
+    D. [~] In what's labeled Figure 23 in this chapter, explain what the scalewise
+        percentile alphas are.
 10. Segmentation
 ----------------
 
