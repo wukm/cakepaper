@@ -151,7 +151,7 @@ These procedures are performed automatically on the 201 images in our data set u
 
     \subsection{Deglaring}
     
-    Despite best efforts when harvesting samples, a select number of the placental samples exhibit substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, at the expense of processing time.
+    Despite best efforts when harvesting samples, a select number of the placental samples exhibit substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, albeit at the expense of processing time.
     
     The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving a
     biharmonic equation i.e. $\nabla \nabla f = 0$ for the surface $f$ subject to boundary conditions (as
@@ -227,11 +227,9 @@ These procedures are performed automatically on the 201 images in our data set u
 For each sample:
 
 A) Preprocessing
-  1) RGB to single channel
-      + Luminance transform
-      . Isolate green channel only (Almoussa, Huynh)
+  1) RGB to single channel via Luminance Transform
   2) Cut removal
-  3) Remove glare 
+  3) Remove glare
     a) Mask glare
       + Threshold (*175/255*)
       . Threshold at *80%* of max intensity (Almoussa)
