@@ -1,7 +1,8 @@
 TODO for cakepaper
 ------------------
 
-legend for tags:
+Tags
+----
 [!] - quick
 [~] - complicated / involved / fuzzy
 [.] - incremental (make sure gets done but don't need to do directly)
@@ -9,22 +10,26 @@ legend for tags:
 [?] - decision / external input required
 [_] - other / undecided
 
+
+
 0. Multisection
 ---------------
-    A. [~] Use correct style sheet
+    A. [~] Debug correct style sheet
     B. [#] Consistent coloration of graphs (nipy-spectral or plasma/magma?).
-    C. [?] Less awkward way to describe figure grids (not inline or smoothly inline).
-           This also involves standardizing subfigure titles. 
+    C. [?] Less awkward way to describe figure grids (not inline or smoothly
+            inline).  This also involves standardizing subfigure titles.  
 
 1. Introduction
 ---------------
-    A. [!] Fix ending to reflect current scope
+    A. [!] Fix ending paragraph to reflect current scope
     B. [_] Reword so that what is developed in detail is apparent
+            (especially with regard to math methods)
     C. [?] Realign context with current developments in research group
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
     A. [~] Make sure notation is consistent and clear
+    B. [~] Replace hand drawings
 
 3. The Uniscale Frangi Filter
 -----------------------------
@@ -34,7 +39,8 @@ legend for tags:
 
 5. The Multiscale Frangi Filter
 -------------------------------
-    A. [.] Make sure rest of paper reflects that simple thresholding was moved here
+    A. [.] Make sure rest of paper reflects that simple thresholding was
+            moved here
     B. [#] Visual demonstration needs to have
         - Fixed threshold examples
         - Example of lower percentile (like 90 or 85)
@@ -50,29 +56,28 @@ legend for tags:
 8. Research Protocol
 --------------------
     A. [?] Decision Tree is Better Formatted or as a Diagram (with the
-        alternate steps just within the body)
+            alternate steps just within the body)
 
 9. Results and Analysis
 -----------------------
-    A. Decision Tree as flow chart or just in paper
-    B. Remerge / Reallow Thesholded/Percentile Segmentations but just for
-        demo purposes. give them scores later
+    A. [~] Decision Tree as flow chart or just in paper
+    B. [~] Remerge / Reallow Thesholded/Percentile Segmentations but just
+            for demo purposes. Give them scores later.
     C. [~] Calculate CVR of "bad samples"
-    D. [~] In what's labeled Figure 23 in this chapter, explain what the scalewise
-        percentile alphas are.
+    D. [~] In what's labeled Figure 23 in this chapter, explain what the
+            scalewise percentile alphas are.
+
 10. Segmentation
 ----------------
+    A. Merge trough filling here
+    B. Fix figures
 
 11. Trough Filling and Primitive Network Completion
 ---------------------------------------------------
-
-    A. Merge trough filling into the segmentation section and discuss the results there
+    A. [~] Merge trough-filling method into the segmentation section
+    B. [?] Remove Network Completion or move to Conclusion?
+    
 
 12. Conclusion
---------------
-
-
-
-
-
-
+-------------
+    A. [~] Rework to fit current scope.
