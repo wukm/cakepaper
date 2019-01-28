@@ -11,7 +11,6 @@ Tags
 [_] - other / undecided
 
 
-
 0. Multisection
 ---------------
     A. [~] Debug correct style sheet
@@ -33,9 +32,11 @@ Tags
 
 3. The Uniscale Frangi Filter
 -----------------------------
+    A. [~] Another editing pass
 
 4. Linear Scale Space Theory
 ----------------------------
+    A. [~] Edit pass
 
 5. The Multiscale Frangi Filter
 -------------------------------
@@ -48,10 +49,12 @@ Tags
 
 6. FFT-Based Discrete Derivatives
 ---------------------------------
+    A. [~] Standard proofing
+    B. [?] Rework as just 1D; some of this is really unnecessary
 
 7. Morphological Image Processing
 ---------------------------------
-    A. [~] Write this section!
+    A. [~] Write this section (as brief as possible)
 
 8. Research Protocol
 --------------------
@@ -60,17 +63,19 @@ Tags
 
 9. Results and Analysis
 -----------------------
-    A. [~] Decision Tree as flow chart or just in paper
-    B. [~] Remerge / Reallow Thesholded/Percentile Segmentations but just
+    A. [~] Remerge / Reallow Thesholded/Percentile Segmentations but just
             for demo purposes. Give them scores later.
-    C. [~] Calculate CVR of "bad samples"
-    D. [~] In what's labeled Figure 23 in this chapter, explain what the
+    B. [~] Calculate CVR of "bad samples"
+    C. [~] In what's labeled Figure 23 in this chapter, explain what the
             scalewise percentile alphas are.
+    D. [~] Last two figures lack a write-up
 
 10. Segmentation
 ----------------
-    A. Merge trough filling here
-    B. Fix figures
+    A. [~] Fix figures
+    B. [?] Remove some segmentation methods
+    C. [ ] Discuss strawman!
+    D. [ ] Show numerical results!
 
 11. Trough Filling and Primitive Network Completion
 ---------------------------------------------------
@@ -80,4 +85,5 @@ Tags
 
 12. Conclusion
 -------------
-    A. [~] Rework to fit current scope.
+    A. [~] Rework to fit current scope
+    B. [?] Potentially move network completion demo here

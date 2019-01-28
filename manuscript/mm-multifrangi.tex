@@ -1,4 +1,4 @@
- \chapter{The Multiscale Frangi Filter} \label{ch:multifrangi}
+ \chapter{The Multiscale Frangi Filter and Signed Frangi Filter} \label{ch:multifrangi}
     
      With the ideas of scale established, we may return to our discussion of the Frangi filter.
     Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering the dependence of the Frangi filter's response on choice of scale (as demonstrated in \cref{sec:frangi}), we wish to probe at multiple scales
@@ -50,7 +50,11 @@ We briefly demonstrate this in \cref{fig:qthresh_demo} on a particularly well-be
 Of course, the downside of this method is that we do not know in general the size of the network, and  we may miss entire branches of the vascular network if there is a large amount of curvilinear content elsewhere in the image.
 
 We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales
-in \cref{ch:segmentation}. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion} need not proceed from either of these thresholdings; analyzing the raw vesselness score \Vmax, or even the un-merged scale-wise scores may prove far more rewarding.
+in \cref{ch:segmentation}. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion}) need not proceed from either of these thresholdings; analyzing the raw vesselness score \Vmax, or even the un-merged scale-wise scores may prove far more rewarding.
+
+\section{The Signed Frangi Filter} \label{sec:signed-frangi-filter}
+We finally introduce the novel (yet straightforward) notion of the signed Frangi filter. As will be shown in \cref{ch:segmentation}, we can befefit from simultaneously calculate for a dark background and a light background. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all (although we must store more results). After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote
+$\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ before, and $\Vmax^{(-)}$ is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths of through-like (or ridge-like) curvilinear features, by somehow combining the results of our positive and negative strains. We \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
 
 
 All that remains to describe mathematically is how to actually calculate the derivatives of our images and deal with the ultimately discrete nature of our samples.    

@@ -112,3 +112,38 @@ In \cref{rw-demo-scalewise}, the first column is the Frangi vesselness score at 
 \subsection{Method D: Scale Based Sieving}
 
 Our final approach seeks to include not only pixels at each scale that pass a high threshold, but also adjacent pixels at that scale that pass a lower threshold. We proceed as follows. At each scale, take a low threshold, then label each connected region. Then, iterate through each labeled region and add to the final approximation any labeled region that contains a pixel that passes a higher threshold.
+
+\subsection{Method E: Trough Filling}
+As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate for a dark background and a light background. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all (although we must store more results). After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote
+$\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ before, and $\Vmax^{(-)}$ is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
+
+\begin{figure}[p] \centering
+  \subfloat{		\label{fig:signsweep-1p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_plate}}}
+  } \\[-0.5cm]
+  \subfloat{		\label{fig:signsweep-1i}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_inset}}}
+  } \\[-0.5cm]
+  \subfloat{		
+    \label{fig:signsweep-1c}\includegraphics[width=.75\linewidth]{{{signsweep_colorbar}}}
+  } \\
+  
+  \caption{Signed Frangi output (plate and inset) (Example 1)}
+  \label{fig:signsweep-1}
+\end{figure}
+
+\begin{figure}[p] \centering
+  \subfloat{		\label{fig:signsweep-2p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN5280796_plate}}}
+  } \\[-0.5cm]
+  \subfloat{		\label{fig:signsweep-2i}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN5280796_inset}}}
+  } \\[-0.5cm]
+  \subfloat{		
+    \label{fig:signsweep-2c}\includegraphics[width=.75\linewidth]{{{signsweep_colorbar}}}
+  } \\
+  % should i use the real sample names? or obfuscate?
+  \caption{Signed Frangi output (plate and inset) (Example 1)}
+  \label{fig:signsweep-2}
+\end{figure}
+That is, at the "foot" of every trough on either side, we can see a bordering curvilinear structure of opposite sign. We perform strict Frangi filtering and separate the positive and negative components. We then perform a different threshold for each signed portion of the Frangi response--a strict one (say $\alpha^{(+)} > .4$) for the conventional $\Vmax$, and a much looser one for our opposite signed $\Vmax^{(-)} > \alpha^{(-)} = .05$. We also truncate the scales we consider for calculating $\Vmax^{(-)}$, say only the first 12 of 20.
+
+We then perform a morphological thinning operation on our positive (or standard) Frangi response. We will refer to this thinned approximation as the ``spine'' and the (un-thinned) opposite signed component as the ``margin.'' For each pixel on the thinned spine, we iterate over disks of integer radius and dilate the pixel by a disk of that radius if that disk coincides with a margin point. 
+
+This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
