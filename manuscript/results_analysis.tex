@@ -5,59 +5,63 @@ with scales spaced logarithmically from $\sigma_1 = 2^{-1}$ to $\sigma_N = 2^{3.
 Our goal in this section is to provide a close up look at the Frangi filter on two samples, and then provide some measures of the Frangi output's correspondence with the ``ground truth'' network tracings across all 201 images, without explicitly performing segmentation. However, for visual demonstration, we will employ both simple thresholding techniques (arbitrary fixed and nonzero-percentile) described in \cref{ch:multifrangi}. In \cref{ch:segmentation} we will develop and analyze more sophisticated Frangi-based segmentation techniques and compare their performance to these rudimentary thresholding techniques across the entire dataset. For this chapter we will content ourselves with analysis of the raw Frangi vesselness measure within our image domain, and use our simple thresholded results for visual demonstration alone.
 
 \section{Sample visual output}
-In \cref{fig:output-montage-example1} and \cref{fig:output-montage-example2} we take a look at the Frangi output (\Vmax) for two particularly well-behaved samples. In the top-left, the preprocessed placenta is shown. In the top-right, the maximum of the Frangi output over $N$ scales. The bottom left and right images are two rudimentary thresholds of $\Vmax$.
+In \cref{fig:detailed_frangi_with_table} we take a look at the Frangi output (\Vmax) for a well-behaved sample. In the left column we have (from top to bottom) the un-preprocessed placental sample, the preprocessed sample, the color trace(ground truth), and $\Vmax$. In the top-right, we have for each $n=0,...,19$ scales, we have the size of the scale $\sigma_n$, the 95th percentile score at that scale  $\alpha_p$ where $p=95$, and the maximum vesselness score at that scale ($\max(V_\sigma)$. The bottom-right set of images are two rudimentary thresholds of the Frangi result. The top is the scalewise nonzero percentile threshold (95th percentile) and the bottom is a strict threshold of 0.4. left and right images are two rudimentary thresholds of $\Vmax$. The bottom left is nonzero percentile filtering (thresholded at the 95th percentile, and the  right image is a simple threshold at $\alpha=0.4$. For each pixel that passes the threshold, each of these graphs is color coded to indicate from which scale the maximum value at that pixel occurs, colored according to the scale on the left.
+% these montages were manually stitched together from
+% 181127-sievetest
 
-\begin{figure} \centering
-  \includegraphics[width=\textwidth]{montage-T-BN0164923}
-  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 1)}
-  \label{fig:output-montage-example1}
-\end{figure}
-
-\begin{figure} \centering
-  \includegraphics[width=\textwidth]{montage-T-BN0651415}
-  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 2)}
-  \label{fig:output-montage-example2}
-\end{figure}
-
+%\begin{figure} \centering
+%  \includegraphics[width=\textwidth]{montage-T-BN0164923}
+%  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 1)}
+%  \label{fig:output-montage-example1}
+%\end{figure}
+%
+%\begin{figure} \centering
+%  \includegraphics[width=\textwidth]{montage-T-BN0651415}
+%  \caption{Sample Multiscale Frangi output ($\beta=0.35$) with simple segmentation strategies (Example 2)}
+%  \label{fig:output-montage-example2}
+%\end{figure}
 
 \begin{figure}
-	\begin{minipage}[tp]{0.5\textwidth}
-		\includegraphics[height=0.95\textheight]{M1-T-BN2050224}
-	\end{minipage}
-	\quad
-	\begin{minipage}[tp]{0.35\textwidth}
-		\begin{tabular}{l|r|r|r}
-			n  & $\sigma_n$  &  $\alpha_p$  &  $\max(V_\sigma)$ \\
-			\hline
-			0  &   0.3535 &  0.0547 &  0.986\\
-			1  &   0.4243 &  0.0590 &  0.979\\
-			2  &   0.5092 &  0.0654 &  0.970\\
-			3  &   0.6110 &  0.0765 &  0.973\\
-			4  &   0.7333 &  0.0892 &  0.988\\
-			5  &   0.8801 &  0.0962 &  0.991\\
-			6  &   1.0562 &  0.1082 &  0.991\\
-			7  &   1.2676 &  0.1308 &  0.970\\
-			8  &   1.5212 &  0.1669 &  0.973\\
-			9  &   1.8256 &  0.2232 &  0.978\\
-			10 &   2.1909 &  0.2925 &  0.984\\
-			11 &   2.6294 &  0.3196 &  0.968\\
-			12 &   3.1555 &  0.3269 &  0.994\\
-			13 &   3.7869 &  0.3558 &  0.998\\
-			14 &   4.5447 &  0.4058 &  0.999\\
-			15 &   5.4542 &  0.3764 &  0.963\\
-			16 &   6.5456 &  0.3184 &  0.950\\
-			17 &   7.8553 &  0.3047 &  0.958\\
-			18 &   9.4272 &  0.3287 &  0.916\\
-			19 &  11.3137 &  0.3524 &  0.916\\
-		\end{tabular} \\
-	\end{minipage}
-	\caption{Vesselness scores and percentile thresholds}
+  \begin{minipage}[tp]{0.5\textwidth}
+    \includegraphics[height=0.95\textheight]{M1-T-BN2050224}
+  \end{minipage}
+  \begin{minipage}[tp]{0.5\textwidth}
+    \begin{tabular}{l|r|r|r}
+      n  & $\sigma_n$  &  $\alpha_p$  &  $\max(V_\sigma)$ \\
+      \hline
+      0  &   0.3535 &  0.0547 &  0.986\\
+      1  &   0.4243 &  0.0590 &  0.979\\
+      2  &   0.5092 &  0.0654 &  0.970\\
+      3  &   0.6110 &  0.0765 &  0.973\\
+      4  &   0.7333 &  0.0892 &  0.988\\
+      5  &   0.8801 &  0.0962 &  0.991\\
+      6  &   1.0562 &  0.1082 &  0.991\\
+      7  &   1.2676 &  0.1308 &  0.970\\
+      8  &   1.5212 &  0.1669 &  0.973\\
+      9  &   1.8256 &  0.2232 &  0.978\\
+      10 &   2.1909 &  0.2925 &  0.984\\
+      11 &   2.6294 &  0.3196 &  0.968\\
+      12 &   3.1555 &  0.3269 &  0.994\\
+      13 &   3.7869 &  0.3558 &  0.998\\
+      14 &   4.5447 &  0.4058 &  0.999\\
+      15 &   5.4542 &  0.3764 &  0.963\\
+      16 &   6.5456 &  0.3184 &  0.950\\
+      17 &   7.8553 &  0.3047 &  0.958\\
+      18 &   9.4272 &  0.3287 &  0.916\\
+      19 &  11.3137 &  0.3524 &  0.916\\
+    \end{tabular} \\
+    \includegraphics[height=0.5\textheight]{scale_colorbar-plasma} \;
+    \includegraphics[height=0.5\textheight]{T-BN2050224-simple_thresholds}
+  \end{minipage}
+  \caption{Example vesselness score, percentile thresholds, and simple thresholds}
+  \label{fig:detailed_frangi_with_table}
 \end{figure}
 
-\begin{figure}[p] \centering
-	\includegraphics[width=\linewidth]{M2-T-BN2050224}
-	\caption{Sample of Frangi-based Segmentation Methods (pt. 2)}
-\end{figure}
+
+%\begin{figure}[p] \centering
+%	\includegraphics[width=\linewidth]{M2-T-BN2050224}
+%	\caption{Sample of Frangi-based Segmentation Methods (pt. 2)}
+%\end{figure}
 
 %\begin{table}[p]\centering
 %	\begin{tabular}{l|rrrr}
@@ -84,22 +88,7 @@ The green arrow points to the umbilical stump. You can see there is circular noi
 
 The red arrow points to an issue unrelated to the ground truth, but an issue that arise when selecting scales in our multiscale methodology-- this is a point of dark curvature that represents noise at larger scales. As you can see from the \Vmax of this inset, there is a positive response in this dead space between vessels, and there is another one that appears in the bottom left between two close vessels of similar size. 
 
-\begin{figure} \centering
-  \subfloat{
-  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset}
-}
-\subfloat{
-  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_ctrace}
-} \\
-\subfloat{
-  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_sketches}
-}
-\subfloat{
-  \includegraphics[width=0.5\textwidth]{T-BN0392644_inset_mark}
-}
-\caption{Issues with ground truth and sample quality}
-\label{fig:groundtruth-samplequality}
-\end{figure}
+rf
 
 As seen in \cref{fig:groundtruth-samplequality}, there are several issues with the samples that will cause trouble in our efforts toward segmentation. Our represenative sample is BN0392644. The top left is the original (color) image, the top right is the full vessel width trace. The bottom left is a smaller skeletonization (sketch), where arteries are shown in red and veins are shown in blue. The bottom right figure contains some annotations. At the top, a blue arrow indicates a large curvilinear patch of dried blood that is not part of the vascular network. The green arrow in the middle indicates some vessels that are too small for the diameter binning and are thus not reported. We will see later that our Frangi result perfectly captures these, yet they will be reported as a false positive since they are not part of the tracing. However, there are other vessels of similar visual width in this same inset that are traced. In blue boxes (and in many other spots) the vessels cross each other. The border around these will prevent us from being able to extract the vessel directly. In the green dotted box, a major arterial and a major venous branch each connect to the umbilical cord insertion point. Whereas the arterial branch (on the right) can be seen, it will not be reported by the Frangi filter, since those points are not darker relative to the background. You can also see how much variation there is as you look along a blood vessel. There are some areas where the Frangi filter will have a very limited response. 
 
