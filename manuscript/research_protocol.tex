@@ -106,7 +106,7 @@ These procedures are performed automatically on the 201 images in our data set u
     \end{equation}
     It should be noted that this choice is not a given--several other attempts have used the green channel unmodified, as in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Preliminary and periodical rechecking has not indicated that such a conversion has any benefit over the luminance transformation for our image domain, although other placental samples with a different preparation method might benefit from it.
 
-    \subsection{Boundary Dilation}
+    \subsection{Boundary Dilation} \label{sec:boundary-dilation}
     
     All images are grayscale, $M,N$ pixels as a masked array (of type
     \texttt{numpy.ma.MaskedArray}), where pixels outside of the placental region are masked so they will not be considered by the algorithm. However, some standard
