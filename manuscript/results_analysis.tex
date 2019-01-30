@@ -146,7 +146,7 @@ In \cref{fig:compare_parameters_3by3_example1}, we demonstrate the usefulness of
 	and over the entire image $\img$ itself, respectively.
 \end{defn}
 
-\cref{fig:compare_parameters_3by3_example1} and \cref{fig:compare_parameters_3by3_example2} show $\Vmax$ for two well-behaved samples with reported $CVR$. We see in both cases that stricter parameters (smaller $\beta$ and larger $\gamma$) correspond to an increased $CVR$. Each of these sample was run over the same scales (logarithmically spaced from $2^{-1.5}$ to $2^{3.5}$ with $N=20$ and the color output of each $\Vmax$ is normalized between 0 and 1.
+\cref{fig:compare_parameters_3by3_example1} and \cref{fig:compare_parameters_3by3_example2} show $\Vmax$ for two well-behaved samples with reported $CVR$ for 9 various combinations of $\beta$ and $\gamma$. Two combinations in particular, labeled ``Anisotropy Factor'' and ``Structureness Factor,'' have parameter choices so that the structureness and anisotropy factors (respectively) are exactly one throughout the entire image. Comparing all parameter combinations, we see in both cases that stricter parameters (smaller $\beta$ and larger $\gamma$) correspond to an increased $CVR$. That is, the more selective our Frangi filter is, the better it aligns with the vascular content within the image. This suggests not only that the Frangi filter is well suited to this image domain, but also that choosing stricter parameters for the Frangi filter concentrates the Frangi response within vascular features more and reduces background noise. Each of these sample was run over the same scales (logarithmically spaced from $2^{-1.5}$ to $2^{3.5}$ with $N=20$ and the color output of each $\Vmax$ is independently normalized between 0 and 1.
 
 % THESE ARE VERY GOOD BUT I PREFER THE LATER ONES, SINCE THEY HAVE MORE DEPTH
 %\begin{figure}[p]\centering
@@ -180,28 +180,42 @@ In \cref{fig:compare_parameters_3by3_example1}, we demonstrate the usefulness of
   \label{fig:CVR-boxplot-quality0}
 \end{figure}
 
-In \cref{fig:CVR-boxplot-quality0} we show how the CVR is affected for 25 of the ``best'' samples, that is, those that generally fared better for segmentation techniques. This shows that the  results of \cref{fig:compare_parameters_3by3_example1} and \cref{fig:compare_parameters_3by3_example2} hold in general for all ``well-behaved'' samples in our image domain. 
+We wish to see if the observations in \cref{fig:compare_parameters_3by3_example1} and \cref{fig:compare_parameters_3by3_example2} are common to our entire sample set. In \cref{fig:CVR-boxplot-quality0} we show how the CVR is affected for 25 of the ``best'' samples, that is, those that performed better in segmentation techniques rekative to other samples, regardless of Frangi parametrization or particular segmentation method. This shows that the  results of \cref{fig:compare_parameters_3by3_example1} and \cref{fig:compare_parameters_3by3_example2} hold in general for all ``well-behaved'' samples in our image domain. 
 \begin{figure}[p]\centering
   \subfloat{
   \includegraphics[width=0.85\textwidth]{Vmax_to_scale_normalized}
   }\\[-0.5cm]
   \subfloat{
-  \includegraphics[width=0.85\textwidth]{frangi_argmax-trace}
+  \includegraphics[width=0.85\textwidth]{frangi_argmax-trace} \;
+  \includegraphics[height=0.5\textheight]{scale_colorbar-plasma}
   }
   \caption{Scale of maximum Frangi score for true positives and false negatives}
+  \label{fig:scale_of_max_frangi_score}
 \end{figure}
 
+\cref{fig:scale_of_max_frangi_score} depicts, for pixels identified as vascular within the ground truth of a particular sample, the relationship between the scale at which \Vmax occurs for a particular pixel and the width of the vessel according the ground truth, and the bottom figure is a coloration of the ground truth with this same information. We can see that in general, larger scales correspond with larger reported vessel widths, and smaller scales correspond with smaller reported vessel widths.
+In \cref{fig:scale_of_max_frangi_score_tp_only} we repeat these same observations but limit ourselves only to those pixels identified in the ground truth for which some \Vsigma  occured above some scale's 95th percentile (as will be explained in \cref{ch:segmentation}, these pixels are the ``true positives'' of the nz-percentile segmentation method). The y-axis of each of the charts is the ratio of pixels at which $\Vmax$ is attained at the given width over all scales for that particular reported width.
+
+% EXPLAIN THESE NEXT TWO FIGURES THEN YOU'RE DONE
 \begin{figure}[p]\centering
   \subfloat{
     \includegraphics[width=0.85\textwidth]{Vmax_to_scale_normalized_with_approx}
   }\\[-0.5cm]
   \subfloat{
-    \includegraphics[width=0.85\textwidth]{frangi_argmax-trace-approx}
+    \includegraphics[width=0.85\textwidth]{frangi_argmax-trace-approx} \;
+      \includegraphics[height=0.5\textheight]{scale_colorbar-plasma}
   }
-  \caption{Scale of maximum Frangi score for true positives only (percentile filtering)}
+  \caption{Scale of maximum Frangi score for true positives only (95th-percentile filtering)}
+  \label{fig:scale_of_max_frangi_score_tp_only}
 \end{figure}
+
+
 
 \begin{figure}[p]
   \includegraphics[width=\textwidth]{test-scale-width}
   \caption{Pixel Width of Ground Truth vs. Scale Length for True Positives}
+  \label{fig:scale_for_max_frangi_score_seaborn}
 \end{figure}
+
+\cref{fig:scale_for_max_frangi_score_seaborn} is a recontextualization of \cref{fig:scale_of_max_frangi_score_tp_only}, where the total number of pixels (rather than a ratio) is considered for the same sample.
+We see that many more vascular pixels are identified as having width 7, and that in general we cannot provide a completely faithful mapping of reported vascular width to scale of largest response, but the trend of larger widths having larger scale responses and small widths having smaller scale responses remains true.
