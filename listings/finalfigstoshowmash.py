@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # coding: utf-8
 TA = open_typefile(filename, 'arteries')
 TV = open_typefile(filename, 'veins')

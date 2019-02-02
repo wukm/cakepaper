@@ -88,8 +88,6 @@ for N, filename in enumerate(filenames):
 
         ax[0].imshow(f[crop], cmap=cm)
         ax[0].axis('off')
-        #ax[0].set_title(rf'$V_{{\sigma_{{{n}}}}},\;'
-                        #rf'\sigma_{{{n}}}={sigma:.3f}$')
         ax[0].set_title(rf'Frangi score, $(\sigma_{{{n}}}={sigma:.3f})$')
         p = nz_percentile(f, P_THRESHOLD)     
         p_alphas[n] = p

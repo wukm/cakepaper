@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from skimage.filters import sobel
 from plate_morphology import dilate_boundary

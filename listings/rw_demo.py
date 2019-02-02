@@ -25,20 +25,8 @@ from skimage.segmentation import random_walker
 import json
 
 
+def rw_demo(filename, rw_beta, threshold, output_dir=None):
 
-INTERACTIVE = True
-filenames = list_by_quality(1)
-filenames.extend(list_by_quality(2))
-filenames.extend(list_by_quality(3))
-filenames.extend(list_by_quality(0))
-RW_BETA = 10
-THRESHOLD = .4
-
-run_data = list()
-
-for N, filename in enumerate(filenames):
-    basename = filename.strip('T-').rstrip('.png')
-    print('running rw_demo on', basename, f'({N+1} of {len(filenames)})')
 
     # ideally this would be a class with all of these
     cimg = open_typefile(filename, 'raw')
@@ -89,8 +77,6 @@ for N, filename in enumerate(filenames):
 
         ax[0].imshow(f[crop], cmap=cm)
         ax[0].axis('off')
-        #ax[0].set_title(rf'$V_{{\sigma_{{{n}}}}},\;'
-                        #rf'\sigma_{{{n}}}={sigma:.3f}$')
         ax[0].set_title(rf'Frangi score, $(\sigma_{{{n}}}={sigma:.3f})$')
 
         markers = np.zeros(img.shape, np.int32)
@@ -124,7 +110,8 @@ for N, filename in enumerate(filenames):
         fig.tight_layout()
         fig.subplots_adjust(hspace=0.00, wspace=0.01)
 
-        fig.savefig(f'./output/RWDEMO/{basename}_{n:{0}2}.png')
+        if output_dir is not None:
+            fig.savefig(f'./output/{output_dir}/{basename}_{n:{0}2}.png')
         if INTERACTIVE:
             plt.show()
 
@@ -201,12 +188,32 @@ for N, filename in enumerate(filenames):
 
     fig.tight_layout()
     fig.subplots_adjust(hspace=0.05, wspace=0.01)
+    
+    if output_dir is not None:
+        fig.savefig(f'./output/{output_dir}/{basename}_m.png')
 
-    fig.savefig(f'./output/RWDEMO1206/{basename}_m.png')
+    return (filename, m_FA, p_FA, m, p, m_L, p_L)
 
-    row = (basename, m_FA, p_FA, m, p, m_L, p_L)
 
+
+INTERACTIVE = True
+filenames = list_by_quality(1)
+filenames.extend(list_by_quality(2))
+filenames.extend(list_by_quality(3))
+filenames.extend(list_by_quality(0))
+RW_BETA = 10
+THRESHOLD = .4
+
+run_data = list()
+
+for N, filename in enumerate(filenames):
+
+
+    basename = filename.strip('T-').rstrip('.png')
+    print('running rw_demo on', basename, f'({N+1} of {len(filenames)})')
+    row = rw_demo(filename, RW_BETA, THRESHOLD, None)
     run_data.append(row)
+
     if INTERACTIVE:
 
         plt.show()
