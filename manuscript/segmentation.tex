@@ -1,6 +1,6 @@
 \chapter{Segmentation} \label{ch:segmentation}
 
-We discuss how we use the Frangi as a prefilter and discuss several different segmentation strategies, and describe our "strawman" which is the ISODATA threshold. First, we define some standard quantitative measures of success for segmentation methods.
+We discuss how we use the Frangi as a prefilter and discuss several different segmentation strategies based upon our filtered result. These are compared to a ISODATA threshold. First, we define some standard quantitative measures of success for segmentation methods.
 
 
 \subsection{Binary Classifications and the confusion matrix}
@@ -10,7 +10,7 @@ We end up with a boolean matrix the size of the image, and compare it to the gro
  
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{sample_confusion}
+  \includegraphics[width=0.5\textwidth]{sample_confusion}
   \caption{Sample confusion matrix}
   \label{fig:sample-confusion}
 \end{figure}
@@ -77,8 +77,8 @@ The idea behind percentile-based merging is beneficial for large multiscale meth
 
 \subsection{Method C: Scale-Based Random Walker}
 
-We observed that areas where Frangi scores are zero in well-behaved samples seem to neatly outline prominent vascular features. Following this idea, we employed a random walker segmentation \cite{Grady-Random-Walks} (which is implemented by \texttt{scikit-image}). Random walk segmentation comes about by solving a diffusion problem over a discrete array (in this case, the Frangi vesselness score itself) given starting markers. At each scale, we positively labeled pixels whose Frangi score was very high ($V_\sigma(x_0,y_0) > .4$), and negatively labeled pixels whose score was $0$ (i.e. where the leading principal eigenvalue was positive). The result of this technique is demonstrated in \cref{rw_demo-scalewise} and the result (along with the original sample for comparison) is shown in \cref{fig:rw-demo-merged}.
-In \cref{rw-demo-scalewise}, the first column is the Frangi vesselness score at that scale, where black is a score of 0, to emphasize the difference between a score of zero and even a very small positive score, which appear in blue. The middle score are markers passed to the random walker--blue are seeds labelled with a ``1'' (where the Frangi vesselness score is 0), green is labeled ``2'' (where V > .4), and purple represents unknowns that will either assigned either label. In the last column, the result of the random walker is given--areas that have been added to the label ``2'' are shown in yellow. Although the result of random walker segmentation is technically a binary matrix, we still show the original seeds of label 2 in green for easier comparison. Similarly, the purple in the right column has actually been labeled ``1'' for non-vascular, but is left in its original color to emphasize what was assigned background. In \cref{fig:rw-demo-merged} we show the original image and the result of merging all positively marked pixels at each scale. Black means the pixel was unmatched, while increasing colors of blue (larger scales) to white (smaller scales) indicate the smallest scale from which a pixel was marked after the random walker technique. \vtodo{Do I need to over this in math methods section?} Though we shall set up the multiscale method slightly differently in \cref{ch:results-analysis}, we used a Frangi anisotropy coefficient of $\beta=0.35$ , and 12 scales logarithmically spaced from $\sigma_1 = 2^{-1.5} $ to $\sigma_12 = 2^{3.5}$ to generate these figures. There is a parameter for the random walker algorithm (unfortunately also called $\beta$) which serves as a diffusion penalization coefficient (larger values making diffusion over the image less likely). We used \texttt{scikit-image}'s default value of 130. 
+We observed that areas where Frangi scores are zero in well-behaved samples seem to neatly outline prominent vascular features. Following this idea, we employed a random walker segmentation \cite{Grady-Random-Walks} (which is implemented by \texttt{scikit-image}). Random walk segmentation comes about by solving a diffusion problem over a discrete array (in this case, the Frangi vesselness score itself) given starting markers. At each scale, we positively labeled pixels whose Frangi score was very high ($V_\sigma(x_0,y_0) > .4$), and negatively labeled pixels whose score was $0$ (i.e. where the leading principal eigenvalue was positive). The result of this technique is demonstrated in \cref{fig:rw-demo-scalewise} and the result (along with the original sample for comparison) is shown in \cref{fig:rw-demo-merged}.
+In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score at that scale, where black is a score of 0, to emphasize the difference between a score of zero and even a very small positive score, which appear in blue. The middle score are markers passed to the random walker--blue are seeds labelled with a ``1'' (where the Frangi vesselness score is 0), green is labeled ``2'' (where V > .4), and purple represents unknowns that will either assigned either label. In the last column, the result of the random walker is given--areas that have been added to the label ``2'' are shown in yellow. Although the result of random walker segmentation is technically a binary matrix, we still show the original seeds of label 2 in green for easier comparison. Similarly, the purple in the right column has actually been labeled ``1'' for non-vascular, but is left in its original color to emphasize what was assigned background. In \cref{fig:rw-demo-merged} we show the original image and the result of merging all positively marked pixels at each scale. Black means the pixel was unmatched, while increasing colors of blue (larger scales) to white (smaller scales) indicate the smallest scale from which a pixel was marked after the random walker technique. \vtodo{Do I need to over this in math methods section?} Though we shall set up the multiscale method slightly differently in \cref{ch:results-analysis}, we used a Frangi anisotropy coefficient of $\beta=0.35$ , and 12 scales logarithmically spaced from $\sigma_1 = 2^{-1.5} $ to $\sigma_12 = 2^{3.5}$ to generate these figures. There is a parameter for the random walker algorithm (unfortunately also called $\beta$) which serves as a diffusion penalization coefficient (larger values making diffusion over the image less likely). We used \texttt{scikit-image}'s default value of 130. 
 
 \begin{figure}[p] \centering
   \subfloat{
@@ -114,8 +114,8 @@ In \cref{rw-demo-scalewise}, the first column is the Frangi vesselness score at 
 Our final approach seeks to include not only pixels at each scale that pass a high threshold, but also adjacent pixels at that scale that pass a lower threshold. We proceed as follows. At each scale, take a low threshold, then label each connected region. Then, iterate through each labeled region and add to the final approximation any labeled region that contains a pixel that passes a higher threshold.
 
 \subsection{Method E: Trough Filling}
-As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate for a dark background and a light background. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all (although we must store more results). After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote
-$\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ before, and $\Vmax^{(-)}$ is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
+As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate for a dark background and a light background. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all by simply keeping both, although we must store more results. After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote
+$\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ in a conventional Frangi filter, and $\Vmax^{(-)}$ is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
 
 \begin{figure}[p] \centering
   \subfloat{		\label{fig:signsweep-1p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_plate}}}
@@ -138,12 +138,35 @@ $\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ be
   \subfloat{		
     \label{fig:signsweep-2c}\includegraphics[width=.75\linewidth]{{{signsweep_colorbar}}}
   } \\
-  % should i use the real sample names? or obfuscate?
   \caption{Signed Frangi output (plate and inset) (Example 1)}
   \label{fig:signsweep-2}
 \end{figure}
-That is, at the "foot" of every trough on either side, we can see a bordering curvilinear structure of opposite sign. We perform strict Frangi filtering and separate the positive and negative components. We then perform a different threshold for each signed portion of the Frangi response--a strict one (say $\alpha^{(+)} > .4$) for the conventional $\Vmax$, and a much looser one for our opposite signed $\Vmax^{(-)} > \alpha^{(-)} = .05$. We also truncate the scales we consider for calculating $\Vmax^{(-)}$, say only the first 12 of 20.
+That is, at the "foot" of every trough on either side, we can see a bordering curvilinear structure of opposite sign. We perform strict Frangi filtering and separate the positive and negative components. We then perform a different threshold for each signed portion of the Frangi response--a strict one (say $\alpha^{(+)} > .4$) for the conventional $\Vmax$, and a much looser one for our opposite signed $\Vmax^{(-)} > \alpha^{(-)} = .05$. We also truncate the scales we consider for calculating $\Vmax^{(-)}$, say only the first 12 of 20, since we empirically notice that the bordering curvilinear features are consistently narrower than the vessels themselves.
 
 We then perform a morphological thinning operation on our positive (or standard) Frangi response. We will refer to this thinned approximation as the ``spine'' and the (un-thinned) opposite signed component as the ``margin.'' For each pixel on the thinned spine, we iterate over disks of integer radius and dilate the pixel by a disk of that radius if that disk coincides with a margin point. 
 
 This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
+
+
+\section{Segmentation Results}
+
+We first look at the results of our various segmentation procedures for a few well-behaved samples.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{segmentation_montage_bn0164923}
+	\caption{Confusion matrices of various segmentation methods (Example 1)}
+	\label{fig:seg-montage-ex1}
+\end{figure}
+
+\begin{figure}[p]
+	\includegraphics[width=\textwidth]{segmentation_montage_bn1328016}
+	\caption{Confusion matrices of various segmentation methods (Example 2)}
+	\label{fig:seg-montage-ex2}
+\end{figure}
+
+\begin{figure}[p]
+	\includegraphics[width=\textwidth]{segmentation_montage_bn4130351}
+	\caption{Confusion matrices of various segmentation methods (Example 3)}
+	\label{fig:seg-montage-ex3}
+\end{figure}
+
