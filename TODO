@@ -20,10 +20,9 @@ Tags
 
 1. Introduction
 ---------------
-    A. [!] Fix ending paragraph to reflect current scope
-    B. [_] Reword so that what is developed in detail is apparent
+    A. [_] Reword so that what is developed in detail is apparent
             (especially with regard to math methods)
-    C. [?] Realign context with current developments in research group
+    B. [?] Realign context with current developments in research group
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
@@ -55,6 +54,7 @@ Tags
 7. Morphological Image Processing
 ---------------------------------
     A. [~] Write this section (as brief as possible)
+    B. [~] Include thinning algorithm
 
 8. Research Protocol
 --------------------
@@ -67,23 +67,19 @@ Tags
             for demo purposes. Give them scores later.
     B. [~] Calculate CVR of "bad samples"
     C. [~] In what's labeled Figure 23 in this chapter, explain what the
-            scalewise percentile alphas are.
+    scalewise percentile alphas are.
     D. [~] Last two figures lack a write-up
 
 10. Segmentation
 ----------------
     A. [~] Fix figures
-    B. [?] Remove some segmentation methods
-    C. [ ] Discuss strawman!
-    D. [ ] Show numerical results!
+    B. [?] Remove some segmentation methods 
+    C. [ ] Show numerical results!
 
-11. Trough Filling and Primitive Network Completion
----------------------------------------------------
-    A. [~] Merge trough-filling method into the segmentation section
-    B. [?] Remove Network Completion or move to Conclusion?
-    
 
-12. Conclusion
+11. Conclusion
 -------------
     A. [~] Rework to fit current scope
     B. [?] Potentially move network completion demo here
+    C. [ ] Make it obvious what's been done to death and
+            what areas are still underdeveloped

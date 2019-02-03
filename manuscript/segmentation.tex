@@ -148,6 +148,23 @@ We then perform a morphological thinning operation on our positive (or standard)
 This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
 
 
+\section{Nonfrangi Segmentation Methods}
+
+Of course, there are many over viable methods of segmentation. We refer to \cite{anghel2018placental} for several high-performing (albeit considerably resource intensive) methods, namely involving shearlets, laplacian eigenmaps, and a conditional generative adversarial network.
+
+We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha^{\star}$ satisfies
+
+\begin{equation}
+\alpha^{\star} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
+\textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) \le \alpha \right\} 
++
+\textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) >   \alpha \right\}
+ \Big]
+ \right)
+\end{equation}
+
+Since the vascular structure in our image domain is darker than the background, we select pixels
+where $\img(x,y) < \alpha^{\star}$.
 \section{Segmentation Results}
 
 We first look at the results of our various segmentation procedures for a few well-behaved samples.
