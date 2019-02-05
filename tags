@@ -353,6 +353,7 @@ NOT	listings/recentmash.py	/^NOT = np.invert$/;"	v
 NPZ_DIR	listings/extract_NCS_pcsvn.py	/^NPZ_DIR = 'output\/181204-test'  # where to look for npz files$/;"	v
 N_SCALES	listings/extract_NCS_pcsvn.py	/^    N_SCALES = len(SCALES)$/;"	v
 N_SCALES	listings/extract_NCS_pcsvn.py	/^N_SCALES = 20$/;"	v
+Nonfrangi Segmentation Methods	manuscript/segmentation.tex	/^\\section{Nonfrangi Segmentation Methods}$/;"	s	chapter:Segmentation
 OUTPUT_DIR	listings/extract_NCS_pcsvn.py	/^OUTPUT_DIR = 'output\/181204-test'  # where to save outputs$/;"	v
 OUTPUT_DIR	listings/gradient_filter_demo.py	/^OUTPUT_DIR = 'demo_output\/gradient_filter_demo'$/;"	v
 OUTPUT_DIR	listings/margin_add_demo.py	/^OUTPUT_DIR = 'output\/190130-margin_add_demo'$/;"	v
@@ -1286,7 +1287,6 @@ make_multiscale	listings/pcsvn.py	/^def make_multiscale(img, scales, beta=0.5, g
 manuscript/appendix	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}$/;"	i
 manuscript/conclusion	LW2018_thesis_draft.tex	/^\\include{manuscript\/conclusion}$/;"	i
 manuscript/extra_figures	LW2018_thesis_draft.tex	/^\\include{manuscript\/extra_figures}$/;"	i
-manuscript/implementations	LW2018_thesis_draft.tex	/^\\include{manuscript\/implementations}$/;"	i
 manuscript/introduction	LW2018_thesis_draft.tex	/^\\include{manuscript\/introduction}		$/;"	i
 manuscript/mm-diffgeo	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-diffgeo}$/;"	i
 manuscript/mm-hfft	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-hfft}$/;"	i
