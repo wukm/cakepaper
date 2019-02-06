@@ -1,4 +1,4 @@
-TODO for cakepaper
+TODO for cakepaperj
 ------------------
 
 Tags
@@ -18,16 +18,13 @@ Tags
     C. [?] Less awkward way to describe figure grids (not inline or smoothly
             inline).  This also involves standardizing subfigure titles.  
 
-1. Introduction
----------------
-    A. [_] Reword so that what is developed in detail is apparent
-            (especially with regard to math methods)
-    B. [?] Realign context with current developments in research group
+1. Introduction and Abstact
+---------------------------
+    A. [?] Realign context with current developments in research group
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
-    A. [~] Make sure notation is consistent and clear
-    B. [~] Replace hand drawings
+    A. [~] Replace hand drawings
 
 3. The Uniscale Frangi Filter
 -----------------------------
@@ -39,12 +36,10 @@ Tags
 
 5. The Multiscale Frangi Filter
 -------------------------------
-    A. [.] Make sure rest of paper reflects that simple thresholding was
-            moved here
-    B. [#] Visual demonstration needs to have
+    A. [#] Visual demonstration needs to have
         - Fixed threshold examples
         - Example of lower percentile (like 90 or 85)
-    C. [!] Develop / migrate discussion of "automatic scale selection" here
+    B. [!] Develop / migrate discussion of "automatic scale selection" here
 
 6. FFT-Based Discrete Derivatives
 ---------------------------------
@@ -54,7 +49,7 @@ Tags
 7. Morphological Image Processing
 ---------------------------------
     A. [~] Write this section (as brief as possible)
-    B. [~] Include thinning algorithm
+    B. [~] Include thinning algorithm if you 
 
 8. Research Protocol
 --------------------
@@ -63,12 +58,11 @@ Tags
 
 9. Results and Analysis
 -----------------------
-    A. [~] Remerge / Reallow Thesholded/Percentile Segmentations but just
-            for demo purposes. Give them scores later.
-    B. [~] Calculate CVR of "bad samples"
-    C. [~] In what's labeled Figure 23 in this chapter, explain what the
+    A. [~] Calculate CVR of "bad samples"
+    B. [~] In what's labeled Figure 23 in this chapter, explain what the
     scalewise percentile alphas are.
-    D. [~] Last two figures lack a write-up
+    C. [~] Last two figures lack a write-up. Decide if you want to include these, as
+            they really don't communicate the ideas well at all.
 
 10. Segmentation
 ----------------
@@ -79,7 +73,4 @@ Tags
 
 11. Conclusion
 -------------
-    A. [~] Rework to fit current scope
-    B. [?] Potentially move network completion demo here
-    C. [ ] Make it obvious what's been done to death and
-            what areas are still underdeveloped
+    A. [_] Standard Proofing
