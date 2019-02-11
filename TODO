@@ -1,4 +1,4 @@
-TODO for cakepaperj
+TODO for cakepaper
 ------------------
 
 Tags
@@ -63,6 +63,7 @@ Tags
     scalewise percentile alphas are.
     C. [~] Last two figures lack a write-up. Decide if you want to include these, as
             they really don't communicate the ideas well at all.
+    D. [~] Include discussion of network completion and principal directions here
 
 10. Segmentation
 ----------------
@@ -74,3 +75,4 @@ Tags
 11. Conclusion
 -------------
     A. [_] Standard Proofing
+    B. [~] Move any development things to analysis, this is summary only
