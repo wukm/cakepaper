@@ -147,6 +147,22 @@ We then perform a morphological thinning operation on our positive (or standard)
 
 This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
 
+\begin{figure}[p] \centering
+  \subfloat{		\includegraphics[width=\textwidth]{{{fig-insetBN0164923}}}
+  } \\[-0.5cm]
+  \subfloat{		
+    \includegraphics[width=\textwidth]{{{fig-BN0164923}}}
+  } \\
+  \caption{Trough dilation process (plate and inset)}
+  \label{fig:trough_dilation}
+\end{figure}
+
+In \cref{fig:trough_dilation} we demonstrate the process of creating a trough dilation segments. The top left is the original sample. This was a $N=20$ Frangi filter with log range from -1.5 to 3.2 and Frangi parameters $\beta=0.15$ and $\gamma=1.0$ The middle top and top right shows $\Vmax^{(+)}$ and $\Vmax^{(-)}$ respectively. The bottom then shows the two markers 
+ $\Vmax^{(-)} > \alpha^{(-)} = 0.01$ (in red) and
+ $\Vmax^{(+)} > \alpha^{(-)} = .3$ (in blue). We build $\Vmax^{(-)}$ only using the 6 smallest scales, since the lighter curvilinear 'lip' of the trough is of smaller radius than the radius of the trough itself.
+ 
+ 
+
 
 \section{Nonfrangi Segmentation Methods}
 
