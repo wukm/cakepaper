@@ -114,8 +114,8 @@ In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score
 Our final approach seeks to include not only pixels at each scale that pass a high threshold, but also adjacent pixels at that scale that pass a lower threshold. We proceed as follows. At each scale, take a low threshold, then label each connected region. Then, iterate through each labeled region and add to the final approximation any labeled region that contains a pixel that passes a higher threshold.
 
 \subsection{Method E: Trough Filling}
-As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate for a dark background and a light background. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all by simply keeping both, although we must store more results. After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote
-$\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ in a conventional Frangi filter, and $\Vmax^{(-)}$ is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
+As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate calculate the Frangi filter response for bright curvilinear features (dark background) and dark curvilinear features (dark background). Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all by simply keeping both, although we must store more results. After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote $\VSigmapos$ and $\VSigmaneg$, and then merge each as we would with a traditional multiscale Frangi filter, giving us
+\Vmaxpos and \Vmaxneg. That is, our \Vmaxpos is the same as our \Vmax in a conventional Frangi filter, and \Vmaxneg is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
 
 \begin{figure}[p] \centering
   \subfloat{		\label{fig:signsweep-1p}\includegraphics[width=\linewidth]{{{signsweep_stitch_BN2315363_plate}}}
@@ -141,11 +141,9 @@ $\Vmax^{(+)}$ and $\Vmax^{(-)}$. Our $\Vmax^{(+)}$ is the same as our $\Vmax$ in
   \caption{Signed Frangi output (plate and inset) (Example 1)}
   \label{fig:signsweep-2}
 \end{figure}
-That is, at the "foot" of every trough on either side, we can see a bordering curvilinear structure of opposite sign. We perform strict Frangi filtering and separate the positive and negative components. We then perform a different threshold for each signed portion of the Frangi response--a strict one (say $\alpha^{(+)} > .4$) for the conventional $\Vmax$, and a much looser one for our opposite signed $\Vmax^{(-)} > \alpha^{(-)} = .05$. We also truncate the scales we consider for calculating $\Vmax^{(-)}$, say only the first 12 of 20, since we empirically notice that the bordering curvilinear features are consistently narrower than the vessels themselves.
+That is, at the "foot" of every trough on either side, we can see a bordering curvilinear structure of opposite sign. We perform strict Frangi filtering and separate the positive and negative components. We then perform a different threshold for each signed portion of the Frangi response--a strict one (say $\alphapos > .3$) for the conventional $\Vmax$, and a much looser one for our opposite signed $\Vmaxneg > \alphaneg = .01$. We also truncate the scales we consider for calculating $\Vmax^{(-)}$, considering only the 6 smallest scales of 20, since we empirically notice that the bordering curvilinear features are consistently narrower than the vessels themselves.
 
-We then perform a morphological thinning operation on our positive (or standard) Frangi response. We will refer to this thinned approximation as the ``spine'' and the (un-thinned) opposite signed component as the ``margin.'' For each pixel on the thinned spine, we iterate over disks of integer radius and dilate the pixel by a disk of that radius if that disk coincides with a margin point. 
-
-This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
+We will refer to any pixel where $\Vmaxpos > \alphapos$ as ``in the trough'' (assuming dark curvilinear features), and any pixel where $\Vmaxneg > \alphaneg$ as potentially ``on the lip'' of the trough. The process of ``trough-filling'' then proceeds as follows.  For each pixel within the trough, we iterate over disks of integer radius and dilate the pixel by a disk of that radius if that disk includes a point on the lip (where $\Vmaxneg > \alphaneg$. This allows us to extend the Frangi output from the point where it's strongest all the way to the base of the curvilinear structure, providing a much better indication of the true width of the curvilinear structure.
 
 \begin{figure}[p] \centering
   \subfloat{		\includegraphics[width=\textwidth]{{{fig-insetBN0164923}}}
@@ -166,9 +164,9 @@ In \cref{fig:trough_dilation} we demonstrate the process of creating a trough di
 
 \section{Nonfrangi Segmentation Methods}
 
-Of course, there are many over viable methods of segmentation. We refer to \cite{anghel2018placental} for several high-performing (albeit considerably resource intensive) methods, namely involving shearlets, laplacian eigenmaps, and a conditional generative adversarial network.
+Of course, there are many over viable methods of segmentation. We refer to \cite{anghel2018placental} for several high-performing (albeit considerably resource intensive) methods, namely involving shearlets, Laplacian eigenmaps, and a conditional generative adversarial network.
 
-We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha^{\star}$ satisfies
+We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert or ISODATA method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha^{\star}$ satisfies
 
 \begin{equation}
 \alpha^{\star} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
@@ -181,25 +179,35 @@ We will be content in the present paper to simply compare our results to a relat
 
 Since the vascular structure in our image domain is darker than the background, we select pixels
 where $\img(x,y) < \alpha^{\star}$.
+
+
+
 \section{Segmentation Results}
+We run a multiscale Frangi filter on all 201 samples using the procedure outlined in \cref{ch:research-protocol}.
+In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a well-behaved sample.
 
-We first look at the results of our various segmentation procedures for a few well-behaved samples.
+Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in three fourths of the samples (51 of 201).
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{segmentation_montage_bn0164923}
-	\caption{Confusion matrices of various segmentation methods (Example 1)}
-	\label{fig:seg-montage-ex1}
+
+
+
+\begin{figure}[p] \centering
+  \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-standard-seg}} \\
+  \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-strict-seg} }
+  \caption{Confusion matrices and scores for a particular sample (standard and strict parametrization)}
+	\label{fig:seg-montage-example}
 \end{figure}
 
-\begin{figure}[p]
-	\includegraphics[width=\textwidth]{segmentation_montage_bn1328016}
-	\caption{Confusion matrices of various segmentation methods (Example 2)}
-	\label{fig:seg-montage-ex2}
+\begin{figure}[p] \centering
+  \subfloat[standard Frangi parametrization ($\beta=0.5, \gamma=0.5$)]{  
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_standard} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_standard} } \\
+  \subfloat[semistrict Frangi parametrization ($\beta=0.15, \gamma=0.5$)]{ 
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_semistrict} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_semistrict} } \\
+  \subfloat[strict Frangi parametrization ($\beta=0.15, \gamma=1.0$)]{ 
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_strict} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_strict} } \\
+      \caption{MCC and precision of segmentation methods (with labeled medians)}
+      \label{fig:scoring-boxplots}
 \end{figure}
-
-\begin{figure}[p]
-	\includegraphics[width=\textwidth]{segmentation_montage_bn4130351}
-	\caption{Confusion matrices of various segmentation methods (Example 3)}
-	\label{fig:seg-montage-ex3}
-\end{figure}
-
