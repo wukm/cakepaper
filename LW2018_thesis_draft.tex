@@ -22,7 +22,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{minitoc}
 %\usepackage{booktabs} % requires for pandas.DataTable.to_latex()
-
+% for listings?
+\usepackage{lmodern}% http://ctan.org/pkg/lm
 
 
 % mathy definitions?
@@ -32,8 +33,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{axiom}{Axiom}[chapter]
 
-% for listings?
-\usepackage{lmodern}% http://ctan.org/pkg/lm
+
 
 
 %%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -173,6 +173,7 @@
 \deptHead{Tangan~Gao,~Ph.D.} 						        % name and degree of department chair
 \deptHeadTitle{Department Chair, Mathematics and Statistics} 
 
+
 \begin{document}
 \begin{preliminary}
 
@@ -244,9 +245,9 @@
 
 %% then export in BibTeX format into file thesis_bib.bib
 %\bibliographystyle{prsty} % this was the default
-\bibliographystyle{ieee}
+\bibliographystyle{ieeetr}
 %\bibliographystyle{plain-annote} %annotated version
+%\bibliographystyle{plain}
 \bibliography{thesis_bib}
-%\nocite{*}
 
 \end{document}
