@@ -165,10 +165,10 @@ In \cref{fig:trough_dilation} we demonstrate the process of creating a trough di
 
 Of course, there are many other viable methods of segmentation. We refer to \cite{anghel2018placental} for several high-performing (albeit considerably resource intensive) segmentation methods on this dataset, namely involving shearlets, Laplacian eigenmaps, and a conditional generative adversarial network.
 
-We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert or ISODATA method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha^{\star}$ satisfies
+We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert or ISODATA method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha_{\textrm{ISO}}$ satisfies
 
 \begin{equation}
-\alpha^{\star} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
+\alpha_{\textrm{ISO}} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
 \textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) \le \alpha \right\} 
 +
 \textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) >   \alpha \right\}
@@ -177,7 +177,7 @@ We will be content in the present paper to simply compare our results to a relat
 \end{equation}
 
 Since the vascular structure in our image domain is darker than the background, we select pixels
-where $\img(x,y) < \alpha^{\star}$.
+where $\img(x,y) < \alpha_{\textrm{ISO}}$.
 
 
 
