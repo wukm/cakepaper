@@ -156,7 +156,9 @@ We will refer to any pixel where $\Vmaxpos > \alphapos$ as ``in the trough'' (as
 
 In \cref{fig:trough_dilation} we demonstrate the process of creating a trough dilation segments. The top left is the original sample. This was a $N=20$ Frangi filter with log range from -1.5 to 3.2 and Frangi parameters $\beta=0.15$ and $\gamma=1.0$ The middle top and top right shows $\Vmax^{(+)}$ and $\Vmax^{(-)}$ respectively. The bottom then shows the two markers 
  $\Vmax^{(-)} > \alpha^{(-)} = 0.01$ (in red) and
- $\Vmax^{(+)} > \alpha^{(-)} = .3$ (in blue). We build $\Vmax^{(-)}$ only using the 6 smallest scales, since the lighter curvilinear 'lip' of the trough is of smaller radius than the radius of the trough itself.
+ $\Vmax^{(+)} > \alpha^{(-)} = .3$ (in blue). We build $\Vmax^{(-)}$ only using the 6 smallest scales, since the lighter curvilinear 'lip' of the trough is of smaller radius than the radius of the trough itself. Probing at too large scales could perhaps introduce noise. We will call this subset $\Sigmaneg \subset \Sigma $ and choose $\Sigmaneg=\{\sigma_1 , ... , \sigma_6\}$.
+ 
+ 
  
  
 
@@ -167,7 +169,7 @@ Of course, there are many other viable methods of segmentation. We refer to \cit
 
 We will be content in the present paper to simply compare our results to a relatively fast technique that is not based on differential geometry or morphology, but instead that of a global threshold on the grayscale image. Although many viable thresholding algorithms exist, we opt for an intermeans threshold, or the Ridler-Calvert or ISODATA method, as described in \cite{isodata}, which is implemented in \texttt{scikit-image} as \texttt{filters.threshold\_isodata}. This functions uses an iterative process to find the smallest threshold which is midway between the mean intensities of the high pixels and the low pixels. In other words, the optimal $\alpha_{\textrm{ISO}}$ satisfies
 
-\begin{equation}
+\begin{equation} \label{eq:ISODATA}
 \alpha_{\textrm{ISO}} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
 \textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) \le \alpha \right\} 
 +
@@ -182,19 +184,48 @@ where $\img(x,y) < \alphaiso$.
 
 
 \section{Comparison of Segmentation Methods}
-In our demonstration of segmentation methods across all 201 samples in our image domain, we use the preprocessing procedure described in \cref{ch:research-protocol} Our multiscale Frangi filter setup involves 20 scales spaced logarithmically from $\sigma_1 = 2^{-1.5} \approx .35$ to $\sigma_{20} = 2^{3.2} \approx 9.20$. 
+In our demonstration of segmentation methods across all 201 samples in our image domain, we use the preprocessing procedure described in \cref{ch:research-protocol}.
 
-We compare a higher and lower fixed threshold (METHOD A) with
-$\alpha=0.3$ and $\alpha=0.2$, and scalewise percentiles of $q=95$ and $q=98$. 
+Our multiscale Frangi filter setup involves 20 scales spaced logarithmically from $\sigma_1 = 2^{-1.5} \approx .35$ to $\sigma_{20} = 2^{3.2} \approx 9.20$. We will compare the results of 6 different segmentation methods using three different parametrizations of the Frangi filter. These parametrizations and segmentation methods with specific parameter choices are summarized in \cref{tab:segmentation-methods,tab:segmentation-parametrizations}.
 
-We use the trough filling method with $\alphaneg=.01$ and $\alphapos=0.3$ and we use only the first 6 scales to calculate $\Vmaxneg$.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|l|p{4.5cm}|}
+  \hline
+  Label & Description & Parameter(s) \\ \hline
+  thresh-high & Fixed threshold of Frangi filter $\Vmax > \alpha $ & $\alpha = 0.3$ \\ \hline
+  thresh-low &  Fixed threshold of Frangi filter $\Vmax > \alpha $ & $\alpha = 0.2$ \\ \hline
+  snz-p-high & scalewise nonzero percentile filtering of \VSigma & $q = 95$ \\ \hline
+  snz-p-low & scalewise nonzero percentile filtering of \VSigma & $q = 98$ \\ \hline
+  TF & trough-filling method &
+    \parbox{4.5cm}{$\alphapos=0.3,\;\alphaneg=.01,\\
+                    \Sigmaneg=\{\sigma_1,\cdots,\sigma_6\}$} \\ \hline
+  ISODATA & Non-Frangi global threshold & see \cref{eq:ISODATA} \\ \hline
+\end{tabular}
+\caption{Summary of segmentation methods}
+\label{tab:segmentation-methods}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Label  & $\beta$ & $\gamma$ \\ \hline
+    standard & $0.5$ & $0.5$ \\ \hline
+    semistrict & $0.15$ & $0.5$ \\ \hline
+    strict & $0.15$ & $1.0$ \\ \hline
+  \end{tabular}
+\caption{Summary of Frangi parametrizations for segmentation demo} 
+\label{tab:segmentation-parametrizations}
+\end{table}
 
 
-In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold as a precursor to more complete segmentation methods.
+In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold (such as FT-high) as a precursor to more complete segmentation methods.
 
-In \cref{fig:scoring-boxplots} 
 
-Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher 
+In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the whiskers. Significant outliers, from samples such as those in \cref{fig:bad-gallery}, are also plotted. 
+
+Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. 
 
 
 

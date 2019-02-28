@@ -68,8 +68,9 @@ Tags
 10. Segmentation
 ----------------
     A. [~] Fix figures
-    B. [?] Remove some segmentation methods 
-    C. [ ] Show numerical results!
+    B. [ ] Potentially 
+    C. [ ] Merge numerical results (boxplots) into more readable result
+    D. [ ] Figure out another scoring method that highlights more heavily penalizes false positives?
 
 
 11. Conclusion
