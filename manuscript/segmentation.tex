@@ -177,15 +177,24 @@ We will be content in the present paper to simply compare our results to a relat
 \end{equation}
 
 Since the vascular structure in our image domain is darker than the background, we select pixels
-where $\img(x,y) < \alpha_{\textrm{ISO}}$.
+where $\img(x,y) < \alphaiso$.
 
 
 
 \section{Comparison of Segmentation Methods}
-We run a multiscale Frangi filter on all 201 samples using the procedure outlined in \cref{ch:research-protocol}.
-In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a well-behaved sample.
+In our demonstration of segmentation methods across all 201 samples in our image domain, we use the preprocessing procedure described in \cref{ch:research-protocol} Our multiscale Frangi filter setup involves 20 scales spaced logarithmically from $\sigma_1 = 2^{-1.5} \approx .35$ to $\sigma_{20} = 2^{3.2} \approx 9.20$. 
 
-Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in three fourths of the samples (51 of 201). We use 20 scales spaced logarithmically from $\sigma_1 = 2^{-1.5} \approx .35$ to $\sigma_{20} = 2^{3.2} \approx 9.20$. 
+We compare a higher and lower fixed threshold (METHOD A) with
+$\alpha=0.3$ and $\alpha=0.2$, and scalewise percentiles of $q=95$ and $q=98$. 
+
+We use the trough filling method with $\alphaneg=.01$ and $\alphapos=0.3$ and we use only the first 6 scales to calculate $\Vmaxneg$.
+
+
+In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold as a precursor to more complete segmentation methods.
+
+In \cref{fig:scoring-boxplots} 
+
+Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher 
 
 
 
