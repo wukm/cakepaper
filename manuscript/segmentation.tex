@@ -77,7 +77,7 @@ The idea behind percentile-based merging is beneficial for large multiscale meth
 \subsection{Method C: Scale-Based Random Walker}
 
 We observed that areas where Frangi scores are zero in well-behaved samples seem to neatly outline prominent vascular features. Following this idea, we employed a random walker segmentation \cite{Grady-Random-Walks} (which is implemented by \texttt{scikit-image}). Random walk segmentation comes about by solving a diffusion problem over a discrete array (in this case, the Frangi vesselness score itself) given starting markers. At each scale, we positively labeled pixels whose Frangi score was very high ($\Vsigma(x_0,y_0) > .4$), and negatively labeled pixels whose score was $0$ (i.e. where the leading principal eigenvalue was positive). The result of this technique is demonstrated in \cref{fig:rw-demo-scalewise} and the result (along with the original sample for comparison) is shown in \cref{fig:rw-demo-merged}.
-In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score at that scale, where black is a score of 0, to emphasize the difference between a score of zero and even a very small positive score, which appear in blue. The middle score are markers passed to the random walker--blue are seeds labelled with a ``1'' (where the Frangi vesselness score is 0), green is labeled ``2'' (where V > .4), and purple represents unknowns that will either assigned either label. In the last column, the result of the random walker is given--areas that have been added to the label ``2'' are shown in yellow. Although the result of random walker segmentation is technically a binary matrix, we still show the original seeds of label 2 in green for easier comparison. Similarly, the purple in the right column has actually been labeled ``1'' for non-vascular, but is left in its original color to emphasize what was assigned background. In \cref{fig:rw-demo-merged} we show the original image and the result of merging all positively marked pixels at each scale. Black means the pixel was unmatched, while increasing colors of blue (larger scales) to white (smaller scales) indicate the smallest scale from which a pixel was marked after the random walker technique. \vtodo{Do I need to over this in math methods section?} Though we shall set up the multiscale method slightly differently in \cref{ch:results-analysis}, we used a Frangi anisotropy coefficient of $\beta=0.35$ , and 12 scales logarithmically spaced from $\sigma_1 = 2^{-1.5} $ to $\sigma_{12} = 2^{3.5}$ to generate these figures. There is a parameter for the random walker algorithm (unfortunately also called $\beta$) which serves as a diffusion penalization coefficient (larger values making diffusion over the image less likely). We used \texttt{scikit-image}'s default value of 130. 
+In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score at that scale, where black is a score of 0, to emphasize the difference between a score of zero and even a very small positive score, which appear in blue. The middle score are markers passed to the random walker--blue are seeds labelled with a ``1'' (where the Frangi vesselness score is 0), green is labeled ``2'' (where \Vmax > .4), and purple represents unknowns that will either assigned either label. In the last column, the result of the random walker is given--areas that have been added to the label ``2'' are shown in yellow. Although the result of random walker segmentation is technically a binary matrix, we still show the original seeds of label 2 in green for easier comparison. Similarly, the purple in the right column has actually been labeled ``1'' for non-vascular, but is left in its original color to emphasize what was assigned background. In \cref{fig:rw-demo-merged} we show the original image and the result of merging all positively marked pixels at each scale. Black means the pixel was unmatched, while increasing colors of blue (larger scales) to white (smaller scales) indicate the smallest scale from which a pixel was marked after the random walker technique. \vtodo{Do I need to over this in math methods section?} Though we shall set up the multiscale method slightly differently in \cref{ch:results-analysis}, we used a Frangi anisotropy coefficient of $\beta=0.35$ , and 12 scales logarithmically spaced from $\sigma_1 = 2^{-1.5} $ to $\sigma_{12} = 2^{3.5}$ to generate these figures. There is a parameter for the random walker algorithm (unfortunately also called $\beta$) which serves as a diffusion penalization coefficient (larger values making diffusion over the image less likely). We used \texttt{scikit-image}'s default value of 130. 
 
 \begin{figure}[p] \centering
   \subfloat{
@@ -223,11 +223,21 @@ Our multiscale Frangi filter setup involves 20 scales spaced logarithmically fro
 In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold (such as FT-high) as a precursor to more complete segmentation methods.
 
 
-In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the whiskers. Significant outliers, from samples such as those in \cref{fig:bad-gallery}, are also plotted. 
+In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent (cite matplotlib) $median \pm 1.5*(Q3-Q1)$ and outliers from that  Significant outliers, from samples such as those in \cref{fig:bad-gallery}, are also plotted. 
 
-Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. 
+(Plot this data in some way?)
+Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. From viewing the samples, we see that noise from the umbillical cord insertion point still hinders a number of samples, causing noise within the Frangi filter. 
+
+From viewing \cref{fig:scoring-boxplots} we can see that, for any of the
+three parametrizations, we achieve a higher precision and lower MCC from increasing the fixed threshold. The same trend occurs between scalewise nz-p segmentations when we increase the quartile (from q=95 to q=98). The median MCC of the ISODATA method was lower than all Frangi-based segmentations across all with the exception of the highest fixed threshold under strict parametrization--although the latter method has the highest median precision score by far. ISODATA has a much lower precision than any of the other methods present here.
+
+We notice a larger number of MCC outliers for scalewise methods than fixed threshold based methods. We theorize that this is due to the difficulty in knowing \textit{a apriori} an appropriate range of scales to probe. 
+
+We also notice that the MCC and precision for each scalewise method is not as affected by changes in parameterization as the fixed methods.
 
 
+
+We would like to 
 
 
 \begin{figure}[p] \centering
@@ -235,6 +245,14 @@ Across all samples, maximum precision was achieved by the higher fixed threshold
   \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-strict-seg} }
   \caption{Confusion matrices and scores for a particular sample (standard and strict parametrization)}
 	\label{fig:seg-montage-example}
+\end{figure}
+
+\begin{figure}[p] \centering
+	\subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-standard-seg}} \\[-0.5cm]
+%    \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-semistrict-seg} } \\[-.5cm]
+	\subfloat{	\includegraphics[width=\textwidth]{fig-BN7753462-strict-seg} }
+	\caption{Confusion matrices and scores for a particular sample (standard and strict parametrization)}
+	\label{fig:seg-montage-example2}
 \end{figure}
 
 \begin{figure}[p] \centering
