@@ -211,7 +211,7 @@ These procedures are performed automatically on the 201 images in our data set u
     narrower curvilinear structures at smaller scales, and thicker curvilinear structures at larger scales.  The smallest one should be an effective size where details are expected to be isolated, and the largest should be an effective size as well. In fact, following \cite{Koenderink}, it is reasonable and natural to select these logarithmically; that is, for some selected inputs $m < M$ we have
     
     \begin{equation}
-    \sigma_1 = 2^{m} \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \sigma_N = 2^{M} \end{equation}
+    \sigma_1 = 2^{m} \; , \; \cdots \; , \; \sigma_{j} = 2^{\left(m+\frac{M-m}{N-1}j\right)} \; , \; \cdots \; \sigma_N = 2^{M} \end{equation}
     
     That is, the exponents are spaced linearly from $m$ to $M$. This is achieved by the command
     \texttt{np.logspace(m,M,num=N)}. The idea is that the curvilinear content of the image will respond better at some particular scale, but there are diminishing returns as $\sigma$ increases; while the filter's response may vary substantially between, say $\sigma=1$ and $\sigma=2$, we would not expect a substantial difference in response between, say, $\sigma=46$ and $\sigma=47$. Historically, there was another benefit of using a logarithmic scale space: computing the vesselness measure was very expensive, and thus it was simply not feasible to collect so many large scale readings. This is much less of an issue with the present implementation, although we still obviously wish to avoid frivolous, redundant calculations no matter the speed of the implementation.
