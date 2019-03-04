@@ -223,21 +223,20 @@ Our multiscale Frangi filter setup involves 20 scales spaced logarithmically fro
 In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold (such as FT-high) as a precursor to more complete segmentation methods.
 
 
-In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent (cite matplotlib) $median \pm 1.5*(Q3-Q1)$ and outliers from that  Significant outliers, from samples such as those in \cref{fig:bad-gallery}, are also plotted. 
+In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent (cite matplotlib) $median \pm 1.5*(Q3-Q1)$ ($Q3-Q1$ is the so-called interquartile range). Outliers outside of those whispkers, from samples such as those in \cref{fig:bad-gallery}, are also plotted as circles.
 
-(Plot this data in some way?)
 Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. From viewing the samples, we see that noise from the umbillical cord insertion point still hinders a number of samples, causing noise within the Frangi filter. 
 
 From viewing \cref{fig:scoring-boxplots} we can see that, for any of the
 three parametrizations, we achieve a higher precision and lower MCC from increasing the fixed threshold. The same trend occurs between scalewise nz-p segmentations when we increase the quartile (from q=95 to q=98). The median MCC of the ISODATA method was lower than all Frangi-based segmentations across all with the exception of the highest fixed threshold under strict parametrization--although the latter method has the highest median precision score by far. ISODATA has a much lower precision than any of the other methods present here.
 
-We notice a larger number of MCC outliers for scalewise methods than fixed threshold based methods. We theorize that this is due to the difficulty in knowing \textit{a apriori} an appropriate range of scales to probe. 
+We notice a larger number of MCC outliers for scalewise methods than fixed threshold based methods. We theorize that this is due to the difficulty in knowing \textit{a apriori} an appropriate range of scales to probe. Future work 
 
-We also notice that the MCC and precision for each scalewise method is not as affected by changes in parameterization as the fixed methods.
+From \cref{fig:scoring-boxplots} we also notice that the MCC and precision for each scalewise method is not as affected by changes in parameterization as the fixed methods. We suggest that is because stricter parameters have the effect of rescaling to some degree within each step of the multiscale method, so that the same pixels at each scale ultimately occur at each scale's highest percentiles.
+
+Looking at \cref{fig:seg-montage-example2}, we see a situation in which scalewise methods do poorly. The $p=95$ scalewise method under either parametrization, as well as the lower fixed threshold under standard parametrization show some curvilinear noise between vessels. These come from larger scales, so there is apparently no signficant vasculature being picked up at the largest scales, causing noise to appear. This is less pronounced for fixed thresholding using stricter parameters, although some of this noise can still be seen in the strict Frangi's \Vmax plot.
 
 
-
-We would like to 
 
 
 \begin{figure}[p] \centering
@@ -268,3 +267,39 @@ We would like to
       \caption{MCC and precision of segmentation methods (201 samples)}
       \label{fig:scoring-boxplots}
 \end{figure}
+
+\section{Further directions}
+We can see from looking at the \Vmax outputs of our samples that even where gaps exist in the segmentation output, there is still \textit{some} Frangi output where the gap exists. For various reasons, the output might not be as strong at that particular region, but we can use that fact to bridge some of these gaps. To do so would be to achieve ``simple gap completion''--that is, connecting the vascular network to compensate for the shortcomings of a particular segmentation method. We differentiate this from ``predictive gap completion,'' which we will use to signify the problem of connecting the vascular network where the tracer themselves had to guess what was happening with the network. For example, the entire area surrounding the umbilical cord insertion point in \cref{fig:seg-montage-example2} is difficult to make out. The tracer ultimately used some knowledge of vascular network growth to predict what was happening in this region to produce the ground truth. Predictive gap completion would also need to be used to solve crossings of veins and arteries.
+
+First, once we've produced a segmentation, we use morphological thinning to reduce it to one pixel width with \cite{thinning} and look for endpoints of an otherwise connected point. Using a $3\times 3$ structuring element, we iterate over each pixel and identify how many local neighbors it has. If a pixel has zero or one local neigbors, we identify it as an endpoint of the partial network. After identifying these endpoints, we assign each a label $(i,j)$ depending on where the neighboring pixel is located, as according to \cref{fig:endpoint_labels}. We deem two endpoints potentially connectible only if they're not connected on the same side. That is, their labels $(i,j)$ and $(i',j')$ must have $i\ne i'$ or $j\ne j'$ (unless $i$ or $j$ is 1). For example, if an endpoint is connected to the partial network on its top side, any endpoint that connects to it cannot also be connected to a network on its top. If a pixel has no connections at all, with label $(1,1)$, we do not restrict its connetions at all. To save time (though we don't anticipate it will affect the result much), we also restrict pais from being more than a set distance away (in this case, 100 pixels in Euclidean length).
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{endpoint_labels}
+	\caption{Endpoints labels based on adjacent neighbor location}
+	\label{fig:endpoint_labels}
+\end{figure}
+
+After we limit the connections, we consider each pair of endpoints and draw a straight line segment between the two. If that passes through a point where $\Vmax$ is 0, we disallow that pair as well. We also disallow any line which crosses any part of the network which is known to exist.
+Finally, from the list of all remaining pairs of endpoints, we simply select the path along which the maximum mean value of $\Vmax$ is achieved. \cref{fig:network-completion-connected-pairs} shows non-violating paths between end-point pairs. The coloration shows the average value of $\Vmax$ along any straight path between compatible endpoints for which there does not occur any pixel with zero $\Vmax$. From these we can choose the path with largest average \Vmax. This partially completed network is shown in  \cref{fig:network-completion-end-result}(in yellow) overlaid on $\Vmax$.
+We show this result as an indication of what can be done with the simple generation of $\Vmax$, although we simply demonstrate it here rather than including it in our main segmentation results. This is because, for its complexity, we hope we can instead solve both simple and predictive gap completion using a single method.
+
+Finally, one final comment we can make. For the scale the maximum Frangi output occurs, at, we can look at the Hessian matrix itself to glean additional information. Recalling our discussion from \cref{ch:mathematical-methods}, we can instead of calculating the leading eigenvalue, we can calculate the leading \textit{eigenvector.} Just as the leading eigenvalue of the Hessian is a good approximation of the principal curvature at that point, the leading eigenvector is a good approximation of the principal direction. In \cref{fig:pd_demo} we show the vectors of the leading (and trailing) eigenvectors of each endpoint of the thinned, approximated network. We note that these could additionally be used towards the goal of network completion, but again we hesitate and instead look for a better overarching method that would address the gap problem.
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{paths_between_endpoints_positive_score}
+	\caption{All lines between endpoints with nonzero $\Vmax$}
+	\label{fig:network-completion-connected-pairs}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=\linewidth]{completed_by_nearest_to_line_mash}
+	\caption{Partially completed network}
+	\label{fig:network-completion-end-result}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{pd_both}
+	\caption{Principal direction demo}
+	\label{fig:pd_demo}
+\end{figure}
+
