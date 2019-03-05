@@ -741,7 +741,7 @@
 
 \newcommand{\@makesectionhead}[1]{	% put section head in doc
         \normalfont			% reset font
-        {\needspace{1\baselineskip}\noindent\centering\bfseries{#1}\\}	% put in the section name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
+        {\needspace{1\baselineskip}\noindent\centering\bfseries{#1}\\}	% put in the section name JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
 }% end @makesectionhead
 
 \newcommand{\@makesubsectionhead}[1]{	% put subsection head in doc
