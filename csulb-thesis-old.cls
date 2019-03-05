@@ -506,7 +506,7 @@
 		{\@lastdegree}, {\@lastdegyear}, {\@lastdeginst}\\	
 		{\@gradmonth} {\@gradyear}
 	\end{center}
-	\setcounter{page}{1}
+	%\setcounter{page}{2}
    \end{titlepage}
 
    \begin{titlepage} 			% approval signature page
@@ -543,10 +543,10 @@
 		California State University, Long Beach\\
 		\@gradmonth\ \@gradyear
 	\end{center}
-	\setcounter{page}{2}
+	%\setcounter{page}{1}
     \end{titlepage}
 \endgroup
-\setcounter{page}{3}
+%\setcounter{page}{2} % abstract begins on (ii) now
 
 } % end maketitle
 %
@@ -556,7 +556,8 @@
 
 \renewenvironment{abstract}{
    \if@openright\cleardoublepage\else\clearpage\fi % start new page
-   \pagenumbering{arabic} 		% arabic num on 2nd page if it exists
+   \pagenumbering{roman} 		% roman num on first page is (ii) and onward
+   \setcounter{page}{2}
     			% add 1/2 in. to top margin
    \begin{center}
 	\vspace*{.625in}
@@ -569,15 +570,17 @@
       {\@gradmonth} {\@gradyear}
 	\vspace{-4mm}% added by Ryan Hashi (2-26-14)  Too much space after the date.
    \end{center}
-   
+   \addcontentsline{toc}{chapter}{Abstract}
    \begingroup
 }
 {\par\endgroup				%
-   \ifnum\value{page}=1			% abstract did not go to second page
-      \thispagestyle{empty} 		% so don't number the page
-   \fi
+%   \ifnum\value{page}=1			% abstract did not go to second page
+%      \thispagestyle{empty} 		% so don't number the page
+%   \fi
    \newpage		 		% go to next page
-   \pagenumbering{roman} 		% change page numbering back to roman
+   %\pagenumbering{roman} 		% change page numbering back to roman
+   								% don't do this anymore, it's already roman
+   								% and doing so resets the counter?
 }% end abstract
 
 %% \begin{acknowledgements}...\end{acknowledgements} formats an
@@ -632,7 +635,7 @@
    \def\@oddfoot{\if@draft\blDRAFT\fi\hfil
       \thepage\hfil\if@draft\brDRAFT\fi}%
    \let\@evenfoot\@oddfoot
-   \def\@oddhead{APPENDIX\hfill Page}%Note by Ryan Hashi (1-7-14)--Originally "CHAPTER".  The 2nd page may not necessarily have chapters that spill over from the first page.  Appendices may spill over, or just the Bibliography section may be on the 2nd page.  The easiest way to adjust this is to set the title in here manually.
+   %\def\@oddhead{APPENDIX\hfill Page}%Note by Ryan Hashi (1-7-14)--Originally "CHAPTER".  The 2nd page may not necessarily have chapters that spill over from the first page.  Appendices may spill over, or just the Bibliography section may be on the 2nd page.  The easiest way to adjust this is to set the title in here manually. LW: THIS IS WHAT WAS CAUSING THAT HOLY SHIT
    \let\@evenhead\@oddhead
    \let\chaptermark\@gobble\let\sectionmark\@gobble
 }%ps@toc
@@ -695,19 +698,22 @@
 
 \def\@chapter[#1]#2{%			% define \@chapter command
     \ifnum \c@secnumdepth >\m@ne 	% if secnumdepth > -1
-	\refstepcounter{chapter}	% increment the chapter counter
-	\typeout{\@chapapp\space\thechapter.}% type CHAPTER #. to log
-	\ifnum\thechapter=1 		% if this is chapter 1, ...
-		{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}% add font sized vertical space,...
-		\addtocontents{toc}{\noindent CHAPTER\par}}% add the heading "CHAPTER"
-							% to table of contents first
-        \fi
-	\addcontentsline{toc}{chapter}{%
+		\refstepcounter{chapter}	% increment the chapter counter
+		\typeout{\@chapapp\space\thechapter.}% type CHAPTER #. to log
+			\ifnum\thechapter=1 		% if this is chapter 1, ...
+				% add font sized vertical space,...
+				%{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
+				% add the heading "CHAPTER" to table of contents first
+				%\addtocontents{toc}{\noindent CHAPTER\par}
+		%}
+        	\fi
+		\addcontentsline{toc}{chapter}{%
 		\hangindent=.5in\hspace{.25in}\protect\numberline{\thechapter.}#1}% adds #. name to toc
     \else
-	\addcontentsline{toc}{chapter}{#1}% only adds name to toc
+		\addcontentsline{toc}{chapter}{#1}% only adds name to toc
     \fi
-    \chaptermark{#1}			% set the chapter for page headings
+    %
+    %\chaptermark{#1}			% set the chapter for page headings on the TOC
     \@makechapterhead{#2}		% to add the head to doc - see below
     \@afterheading			% standard class config
 }% end @chapter
@@ -735,7 +741,7 @@
 
 \newcommand{\@makesectionhead}[1]{	% put section head in doc
         \normalfont			% reset font
-        {\needspace{1\baselineskip}\noindent\bfseries{#1}\\}	% put in the section name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
+        {\needspace{1\baselineskip}\noindent\centering\bfseries{#1}\\}	% put in the section name (underlined) JLG 2012-03-23 use needspace to move ot next page if <2 lines follow on page
 }% end @makesectionhead
 
 \newcommand{\@makesubsectionhead}[1]{	% put subsection head in doc
@@ -807,17 +813,27 @@
 					% see below
 }% end myappendix
 
+
 \def\@myappendix[#1]#2{			% define section start for \myappendix
-    \ifnum \c@secnumdepth >\m@ne	% if secnumdepth > -1
-	\refstepcounter{myappendix}	% increment myappendix counter
-	\typeout{APPENDIX\space\themyappendix.}% put in display
+  \ifnum \c@secnumdepth >\m@ne	% if secnumdepth > -1
+    \refstepcounter{myappendix}	% increment myappendix counter
+    % was old line \typeout{APPENDIX\space\themyappendix.}% put in display
+    \typeout{APPENDIX\space\themyappendix.}
+	\if \themyappendix A
+	  % add font sized vertical space,...
+	  %{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
+	  % add the heading "APPENDIX" to table of contents first
+	  %\addtocontents{toc}{\noindent APPENDIX\par}
+	  %}
+	\fi
 	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
-    \else
-	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}%
-    \fi
-    \chaptermark{#1}			% for running headings (probably won't be used)
-    \@makeappendixhead{#2}%
-    \@afterheading			% standard class config
+  \else
+	\addcontentsline{toc}{chapter}{#1}%
+  \fi
+  
+  %\chaptermark{#1}			% for running headings (probably won't be used)
+  \@makeappendixhead{#2}%
+  \@afterheading			% standard class config
 }% end @myappendix
 
 \def\@sappendix#1{			% define section start for \myappendix*
@@ -906,10 +922,14 @@
 	\restoregeometry
 }% end tableofcontents
 
+%% LW 2019 -- I commented out the line starting with \vskip here
+%% to try to get strict double spacing of entries. Only lines going on
+%% longer than one line are single spaced, but strict double spacing between
+%% entries. Just simplify all this shit, I think it's way easier now
 \renewcommand*\l@chapter[2]{		% redefine the writing of the chapter line in the toc
     \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
 	\addpenalty{-\@highpenalty}	% prefer a page break before starting entry if needed
-	\vskip 1.0em \@plus\p@		% small white space
+	%\vskip 1.0em \@plus\p@		% small white space
 	\setlength\@tempdima{1.5em}	% save width of number part
 	\begingroup
 	\parindent \z@ 			% set paragraph indent to zero

@@ -63,7 +63,7 @@ raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores, wo
 
 The idea behind percentile-based merging is beneficial for large multiscale methods. At each scale, we would like to assume that there is \textit{some} curvilinear content that could be identified. With that in mind, we could simply accept from each scales scores in a very high percentile. We chose for our demonstration a fairly large percentile, $95$, and furthermore bolster this by requiring that any selected pixels be in the 95th percentile of nonzero and unmasked pixels--otherwise the average is artificially low due to the large background and pixels with zero Frangi score. The use of percentiles removes dependence of picking a particular threshold on the problem, while allowing the most prominent features to emerge at each scale, but of course it unfortunately treats all scales equally, so the success of the multiscale approach here is very dependent on choice of $\sigma_{\min}$ and $\sigma_{\max}$.
 
-	We briefly demonstrate this in \cref{fig:qthresh_demo} on a particularly well-behaved sample. The top left value image is the original (grayscale image), the top right is $\Vmax$, the bottom left is the 95th percentile of nonzero scores of each scale, and the bottom right is the 98th percentile of nonzero scores at each scale.
+	We briefly demonstrate this in \cref{fig:qthresh_demo2} on a particularly well-behaved sample. The top left value image is the original (grayscale image), the top right is $\Vmax$, the bottom left is the 95th percentile of nonzero scores of each scale, and the bottom right is the 98th percentile of nonzero scores at each scale.
 
 \begin{figure} \centering
   \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_img}} \;
@@ -71,7 +71,7 @@ The idea behind percentile-based merging is beneficial for large multiscale meth
   \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q95}} \;
   \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q98}} \\
   \caption{Nonzero-percentile thresholding of \Vmax}.
-  \label{fig:qthresh_demo}
+  \label{fig:qthresh_demo2}
 \end{figure}
 
 \subsection{Method C: Scale-Based Random Walker}
@@ -237,12 +237,10 @@ From \cref{fig:scoring-boxplots} we also notice that the MCC and precision for e
 Looking at \cref{fig:seg-montage-example2}, we see a situation in which scalewise methods do poorly. The $p=95$ scalewise method under either parametrization, as well as the lower fixed threshold under standard parametrization show some curvilinear noise between vessels. These come from larger scales, so there is apparently no signficant vasculature being picked up at the largest scales, causing noise to appear. This is less pronounced for fixed thresholding using stricter parameters, although some of this noise can still be seen in the strict Frangi's \Vmax plot.
 
 
-
-
 \begin{figure}[p] \centering
   \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-standard-seg}} \\
   \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-strict-seg} }
-  \caption{Confusion matrices and scores for a particular sample (standard and strict parametrization)}
+  \caption{Segmentation results, example 1 (standard and strict parametrization)}
 	\label{fig:seg-montage-example}
 \end{figure}
 
@@ -250,7 +248,7 @@ Looking at \cref{fig:seg-montage-example2}, we see a situation in which scalewis
 	\subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-standard-seg}} \\[-0.5cm]
 %    \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-semistrict-seg} } \\[-.5cm]
 	\subfloat{	\includegraphics[width=\textwidth]{fig-BN7753462-strict-seg} }
-	\caption{Confusion matrices and scores for a particular sample (standard and strict parametrization)}
+	\caption{Segmentation results, example 2 (standard and strict parametrization)}
 	\label{fig:seg-montage-example2}
 \end{figure}
 

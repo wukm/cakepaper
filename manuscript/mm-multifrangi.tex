@@ -1,4 +1,4 @@
- \chapter{The Multiscale Frangi Filter and Signed Frangi Filter} \label{ch:multifrangi}
+ \chapter{The Multiscale and Signed Frangi Filter} \label{ch:multifrangi}
     
      With the ideas of scale established, we may return to our discussion of the Frangi filter.
     Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering the dependence of the Frangi filter's response on choice of scale (as demonstrated in \cref{sec:frangi}), we wish to probe at multiple scales
@@ -13,7 +13,7 @@
     the set of scales at which to probe, and \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $(x_0,y_0)$. The set of scales $\Sigma$ should be chosen to be representative enough of all scales where meaningful content is expected to be found.
     
    
-    \subsection{Rudimentary Thresholding}
+    \section{Rudimentary Thresholding}
     
     After the maximization in \cref{eq:Vmax}, we are left with a matrix with as many pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image.
          
