@@ -3,7 +3,7 @@
 We discuss how we use the Frangi as a prefilter and discuss several different segmentation strategies based upon our Frangi-filtered result. We will compare these methods to an unrelated segmentation strategy, the ISODATA threshold. First, we define some standard quantitative measures of success for segmentation methods.
 
 
-\subsection{Binary classifications and the confusion matrix}
+\section{Binary classifications and the confusion matrix}
 
 We wish to come up wish a means of gauging the success of an arbitrary segmentation and will adopt a binary classification model to do so.
 We end up with a boolean matrix the size of the image, and compare it to the ground truth, the trace, and then compare them to get the number of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN). We demonstrate these four labels visually with a confusion matrix, as in \cref{fig:sample-confusion}. The lighter gray represents true negatives (TN), red represents false negatives (FN), blue represents false positives (FP), and black represents true positives. The darkest gray are is the background mask (pixels are not considered at all in gauging the success of segmentation).
@@ -58,7 +58,8 @@ Unfortunately, even with our ``rescaled'' Frangi filter, this $\alpha$ cannot be
 
 If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy. A more sincere use of thresholding might be to choose a relatively high threshold, and then use the result for a further technique.
 We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion}) should not hold too much stock in this thresholded result, and analyzing the 
-raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores, would be far more rewarding.    
+raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores, would be far more rewarding.   
+ 
 \subsection{Method B: Percentile Based Merging}
 
 The idea behind percentile-based merging is beneficial for large multiscale methods. At each scale, we would like to assume that there is \textit{some} curvilinear content that could be identified. With that in mind, we could simply accept from each scales scores in a very high percentile. We chose for our demonstration a fairly large percentile, $95$, and furthermore bolster this by requiring that any selected pixels be in the 95th percentile of nonzero and unmasked pixels--otherwise the average is artificially low due to the large background and pixels with zero Frangi score. The use of percentiles removes dependence of picking a particular threshold on the problem, while allowing the most prominent features to emerge at each scale, but of course it unfortunately treats all scales equally, so the success of the multiscale approach here is very dependent on choice of $\sigma_{\min}$ and $\sigma_{\max}$.
@@ -73,6 +74,7 @@ The idea behind percentile-based merging is beneficial for large multiscale meth
   \caption{Nonzero-percentile thresholding of \Vmax}.
   \label{fig:qthresh_demo2}
 \end{figure}
+
 
 \subsection{Method C: Scale-Based Random Walker}
 
@@ -159,9 +161,6 @@ In \cref{fig:trough_dilation} we demonstrate the process of creating a trough di
  $\Vmax^{(+)} > \alpha^{(-)} = .3$ (in blue). We build $\Vmax^{(-)}$ only using the 6 smallest scales, since the lighter curvilinear 'lip' of the trough is of smaller radius than the radius of the trough itself. Probing at too large scales could perhaps introduce noise. We will call this subset $\Sigmaneg \subset \Sigma $ and choose $\Sigmaneg=\{\sigma_1 , ... , \sigma_6\}$.
  
  
- 
- 
-
 
 \section{Nonfrangi Segmentation Methods}
 
@@ -187,6 +186,7 @@ where $\img(x,y) < \alphaiso$.
 In our demonstration of segmentation methods across all 201 samples in our image domain, we use the preprocessing procedure described in \cref{ch:research-protocol}.
 
 Our multiscale Frangi filter setup involves 20 scales spaced logarithmically from $\sigma_1 = 2^{-1.5} \approx .35$ to $\sigma_{20} = 2^{3.2} \approx 9.20$. We will compare the results of 6 different segmentation methods using three different parametrizations of the Frangi filter. These parametrizations and segmentation methods with specific parameter choices are summarized in \cref{tab:segmentation-methods,tab:segmentation-parametrizations}.
+
 
 \begin{table}[h]
 \centering

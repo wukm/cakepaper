@@ -20,11 +20,11 @@ We note in passing that we may take the derivative of the Gaussian kernel and th
 %\end{itemize}
 
 
-\section{Convolution Speedup via FFT}
+\section{Fourier Transforms}
 
 In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which requires only $\mathscr{O}\left(N\cdot \log_2N\right)$ operations for a one dimension signal of length $N$, as compared to the $N^2$ operations required of a conventional discrete Fourier transform \cite{DIPGW}. We will briefly outline the theory of Fourier transforms.
 
-\subsubsection{Fourier Transform of a continuous 1D signal}
+\subsection{Fourier Transform of a Continuous 1D Signal}
 
 \vcomment{start with 1D but then extend/rewrite}
 
@@ -47,7 +47,7 @@ f(t) = \FT^{-1}\left\{F(\mu)\right\} = \int_{-\infty}^{\infty} F(\mu) e^{i2\pi \
 
 Together, \cref{1D-CFT} and \cref{1D-ICFT} are referred to as the \textit{Fourier transform pair} of the signal $f(t)$. 
 
-\subsubsection{Fourier Transform of a Discrete 1D signal}
+\subsection{Fourier Transform of a Discrete 1D signal}
 
 We wish to develop the Fourier transform pair for a discrete signal., following \cite{DIPGW}. We frame the situation
 as follows: a continuous function $f(t)$ is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling (or impulse) function, an infinite series of discrete impulses with equal spacing $\Delta T$:
@@ -80,7 +80,7 @@ The transform is a continuous function with period $1 / \Delta T$.
 %	\item \vtodo{side by side comparison in a toy example and/or a real problem?}
 %\end{itemize}
 
-\subsubsection{2D DFT Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
+\subsection{2D DFT Convolution Theorem}\vcomment{the following was adapted in a large part from DFT: an owner's manual. cite? DIP-DW just proves the continous version (in 1D) and then asserts that it works for discrete variables too.}
 
 \vcleanup{get consistent notation--either have the discrete signals be notated as  $\tilde{f}(x,y)$ or $f[x,y]$ or instead comment that it's understood}
 \begin{theorem}[2D DFT Convolution Theorem] 
@@ -183,7 +183,7 @@ The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (sim
 We can combine these two cases by invoking the definition of \cref{delta_multiple}, giving us the result.
 \end{proof}
 		
-\subsection{FFT}
+\section{The Fast Fourier Transform}
 \vcomment{use DIP-GW p298}
 As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \cite{DIPGW}.
 For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.

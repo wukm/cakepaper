@@ -1,8 +1,8 @@
 \chapter{Introduction} \label{ch:introduction}
 
-From \cite{chang2017}, it is useful to develop a neonatal test for high risk of
-Autism Spectrum Disorder. There is some evidence as in \cite{chang2016whole}
-of correlation between this risk and placental health factors.. Most ASD
+Recent statistical analysis has suggested a link between placental development and incidence of
+Autism Spectrum Disorder (ASD) \cite{chang2017}. There is some evidence as in \cite{chang2016whole}
+of correlation between this risk and placental health factors. Most ASD
 cases are not diagnosed until the child reaches three or four, so the benefit
 of an early detection technique would be massive, as the brain may be more
 receptive to treatment at a young age. In particular, it was shown in
@@ -24,7 +24,7 @@ developing a procedure to automate extraction of the PCSVN.
 Our basic goal of ``vascular network extraction'' is a common one in image
 processing. There are have been many techniques adapted to extracting vascular
 networks. However, the placenta in particular poses as a particularly difficult
-image domain to work with. It is a surface network with much irregularity: the are
+image domain to work with. It is a surface network with much irregularity: there are
 frequent gaps and crossings, and the "background" has a great degree of variation in
 color intensity and structure itself, causing many na\"{i}ve
 approaches at segmentation to fail completely.
@@ -35,25 +35,27 @@ It is desirable to extend this technique to study placental images, but this
 approach is greatly hindered by the comparative irregularity of the placental
 surface as a whole, which introduces significant noise into the image domain.
 Previous attempts to implement the Frangi filter in this context \cite{huynh2013filter}
-dealt with this noise by passing the Frangi filtered result to an additional local
-curvilinear filter (a directional filter bank) in an effort to retrieve a partial
-segmentation. Other more recent efforts \cite{djima2017enhancing} are very promising
-but are considerably more resource-intensive.
+dealt with this noise by passing the Frangi filtered result to a custom directional filter bank
+as an additional local curvilinear filter, in an effort to retrieve a partial
+segmentation. Other more recent efforts are very promising,
+but are considerably more resource-intensive \cite{djima2017enhancing}.
 
 Here we provide an in-depth mathematical background of the Frangi filter and
 its justification as an image-processing technique, as well as an introduction
 to the Gaussian scale space theory common to many multiscale methods. A more throughout
 treatment of these underlying theories allows us to choose parameters much more meaningfully than previous efforts. In particular, a more thoughtful selection of the Frangi filter's two parameters reduces much of the noise previously encountered within this image domain.  Finally,
 we discuss an important advancement in implementation--scale space conversion
-for differentiation (i.e. gaussian blur) via Fast Fourier Transform, which
+for differentiation (i.e. Gaussian blur) via Fast Fourier Transform, which
 offers a significant speedup. This allows us faster calculation of the
 eigenvalues of the Hessian, from which we calculate the Frangi filter, a
 vesselness measure.
 
 We demonstrate the effectiveness of our sped-up implementation of the Frangi
-filter by performing a large ($N=20$) multiscale Frangi filter on a set of 201
+filter by performing a large-scale multiscale Frangi filter on a set of 201
 placental images from a private database provided by the National Children's
 Study (NCS). We then demonstrate the usefulness of this filter by
 then demonstrating several approaches to segmentation
-of the PCSVN. These will range from na\"{i}ve (i.e direct thresholding) to more intricate and specialized (including a novel yet straightforward method called "trough-filling"). We compare each of these results to
+of the PCSVN from our filtered result. These approaches include simple thresholding,
+scalewise percentile filtering, and finally a custom Frangi-based method we call ``trough-filling.''
+We compare each of these segmentation results to
 the ground truth manual tracings of the network for each of these 201 samples, quantifying the success of various segmentation methods using Matthew's correlation constant (MCC) and precision scoring. Finally, we discuss ways to extend our ideas to solve the network connection problem.
