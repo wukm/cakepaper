@@ -2,7 +2,8 @@
 
 According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \cite{fornberg-1988}.
 
-We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \cite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes, although we have implemented our scale spaces in the conventional way.
+We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \cite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes. For the time being, we will convolve first, although our method will differ from standard convolution.
+
 %Given that we are taking a derivative of a convolution, we first show that these operations commute--that is, we may actually take the derivative of the convolution kernel OR the function itself, and then convolve, and the result should be equivalent to taking the derivative of
 %convolving 
 
@@ -87,7 +88,7 @@ The transform is a continuous function with period $1 / \Delta T$.
 	\vcomment{develop the 2-D DFT from Sec. 4.3 4.4 from DIP-GW (see p235).}
 Given two discrete functions are sequences with the same length.
 %\vcomment{If they're not actually the same length, DIP-GW suggests to make the final length at least $P = A+C-1$ and $Q = B+D-1$ in the case that the sizes are $A\times B$ and $C\times D$ for $f(x,y)$ and  $h(x,y)$ respectively. Not sure if that matters.}
-$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each:
+$f(x,y)$ and $h(x,y)$ for integers $0 < x < M$ and $0 < y < N$, we can take the discrete fourier transform (DFT) of each, where $\mathcal{D}\{\cdots\}$ denotes the DFT.
 \begin{align}
 F(u,v) := \mathcal{D}\{f(x,y)\} &=
 				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y)
@@ -202,14 +203,14 @@ F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M +
 where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
 the variable $x'$ only.
 
-Thus, to calculate the fourier transform $F(u,v)$ at the point $u,v$
+Thus, to calculate the Fourier transform $F(u,v)$ at the point $u,v$
 requires the computation of the transform of length $N$ for each iterated point $x \in 0,\cdots,M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$ We'll also mention that the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation.
 
 We now show that a considerable speedup can be achieved through elimination of redundant calculations. In particular, we wish to show that the calculation of a 1D DFT of signal length $M=2^n, n \in \Zpos$ can be reduced to calculating two half-length transforms and an additional $M/2 = 2^{n-1}$ calculations.
 
 \vcomment{we follow DIP-GW variable conventions, which I think are dumb}
 
-To "simplify" our notation we will use a new notation for the Fourier kernels/basis functions.
+To simplify our notation we will use a new notation for the Fourier kernels/basis functions.
 Let the 1D Fourier transform be given by
 
 \begin{equation} \label{FFT-defineW}
@@ -258,7 +259,7 @@ F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{(u+K)x}\right)
 Comparing \cref{fft-oddeven-parens} and \cref{fft-oddeven-parens-plusK}, we see that the expressions within parentheses are identical.
 What's more, these parentetical expressions are functionally identical to discrete fourier transforms themselves. Let's notate them as follows:
 \begin{align} \label{fft-oddeven-subdfts}
-\DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \\
+\DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \nonumber\\
 \DFT_u\{f_{\mathrm{odd}}(t)\} &:= \sum_{x=0}^{K-1} f(2x+1)W_K^{ux}
 \end{align}
 
@@ -273,7 +274,7 @@ Of course, since \cref{fft-oddeven-subdfts} are DFTs themselves, there's nothing
 
 Of course, our development was for $1D$.  We can extend this to $2D$ by taking note of \cref{eq:2D-dft-rearrangement}.
 
-The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$. Since our inputs have no reason to be this, we need to adjust for this. The explanation is that you just do the part that's a power of 2 and  then do the rest manually or pick a different power.
+%The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$, but we can still
 
 Finally we note the inverse DFT can actually be found via a DFT of the complex conjugate of the original signal, and of course we may translate that operation to a FFT. % see p299.
 
@@ -290,9 +291,9 @@ In \cref{fig:fft-gaussian-demo}, we demonstrate the compatibility of standard co
 \end{figure}
 
 In \cref{fig:semigroup-demo}, we show these same three methods of Gaussian blur but for a large scale
-($\sigma=45$). For each method of taking the Gaussian blur ((a) - standard convolution with sampled kernel, (b) fft with sampled kernel, (c) FFT with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted below. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
+($\sigma=45$). For each method of taking the Gaussian blur ((a) - standard convolution with sampled kernel, (b) FFT with sampled kernel, (c) FFT with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted in \cref{tab:gaussian-mae-mse}. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
 The discrete kernel performs very slightly better than the sampled versions. We originally attempted
-this demonstration with a much larger sigma (say $\sigma=150$) and multiple iterations, but unfortunately multiple passes cause the ``noise'' from zeroing out around the boundaries to become very noticable after several iterations (here, we've opted to crop out a radius of pixels from around the edges equal to the standard deviation of the Gaussian before we calculated the MAE or MSE), which is an honest concern in image processing.
+this demonstration with a much larger sigma (say $\sigma=150$) and multiple iterations, but unfortunately multiple passes cause the ``noise'' from zeroing out around the boundaries to become very noticable after several iterations. Here, we've opted to crop out a radius of pixels from around the edges equal to the standard deviation of the Gaussian before we calculated the MAE or MSE, to reduce noise from the border.
 
 \begin{table}
   \centering
@@ -303,6 +304,8 @@ this demonstration with a much larger sigma (say $\sigma=150$) and multiple iter
     FFT convolution, sampled kernel (B) & 0.00055205 & 0.02029916 \\
     FFT convolution, discrete kernel (C) & 0.00054406 & 0.02015336
   \end{tabular}
+\caption{Errors between different Gaussian blur implementations}
+\label{tab:gaussian-mae-mse}
 \end{table}
 
 
@@ -312,8 +315,8 @@ this demonstration with a much larger sigma (say $\sigma=150$) and multiple iter
   \label{fig:semigroup-demo}
 \end{figure}
 
-We further confirm the commensurate nature of Gaussian blur techniques by comparing the three techniques on a placental image and using each to calculate Frangi targets. The code can be found in \texttt{hfft\_accuracy.py}. In \cref{tab:mse-G-sigma-0.3,tab:mse-F-sigma-0.3,tab:mse-G-sigma-5,tab:mse-F-sigma-5} we compare the mean squared error of a single image blurred (A) with standard spatial convolution, (B) with FFT sampled Gaussian kernel, and (C) with the discrete kernel. We see that the standard convolution and discrete convolution are very similar, while the sampled discrete Gaussian is off by two orders of magnitude, but still reasonably small. We further confirm these by viewing the intensity of the images and the Frangi targets themselves across an arbitrarily chosen horizontal cross section of the image. As seen in \cref{fig:cross-sec-G-sigma=0.3}, \cref{fig:cross-sec-F-sigma=0.3},
-\cref{fig:cross-sec-G-sigma=5}, \cref{fig:cross-sec-F-sigma=5}, the peaks of the Gaussian blurred image all still occur at the same places, as do the Frangi responses. We repeated this procedure up to $\sigma=90$ and found a situation similar to $\sigma=5$; it was only in very small scales where there was any noticeable difference at all.
+We further confirm the commensurate nature of Gaussian blur techniques by comparing the three techniques on a placental image and using each to calculate Frangi targets. The code can be found in \texttt{hfft\_accuracy.py}. In \cref{tab:mse-G-sigma-0.3,tab:mse-F-sigma-0.3,tab:mse-G-sigma-5,tab:mse-F-sigma-5} we compare the mean squared error of a single image blurred (A) with standard spatial convolution, (B) with FFT sampled Gaussian kernel, and (C) with the discrete kernel. We see that the standard convolution and discrete convolution are very similar, while the sampled discrete Gaussian is off by two orders of magnitude, but still reasonably small. We further confirm these by viewing the grayscale intensity of the image from 0 to 1 and the Frangi targets themselves across an arbitrarily chosen horizontal cross section of the image
+\cref{fig:cross-sec-demos}, the peaks of the Gaussian blurred image all still occur at the same places, as do the Frangi responses. We repeated this procedure up to $\sigma=90$ and found a situation similar to $\sigma=5$; it was only in very small scales where there was any noticeable difference at all.
 
 
 \begin{table}
@@ -347,16 +350,12 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{Fslice_sigma=3}
-  \caption{Image cross-section of Gaussian blurred images}
-  \label{fig:cross-sec-G-sigma=0.3}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{Gslice_sigma=3}
-  \caption{Image cross-section of Frangi targets images}
-  \label{fig:cross-sec-F-sigma=0.3}
+  \includegraphics[width=\linewidth]{Gslice_sigma=3} \\
+  \includegraphics[width=\linewidth]{Gslice_sigma=6} \\
+  \includegraphics[width=\linewidth]{Fslice_sigma=3} \\
+  \includegraphics[width=\linewidth]{Fslice_sigma=6}
+  \caption{Image cross-section of Gaussian-blurred (grayscale) placental sample}
+  \label{fig:cross-sec-demos}
 \end{figure}
 
 
@@ -388,26 +387,12 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
   }
 \end{table}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{Fslice_sigma=6}
-  \caption{Image cross-section of Gaussian blurred images $\sigma=5$}
-  \label{fig:cross-sec-G-sigma=5}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{Gslice_sigma=6}
-  \caption{Image cross-section of Frangi targets images $\sigma=5$}
-  \label{fig:cross-sec-F-sigma=5}
-\end{figure}
-
-
-Finally, we wish to demonstrate the point of this comparison--that $FFT-based$ convolution is much faster than spatial convolution. We took a much larger sample ($2200 \times 2561$) and timed each method of convolution (average of three trials) for a large number of samples: logarithmic between $\sigma=1$ and $\sigma=128$ with 32 steps. The result shows that the convolution time seems to at least linearly increase with the size of the kernel, whereas FFT is independent of choice of scale.
+Finally, we wish to demonstrate the point of this comparison--that $FFT-based$ convolution is much faster than spatial convolution. We took a much larger sample ($2200 \times 2561$) and timed each method of convolution (average of three trials) for a large number of samples: logarithmic between $\sigma=1$ and $\sigma=128$ with 32 steps. We plot the result in \cref{fig:gconv-runtime}. It shows that the convolution time seems to at least linearly increase with the size of the kernel, whereas FFT is independent of choice of scale. This is to be expected, as convolving with a Gaussian kernel in spatial coordinates requires a greater number of calculations as $\sigma$ increases, whereas the size of the kernel does not change in our frequency space convolution.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{convolution-runtime-demo}
-  \caption{Time required}
+  \caption{Runtime comparison of Gaussian convolution implementations}
+  \label{fig:gconv-runtime}
 \end{figure}
 
 
