@@ -148,8 +148,13 @@ These procedures are performed automatically on the 201 images in our data set u
 %        \caption{Removing a ``cut'' from the placental plate.}
 %        \label{fig:cutdemo}
 %    \end{figure}
-
-    \subsection{Deglaring}
+    
+    \subsection{Finding Placental Border}
+		
+		We take the gradient of the sample green channel of the raw sample with a very small scale $\sigma=.01$ to identify very small and sharp changes. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result. From this, we grab the largest foreground object, which will inevitably be the placental
+		plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
+		
+		    \subsection{Deglaring}
     
     Despite best efforts when harvesting samples, a select number of the placental samples exhibit substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, albeit at the expense of processing time.
     
@@ -166,8 +171,8 @@ These procedures are performed automatically on the 201 images in our data set u
         \label{fig:glare-example-crop}
         \end{figure}
 
-        \begin{figure} 
-        \includegraphics[width=\textwidth]{preprocessing_comparison_zoomed_fig}
+        \begin{figure}[t] \centering
+        \includegraphics[width=0.8\textwidth]{preprocessing_comparison_zoomed_fig}
         \caption{Comparison of glare inpainting methods (detail)}
         \label{fig:glare-example-zoom}
         \end{figure}
@@ -223,72 +228,55 @@ These procedures are performed automatically on the 201 images in our data set u
     The optimal choice of scale sizes to probe at is intuitively dependent on the resolution of the image. If there is no particular care taken in selecting a minimum and maximum scale at which to probe, then we must assure that our Frangi filter is ``normalized'' in such a way that there is a decay in response past certain values. That is, probing at a unreasonably large (or small) scale (say $\sigma=1000$ or $\sigma=.0001$ should result in an almost null response throughout the image. We will approach this issue in our discussion of ``variable thresholding.'' 
     
     \section{The Research Protocol}
-    Once we have chosen this set of scales $\Sigma$, we simply convolve the image with a discrete Gaussian kernel with that standard deviation, then take gradients enough to get a matrix of partial second derivatives, the Hessian. We calculate the eigenvalues of each (2x2) Hessian matrix and then compute the Frangi filter according to \cref{ch:unifrangi} and \cref{ch:multifrangi}. We use these to provide a couple examples of estimating the PCSVN network. The entire decision tree can be shown in the outline below. Indentations with ``+'' and ``.'' characters are lists of options at that point, where ``+'' is the default and ``.'' is for alternatives discussed elsewhere in the text.
+    Once we have chosen this set of scales $\Sigma$, we simply convolve the image with a discrete Gaussian kernel with that standard deviation, then take gradients enough to get a matrix of partial second derivatives, the Hessian. We calculate the eigenvalues of each (2x2) Hessian matrix and then compute the Frangi filter according to \cref{ch:unifrangi} and \cref{ch:multifrangi}. We use these to provide a couple examples of estimating the PCSVN network. The entire decision tree can be shown in the outline below. We follow the procedure for \cref{ch:segmentation}. For our analysis of the Frangi filter apart from segmentation we shall stop before step (C).
     
     \begin{spacing}{1}
     \begin{small}
-    \begin{verbatim} % DECISIONTREE
+    \begin{verbatim} % DECISION TREE
 For each sample:
 
 A) Preprocessing
-  1) RGB to single channel via Luminance Transform
-  2) Cut removal
-  3) Remove glare
-    a) Mask glare
-      + Threshold (*175/255*)
-      . Threshold at *80%* of max intensity (Almoussa)
-      . Lange (2005) (multistep procedure, done in RGB space actually)
-    b) Post-process mask
-      + Dilate with radius *2*
-      . Do nothing
+  1) Find placental border
+  	a) Gradient of green channel for small sigma=.01
+  	b) Watershed outside against above gradient mean
+  	c) erode these points, radius=15
+  	d) Identify largest object in watershed threshold
+  2) RGB to single channel via Luminance Transform
+  3) Glare removal
+    a) Mask glare (threshold at *175/255*)
+    b) Dilate glare mask with radius=2
     c) Inpaint glare
       + Hybrid inpainting, with size threshold *32*
       . Biharmonic inpainting
-      . Mean value of boundary 
-      . Median value of boundary 
-      . Windowed mean (radius: *15*)
+      . Median value of boundary
+  4) Dilate around UCIP, add to mask (radius=50)
 B) Multiscale Frangi filter
-  1) Define parameters
+  1) Set parameters
     a) Scales
-      = n_scales (default: *40*)
-      = scale_range (default *[-2, 3.5]*)
-      = scale_type (*logarithmic base 2* or linear or custom)
-      -> build scales
-    b) Betas
-      = *0.5* each scale or custom range
-    c) Gammas
-      = strategy: (half L2 hessian norm or *half hessian frobenius norm*)
-                   or custom value each scale
-      = redilate plate per scale (?)
-    d) Dilate per scale 
-      + Custom function of scale
-         (default *max{10, int(4sigma)} if (sigma < 20) else int(2*sigma))*)
-      . No dilation
-    e) Scale space convolution method
-      + Discrete Gaussian kernel with FFT
-      . Sampled gaussian kernel with FFT
-      . Sample gaussian kernel, standard convolution
-  2) For each sigma: do Uniscale Frangi Filter
-    a) gauss blur image with method from (1e)
-    b) take gradient across each axis, take gradient across each axis
-    of gradient to get Hxx, Hxy, Hyy
-    c) find eigenvalues of hessian at each point (using np.eig)
-       and sort by magnitude 
-    d) zero out principal directions according to Dilate Per Scale
-    e) zero out hessian according to max(ceil(sigma),10)
-    f) Calculate Frangi Vesselness Measure
+      = n_scales (default: *20*)
+      = log_range (default *[-1.5, 3.2]*), log base 2
+      -> scales
+    b) Beta = 0.1, Gamma = 1.0 (or alternate parametrization)
+    d) Dilate mask per scale (20 pixels)
+  2) For each sigma: compute Uniscale Frangi Filter
+    a) gauss blur image with discrete Gaussian kernel FFT
+    b) take gradient across each axis of blurred image;
+       take gradient across each axis of gradient
+       -> (Hxx, Hxy, Hyy)
+    c) Find eigenvalues of hessian at each point (using np.eig)
+       and sort by absolute magnitude 
+    d) Calculate Frangi Vesselness Measure
+  3) Split positive and negative strain.
+  3) Merge each result, reserve positive and negative stacks
 C) Estimate PCSVN
   1) Approximate using strategy
-    a) Calculate Fmax and Fmax.where -> Fmax
-    b) Threshold at 95th percentile -> approx
-    c) Threshold at fixed alpha
-    d) Margin adding to one of the above
-    e) Random walker after margin adding
-  2) Compare to Trace
+    a) Calculate Vmax above high fixed threshold
+    b) Calculate Vmax above lower fixed threshold
+    b) Threshold scalewise at 95th nonzero-percentile
+    c) Threshold scalewise at 98th nonzero-percentile
+    d) Margin adding algorithm with high fixed threshold
+  2) Compare to Trace to obtain confusion matrix
   3) Calculate MCC score and precision
 \end{verbatim}
     \end{small}
 \end{spacing}
-
-
-We will discuss our various demonstrations of merging techniques in the Results section.
