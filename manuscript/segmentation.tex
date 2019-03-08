@@ -38,16 +38,16 @@ One final point about these measures is that we have decided to report their sco
 Here we develop four relatively straightforward methods of postprocessing the multiscale Frangi output to obtain an actual PCSVN extraction. Again, we stress that the Frangi filter itself does not produce a segmentation itself. In fact, Frangi in his original paper \cite{frangi-paper} refrained from any explicit analysis of the Frangi score apart from taking the maximum across all scales. Still, we wish to demonstrate some immediate methods of postprocessing these samples in order to illustrate the usefulness of this optimized Frangi filter. 
 
 
-
 \subsection{Method A: Fixed Threshold}
-
+Like \cite{huynh2013filter}, we consider a thresholded \Vmax{} as a crude segmentation.
 In the fixed threshold method, we choose some threshold $\alpha$ and we say that a pixel $(x,y)$ of the image corresponds to a vessel if
-$\Vmax >  \alpha$. This $\alpha$, as noted above, is unfortunately highly dependent on the image domain, and this merging method will tend to happily allow noise generated from scales that are too large or too small.
+$\Vmax >  \alpha$. This $\alpha$, as noted above, is unfortunately highly dependent on the image domain, and this merging method will tend to happily allow noise generated from scales that are too large or too small if $\Sigma$ is not chosen correctly. We would hope that some normalization of our data set would permit a single choice of $\alpha$ across all samples, but unfortunately we cannot seem to guarantee this. Without prior knowledge of an appropriate choice of $\alpha$, we may have to simply select $\alpha$ by trial and error.
+
  Another issue with this is the individual scales of the Frangi filter in the extreme cases are not known to scale--although Lindeberg introduced a normalization factor based on the scale to apply to the derivatives, we do not know of an optimal factor to use.
 
-Unfortunately, even with our ``rescaled'' Frangi filter, this $\alpha$ cannot be picked without regard for the particular image domain. Equally problematic, we cannot guarantee that the Frangi filter will decay as our scale exceeds the the bounds where structure is expected to be found. Ideally we could create a filter that would do that.
+Unfortunately, even with our ``rescaled'' Frangi filter, this $\alpha$ cannot be picked without regard for the particular image domain. Equally problematic, we cannot guarantee that the Frangi filter will decay as our scale exceeds the the bounds where structure is expected to be found.
 
- Nonetheless, we wish to demonstrate the usefulness of the Frangi filter within our image domain towards the segmentation problem, and will therefore, like \cite{huynh2013filter}, consider a thresholded \Vmax{} as a crude segmentation. 
+
 \begin{equation}
 {\VSigma}_{\alpha}(x_0,y_0) = \begin{cases}
 1 & \textrm{if}\quad \Vmax(x,y) \; \ge\;  \alpha \\
@@ -57,23 +57,25 @@ Unfortunately, even with our ``rescaled'' Frangi filter, this $\alpha$ cannot be
 \end{equation}
 
 If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy. A more sincere use of thresholding might be to choose a relatively high threshold, and then use the result for a further technique.
-We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales. As a final note, we admit that any future extensions of this work (as will be discussed in \cref{ch:conclusion}) should not hold too much stock in this thresholded result, and analyzing the 
-raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores, would be far more rewarding.   
+We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales. As a final note, we admit that any future extensions of this work should not hold too much stock in this thresholded result. Analyzing the raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores \cref{eq:VSigma}, would be far more rewarding.
  
-\subsection{Method B: Percentile Based Merging}
+\subsection{Method B: Scalewise Percentile Based Merging}
 
-The idea behind percentile-based merging is beneficial for large multiscale methods. At each scale, we would like to assume that there is \textit{some} curvilinear content that could be identified. With that in mind, we could simply accept from each scales scores in a very high percentile. We chose for our demonstration a fairly large percentile, $95$, and furthermore bolster this by requiring that any selected pixels be in the 95th percentile of nonzero and unmasked pixels--otherwise the average is artificially low due to the large background and pixels with zero Frangi score. The use of percentiles removes dependence of picking a particular threshold on the problem, while allowing the most prominent features to emerge at each scale, but of course it unfortunately treats all scales equally, so the success of the multiscale approach here is very dependent on choice of $\sigma_{\min}$ and $\sigma_{\max}$.
-
-	We briefly demonstrate this in \cref{fig:qthresh_demo2} on a particularly well-behaved sample. The top left value image is the original (grayscale image), the top right is $\Vmax$, the bottom left is the 95th percentile of nonzero scores of each scale, and the bottom right is the 98th percentile of nonzero scores at each scale.
+There is an alternative method of thresholding which avoids the domain-dependent selection of a fixed threshold $\alpha$ altogether. Instead, we could simply select the highest scores from each responses: we calculate a high percentile score and threshold at that value. Due to the large number of zeros outputted by the filter, we opt instead to take the $p$th percentile of only nonzero values of each $\Vsigma$. 
+We briefly demonstrate this in \cref{fig:qthresh_demo} on a particularly well-behaved sample. The idea behind percentile-based merging is beneficial for multiscale methods. At each scale, we would like to assume that there is \textit{some} curvilinear content that could be identified. With that in mind, we could simply accept from each scales scores in a very high percentile. We chose for our demonstration a fairly large percentile, $95$, and furthermore bolster this by requiring that any selected pixels be in the 95th percentile of nonzero and unmasked pixels--otherwise the average is artificially low due to the large background and pixels with zero Frangi score. The use of percentiles removes dependence of picking a particular threshold on the problem, while allowing the most prominent features to emerge at each scale
 
 \begin{figure} \centering
-  \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_img}} \;
-  \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_Fmax}} \\
-  \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q95}} \;
-  \subfloat{\includegraphics[width=0.48\linewidth]{qthresh_demo_q98}} \\
-  \caption{Nonzero-percentile thresholding of \Vmax}.
-  \label{fig:qthresh_demo2}
+	\subfloat[grayscale image]{\includegraphics[width=0.48\linewidth]{qthresh_demo_img}}
+	\subfloat[\Vmax]{\includegraphics[width=0.48\linewidth]{qthresh_demo_Fmax}} \\
+	\subfloat[scalewise percentile filtering ($p=95$)]{
+		\includegraphics[width=0.48\linewidth]{qthresh_demo_q95}}
+	\subfloat[scalewise percentile filtering ($p=98$)]{
+		\includegraphics[width=0.48\linewidth]{qthresh_demo_q98}} \\
+	\caption{Nonzero-percentile thresholding of \Vmax (95th and 98th percentile)}.
+	\label{fig:qthresh_demo}
 \end{figure}
+
+Of course, the downside of this method is that we do not know in general the size of the network, and  we may miss entire branches of the vascular network if there is a large amount of curvilinear content elsewhere in the image that is simply less prominent than some other features which are prominent at the same scale. An additional caveat of this method is that, since all scales are given equal importance, this method could introduce a large amount of noise if the range of scales probled $\Sigma$, in particular the extremes $\sigma_{\min}$ and $\sigma_{\max}$ are not chosen carefully. That being said, the avantage of this method is that smaller scale features are more reliably extracted, whereas the slightly weaker Frangi signal at smaller scales causes smaller scale phenomena to less likely show up in a fixed threshold extraction.
 
 
 \subsection{Method C: Scale-Based Random Walker}
@@ -99,14 +101,14 @@ In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score
 \end{figure}
 
 
-\begin{figure} \centering
+\begin{figure}[t] \centering
   \subfloat{
-    \includegraphics[height=0.3\textheight]{rw_demo_base}
-  }\\
-  \subfloat{
-    \includegraphics[height=0.3\textheight]{rw_demo_labels}
+    \includegraphics[height=0.4\textwidth]{rw_demo_base}
   }
-  \caption{Random walker segmentation (result and sample)}
+  \subfloat{
+    \includegraphics[height=0.4\textwidth]{rw_demo_labels}
+  }
+  \caption{Random walker segmentation (sample and merged result)}
   \label{fig:rw-demo-merged}
 \end{figure}
 
@@ -115,7 +117,7 @@ In \cref{fig:rw-demo-scalewise}, the first column is the Frangi vesselness score
 %Our final approach seeks to include not only pixels at each scale that pass a high threshold, but also adjacent pixels at that scale that pass a lower threshold. We proceed as follows. At each scale, take a low threshold, then label each connected region. Then, iterate through each labeled region and add to the final approximation any labeled region that contains a pixel that passes a higher threshold.
 
 \subsection{Method D: Trough Filling}
-As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate calculate the Frangi filter response for bright curvilinear features (dark background) and dark curvilinear features (dark background). Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all by simply keeping both, although we must store more results. After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote $\VSigmapos$ and $\VSigmaneg$, and then merge each as we would with a traditional multiscale Frangi filter, giving us
+As we discussed in \cref{sec:signed-frangi-filter}, we can simultaneously calculate the Frangi filter for light and dark curvilinear structures without any added computation time. We shown the signed result of the  Frangi filter at different scales two examples in \cref{fig:signsweep-1} and \cref{fig:signsweep-2}, we can simultaneously calculate calculate the Frangi filter response for bright curvilinear features (dark background) and dark curvilinear features (dark background). These two figures are the analogues to \cref{fig:scalesweep-1} and \cref{fig:scalesweep-2}. Since the Frangi filter normally throws away any response where $\lambda_2 < 0$ (if dark curvilinear features are targeted) or $\lambda_2 >0$ (if light curvilinear features are targeted), we lose no computation time at all by simply keeping both, although we must store more results. After computing the multiscale result, we can easily separate these into a positive and a negative strain, which we will denote $\VSigmapos$ and $\VSigmaneg$, and then merge each as we would with a traditional multiscale Frangi filter, giving us
 \Vmaxpos and \Vmaxneg. That is, our \Vmaxpos is the same as our \Vmax in a conventional Frangi filter, and \Vmaxneg is the same result as if we had taken the Frangi filter while only looking for the opposite type (light/dark) curvilinear feature. Plotting $\Vmax$ over a scale of $[-1,1]$ demonstrates an interesting effect. Whereas the Frangi filter generally is not reliable in terms of accurately predicting widths, we \textit{can} get a sense of the width by looking at where there is a relatively strong response of opposite sign.
 
 \begin{figure}[p] \centering
@@ -223,7 +225,7 @@ Our multiscale Frangi filter setup involves 20 scales spaced logarithmically fro
 In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold (such as FT-high) as a precursor to more complete segmentation methods.
 
 
-In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent (cite matplotlib) $median \pm 1.5*(Q3-Q1)$ ($Q3-Q1$ is the so-called interquartile range). Outliers outside of those whispkers, from samples such as those in \cref{fig:bad-gallery}, are also plotted as circles.
+In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent  $median \pm 1.5*(Q3-Q1)$ ($Q3-Q1$ is the so-called interquartile range) \cite{scipy}. Outliers outside of those whispkers, from samples such as those in \cref{fig:bad-gallery}, are also plotted as circles.
 
 Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. From viewing the samples, we see that noise from the umbillical cord insertion point still hinders a number of samples, causing noise within the Frangi filter. 
 
@@ -238,35 +240,35 @@ Looking at \cref{fig:seg-montage-example2}, we see a situation in which scalewis
 
 
 \begin{figure}[p] \centering
-  \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-standard-seg}} \\
-  \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN2481864-strict-seg} }
+  \subfloat[standard parametrization]{ 	\includegraphics[width=\textwidth]{fig-BN2481864-standard-seg}} \\
+  \subfloat[strict parametrization]{ 	\includegraphics[width=\textwidth]{fig-BN2481864-strict-seg} }
   \caption{Segmentation results, example 1 (standard and strict parametrization)}
 	\label{fig:seg-montage-example}
 \end{figure}
 
 \begin{figure}[p] \centering
-	\subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-standard-seg}} \\[-0.5cm]
+	\subfloat[standard parametrization]{ 	\includegraphics[width=\textwidth]{fig-BN7753462-standard-seg}} \\[-0.5cm]
 %    \subfloat{ 	\includegraphics[width=\textwidth]{fig-BN7753462-semistrict-seg} } \\[-.5cm]
-	\subfloat{	\includegraphics[width=\textwidth]{fig-BN7753462-strict-seg} }
+	\subfloat[strict parametrization]{	\includegraphics[width=\textwidth]{fig-BN7753462-strict-seg} }
 	\caption{Segmentation results, example 2 (standard and strict parametrization)}
 	\label{fig:seg-montage-example2}
 \end{figure}
 
 \begin{figure}[p] \centering
   \subfloat[standard Frangi parametrization ($\beta=0.5, \gamma=0.5$)]{  
-            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_standard} 
-            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_standard} } \\
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot-standard} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot-standard} } \\
   \subfloat[semistrict Frangi parametrization ($\beta=0.15, \gamma=0.5$)]{ 
-            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_semistrict} 
-            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_semistrict} } \\
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot-semistrict} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot-semistrict} } \\
   \subfloat[strict Frangi parametrization ($\beta=0.15, \gamma=1.0$)]{ 
-            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot_strict} 
-            \includegraphics[width=0.5\textwidth]{all-precision-boxplot_strict} } \\
+            \includegraphics[width=0.5\textwidth]{all-MCC-boxplot-strict} 
+            \includegraphics[width=0.5\textwidth]{all-precision-boxplot-strict} } \\
       \caption{MCC and precision of segmentation methods (201 samples)}
       \label{fig:scoring-boxplots}
 \end{figure}
 
-\section{Further directions}
+\section{Network Completion}
 We can see from looking at the \Vmax outputs of our samples that even where gaps exist in the segmentation output, there is still \textit{some} Frangi output where the gap exists. For various reasons, the output might not be as strong at that particular region, but we can use that fact to bridge some of these gaps. To do so would be to achieve ``simple gap completion''--that is, connecting the vascular network to compensate for the shortcomings of a particular segmentation method. We differentiate this from ``predictive gap completion,'' which we will use to signify the problem of connecting the vascular network where the tracer themselves had to guess what was happening with the network. For example, the entire area surrounding the umbilical cord insertion point in \cref{fig:seg-montage-example2} is difficult to make out. The tracer ultimately used some knowledge of vascular network growth to predict what was happening in this region to produce the ground truth. Predictive gap completion would also need to be used to solve crossings of veins and arteries.
 
 First, once we've produced a segmentation, we use morphological thinning to reduce it to one pixel width with \cite{thinning} and look for endpoints of an otherwise connected point. Using a $3\times 3$ structuring element, we iterate over each pixel and identify how many local neighbors it has. If a pixel has zero or one local neigbors, we identify it as an endpoint of the partial network. After identifying these endpoints, we assign each a label $(i,j)$ depending on where the neighboring pixel is located, as according to \cref{fig:endpoint_labels}. We deem two endpoints potentially connectible only if they're not connected on the same side. That is, their labels $(i,j)$ and $(i',j')$ must have $i\ne i'$ or $j\ne j'$ (unless $i$ or $j$ is 1). For example, if an endpoint is connected to the partial network on its top side, any endpoint that connects to it cannot also be connected to a network on its top. If a pixel has no connections at all, with label $(1,1)$, we do not restrict its connetions at all. To save time (though we don't anticipate it will affect the result much), we also restrict pais from being more than a set distance away (in this case, 100 pixels in Euclidean length).
@@ -279,25 +281,29 @@ First, once we've produced a segmentation, we use morphological thinning to redu
 \end{figure}
 
 After we limit the connections, we consider each pair of endpoints and draw a straight line segment between the two. If that passes through a point where $\Vmax$ is 0, we disallow that pair as well. We also disallow any line which crosses any part of the network which is known to exist.
-Finally, from the list of all remaining pairs of endpoints, we simply select the path along which the maximum mean value of $\Vmax$ is achieved. \cref{fig:network-completion-connected-pairs} shows non-violating paths between end-point pairs. The coloration shows the average value of $\Vmax$ along any straight path between compatible endpoints for which there does not occur any pixel with zero $\Vmax$. From these we can choose the path with largest average \Vmax. This partially completed network is shown in  \cref{fig:network-completion-end-result}(in yellow) overlaid on $\Vmax$.
-We show this result as an indication of what can be done with the simple generation of $\Vmax$, although we simply demonstrate it here rather than including it in our main segmentation results. This is because, for its complexity, we hope we can instead solve both simple and predictive gap completion using a single method.
-
-Finally, one final comment we can make. For the scale the maximum Frangi output occurs, at, we can look at the Hessian matrix itself to glean additional information. Recalling our discussion from \cref{ch:mathematical-methods}, we can instead of calculating the leading eigenvalue, we can calculate the leading \textit{eigenvector.} Just as the leading eigenvalue of the Hessian is a good approximation of the principal curvature at that point, the leading eigenvector is a good approximation of the principal direction. In \cref{fig:pd_demo} we show the vectors of the leading (and trailing) eigenvectors of each endpoint of the thinned, approximated network. We note that these could additionally be used towards the goal of network completion, but again we hesitate and instead look for a better overarching method that would address the gap problem.
-
-\begin{figure}
-	\includegraphics[width=\linewidth]{paths_between_endpoints_positive_score}
+\begin{figure}[p]
+	\includegraphics[height=0.4\textheight]{paths_between_endpoints_positive_score}
 	\caption{All lines between endpoints with nonzero $\Vmax$}
 	\label{fig:network-completion-connected-pairs}
 \end{figure}
-\begin{figure}
-	\includegraphics[width=\linewidth]{completed_by_nearest_to_line_mash}
+\begin{figure}[p] \centering
+	\includegraphics[height=0.4\textheight]{completed_by_nearest_to_line_mash}
 	\caption{Partially completed network}
 	\label{fig:network-completion-end-result}
 \end{figure}
 
-\begin{figure}
-	\includegraphics[width=\linewidth]{pd_both}
+Finally, from the list of all remaining pairs of endpoints, we simply select the path along which the maximum mean value of $\Vmax$ is achieved. \cref{fig:network-completion-connected-pairs} shows non-violating paths between end-point pairs. The coloration shows the average value of $\Vmax$ along any straight path between compatible endpoints for which there does not occur any pixel with zero $\Vmax$. From these we can choose the path with largest average \Vmax. This partially completed network is shown in  \cref{fig:network-completion-end-result}(in yellow) overlaid on $\Vmax$.
+We show this result as an indication of what can be done with the simple generation of $\Vmax$, although we simply demonstrate it here rather than including it in our main segmentation results. This is because, for its complexity, we hope we can instead solve both simple and predictive gap completion using a single method.
+
+\begin{figure}[t] \centering
+	\includegraphics[width=0.8\linewidth]{pd_both}
 	\caption{Principal direction demo}
 	\label{fig:pd_demo}
 \end{figure}
 
+Finally, one final comment we can make. For the scale the maximum Frangi output occurs, at, we can look at the Hessian matrix itself to glean additional information. Recalling our discussion from \cref{ch:diffgeo}, we can instead of calculating the leading eigenvalue, we can calculate the leading \textit{eigenvector.} Just as the leading eigenvalue of the Hessian is a good approximation of the principal curvature at that point, the leading eigenvector is a good approximation of the principal direction. In \cref{fig:pd_demo} we show the vectors of the leading (and trailing) eigenvectors of each endpoint of the thinned, approximated network. We note that these could additionally be used towards the goal of network completion, but again we hesitate and instead look for a better overarching method that would address the gap problem.
+
+
+\section{Further Directions}
+
+Future research will first aim toward automating more of the preprocessing, specifically toward identifying the perimeter, umbilical cord insertion point, and any cuts without relying on a manual trace.  As mentioned in \cref{ch:research-protocol}, a more careful preparation of samples (i.e. as the picture is taken) would alleviate some of the difficulty of image registration. We also should improve our glare reduction algorithm, as it currently relies on an arbitrary threshold. We also need to remove the umbilical cord stump, as a large amount of noise around that point is still causing a large amount of noise in many samples. As far as our multiscale method goes, we would like to develop a notion of automatic scale selection, that would help us better normalize smaller scales, as well as allow us to find a specific largest scale (as some vessels in specific samples were only easily identified at very large scales, whereas these scales would introduce only noise in most other samples).
