@@ -87,7 +87,7 @@
 2	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:sigmas
 2	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	z	array:c
 2D DFT Convolution Theorem	manuscript/mathematical_methods.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-2D DFT Convolution Theorem	manuscript/mm-hfft.tex	/^\\subsubsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part /;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
+2D DFT Convolution Theorem	manuscript/mm-hfft.tex	/^\\subsection{2D DFT Convolution Theorem}\\vcomment{the following was adapted in a large part fro/;"	u	section:FFT-based Discrete Derivatives""Fourier Transforms
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:ALPHAS
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:border_radii
 3	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:mcc
@@ -125,7 +125,7 @@
 9	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:scale_maxes
 9	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	array:sigmas
 9	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	z	array:c
-A	listings/compare_parameters.py	/^    A = ax.T.ravel()$/;"	v
+A	listings/compare_parameters.py	/^    A = ax.ravel()$/;"	v
 A	listings/compare_parameters_alt.py	/^    A = ax.ravel()$/;"	v
 A	listings/cutfixer.py	/^A = get_named_placenta(Afile)$/;"	v
 A	listings/hfft.py	/^    A = None$/;"	v
@@ -143,12 +143,16 @@ ALPHAS	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename"
 ALPHAS	listings/extract_NCS_pcsvn.py	/^        ALPHAS = np.array([nz_percentile(F[..., k], 95.0)$/;"	v
 ALPHAS	listings/extract_NCS_pcsvn.py	/^ALPHAS = None # set custom alphas or calculate later$/;"	v
 ALPHAS	listings/margin_add_demo.py	/^    ALPHAS = np.array([nz_percentile(F[k], 95.0)$/;"	v
+ALPHAS_95	listings/compare_segmentations.py	/^    ALPHAS_95 = np.array([nz_percentile(Fpos[k], 95.0)$/;"	v
+ALPHAS_98	listings/compare_segmentations.py	/^    ALPHAS_98 = np.array([nz_percentile(Fpos[k], 98.0)$/;"	v
+ANISOTROPY	listings/compare_parameters.py	/^ANISOTROPY = {'label':'Anisotropy Factor', 'beta':0.5, 'gamma':0}$/;"	v
 ANISOTROPY	listings/compare_parameters_alt.py	/^ANISOTROPY = {'label':'Anisotropy Factor', 'beta':0.10, 'gamma':0}$/;"	v
 A_trace	listings/extract_NCS_pcsvn.py	/^    A_trace = open_typefile(filename, 'arteries')$/;"	v
+A_trace	listings/scale_to_argmax_demo.py	/^A_trace = open_typefile(filename, 'arteries')$/;"	v
 Aaa	listings/scaledecay.py	/^Aaa = dilate(aa(gA), 20).filled(0)$/;"	v
 Afile	listings/cutfixer.py	/^Afile = 'T-BN5852719.png'$/;"	v
 Agrad	listings/hfft_accuracy.py	/^    Agrad = np.gradient(A)$/;"	v
-Anisotropy Measure	manuscript/mm-unifrangi.tex	/^\\subsection{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
+Anisotropy Measure	manuscript/mm-unifrangi.tex	/^\\section{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	s	chapter:The Uniscale Frangi Filter
 Arrow1Lend	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
 Arrow1Lstart	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
 Axioms	manuscript/mathematical_methods.tex	/^    \\subsection{Axioms}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
@@ -167,7 +171,7 @@ BETA	listings/gradient_filter_demo.py	/^BETA = .5$/;"	v
 BETAS	listings/extract_NCS_pcsvn.py	/^BETAS = 0.35$/;"	v
 Baa	listings/scaledecay.py	/^Baa = dilate(aa(gB), 20).filled(0)$/;"	v
 Bgrad	listings/hfft_accuracy.py	/^    Bgrad = np.gradient(B)$/;"	v
-Binary Classifications and the confusion matrix	manuscript/segmentation.tex	/^\\subsection{Binary Classifications and the confusion matrix}$/;"	u	chapter:Segmentation
+Binary classifications and the confusion matrix	manuscript/segmentation.tex	/^\\section{Binary classifications and the confusion matrix}$/;"	s	chapter:Segmentation
 Boundary Dilation	manuscript/research_protocol.tex	/^    \\subsection{Boundary Dilation} \\label{sec:boundary-dilation}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
 C	listings/hfft_accuracy.py	/^    C = C[crop]$/;"	v
 C	listings/hfft_accuracy.py	/^    C = fft_gaussian(img, sigma, kernel='discrete')$/;"	v
@@ -182,12 +186,12 @@ Caa	listings/scaledecay.py	/^Caa = dilate(aa(gC), 20).filled(0)$/;"	v
 Calculating the 2D Hessian	manuscript/mathematical_methods.tex	/^\\section{Calculating the 2D Hessian}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
 Calculating the Hessian via FFT: A demonstration	manuscript/mm-hfft.tex	/^\\section{Calculating the Hessian via FFT: A demonstration}$/;"	s	chapter:FFT-based Discrete Derivatives
 Cgrad	listings/hfft_accuracy.py	/^    Cgrad = np.gradient(C)$/;"	v
-Choosing parameters $\\beta$ and $c$	manuscript/mm-unifrangi.tex	/^\\subsection{Choosing parameters $\\beta$ and $c$}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
+Choosing parameters $\\beta$ and $c$	manuscript/mm-unifrangi.tex	/^\\section{Choosing parameters $\\beta$ and $c$}$/;"	s	chapter:The Uniscale Frangi Filter
+Comparison of Segmentation Methods	manuscript/segmentation.tex	/^\\section{Comparison of Segmentation Methods}$/;"	s	chapter:Segmentation
 Conclusion	manuscript/conclusion.tex	/^\\chapter{Conclusion} \\label{ch:conclusion}$/;"	c
 Convolution Speedup via FFT	manuscript/mathematical_methods.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Convolution Speedup via FFT	manuscript/mm-hfft.tex	/^\\section{Convolution Speedup via FFT}$/;"	s	chapter:FFT-based Discrete Derivatives
 Curvature of a surface and its calculation	manuscript/mathematical_methods.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
-Curvature of a surface and its calculation	manuscript/mm-diffgeo.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
+Curvature of a surface and its calculation	manuscript/mm-diffgeo.tex	/^\\subsection{Curvature of a surface and its calculation}$/;"	u	section:Differential Geometry and Surface Curvature""Differential Geometry
 D	listings/line_to_nearest_mash.py	/^D = _$/;"	v
 D	listings/line_to_nearest_mash.py	/^D = _312$/;"	v
 D	listings/line_to_nearest_mash.py	/^D = _373$/;"	v
@@ -216,8 +220,10 @@ Dcc	listings/scaledecay.py	/^    Dcc = Daa \/ Dbb$/;"	v
 Dcc	listings/scaledecay.py	/^    Dcc = Dbb \/ Daa$/;"	v
 Deglaring	manuscript/research_protocol.tex	/^    \\subsection{Deglaring}$/;"	u	section:Research Protocol""Data Cleaning and Preprocessing
 Differential Geometry	manuscript/mathematical_methods.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Differential Geometry	manuscript/mm-diffgeo.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
+Differential Geometry	manuscript/mm-diffgeo.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	s	chapter:Differential Geometry and Surface Curvature
+Differential Geometry and Surface Curvature	manuscript/mm-diffgeo.tex	/^\\chapter{Differential Geometry and Surface Curvature} \\label{ch:diffgeo}$/;"	c
 E	listings/recentmash.py	/^E = dilate_boundary(None, radius=40, mask=np.invert(img.mask))$/;"	v
+F	listings/compare_segmentations.py	/^    F = np.stack([frangi_from_image(img, sigma, beta, gamma, dark_bg=False,$/;"	v
 F	listings/dilate_by_distance.py	/^F = -F$/;"	v
 F	listings/dilate_by_distance.py	/^F = np.stack((frangi_from_image(img, sigma, dark_bg=True, signed=True, beta=0.35, dilation_radiu/;"	v
 F	listings/dilate_by_distance.py	/^F = np.stack((frangi_from_image(img, sigma, dark_bg=True, signed_frangi=True, beta=0.35, dilatio/;"	v
@@ -240,6 +246,7 @@ F	listings/scale_sweep_demo_old.py	/^    F, fi = list(), list() # make some empt
 F	listings/signed_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
 F	listings/threshold_demo.py	/^    F = F*~dilate_boundary(None, mask=img.mask, radius=20)$/;"	v
 F	listings/threshold_demo.py	/^    F = np.stack([frangi_from_image(img, sigma, beta=beta, gamma=gamma, dark_bg=False,$/;"	v
+F	listings/trough_filling_demo.py	/^    F = np.stack([frangi_from_image(img, sigma, beta, gamma, dark_bg=False,$/;"	v
 F0	listings/gradient_filter_demo.py	/^F0 = list()$/;"	v
 F0	listings/gradient_filter_demo.py	/^F0 = np.stack(F0)$/;"	v
 F1	listings/gradient_filter_demo.py	/^F1 = list()$/;"	v
@@ -252,7 +259,6 @@ FC	listings/hfft_accuracy.py	/^    FC = get_frangi_targets(ck1,ck2, dark_bg=Fals
 FD	listings/plate_morphology.py	/^    FD = frangi_from_image(D, sigma, dark_bg=False)$/;"	v
 FDinv	listings/plate_morphology.py	/^    FDinv = frangi_from_image(D, sigma, dark_bg=True)$/;"	v
 FFT	manuscript/mathematical_methods.tex	/^\\subsection{FFT}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-FFT	manuscript/mm-hfft.tex	/^\\subsection{FFT}$/;"	u	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
 FFT-based Discrete Derivatives	manuscript/mm-hfft.tex	/^\\chapter{FFT-based Discrete Derivatives}$/;"	c
 FFT-defineW	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{FFT-defineW}$/;"	l
 FFT-defineW	manuscript/mm-hfft.tex	/^\\begin{equation} \\label{FFT-defineW}$/;"	l
@@ -285,28 +291,35 @@ Fmax	listings/neverzeromaskandqthreshdemo.py	/^Fmax = F.max(axis=0)$/;"	v
 Fmax	listings/threshold_demo.py	/^    Fmax = (F*(F>0))[:max_pos_scale].max(axis=0)$/;"	v
 Fn	listings/line_to_nearest_mash.py	/^Fn = np.stack([frangi_from_image(img, sigma, beta=0.15, gamma=0.5, dark_bg=True, dilation_radius/;"	v
 Fneg	figures/add_sobel_border_demo/sobelmashfinal.py	/^Fneg, _ = extract_pcsvn(filename, DARK_BG=True, alphas=None, betas=betas, scales=scales, gammas=/;"	v
+Fneg	listings/compare_segmentations.py	/^    Fneg = np.clip(F, None, 0)  # replace positive values with 0$/;"	v
 Fneg	listings/network_completion.py	/^        Fneg = -(F*(F<0))[:max_neg_scale].min(axis=0)$/;"	v
 Fneg	listings/threshold_demo.py	/^    Fneg = -(F*(F<0))[:max_neg_scale].min(axis=0)$/;"	v
+Fourier Transform of a Continuous 1D Signal	manuscript/mm-hfft.tex	/^\\subsection{Fourier Transform of a Continuous 1D Signal}$/;"	u	section:FFT-based Discrete Derivatives""Fourier Transforms
 Fourier Transform of a Discrete 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-Fourier Transform of a Discrete 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a Discrete 1D signal}$/;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
+Fourier Transform of a Discrete 1D signal	manuscript/mm-hfft.tex	/^\\subsection{Fourier Transform of a Discrete 1D signal}$/;"	u	section:FFT-based Discrete Derivatives""Fourier Transforms
 Fourier Transform of a continuous 1D signal	manuscript/mathematical_methods.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:Mathematical Methods: Differential Geometry and Surface Curvature""Convolution Speedup via FFT
-Fourier Transform of a continuous 1D signal	manuscript/mm-hfft.tex	/^\\subsubsection{Fourier Transform of a continuous 1D signal}$/;"	b	section:FFT-based Discrete Derivatives""Convolution Speedup via FFT
-Future research directions	manuscript/conclusion.tex	/^\\section{Future research directions} \\label{sec:future-research-directions}$/;"	s	chapter:Conclusion
+Fourier Transforms	manuscript/mm-hfft.tex	/^\\section{Fourier Transforms}$/;"	s	chapter:FFT-based Discrete Derivatives
+Fpos	listings/compare_segmentations.py	/^    Fpos = np.clip(F, 0, None)  # replace negative values with 0$/;"	v
+Further Directions	manuscript/segmentation.tex	/^\\section{Further Directions}$/;"	s	chapter:Segmentation
 G	listings/gradient_filter_mash.py	/^G = _$/;"	v
 G	listings/gradient_filter_mash.py	/^G = dilate_boundary(G, mask=img.mask, radius=20).filled(0)$/;"	v
 G	listings/neverzeromaskandqthreshdemo.py	/^G = np.stack([fft_gradient(img,sigma) for sigma in scales])$/;"	v
 GAMMAS	listings/extract_NCS_pcsvn.py	/^GAMMAS = 0.5$/;"	v
 GRADIENT_FILTER	listings/extract_NCS_pcsvn.py	/^GRADIENT_FILTER = False$/;"	v
 Gmax	listings/neverzeromaskandqthreshdemo.py	/^Gmax = dilate_boundary(G.max(axis=0), radius=20, mask=img.mask).filled(0)$/;"	v
+Ground Truth Imperfections	manuscript/results_analysis.tex	/^\\section{Ground Truth Imperfections} \\label{sec:NCS-dataset-issues}$/;"	s	chapter:Results and Analysis
 H	listings/pd_demo_uniscale.py	/^H = fft_hessian(img, sigma=1.5)$/;"	v
 H_A	listings/hfft_accuracy.py	/^    H_A = [np.gradient(Agrad[ax0], axis=ax1)$/;"	v
 H_B	listings/hfft_accuracy.py	/^    H_B = [np.gradient(Bgrad[ax0], axis=ax1)$/;"	v
 H_C	listings/hfft_accuracy.py	/^    H_C = [np.gradient(Cgrad[ax0], axis=ax1)$/;"	v
 I	figures/strict_examples/output_montage_2_by_2.py	/^I = dict()$/;"	v
+I	listings/compare_parameters.py	/^I = [i[1:] for i in integral_scores]$/;"	v
+I	listings/compare_segmentations.py	/^    I = grey2rgb(img.data)  # three channels (based on img old data)$/;"	v
 I	listings/crv_boxplot_mash.py	/^I = [i[1:] for i in integral_scores]$/;"	v
 IMGS	listings/preprocessing.py	/^    IMGS = np.vstack(($/;"	v
 INTERACTIVE	listings/rw_demo.py	/^INTERACTIVE = True$/;"	v
 INTERACTIVE	listings/rwpf_demo.py	/^INTERACTIVE = True$/;"	v
+I_medians	listings/compare_parameters.py	/^I_medians = np.median(I, axis=0)$/;"	v
 Introduction	manuscript/introduction.tex	/^\\chapter{Introduction} \\label{ch:introduction}$/;"	c
 Knowns and Unknowns	manuscript/research_protocol.tex	/^\\subsection{Knowns and Unknowns}$/;"	u	section:Research Protocol""Samples / Image Domain
 L	listings/line_extend_megamash.py	/^L = labs.copy()$/;"	v
@@ -316,24 +329,26 @@ L	listings/scaledecay.py	/^    L = dilate(Lnorm, max(20,int(2*sigma))).filled(0)
 L	listings/scaledecay.py	/^    L = dilate(Lnorm, max(20,int(sigma))).filled(0)$/;"	v
 L	listings/scaledecay.py	/^    L = dilate(Lnorm, min(20,int(sigma))).filled(0)$/;"	v
 L	listings/signed_sweep_demo.py	/^            L = fi$/;"	v
-LOOSE	listings/compare_parameters.py	/^LOOSE = {'label':'loose', 'beta':1.0, 'gamma':0.5, 'alpha':.8}$/;"	v
+LOOSE	listings/compare_parameters.py	/^LOOSE = {'label':'loose', 'beta':1.0, 'gamma':0.30}$/;"	v
 LOOSE	listings/compare_parameters_alt.py	/^LOOSE = {'label':'loose', 'beta':1.0, 'gamma':0.30}$/;"	v
 Linear Scale Space Theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
 Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^\\chapter{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	c
 Lnorm	listings/scaledecay.py	/^    Lnorm = hnorm*Dcc$/;"	v
 Ls	listings/scaledecay.py	/^Ls = list()$/;"	v
+M	listings/compare_segmentations.py	/^M = np.array([m[1:] for m in mccs])$/;"	v
 M	listings/make_sample_qualities.py	/^M = {k:np.round(v,decimals=3) for k,v in runlog['MCCS'].items()}$/;"	v
 M1	listings/output-montages.py	/^M1 = montage(np.stack((raw[crop], imgpp[...,:3], ctrace[crop], fmax[...,:3])), multichannel=True/;"	v
 M2	listings/output-montages.py	/^M2 = montage(np.stack((labeled_pf, labeled_FA, labeled_rw, labeled_S,$/;"	v
 MAKE_NPZ_FILES	listings/extract_NCS_pcsvn.py	/^MAKE_NPZ_FILES = False # pickle frangi targets if you can$/;"	v
 MAKE_OUTPUTS	listings/gradient_filter_demo.py	/^MAKE_OUTPUTS = False$/;"	v
+MARGIN_THRESHOLD	listings/compare_segmentations.py	/^MARGIN_THRESHOLD = 0.01  # \\alpha^{(-)}$/;"	v
+MARGIN_THRESHOLD	listings/trough_filling_demo.py	/^MARGIN_THRESHOLD = 0.01$/;"	v
+M_medians	listings/compare_segmentations.py	/^M_medians = np.median(M, axis=0)  # what the actual medians are (for labeling)$/;"	v
 Mathematical Methods: Differential Geometry and Surface Curvature	manuscript/mathematical_methods.tex	/^\\chapter{Mathematical Methods: Differential Geometry and Surface Curvature} \\label{ch:mathemat/;"	c
-Mathematical Methods: Differential Geometry and Surface Curvature	manuscript/mm-diffgeo.tex	/^\\chapter{Mathematical Methods: Differential Geometry and Surface Curvature} \\label{ch:mathemat/;"	c
 Method A: Fixed Threshold	manuscript/segmentation.tex	/^\\subsection{Method A: Fixed Threshold}$/;"	u	section:Segmentation""Postprocessing Techniques
-Method B: Percentile Based Merging	manuscript/segmentation.tex	/^\\subsection{Method B: Percentile Based Merging}$/;"	u	section:Segmentation""Postprocessing Techniques
+Method B: Scalewise Percentile Based Merging	manuscript/segmentation.tex	/^\\subsection{Method B: Scalewise Percentile Based Merging}$/;"	u	section:Segmentation""Postprocessing Techniques
 Method C: Scale-Based Random Walker	manuscript/segmentation.tex	/^\\subsection{Method C: Scale-Based Random Walker}$/;"	u	section:Segmentation""Postprocessing Techniques
-Method D: Scale Based Sieving	manuscript/segmentation.tex	/^\\subsection{Method D: Scale Based Sieving}$/;"	u	section:Segmentation""Postprocessing Techniques
-Method E: Trough Filling	manuscript/segmentation.tex	/^\\subsection{Method E: Trough Filling}$/;"	u	section:Segmentation""Postprocessing Techniques
+Method D: Trough Filling	manuscript/segmentation.tex	/^\\subsection{Method D: Trough Filling}$/;"	u	section:Segmentation""Postprocessing Techniques
 Morphological Image Processing	manuscript/mm-morphology.tex	/^\\chapter{Morphological Image Processing}$/;"	c
 Multiscale Setup	manuscript/research_protocol.tex	/^\\section{Multiscale Setup}$/;"	s	chapter:Research Protocol
 N	listings/hfft_demo.py	/^N = 32$/;"	v
@@ -349,27 +364,39 @@ N	listings/sampled_gauss_problem.py	/^N=100; np.arange(-(N-1)\/\/2, (N\/\/2))$/;
 N	listings/sampled_gauss_problem.py	/^N=100; np.arange(-(N\/\/2), (N\/\/2) + 1)$/;"	v
 N	listings/sampled_gauss_problem.py	/^N=100; np.arange(-N\/\/2, (N\/\/2) + 1)$/;"	v
 N	listings/sampled_gauss_problem.py	/^N=101; np.arange(-((N)\/\/2-1), (N\/\/2)+1)$/;"	v
+NEGATIVE_RANGE	listings/compare_segmentations.py	/^NEGATIVE_RANGE = (0, 6)$/;"	v
+NEGATIVE_RANGE	listings/trough_filling_demo.py	/^NEGATIVE_RANGE = (0,6)$/;"	v
 NOT	listings/recentmash.py	/^NOT = np.invert$/;"	v
 NPZ_DIR	listings/extract_NCS_pcsvn.py	/^NPZ_DIR = 'output\/181204-test'  # where to look for npz files$/;"	v
 N_SCALES	listings/extract_NCS_pcsvn.py	/^    N_SCALES = len(SCALES)$/;"	v
 N_SCALES	listings/extract_NCS_pcsvn.py	/^N_SCALES = 20$/;"	v
+N_scales	listings/compare_segmentations.py	/^N_scales = 20$/;"	v
+N_scales	listings/scale_to_argmax_demo.py	/^N_scales = 8$/;"	v
+N_scales	listings/trough_filling_demo.py	/^N_scales = 20$/;"	v
+Network Completion	manuscript/segmentation.tex	/^\\section{Network Completion}$/;"	s	chapter:Segmentation
 Nonfrangi Segmentation Methods	manuscript/segmentation.tex	/^\\section{Nonfrangi Segmentation Methods}$/;"	s	chapter:Segmentation
+OUTPUT_DIR	listings/compare_parameters.py	/^OUTPUT_DIR = (f'demo_output\/compare_parametrizations')$/;"	v
+OUTPUT_DIR	listings/compare_segmentations.py	/^OUTPUT_DIR = (f'output\/190304-segmentation_demo_'$/;"	v
 OUTPUT_DIR	listings/extract_NCS_pcsvn.py	/^OUTPUT_DIR = 'output\/181204-test'  # where to save outputs$/;"	v
 OUTPUT_DIR	listings/gradient_filter_demo.py	/^OUTPUT_DIR = 'demo_output\/gradient_filter_demo'$/;"	v
 OUTPUT_DIR	listings/margin_add_demo.py	/^OUTPUT_DIR = 'output\/190130-margin_add_demo'$/;"	v
+OUTPUT_DIR	listings/trough_filling_demo.py	/^OUTPUT_DIR = 'output\/190219_trough_demo'$/;"	v
 OUTPUT_DIR	listings/vessel_filters.py	/^    OUTPUT_DIR = 'fpd_new_output'$/;"	v
-PARAMS	listings/compare_parameters.py	/^    PARAMS = [LOOSE, SEMISTRICT, STANDARD, STRICT]$/;"	v
+Orthogonality of Principal Directions and Approximated Principal Directions	manuscript/mm-diffgeo.tex	/^  \\section{Orthogonality of Principal Directions and Approximated Principal Directions}$/;"	s	chapter:Differential Geometry and Surface Curvature
+P	listings/compare_segmentations.py	/^P = np.array([p[1:] for p in precs])$/;"	v
+PARAMS	listings/compare_parameters.py	/^    PARAMS = [STANDARD, LOOSE, STRICT,$/;"	v
 PARAMS	listings/compare_parameters_alt.py	/^    PARAMS = [STANDARD, LOOSE, STRICT,$/;"	v
 P_THRESHOLD	listings/rwpf_demo.py	/^P_THRESHOLD = 95$/;"	v
+P_medians	listings/compare_segmentations.py	/^P_medians = np.median(P, axis=0)  # what the actual medians are (for labeling)$/;"	v
 Postprocessing Techniques	manuscript/segmentation.tex	/^\\section{Postprocessing Techniques}$/;"	s	chapter:Segmentation
 Preliminaries of Differential Geometry	manuscript/mathematical_methods.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
-Preliminaries of Differential Geometry	manuscript/mm-diffgeo.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
+Preliminaries of Differential Geometry	manuscript/mm-diffgeo.tex	/^\\subsection{Preliminaries of Differential Geometry}$/;"	u	section:Differential Geometry and Surface Curvature""Differential Geometry
 Primitive Network Completion	manuscript/network_completion.tex	/^\\chapter{Primitive Network Completion}$/;"	c
 Principal Curvatures and Principal Directions	manuscript/mathematical_methods.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
-Principal Curvatures and Principal Directions	manuscript/mm-diffgeo.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
+Principal Curvatures and Principal Directions	manuscript/mm-diffgeo.tex	/^	\\subsection{Principal Curvatures and Principal Directions}$/;"	u	section:Differential Geometry and Surface Curvature""Differential Geometry
 Problem Setup in Image Processing	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Problem Setup in Image Processing	manuscript/mm-diffgeo.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-Properties/Axioms of Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^    \\subsection{Properties\/Axioms of Linear Scale Space Theory}$/;"	u	chapter:Linear Scale Space Theory
+Problem Setup in Image Processing	manuscript/mm-diffgeo.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	s	chapter:Differential Geometry and Surface Curvature
+Properties/Axioms of Linear Scale Space Theory	manuscript/mm-scalespaces.tex	/^    \\section{Properties\/Axioms of Linear Scale Space Theory}$/;"	s	chapter:Linear Scale Space Theory
 QUALITY	listings/network_completion.py	/^    QUALITY = 3$/;"	v
 QUALITY	listings/threshold_demo.py	/^QUALITY = 3$/;"	v
 R	listings/scale_sweep_demo.py	/^        R = max(int(sigma*3), 10) # only really necessary for signed$/;"	v
@@ -381,7 +408,6 @@ RW_BETA	listings/rwpf_demo.py	/^RW_BETA = 10$/;"	v
 Research Protocol	manuscript/research_protocol.tex	/^\\chapter{Research Protocol} \\label{ch:research-protocol}$/;"	c
 Results	manuscript/results_analysis.tex	/^\\section{Results}$/;"	s	chapter:Results and Analysis
 Results and Analysis	manuscript/results_analysis.tex	/^\\chapter{Results and Analysis} \\label{ch:results-analysis}$/;"	c
-Rudimentary Thresholding	manuscript/mm-multifrangi.tex	/^    \\subsection{Rudimentary Thresholding}$/;"	u	chapter:The Multiscale Frangi Filter and Signed Frangi Filter
 S	figures/add_sobel_border_demo/sobelmashfinal.py	/^S = dilate_boundary(S, radius=20, mask=img.mask)$/;"	v
 S	figures/add_sobel_border_demo/sobelmashfinal.py	/^S = sobel(img)$/;"	v
 S	listings/finalfigstoshowmash.py	/^S = dilate_boundary(S, mask=img.mask, radius=10).filled(0)$/;"	v
@@ -395,27 +421,30 @@ SCALE_CMAP	listings/extract_NCS_pcsvn.py	/^    SCALE_CMAP = ('plasma', (1,1,1,1)
 SCALE_RANGE	listings/extract_NCS_pcsvn.py	/^SCALE_RANGE = (-1.5, 3.2); SCALE_TYPE = 'logarithmic'$/;"	v
 SCALE_TYPE	listings/extract_NCS_pcsvn.py	/^    SCALE_TYPE = 'custom'  # this and the next three lines are just for logging$/;"	v
 SCALE_TYPE	listings/extract_NCS_pcsvn.py	/^SCALE_RANGE = (-1.5, 3.2); SCALE_TYPE = 'logarithmic'$/;"	v
+SEMILOOSE_BETA	listings/compare_parameters.py	/^SEMILOOSE_BETA = {'label':'semiloose-beta', 'beta':1.0, 'gamma':0.5}$/;"	v
 SEMILOOSE_BETA	listings/compare_parameters_alt.py	/^SEMILOOSE_BETA = {'label':'semiloose-beta', 'beta':1.0, 'gamma':0.5}$/;"	v
+SEMILOOSE_GAMMA	listings/compare_parameters.py	/^SEMILOOSE_GAMMA = {'label':'semiloose-gamma', 'beta':0.5, 'gamma':0.30}$/;"	v
 SEMILOOSE_GAMMA	listings/compare_parameters_alt.py	/^SEMILOOSE_GAMMA = {'label':'semiloose-gamma', 'beta':0.5, 'gamma':0.30}$/;"	v
-SEMISTRICT	listings/compare_parameters.py	/^SEMISTRICT = {'label':'semistrict', 'beta':0.35, 'gamma':0.5, 'alpha':.4}$/;"	v
+SEMISTRICT_BETA	listings/compare_parameters.py	/^SEMISTRICT_BETA = {'label':'semistrict-beta', 'beta':0.10, 'gamma':0.5}$/;"	v
 SEMISTRICT_BETA	listings/compare_parameters_alt.py	/^SEMISTRICT_BETA = {'label':'semistrict-beta', 'beta':0.10, 'gamma':0.5}$/;"	v
+SEMISTRICT_GAMMA	listings/compare_parameters.py	/^SEMISTRICT_GAMMA = {'label':'semistrict-gamma', 'beta':0.5, 'gamma':1.0}$/;"	v
 SEMISTRICT_GAMMA	listings/compare_parameters_alt.py	/^SEMISTRICT_GAMMA = {'label':'semistrict-gamma', 'beta':0.5, 'gamma':1.0}$/;"	v
 SIGNED_FRANGI	listings/extract_NCS_pcsvn.py	/^SIGNED_FRANGI = True$/;"	v
-STANDARD	listings/compare_parameters.py	/^STANDARD = {'label':'standard', 'beta':0.5, 'gamma':0.5, 'alpha':.4}$/;"	v
+STANDARD	listings/compare_parameters.py	/^STANDARD = {'label':'standard', 'beta':0.5, 'gamma':0.5}$/;"	v
 STANDARD	listings/compare_parameters_alt.py	/^STANDARD = {'label':'standard', 'beta':0.5, 'gamma':0.5}$/;"	v
-STRICT	listings/compare_parameters.py	/^STRICT = {'label':'strict', 'beta':0.10, 'gamma':1.0, 'alpha':.15 }$/;"	v
+STRICT	listings/compare_parameters.py	/^STRICT = {'label':'strict', 'beta':0.10, 'gamma':1.0}$/;"	v
 STRICT	listings/compare_parameters_alt.py	/^STRICT = {'label':'strict', 'beta':0.10, 'gamma':1.0}$/;"	v
+STRUCTURENESS	listings/compare_parameters.py	/^STRUCTURENESS = {'label':'Structureness Factor', 'beta':np.inf, 'gamma':0.5}$/;"	v
 STRUCTURENESS	listings/compare_parameters_alt.py	/^STRUCTURENESS = {'label':'Structureness Factor', 'beta':np.inf, 'gamma':0.5}$/;"	v
 SUBDIR	listings/vessel_filters.py	/^    SUBDIR = ''.join(('', n.strftime('%y%m%d_%H%M')))$/;"	v
-Sample visual output	manuscript/results_analysis.tex	/^\\section{Sample visual output}$/;"	s	chapter:Results and Analysis
+Sample Visual Output	manuscript/results_analysis.tex	/^\\section{Sample Visual Output}$/;"	s	chapter:Results and Analysis
 Samples / Image Domain	manuscript/research_protocol.tex	/^\\section{Samples \/ Image Domain}\\label{sec:NCS-data-set}$/;"	s	chapter:Research Protocol
 Scale Spaces over Discrete Structures	manuscript/mathematical_methods.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
-Scale Spaces over Discrete Structures	manuscript/mm-scalespaces.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	u	chapter:Linear Scale Space Theory
+Scale Spaces over Discrete Structures	manuscript/mm-scalespaces.tex	/^    \\section{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	s	chapter:Linear Scale Space Theory
 Segmentation	manuscript/segmentation.tex	/^\\chapter{Segmentation} \\label{ch:segmentation}$/;"	c
-Segmentation Results	manuscript/segmentation.tex	/^\\section{Segmentation Results}$/;"	s	chapter:Segmentation
 Sthresh	figures/add_sobel_border_demo/sobelmashfinal.py	/^Sthresh = (S > nz_percentile(S,90))$/;"	v
-Structureness measure	manuscript/mm-unifrangi.tex	/^\\subsection{Structureness measure} \\label{sec:frangi-structureness}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
-Sufficiency of the Gaussian Kernel	manuscript/mm-scalespaces.tex	/^    \\subsection{Sufficiency of the Gaussian Kernel}$/;"	u	chapter:Linear Scale Space Theory
+Structureness measure	manuscript/mm-unifrangi.tex	/^\\section{Structureness measure} \\label{sec:frangi-structureness}$/;"	s	chapter:The Uniscale Frangi Filter
+Sufficiency of the Gaussian Kernel	manuscript/mm-scalespaces.tex	/^    \\section{Sufficiency of the Gaussian Kernel}$/;"	s	chapter:Linear Scale Space Theory
 T	listings/dilate_by_distance.py	/^T = thin(FP.max(axis=0) > .3)$/;"	v
 T	listings/finalfigstoshowmash.py	/^T = merge_widths(TA, TV, strategy='arteries')$/;"	v
 T	listings/line_extend_megamash.py	/^T = _$/;"	v
@@ -426,8 +455,11 @@ T1	listings/line_extend_megamash.py	/^T2, T1 = _$/;"	v
 T2	listings/line_extend_megamash.py	/^T2,  T1 = _$/;"	v
 T2	listings/line_extend_megamash.py	/^T2, T1 = _$/;"	v
 TA	listings/finalfigstoshowmash.py	/^TA = open_typefile(filename, 'arteries')$/;"	v
+THRESHOLD	listings/compare_segmentations.py	/^THRESHOLD = .3  # \\alpha^{(+)}$/;"	v
 THRESHOLD	listings/margin_add_demo.py	/^THRESHOLD = .4$/;"	v
 THRESHOLD	listings/rw_demo.py	/^THRESHOLD = .4$/;"	v
+THRESHOLD	listings/trough_filling_demo.py	/^THRESHOLD = .3$/;"	v
+THRESHOLD_LOW	listings/compare_segmentations.py	/^THRESHOLD_LOW = .2  # \\alpha^{(+)}$/;"	v
 TN	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	object:counts
 TN	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	object:counts_FA
 TN	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n	object:counts_rw
@@ -439,23 +471,26 @@ TP	listings/margin_add.py	/^TP, TN, FP, FN = counts$/;"	v
 TRACE_COLORS	listings/scoring.py	/^TRACE_COLORS = {$/;"	v
 TT	listings/finalfigstoshowmash.py	/^TT = _$/;"	v
 TV	listings/finalfigstoshowmash.py	/^TV = open_typefile(filename, 'veins')$/;"	v
+The Fast Fourier Transform	manuscript/mm-hfft.tex	/^\\section{The Fast Fourier Transform}$/;"	s	chapter:FFT-based Discrete Derivatives
 The Frangi Filter: A multiscale approach	manuscript/mathematical_methods.tex	/^    \\section{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	s	chapter:Mathematical Methods: Differential Geometry and Surface Curvature
-The Frangi Filter: Uniscale	manuscript/mm-unifrangi.tex	/^\\section{The Frangi Filter: Uniscale} \\label{sec:frangi}$/;"	s	chapter:The Uniscale Frangi Filter
-The Frangi vesselness measure	manuscript/mm-unifrangi.tex	/^\\subsection{The Frangi vesselness measure}$/;"	u	section:The Uniscale Frangi Filter""The Frangi Filter: Uniscale
-The Multiscale Frangi Filter and Signed Frangi Filter	manuscript/mm-multifrangi.tex	/^ \\chapter{The Multiscale Frangi Filter and Signed Frangi Filter} \\label{ch:multifrangi}$/;"	c
+The Frangi vesselness measure	manuscript/mm-unifrangi.tex	/^\\section{The Frangi vesselness measure}$/;"	s	chapter:The Uniscale Frangi Filter
+The Multiscale Frangi Filter	manuscript/mm-multifrangi.tex	/^    \\section{The Multiscale Frangi Filter}$/;"	s	chapter:The Multiscale and Signed Frangi Filter
+The Multiscale and Signed Frangi Filter	manuscript/mm-multifrangi.tex	/^ \\chapter{The Multiscale and Signed Frangi Filter} \\label{ch:multifrangi}$/;"	c
 The Research Protocol	manuscript/research_protocol.tex	/^    \\section{The Research Protocol}$/;"	s	chapter:Research Protocol
-The Signed Frangi Filter	manuscript/mm-multifrangi.tex	/^\\section{The Signed Frangi Filter} \\label{sec:signed-frangi-filter}$/;"	s	chapter:The Multiscale Frangi Filter and Signed Frangi Filter
+The Signed Frangi Filter	manuscript/mm-multifrangi.tex	/^\\section{The Signed Frangi Filter} \\label{sec:signed-frangi-filter}$/;"	s	chapter:The Multiscale and Signed Frangi Filter
 The Uniscale Frangi Filter	manuscript/mm-unifrangi.tex	/^\\chapter{The Uniscale Frangi Filter} \\label{ch:unifrangi}$/;"	c
 The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mathematical_methods.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
-The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mm-diffgeo.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Differential Geometry
+The Weingarten map and Principal Curvatures of a Cylindrical Ridge	manuscript/mm-diffgeo.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	u	section:Differential Geometry and Surface Curvature""Differential Geometry
 Thresholding	manuscript/mathematical_methods.tex	/^    \\subsection{Thresholding}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""The Frangi Filter: A multiscale approach
 UCIP_RADIUS	listings/extract_NCS_pcsvn.py	/^UCIP_RADIUS = 60  # area around the umbilical cord insertion point to ignore$/;"	v
 USE_NPZ_FILES	listings/extract_NCS_pcsvn.py	/^USE_NPZ_FILES = False # use old npz files if you can$/;"	v
 Uniqueness of the Gaussian Kernel	manuscript/mathematical_methods.tex	/^    \\subsection{Uniqueness of the Gaussian Kernel}$/;"	u	section:Mathematical Methods: Differential Geometry and Surface Curvature""Linear Scale Space Theory
 V	listings/extract_NCS_pcsvn.py	/^    V = np.transpose(F, axes=(2, 0, 1))$/;"	v
 V	listings/rwpf_demo.py	/^    V = np.zeros((len(scales), *img.shape))$/;"	v
+V	listings/scale_to_argmax_demo.py	/^V = np.stack([frangi_from_image(img, sigma, beta=beta, gamma=gamma,$/;"	v
+V_trace	listings/scale_to_argmax_demo.py	/^V_trace = open_typefile(filename, 'veins')$/;"	v
 Vargmax	listings/rwpf_demo.py	/^    Vmax, Vargmax = V.max(axis=0), V.argmax(axis=0)$/;"	v
-Variations in the Data Set and Imperfections of the Ground Truth	manuscript/results_analysis.tex	/^\\section{Variations in the Data Set and Imperfections of the Ground Truth} \\label{sec:NCS-data/;"	s	chapter:Results and Analysis
+Vargmax	listings/scale_to_argmax_demo.py	/^Vargmax = V.argmax(axis=0)$/;"	v
 Vm	listings/frangi-plottesting.py	/^Vm = V.argmax(axis=0)$/;"	v
 Vm	listings/frangi-plottesting.py	/^Vm = V.argmax(axis=0)*trace$/;"	v
 Vm	listings/frangi-plottesting.py	/^Vm = _$/;"	v
@@ -464,6 +499,7 @@ Vm	listings/frangi-plottesting.py	/^Vm = ma.masked_array(Vm, img.mask)$/;"	v
 Vma	listings/frangi-plottesting.py	/^Vma = ma.masked_array(Vm, mask=~approx)$/;"	v
 Vmax	listings/rwpf_demo.py	/^    Vmax = ma.masked_where(Vmax==0, Vmax)$/;"	v
 Vmax	listings/rwpf_demo.py	/^    Vmax, Vargmax = V.max(axis=0), V.argmax(axis=0)$/;"	v
+Vmax	listings/scale_to_argmax_demo.py	/^Vmax = V.max(axis=0)$/;"	v
 W	listings/line_to_nearest_mash.py	/^W = watershed_ift(img_as_uint(1-Fmax), img_as_int(markers))$/;"	v
 W	listings/line_to_nearest_mash.py	/^W = watershed_ift(img_as_uint(Fmax), img_as_int(markers))$/;"	v
 W	listings/rwpf_demo.py	/^    W = np.zeros((len(scales), *img.shape), dtype=np.bool)$/;"	v
@@ -511,24 +547,30 @@ ak2	listings/hfft_accuracy.py	/^    ak2 = ma.masked_array(ak2,new_mask)[crop]$/;
 all_targets	listings/vessel_filters.py	/^    all_targets = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
 anisotropy	listings/frangi.py	/^def anisotropy(K1,K2, beta=0.5):$/;"	f
 ans	listings/vessel_filters.py	/^        ans = input('save path already exists! would you like to continue? [y\/N]')$/;"	v
-app:extra-figures	LW2018_thesis_draft.tex	/^\\myappendix{3D Visualization of the Frangi Filter}\\label[appendix]{app:extra-figures}$/;"	l
-app:listings	LW2018_thesis_draft.tex	/^\\myappendix{Code Listings}\\label[appendix]{app:listings}$/;"	l
+app:extra-figures	LW_thesis_draft.tex	/^\\myappendix{3D Visualization of the Frangi Filter}\\label[appendix]{app:extra-figures}$/;"	l
+app:listings	LW_thesis_draft.tex	/^\\myappendix{Code Listings}\\label[appendix]{app:listings}$/;"	l
 apply_threshold	listings/merging.py	/^def apply_threshold(targets, alphas, return_labels=True):$/;"	f
 approx	listings/margin_add.py	/^approx = dilstack.any(axis=0)$/;"	v
 approx	listings/margin_add_demo.py	/^    approx, radii = dilate_to_rim(bspine, nf > .05, thin_spine=True,$/;"	v
 approx	listings/network_completion.py	/^        approx = Fmax > threshold$/;"	v
 approx	listings/rwpf_demo.py	/^    approx = labs.filled(0)!=0$/;"	v
 approx	listings/threshold_demo.py	/^    approx = Fmax > threshold$/;"	v
+approx	listings/trough_filling_demo.py	/^    approx, radii = dilate_to_rim(fixed, margins, thin_spine=True, return_radii=True)$/;"	v
 approx2	listings/finalfigstoshowmash.py	/^approx2 = _$/;"	v
 approx2	listings/margin_add_demo.py	/^    approx2, radii2 = dilate_to_rim(spine > (THRESHOLD*255), nf > .05,$/;"	v
+approx2	listings/trough_filling_demo.py	/^    approx2, radii2 = dilate_to_rim(fixed, margins, return_radii=True)$/;"	v
 approx3	listings/finalfigstoshowmash.py	/^approx3=(F[:,:,5:-5].max(axis=-1) > .15)$/;"	v
 approx3	listings/finalfigstoshowmash.py	/^approx3=(F[:,:,:5].max(axis=-1) > .15)$/;"	v
 approx_FA	listings/extract_NCS_pcsvn.py	/^    approx_FA, labs_FA = apply_threshold(F, FIXED_ALPHA)$/;"	v
 approx_FA	listings/margin_add_demo.py	/^    approx_FA = (spine > (THRESHOLD*255))$/;"	v
 approx_FA	listings/rwpf_demo.py	/^    approx_FA, labs_FA = apply_threshold(np.transpose(V, axes=(1,2,0)), p_alphas)$/;"	v
+approx_FA_high	listings/compare_segmentations.py	/^    approx_FA_high = (spine > THRESHOLD)$/;"	v
+approx_FA_low	listings/compare_segmentations.py	/^    approx_FA_low = (spine > THRESHOLD_LOW)$/;"	v
 approx_L	listings/rwpf_demo.py	/^    approx_L = labs_L.filled(0)!=0$/;"	v
 approx_PF	listings/extract_NCS_pcsvn.py	/^    approx_PF, labs_PF = apply_threshold(F, ALPHAS, return_labels=True)$/;"	v
 approx_PF	listings/margin_add_demo.py	/^    approx_PF = apply_threshold(np.transpose(F,(1,2,0)), ALPHAS,$/;"	v
+approx_PF95	listings/compare_segmentations.py	/^    approx_PF95 = apply_threshold(np.transpose(Fpos,(1,2,0)), ALPHAS_95,$/;"	v
+approx_PF98	listings/compare_segmentations.py	/^    approx_PF98 = apply_threshold(np.transpose(Fpos,(1,2,0)), ALPHAS_98,$/;"	v
 approx_PFA	listings/margin_add_demo.py	/^    approx_PFA = bspine$/;"	v
 approx_RW	listings/extract_NCS_pcsvn.py	/^    approx_RW, labs_RW = random_walk_scalewise(F, FIXED_ALPHA, return_labels=True)$/;"	v
 approx_S	listings/extract_NCS_pcsvn.py	/^    approx_S, labs_S = (sieved != 0), sieved$/;"	v
@@ -536,9 +578,13 @@ approx_dilated	listings/network_completion.py	/^        approx_dilated = dilate_
 approx_dilated	listings/threshold_demo.py	/^    approx_dilated = dilate_to_rim(approx, rim_approx, max_radius=10)$/;"	v
 approx_rw	listings/add_margins.py	/^approx_rw = (rw==2)$/;"	v
 approx_sm	listings/extract_NCS_pcsvn.py	/^    approx_sm = threshold_mean(img.filled(img.compressed().mean()))$/;"	v
+approx_tf	listings/compare_segmentations.py	/^    approx_tf, radii = dilate_to_rim(spineseeds > THRESHOLD, margins,$/;"	v
 avgs	listings/make_sample_qualities.py	/^avgs = [m.mean() for m in M.values()]$/;"	v
-ax	listings/compare_parameters.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(20,12))$/;"	v
+ax	listings/compare_parameters.py	/^    fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(6.5,7.5))$/;"	v
+ax	listings/compare_parameters.py	/^fig, ax = plt.subplots(figsize=(6.5,7.5))$/;"	v
 ax	listings/compare_parameters_alt.py	/^    fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(20,20))$/;"	v
+ax	listings/compare_segmentations.py	/^    fig, ax = plt.subplots()$/;"	v
+ax	listings/compare_segmentations.py	/^    fig, ax = plt.subplots(nrows=2, ncols=4, figsize=(13,7))$/;"	v
 ax	listings/crv_boxplot_mash.py	/^fig, ax = plt.subplots()$/;"	v
 ax	listings/crv_boxplot_mash.py	/^fig, ax = plt.subplots(figsize=(12,6))$/;"	v
 ax	listings/crv_boxplot_mash.py	/^fig, ax = plt.subplots(figsize=(20,20))$/;"	v
@@ -559,6 +605,7 @@ ax	listings/rwpf_demo.py	/^        fig, ax = plt.subplots(ncols=4, nrows=1, figs
 ax	listings/rwpf_demo.py	/^    fig, ax = plt.subplots(ncols=4, nrows=2, figsize=(20,12))$/;"	v
 ax	listings/stump_test.py	/^    fig, ax = plt.subplots(ncols=3, nrows=2, figsize=(30,12))$/;"	v
 ax	listings/threshold_demo.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(20,12))$/;"	v
+ax	listings/trough_filling_demo.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(25,15), sharex=True,$/;"	v
 ax	unsorted/endpoint_label_figure.py	/^fig, ax = plt.subplots(nrows=3, ncols=3)$/;"	v
 ax	unsorted/endpoint_label_figure.py	/^fig, ax = plt.subplots(nrows=3,ncols=3)$/;"	v
 ax1	listings/scale_sweep_demo.py	/^        ax1 = fig.add_axes([0.15, 0.25, 0.75, 0.5])$/;"	v
@@ -577,29 +624,39 @@ axiom:linear-shift-and-rotation	manuscript/mathematical_methods.tex	/^    	\\lab
 axiom:linear-shift-and-rotation	manuscript/mm-scalespaces.tex	/^    	\\label{axiom:linear-shift-and-rotation}$/;"	l
 axiom:semigroup	manuscript/mathematical_methods.tex	/^    \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
 axiom:semigroup	manuscript/mm-scalespaces.tex	/^     \\begin{axiom}[Semigroup property] \\label{axiom:semigroup}$/;"	l
+axl	listings/compare_parameters.py	/^axl = plt.setp(ax, xticklabels=labels)$/;"	v
+axl	listings/compare_segmentations.py	/^    axl = plt.setp(ax, xticklabels=labels)$/;"	v
 axl	listings/crv_boxplot_mash.py	/^axl = plt.setp(ax, xticklabels=labels)$/;"	v
 b	listings/basic.py	/^b=.05; g=1.; sigma=0.5;$/;"	v
 b	listings/vessel_filters.py	/^b = partial(plt.imshow, cmap=plt.cm.Blues)$/;"	v
 base	figures/strict_examples/output_montage_2_by_2.py	/^    base = filename.split('_', 1)[0]$/;"	v
 basename	listings/abbreviate_NCS_names.py	/^        basename, subtype = os.path.splitext(basename)$/;"	v
 basename	listings/abbreviate_NCS_names.py	/^    basename, ext = os.path.splitext(f)$/;"	v
+basename	listings/compare_segmentations.py	/^    basename = strip_ncs_name(filename)$/;"	v
 basename	listings/margin_add_demo.py	/^    basename = basename.strip('T-')$/;"	v
 basename	listings/margin_add_demo.py	/^    basename = filename.rstrip('.png')$/;"	v
 basename	listings/rw_demo.py	/^    basename = filename.strip('T-').rstrip('.png')$/;"	v
 basename	listings/rwpf_demo.py	/^    basename = filename.strip('T-').rstrip('.png')$/;"	v
+basename	listings/trough_filling_demo.py	/^    basename = strip_ncs_name(filename)$/;"	v
 bb	listings/scaledecay.py	/^bb = lambda g: np.linalg.norm(np.array($/;"	f
 bb	listings/scaledecay.py	/^bb = lambda g: np.sqrt((1+g[1]**2)**2 + 2*(g[0]*g[1])**2 + (1+g[0]**2)**2)$/;"	f
 bbs	listings/scaledecay.py	/^    bbs = Dbb[~dil].min(), Dbb[~dil].max()$/;"	v
 beta	listings/compare_parameters.py	/^        beta = params['beta']$/;"	v
 beta	listings/compare_parameters_alt.py	/^        beta = params['beta']$/;"	v
+beta	listings/compare_segmentations.py	/^beta, gamma, parametrization_name = 0.5, 0.5, "standard"$/;"	v
 beta	listings/margin_add.py	/^beta = 0.35$/;"	v
 beta	listings/margin_add_demo.py	/^beta =0.15$/;"	v
 beta	listings/network_completion.py	/^    beta = 0.10$/;"	v
 beta	listings/neverzeromaskandqthreshdemo.py	/^scales = np.logspace(-1.5, 3.5, base=2, num=20); beta=0.5, gamma=.5; F = np.stack([frangi_from_i/;"	v
 beta	listings/neverzeromaskandqthreshdemo.py	/^scales = np.logspace(-1.5, 3.5, base=2, num=20); beta=0.5; gamma=.5; F = np.stack([frangi_from_i/;"	v
+beta	listings/scale_to_argmax_demo.py	/^beta=.10; gamma=0.5;$/;"	v
 beta	listings/threshold_demo.py	/^beta = 0.10$/;"	v
+beta	listings/trough_filling_demo.py	/^beta =0.15$/;"	v
 beta	listings/vessel_filters.py	/^        beta = min(.09*sigma - .04, .5)$/;"	v
 betas	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n
+bigmask	listings/compare_segmentations.py	/^        bigmask = dilate_boundary(None, mask=img.mask, radius=20)$/;"	v
+bigmask	listings/compare_segmentations.py	/^    bigmask = dilate_boundary(None, mask=img.mask, radius=20)$/;"	v
+bigmask	listings/trough_filling_demo.py	/^    bigmask = dilate_boundary(None, mask=img.mask, radius=20)  # check that this works$/;"	v
 binary_counts	listings/scoring.py	/^def binary_counts(test, truth, bg_mask=None, score_bg=False):$/;"	f
 binpainted	listings/preprocessing.py	/^    binpainted = inpaint_with_biharmonic(img)$/;"	v
 binpainted_view	listings/preprocessing.py	/^    binpainted_view = show_mask(binpainted, interactive=False,$/;"	v
@@ -609,6 +666,9 @@ bk2	listings/hfft_accuracy.py	/^    bk1, bk2 = principal_curvatures(img, sigma=s
 bk2	listings/hfft_accuracy.py	/^    bk2 = ma.masked_array(bk2,new_mask)[crop]$/;"	v
 border_radii	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	a
 bottom	listings/scale_sweep_demo_old.py	/^        bottom = np.concatenate(L[4:],axis=1)$/;"	v
+boxplot_dict	listings/compare_parameters.py	/^boxplot_dict = ax.boxplot(cvrs, labels=labels)$/;"	v
+boxplot_dict	listings/compare_segmentations.py	/^    boxplot_dict = ax.boxplot(data, labels=labels)$/;"	v
+boxplot_name	listings/compare_segmentations.py	/^    boxplot_name = '-'.join((quality_name, scorename, "boxplot",$/;"	v
 bspine	listings/margin_add.py	/^bspine = ecp(spine, disk(3)) > 102$/;"	v
 bspine	listings/margin_add_demo.py	/^    bspine = ecp(spine, disk(3)) > (THRESHOLD*255)$/;"	v
 bunch_label	listings/scaletowidthplots.py	/^        bunch_label = lambda b: r"$\\sigma_{{{}}}$".format(','.join(map(str,b)))$/;"	f	function:scale_to_width_plots	file:
@@ -631,10 +691,10 @@ ccs	listings/scaledecay.py	/^    ccs = Dcc[~dil].min(), Dcc[~dil].max()$/;"	v
 cfile	listings/scale_sweep_demo.py	/^        cfile = 'demo_output\/scalesweep_colorbar.png'$/;"	v
 cfile	listings/signed_sweep_demo.py	/^        cfile = 'demo_output\/signsweep_colorbar.png'$/;"	v
 ch:conclusion	manuscript/conclusion.tex	/^\\chapter{Conclusion} \\label{ch:conclusion}$/;"	l
+ch:diffgeo	manuscript/mm-diffgeo.tex	/^\\chapter{Differential Geometry and Surface Curvature} \\label{ch:diffgeo}$/;"	l
 ch:introduction	manuscript/introduction.tex	/^\\chapter{Introduction} \\label{ch:introduction}$/;"	l
 ch:mathematical-methods	manuscript/mathematical_methods.tex	/^\\chapter{Mathematical Methods: Differential Geometry and Surface Curvature} \\label{ch:mathemat/;"	l
-ch:mathematical-methods	manuscript/mm-diffgeo.tex	/^\\chapter{Mathematical Methods: Differential Geometry and Surface Curvature} \\label{ch:mathemat/;"	l
-ch:multifrangi	manuscript/mm-multifrangi.tex	/^ \\chapter{The Multiscale Frangi Filter and Signed Frangi Filter} \\label{ch:multifrangi}$/;"	l
+ch:multifrangi	manuscript/mm-multifrangi.tex	/^ \\chapter{The Multiscale and Signed Frangi Filter} \\label{ch:multifrangi}$/;"	l
 ch:research-protocol	manuscript/research_protocol.tex	/^\\chapter{Research Protocol} \\label{ch:research-protocol}$/;"	l
 ch:results-analysis	manuscript/results_analysis.tex	/^\\chapter{Results and Analysis} \\label{ch:results-analysis}$/;"	l
 ch:segmentation	manuscript/segmentation.tex	/^\\chapter{Segmentation} \\label{ch:segmentation}$/;"	l
@@ -647,6 +707,8 @@ cimg	listings/compare_parameters.py	/^        cimg = np.rot90(cimg)$/;"	v
 cimg	listings/compare_parameters.py	/^    cimg = open_typefile(filename, 'raw')$/;"	v
 cimg	listings/compare_parameters_alt.py	/^        cimg = np.rot90(cimg)$/;"	v
 cimg	listings/compare_parameters_alt.py	/^    cimg = open_typefile(filename, 'raw')$/;"	v
+cimg	listings/compare_segmentations.py	/^        cimg = np.rot90(cimg)$/;"	v
+cimg	listings/compare_segmentations.py	/^    cimg = open_typefile(filename, 'raw')$/;"	v
 cimg	listings/extract_NCS_pcsvn.py	/^    cimg = open_typefile(filename, 'raw')$/;"	v
 cimg	listings/network_completion.py	/^            cimg = np.rot90(cimg)$/;"	v
 cimg	listings/network_completion.py	/^        cimg = open_typefile(filename, 'raw')$/;"	v
@@ -661,10 +723,11 @@ ck2	listings/hfft_accuracy.py	/^    ck2 = ma.masked_array(ck2,new_mask)[crop]$/;
 closest_lab	listings/stump_test.py	/^    closest_lab = sorted(dists, key=lambda v: v[1])[0][0]$/;"	v
 closest_opening	listings/stump_test.py	/^    closest_opening = binary_opening(closest_stump, disk(10))$/;"	v
 closest_stump	listings/stump_test.py	/^    closest_stump = (labeled==closest_lab)$/;"	v
-cm	listings/compare_parameters.py	/^cm = mpl.cm.plasma$/;"	v
+cm	listings/compare_parameters.py	/^cm = mpl.cm.nipy_spectral$/;"	v
 cm	listings/compare_parameters_alt.py	/^cm = mpl.cm.plasma$/;"	v
 cm	listings/network_completion.py	/^    cm = mpl.cm.plasma$/;"	v
 cm	listings/rwpf_demo.py	/^    cm = mpl.cm.plasma$/;"	v
+cm	listings/scale_to_argmax_demo.py	/^cm = plt.cm.nipy_spectral$/;"	v
 cm	listings/threshold_demo.py	/^cm = mpl.cm.plasma$/;"	v
 cmap	listings/pd_demo_uniscale.py	/^cmap = mpl.cm.hsv$/;"	v
 cmax	listings/scale_sweep_demo.py	/^    cmin, cmax = (0, 0.4)$/;"	v
@@ -722,22 +785,30 @@ counts_FA	listings/rwpf_demo.py	/^    m_FA, counts_FA = mcc(approx_FA, trace, bg
 counts_FA	listings/threshold_demo.py	/^    mcc_FA, counts_FA = mcc(approx, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 counts_FAD	listings/network_completion.py	/^        mcc_FAD, counts_FAD = mcc(approx_dilated, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 counts_FAD	listings/threshold_demo.py	/^    mcc_FAD, counts_FAD = mcc(approx_dilated, trace, bg_mask=img.mask, return_counts=True)$/;"	v
+counts_FA_high	listings/compare_segmentations.py	/^    m_FA_high, counts_FA_high = mcc(approx_FA_high, trace, bg_mask=img.mask,$/;"	v
+counts_FA_low	listings/compare_segmentations.py	/^    m_FA_low, counts_FA_low = mcc(approx_FA_low, trace, bg_mask=img.mask,$/;"	v
 counts_L	listings/rwpf_demo.py	/^    m_L, counts_L = mcc(approx_L, trace, bg_mask=ucip_mask, return_counts=True)$/;"	v
 counts_NCD	listings/network_completion.py	/^        mcc_NCD, counts_NCD = mcc(completed_dilated, trace, bg_mask=img.mask, return_counts=True/;"	v
 counts_NCD	listings/threshold_demo.py	/^    mcc_NCD, counts_NCD = mcc(completed_dilated, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 counts_PF	listings/extract_NCS_pcsvn.py	/^    mcc_PF, counts_PF = mcc_with_counts(approx_PF)$/;"	v
 counts_PF	listings/margin_add_demo.py	/^    m_PF, counts_PF = mcc(approx_PF, trace, bg_mask=img.mask,$/;"	v
+counts_PF95	listings/compare_segmentations.py	/^    m_PF95, counts_PF95 = mcc(approx_PF95, trace, bg_mask=img.mask,$/;"	v
+counts_PF98	listings/compare_segmentations.py	/^    m_PF98, counts_PF98 = mcc(approx_PF98, trace, bg_mask=img.mask,$/;"	v
 counts_PFA	listings/margin_add_demo.py	/^    m_PFA, counts_PFA = mcc(approx_PFA, trace, bg_mask=img.mask,$/;"	v
 counts_RW	listings/extract_NCS_pcsvn.py	/^    mcc_RW, counts_RW = mcc_with_counts(approx_RW)$/;"	v
 counts_S	listings/extract_NCS_pcsvn.py	/^    mcc_S, counts_S = mcc_with_counts(approx_S)$/;"	v
 counts_rw	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	o
 counts_sm	listings/extract_NCS_pcsvn.py	/^    mcc_sm, counts_sm = mcc_with_counts(approx_sm)$/;"	v
+counts_st	listings/compare_segmentations.py	/^    m_st, counts_st = mcc(straw, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 counts_st	listings/margin_add_demo.py	/^    m_st, counts_st = mcc(straw, trace, bg_mask=img.mask, return_counts=True)$/;"	v
+counts_tf	listings/compare_segmentations.py	/^    m_tf, counts_tf = mcc(approx_tf, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 crop	listings/basic.py	/^crop = cropped_args(img)$/;"	v
 crop	listings/compare_parameters.py	/^        crop = cropped_args(img)$/;"	v
 crop	listings/compare_parameters.py	/^    crop = cropped_args(img)$/;"	v
 crop	listings/compare_parameters_alt.py	/^        crop = cropped_args(img)$/;"	v
 crop	listings/compare_parameters_alt.py	/^    crop = cropped_args(img)$/;"	v
+crop	listings/compare_segmentations.py	/^        crop = cropped_args(img)$/;"	v
+crop	listings/compare_segmentations.py	/^    crop = cropped_args(img)$/;"	v
 crop	listings/extract_NCS_pcsvn.py	/^    crop = cropped_args(img)  # these indices crop out the mask significantly$/;"	v
 crop	listings/gradient_filter_demo.py	/^crop = cropped_args(img)$/;"	v
 crop	listings/gradient_filter_mash.py	/^crop = _$/;"	v
@@ -751,10 +822,12 @@ crop	listings/preprocessing.py	/^    crop = np.s_[150:500, 150:800]  # indices t
 crop	listings/rwpf_demo.py	/^        crop = cropped_args(img)$/;"	v
 crop	listings/rwpf_demo.py	/^    crop = cropped_args(img)$/;"	v
 crop	listings/scale_sweep_demo.py	/^    crop = cropped_args(img)$/;"	v
+crop	listings/scale_to_argmax_demo.py	/^crop = cropped_args(img)$/;"	v
 crop	listings/scaledecay.py	/^crop = cropped_args(img)$/;"	v
 crop	listings/signed_sweep_demo.py	/^    crop = cropped_args(img)$/;"	v
 crop	listings/threshold_demo.py	/^        crop = cropped_args(img)$/;"	v
 crop	listings/threshold_demo.py	/^    crop = cropped_args(img)$/;"	v
+crop	listings/trough_filling_demo.py	/^    crop = cropped_args(img)$/;"	v
 cropped_args	listings/placenta.py	/^def cropped_args(img, mask=None):$/;"	f
 cropped_view	listings/placenta.py	/^def cropped_view(img, mask=None):$/;"	f
 crvs	listings/crv_boxplot_mash.py	/^crvs = crvs.squeeze()$/;"	v
@@ -764,6 +837,8 @@ ctrace	listings/compare_parameters.py	/^        ctrace = np.rot90(ctrace)$/;"	v
 ctrace	listings/compare_parameters.py	/^    ctrace = open_typefile(filename, 'ctrace')$/;"	v
 ctrace	listings/compare_parameters_alt.py	/^        ctrace = np.rot90(ctrace)$/;"	v
 ctrace	listings/compare_parameters_alt.py	/^    ctrace = open_typefile(filename, 'ctrace')$/;"	v
+ctrace	listings/compare_segmentations.py	/^        ctrace = np.rot90(ctrace)$/;"	v
+ctrace	listings/compare_segmentations.py	/^    ctrace = open_typefile(filename, 'ctrace')$/;"	v
 ctrace	listings/network_completion.py	/^            ctrace = np.rot90(ctrace)$/;"	v
 ctrace	listings/network_completion.py	/^        ctrace = open_typefile(filename, 'ctrace')$/;"	v
 ctrace	listings/output-montages.py	/^ctrace = open_typefile(filename, 'ctrace')$/;"	v
@@ -775,6 +850,8 @@ cutfix	listings/cutfixer.py	/^cutfix = watershed(A.filled(255) < threshold, mark
 cutfix	listings/cutfixer.py	/^cutfix = watershed(img.filled(255) < threshold, markers=markers)$/;"	v
 cutmarks	listings/cutfixer.py	/^cutmarks = np.nonzero(np.all(ucip==(0,0,255), axis=-1))$/;"	v
 cutregion	listings/cutfixer.py	/^cutregion = np.s_[X-100:X+100, Y-100:Y+100]$/;"	v
+cvrs	listings/compare_parameters.py	/^cvrs = cvrs.squeeze()$/;"	v
+cvrs	listings/compare_parameters.py	/^cvrs = np.array(I)$/;"	v
 d	figures/strict_examples/output_montage_2_by_2.py	/^d = dict()$/;"	v
 d	listings/dilate_by_distance.py	/^d = _125$/;"	v
 d	listings/recentmash.py	/^d = dilate_boundary(None, radius=20, mask=img.mask)$/;"	v
@@ -846,11 +923,15 @@ eaf	listings/margin_add.py	/^eaf = _ \/ 255$/;"	v
 ecp	listings/margin_add.py	/^from skimage.filters.rank import enhance_contrast_percentile as ecp$/;"	x
 ecp	listings/margin_add_demo.py	/^from skimage.filters.rank import enhance_contrast_percentile as ecp$/;"	x
 ecp	listings/postprocessing.py	/^from skimage.filters.rank import enhance_contrast_percentile as ecp$/;"	x
+ecp	listings/trough_filling_demo.py	/^from skimage.filters.rank import enhance_contrast_percentile as ecp$/;"	x
+ecp_spine	listings/trough_filling_demo.py	/^    ecp_spine = ecp(ecp_spine, disk(3)) > (THRESHOLD*255)$/;"	v
+ecp_spine	listings/trough_filling_demo.py	/^    ecp_spine = spine.astype('uint8')$/;"	v
 edt	listings/line_to_nearest_mash.py	/^from scipy.ndimage import distance_transform_edt as edt$/;"	x
 edt	listings/line_to_nearest_mash.py	/^from scipy.ndimage import distance_transform_transform_edt as edt$/;"	x
 edt	listings/margin_add.py	/^from scipy.ndimage import distance_transform_edt as edt$/;"	x
 edt	listings/margin_add_demo.py	/^from scipy.ndimage import distance_transform_edt as edt$/;"	x
 edt	listings/postprocessing.py	/^from scipy.ndimage import distance_transform_edt as edt$/;"	x
+edt	listings/trough_filling_demo.py	/^from scipy.ndimage import distance_transform_edt as edt$/;"	x
 ef	listings/margin_add.py	/^ef = _$/;"	v
 el	listings/vessel_filters.py	/^        el, nl = label(e, return_num=True)$/;"	v
 endlist	listings/line_to_nearest_mash.py	/^endlist = list(zip(*np.where(endpoints)))$/;"	v
@@ -862,8 +943,12 @@ endpoints	listings/line_to_nearest_mash.py	/^endpoints = ((neighbors==2) & tf)$/
 endpoints	listings/line_to_nearest_mash.py	/^endpoints = ((neighbors>0) & (neighbors<3) & tf)$/;"	v
 eq:2D-dft-rearrangement	manuscript/mathematical_methods.tex	/^\\begin{align} \\label{eq:2D-dft-rearrangement}$/;"	l
 eq:2D-dft-rearrangement	manuscript/mm-hfft.tex	/^\\begin{align} \\label{eq:2D-dft-rearrangement}$/;"	l
+eq:ISODATA	manuscript/segmentation.tex	/^\\begin{equation} \\label{eq:ISODATA}$/;"	l
 eq:MCC	manuscript/segmentation.tex	/^\\begin{equation} \\label{eq:MCC}$/;"	l
+eq:VSigma	manuscript/mm-multifrangi.tex	/^	\\begin{equation} \\label{eq:VSigma}$/;"	l
+eq:Vargmax	manuscript/mm-multifrangi.tex	/^    \\begin{equation} \\label{eq:Vargmax}$/;"	l
 eq:Vmax	manuscript/mm-multifrangi.tex	/^    \\begin{equation} \\label{eq:Vmax}$/;"	l
+eq:Vsigma	manuscript/mm-unifrangi.tex	/^\\begin{gather} \\label{eq:Vsigma}$/;"	l
 eq:derived-family-from-discrete	manuscript/mathematical_methods.tex	/^\\begin{equation} \\label{eq:derived-family-from-discrete}$/;"	l
 eq:derived-family-from-discrete	manuscript/mm-scalespaces.tex	/^\\begin{equation} \\label{eq:derived-family-from-discrete}$/;"	l
 eq:expand_accel_norm	manuscript/mathematical_methods.tex	/^	&=  \\inner{X}{-\\frac{\\partial \\nu}{\\partial t}} \\label{eq:expand_accel_norm}$/;"	l
@@ -872,7 +957,6 @@ eq:expand_accel_norm_final	manuscript/mathematical_methods.tex	/^		\\begin{equat
 eq:expand_accel_norm_final	manuscript/mm-diffgeo.tex	/^		\\begin{equation} \\label{eq:expand_accel_norm_final}$/;"	l
 eq:frangi-max-matrix	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:frangi-max-matrix}$/;"	l
 eq:frangi-vesselness-measure	manuscript/mm-unifrangi.tex	/^\\begin{equation} \\label{eq:frangi-vesselness-measure}$/;"	l
-eq:frangi-vesselness-measure-v1	manuscript/mm-unifrangi.tex	/^\\begin{gather} \\label{eq:frangi-vesselness-measure-v1}$/;"	l
 eq:gaussmap_dt_expanded	manuscript/mathematical_methods.tex	/^	\\theta_2'(t)\\left( - \\frac{\\partial \\nu}{\\partial u_2} \\right) \\label{eq:gaussmap_dt_ex/;"	l
 eq:gaussmap_dt_expanded	manuscript/mm-diffgeo.tex	/^	\\theta_2'(t)\\left( - \\frac{\\partial \\nu}{\\partial u_2} \\right) \\label{eq:gaussmap_dt_ex/;"	l
 eq:heat-eq-for-family	manuscript/mathematical_methods.tex	/^    \\begin{equation} \\label{eq:heat-eq-for-family}$/;"	l
@@ -887,15 +971,18 @@ ext	listings/abbreviate_NCS_names.py	/^    basename, ext = os.path.splitext(f)$/
 extract_pcsvn	listings/pcsvn.py	/^def extract_pcsvn(img, filename, scales, beta=0.5, gamma=0.5, c=None,$/;"	f
 extracted	listings/vessel_filters.py	/^        extracted = vessel_filter(t, t1, sigma, length_ratio=.5, verbose=True)$/;"	v
 extracted_all	listings/vessel_filters.py	/^    extracted_all = np.zeros((img.shape[0],img.shape[1],len(scale_range)))$/;"	v
+f	listings/compare_segmentations.py	/^    f, nf = split_signed_frangi_stack(F, positive_range=None,$/;"	v
 f	listings/hfft_demo.py	/^    f = eval(fft_test_statement)$/;"	v
 f	listings/margin_add_demo.py	/^    f = F[:-4].max(axis=0)$/;"	v
 f	listings/pd_demo_uniscale.py	/^f = frangi_from_image(img, sigma=1.5, dark_bg=False, dilation_radius=20,$/;"	v
 f	listings/rwpf_demo.py	/^        f = frangi_from_image(img, sigma, dark_bg=False, dilation_radius=20,$/;"	v
+f	listings/trough_filling_demo.py	/^    f, nf = split_signed_frangi_stack(F, positive_range=None,$/;"	v
 f0	listings/gradient_filter_demo.py	/^    f0 = frangi_from_image(img, sigma, beta=BETA, dark_bg=False,$/;"	v
 f1	listings/gradient_filter_demo.py	/^    f1 = frangi_from_image(img, sigma, beta=BETA, dark_bg=False,$/;"	v
 fair	listings/make_sample_qualities.py	/^fair = {k:m.mean() for k,m in M.items() if m.mean() > p1 and m.mean() <= p2}$/;"	v
 false_neg_color	listings/scoring.py	/^    false_neg_color = np.array([241,163,64], dtype='f')# 'f1a340'$/;"	v
 false_pos_color	listings/scoring.py	/^    false_pos_color = np.array([153,142,195], dtype='f') # '998ec4'$/;"	v
+fboth	listings/trough_filling_demo.py	/^    fboth = f.copy()$/;"	v
 fft-kernelidentities	manuscript/mathematical_methods.tex	/^\\begin{gather} \\label{fft-kernelidentities}$/;"	l
 fft-kernelidentities	manuscript/mm-hfft.tex	/^\\begin{gather} \\label{fft-kernelidentities}$/;"	l
 fft-oddeven-parens	manuscript/mathematical_methods.tex	/^\\label{fft-oddeven-parens}$/;"	l
@@ -915,8 +1002,11 @@ fftpack	listings/hfft.py	/^import scipy.fftpack as fftpack$/;"	I
 fi	listings/scale_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
 fi	listings/scale_sweep_demo_old.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
 fi	listings/signed_sweep_demo.py	/^    F, fi = list(), list() # make some empty lists to store for inspection$/;"	v
-fig	listings/compare_parameters.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(20,12))$/;"	v
+fig	listings/compare_parameters.py	/^    fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(6.5,7.5))$/;"	v
+fig	listings/compare_parameters.py	/^fig, ax = plt.subplots(figsize=(6.5,7.5))$/;"	v
 fig	listings/compare_parameters_alt.py	/^    fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(20,20))$/;"	v
+fig	listings/compare_segmentations.py	/^    fig, ax = plt.subplots()$/;"	v
+fig	listings/compare_segmentations.py	/^    fig, ax = plt.subplots(nrows=2, ncols=4, figsize=(13,7))$/;"	v
 fig	listings/crv_boxplot_mash.py	/^fig = plt.figure()$/;"	v
 fig	listings/crv_boxplot_mash.py	/^fig, ax = plt.subplots()$/;"	v
 fig	listings/crv_boxplot_mash.py	/^fig, ax = plt.subplots(figsize=(12,6))$/;"	v
@@ -944,6 +1034,7 @@ fig	listings/signed_sweep_demo.py	/^        fig = plt.figure(figsize=(figsize[0]
 fig	listings/signed_sweep_demo.py	/^        fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)$/;"	v
 fig	listings/stump_test.py	/^    fig, ax = plt.subplots(ncols=3, nrows=2, figsize=(30,12))$/;"	v
 fig	listings/threshold_demo.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(20,12))$/;"	v
+fig	listings/trough_filling_demo.py	/^    fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(25,15), sharex=True,$/;"	v
 fig	unsorted/endpoint_label_figure.py	/^fig, ax = plt.subplots(nrows=3, ncols=3)$/;"	v
 fig	unsorted/endpoint_label_figure.py	/^fig, ax = plt.subplots(nrows=3,ncols=3)$/;"	v
 fig:CVR-boxplot-quality0	manuscript/results_analysis.tex	/^  \\label{fig:CVR-boxplot-quality0}$/;"	l
@@ -959,50 +1050,45 @@ fig:NCSoutput-mask	manuscript/research_protocol.tex	/^        \\label{fig:NCSout
 fig:NCSoutput-trace	manuscript/research_protocol.tex	/^        \\label{fig:NCSoutput-trace}\\includegraphics[width=80mm]{{{T-BN0164923.trace}}}$/;"	l
 fig:Tuf	manuscript/mathematical_methods.tex	/^		\\label{fig:Tuf} $/;"	l
 fig:Tuf	manuscript/mm-diffgeo.tex	/^		\\label{fig:Tuf} $/;"	l
+fig:Vargmax	manuscript/results_analysis.tex	/^  \\label{fig:Vargmax}$/;"	l
 fig:anisotropy-parameter-demo	manuscript/mm-unifrangi.tex	/^  \\label{fig:anisotropy-parameter-demo}$/;"	l
 fig:annotated-montage	manuscript/results_analysis.tex	/^	\\label{fig:annotated-montage}$/;"	l
 fig:bad-gallery	manuscript/results_analysis.tex	/^	\\label{fig:bad-gallery}$/;"	l
 fig:boundary-demo	manuscript/research_protocol.tex	/^        \\label{fig:boundary-demo}$/;"	l
 fig:compare_parameters_3by3_example1	manuscript/results_analysis.tex	/^	\\label{fig:compare_parameters_3by3_example1}$/;"	l
 fig:compare_parameters_3by3_example2	manuscript/results_analysis.tex	/^	\\label{fig:compare_parameters_3by3_example2}$/;"	l
-fig:cross-sec-F-sigma=0.3	manuscript/mm-hfft.tex	/^  \\label{fig:cross-sec-F-sigma=0.3}$/;"	l
-fig:cross-sec-F-sigma=5	manuscript/mm-hfft.tex	/^  \\label{fig:cross-sec-F-sigma=5}$/;"	l
-fig:cross-sec-G-sigma=0.3	manuscript/mm-hfft.tex	/^  \\label{fig:cross-sec-G-sigma=0.3}$/;"	l
-fig:cross-sec-G-sigma=5	manuscript/mm-hfft.tex	/^  \\label{fig:cross-sec-G-sigma=5}$/;"	l
+fig:cross-sec-demos	manuscript/mm-hfft.tex	/^  \\label{fig:cross-sec-demos}$/;"	l
 fig:detailed_frangi_with_table_ex2	manuscript/results_analysis.tex	/^  \\label{fig:detailed_frangi_with_table_ex2}$/;"	l
 fig:detailed_output_with_table_ex1	manuscript/results_analysis.tex	/^  \\label{fig:detailed_output_with_table_ex1}$/;"	l
 fig:endpoint_labels	manuscript/network_completion.tex	/^	\\label{fig:endpoint_labels}$/;"	l
+fig:endpoint_labels	manuscript/segmentation.tex	/^	\\label{fig:endpoint_labels}$/;"	l
 fig:exampleNCSoutput	manuscript/research_protocol.tex	/^\\begin{figure}\\label{fig:exampleNCSoutput}     \\centering$/;"	l
 fig:expo-principal-curvatures	manuscript/mm-unifrangi.tex	/^  \\label{fig:expo-principal-curvatures}$/;"	l
 fig:fft-gaussian-demo	manuscript/mm-hfft.tex	/^  \\label{fig:fft-gaussian-demo}$/;"	l
+fig:gconv-runtime	manuscript/mm-hfft.tex	/^  \\label{fig:gconv-runtime}$/;"	l
 fig:glare-example-crop	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-crop}$/;"	l
 fig:glare-example-zoom	manuscript/research_protocol.tex	/^        \\label{fig:glare-example-zoom}$/;"	l
-fig:network-completion-all-pairs	manuscript/network_completion.tex	/^	\\label{fig:network-completion-all-pairs}$/;"	l
-fig:network-completion-demo-1	manuscript/network_completion.tex	/^	\\label{fig:network-completion-demo-1}$/;"	l
-fig:network-completion-demo-2	manuscript/network_completion.tex	/^	\\label{fig:network-completion-demo-2}$/;"	l
-fig:network-completion-end-result	manuscript/network_completion.tex	/^	\\label{fig:network-completion-end-result}$/;"	l
-fig:qthresh_demo	manuscript/mm-multifrangi.tex	/^\\label{fig:qthresh_demo}$/;"	l
-fig:qthresh_demo	manuscript/segmentation.tex	/^  \\label{fig:qthresh_demo}$/;"	l
+fig:network-completion-connected-pairs	manuscript/segmentation.tex	/^	\\label{fig:network-completion-connected-pairs}$/;"	l
+fig:network-completion-end-result	manuscript/segmentation.tex	/^	\\label{fig:network-completion-end-result}$/;"	l
+fig:pd_demo	manuscript/segmentation.tex	/^	\\label{fig:pd_demo}$/;"	l
+fig:qthresh_demo	manuscript/segmentation.tex	/^	\\label{fig:qthresh_demo}$/;"	l
 fig:ridge-graph	manuscript/mathematical_methods.tex	/^  \\label{fig:ridge-graph}$/;"	l
 fig:ridge-graph	manuscript/mm-diffgeo.tex	/^  \\label{fig:ridge-graph}$/;"	l
 fig:rw-demo-merged	manuscript/segmentation.tex	/^  \\label{fig:rw-demo-merged}$/;"	l
 fig:rw-demo-scalewise	manuscript/segmentation.tex	/^  \\label{fig:rw-demo-scalewise}$/;"	l
 fig:sample-confusion	manuscript/segmentation.tex	/^  \\label{fig:sample-confusion}$/;"	l
 fig:scale_for_max_frangi_score_seaborn	manuscript/results_analysis.tex	/^  \\label{fig:scale_for_max_frangi_score_seaborn}$/;"	l
-fig:scale_of_max_frangi_score	manuscript/results_analysis.tex	/^  \\label{fig:scale_of_max_frangi_score}$/;"	l
-fig:scale_of_max_frangi_score_tp_only	manuscript/results_analysis.tex	/^  \\label{fig:scale_of_max_frangi_score_tp_only}$/;"	l
-fig:scalesweep-1	manuscript/research_protocol.tex	/^    \\label{fig:scalesweep-1}$/;"	l
-fig:scalesweep-1c	manuscript/research_protocol.tex	/^        \\label{fig:scalesweep-1c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}/;"	l
-fig:scalesweep-1i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-1i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
-fig:scalesweep-1p	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-1p}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
-fig:scalesweep-2	manuscript/research_protocol.tex	/^    \\label{fig:scalesweep-2}$/;"	l
-fig:scalesweep-2c	manuscript/research_protocol.tex	/^        \\label{fig:scalesweep-2c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}/;"	l
-fig:scalesweep-2i	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2i}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
-fig:scalesweep-2p	manuscript/research_protocol.tex	/^    \\subfloat{        \\label{fig:scalesweep-2p}\\includegraphics[width=\\linewidth]{{{scaleswe/;"	l
-fig:seg-montage-ex1	manuscript/segmentation.tex	/^	\\label{fig:seg-montage-ex1}$/;"	l
-fig:seg-montage-ex2	manuscript/segmentation.tex	/^	\\label{fig:seg-montage-ex2}$/;"	l
-fig:seg-montage-ex3	manuscript/segmentation.tex	/^	\\label{fig:seg-montage-ex3}$/;"	l
-fig:semigroup-demo	manuscript/mm-hfft.tex	/^  \\label{fig:semigroup-demo}$/;"	l
+fig:scalesweep-1	manuscript/mm-multifrangi.tex	/^    	\\label{fig:scalesweep-1}$/;"	l
+fig:scalesweep-1c	manuscript/mm-multifrangi.tex	/^    		\\label{fig:scalesweep-1c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}}}$/;"	l
+fig:scalesweep-1i	manuscript/mm-multifrangi.tex	/^    	\\subfloat{        \\label{fig:scalesweep-1i}\\includegraphics[width=\\linewidth]{{{scalesw/;"	l
+fig:scalesweep-1p	manuscript/mm-multifrangi.tex	/^    	\\subfloat{        \\label{fig:scalesweep-1p}\\includegraphics[width=\\linewidth]{{{scalesw/;"	l
+fig:scalesweep-2	manuscript/mm-multifrangi.tex	/^    	\\label{fig:scalesweep-2}$/;"	l
+fig:scalesweep-2c	manuscript/mm-multifrangi.tex	/^    		\\label{fig:scalesweep-2c}\\includegraphics[width=.75\\linewidth]{{{scalesweep_colorbar}}}$/;"	l
+fig:scalesweep-2i	manuscript/mm-multifrangi.tex	/^    	\\subfloat{        \\label{fig:scalesweep-2i}\\includegraphics[width=\\linewidth]{{{scalesw/;"	l
+fig:scalesweep-2p	manuscript/mm-multifrangi.tex	/^    	\\subfloat{        \\label{fig:scalesweep-2p}\\includegraphics[width=\\linewidth]{{{scalesw/;"	l
+fig:scoring-boxplots	manuscript/segmentation.tex	/^      \\label{fig:scoring-boxplots}$/;"	l
+fig:seg-montage-example	manuscript/segmentation.tex	/^	\\label{fig:seg-montage-example}$/;"	l
+fig:seg-montage-example2	manuscript/segmentation.tex	/^	\\label{fig:seg-montage-example2}$/;"	l
 fig:signsweep-1	manuscript/segmentation.tex	/^  \\label{fig:signsweep-1}$/;"	l
 fig:signsweep-1c	manuscript/segmentation.tex	/^    \\label{fig:signsweep-1c}\\includegraphics[width=.75\\linewidth]{{{signsweep_colorbar}}}$/;"	l
 fig:signsweep-1i	manuscript/segmentation.tex	/^  \\subfloat{		\\label{fig:signsweep-1i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_/;"	l
@@ -1012,6 +1098,7 @@ fig:signsweep-2c	manuscript/segmentation.tex	/^    \\label{fig:signsweep-2c}\\in
 fig:signsweep-2i	manuscript/segmentation.tex	/^  \\subfloat{		\\label{fig:signsweep-2i}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_/;"	l
 fig:signsweep-2p	manuscript/segmentation.tex	/^  \\subfloat{		\\label{fig:signsweep-2p}\\includegraphics[width=\\linewidth]{{{signsweep_stitch_/;"	l
 fig:structureness-parameter-demo	manuscript/mm-unifrangi.tex	/^  \\label{fig:structureness-parameter-demo}$/;"	l
+fig:trough_dilation	manuscript/segmentation.tex	/^  \\label{fig:trough_dilation}$/;"	l
 figs	listings/output-montages.py	/^figs = ['examples\/'+f for f in os.listdir('examples\/') if f.startswith(stub)]$/;"	v
 figs	listings/output-montages.py	/^figs = [f for f in os.listdir('examples\/') if f.startswith(stub)]$/;"	v
 figsize	listings/scale_sweep_demo.py	/^            figsize = (12, 6)$/;"	v
@@ -1026,6 +1113,7 @@ filename	listings/hfft_accuracy.py	/^filename = list_by_quality(0)[5]$/;"	v
 filename	listings/output-montages.py	/^filename = stub+'.png'$/;"	v
 filename	listings/pd_demo_uniscale.py	/^filename = list_by_quality(N=1)[0]$/;"	v
 filename	listings/preprocessing.py	/^    filename = 'T-BN0204423.png'  # a particularly glary sample$/;"	v
+filename	listings/scale_to_argmax_demo.py	/^filename = list_by_quality(N=1)[0]$/;"	v
 filename	listings/scaledecay.py	/^filename =  list_by_quality(0)[0]$/;"	v
 filename	listings/scaledecay.py	/^filename = _[-2]$/;"	v
 filenames	listings/rw_demo.py	/^filenames = list_by_quality(1)$/;"	v
@@ -1039,6 +1127,7 @@ find_plate_in_raw	listings/plate_test.py	/^def find_plate_in_raw(raw, sigma=.01)
 finv	listings/add_margins.py	/^finv = frangi_from_image(s, sigma=0.8, dark_bg=True)$/;"	v
 finv_thresh	listings/add_margins.py	/^finv_thresh = nz_percentile(finv, 80)$/;"	v
 first	listings/line_to_nearest_mash.py	/^first, second, _ = np.partition([0.9, 0.3, 0.5, 0.8, 0.1, 0.2, 0.4], 2)$/;"	v
+fixed	listings/trough_filling_demo.py	/^    fixed = f > THRESHOLD$/;"	v
 fixes	listings/fixgreek.py	/^    fixes = (r"$\\alpha $",$/;"	v
 flens	listings/recentmash.py	/^flocs, flens = _$/;"	v
 flocs	listings/recentmash.py	/^flocs, flens = _$/;"	v
@@ -1069,11 +1158,14 @@ gC	listings/scaledecay.py	/^gC = np.gradient(C)$/;"	v
 gD	listings/scaledecay.py	/^    gD = np.gradient(D)$/;"	v
 gamma	listings/compare_parameters.py	/^        gamma = params['gamma']$/;"	v
 gamma	listings/compare_parameters_alt.py	/^        gamma = params['gamma']$/;"	v
+gamma	listings/compare_segmentations.py	/^beta, gamma, parametrization_name = 0.5, 0.5, "standard"$/;"	v
 gamma	listings/margin_add.py	/^gamma = 0.5$/;"	v
 gamma	listings/margin_add_demo.py	/^gamma = .5$/;"	v
 gamma	listings/network_completion.py	/^    gamma = 1.0$/;"	v
 gamma	listings/neverzeromaskandqthreshdemo.py	/^scales = np.logspace(-1.5, 3.5, base=2, num=20); beta=0.5; gamma=.5; F = np.stack([frangi_from_i/;"	v
+gamma	listings/scale_to_argmax_demo.py	/^beta=.10; gamma=0.5;$/;"	v
 gamma	listings/threshold_demo.py	/^gamma = 1.0$/;"	v
+gamma	listings/trough_filling_demo.py	/^gamma = 1.0$/;"	v
 gammas	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	n
 gaussmap_timederivative	manuscript/mathematical_methods.tex	/^	\\begin{align} \\label{gaussmap_timederivative}$/;"	l
 gaussmap_timederivative	manuscript/mm-diffgeo.tex	/^	\\begin{align} \\label{gaussmap_timederivative}$/;"	l
@@ -1116,6 +1208,9 @@ img	listings/compare_parameters.py	/^    img = inpaint_hybrid(img)$/;"	v
 img	listings/compare_parameters_alt.py	/^        img = np.rot90(img)$/;"	v
 img	listings/compare_parameters_alt.py	/^    img = get_named_placenta(filename)$/;"	v
 img	listings/compare_parameters_alt.py	/^    img = inpaint_hybrid(img)$/;"	v
+img	listings/compare_segmentations.py	/^        img = np.rot90(img)$/;"	v
+img	listings/compare_segmentations.py	/^    img = get_named_placenta(filename)$/;"	v
+img	listings/compare_segmentations.py	/^    img = inpaint_hybrid(img)$/;"	v
 img	listings/cut_demo.py	/^    img = get_named_placenta(filename)$/;"	v
 img	listings/extract_NCS_pcsvn.py	/^        img = inpaint_hybrid(img)$/;"	v
 img	listings/gradient_filter_demo.py	/^img = get_named_placenta(filename)$/;"	v
@@ -1141,12 +1236,16 @@ img	listings/rwpf_demo.py	/^        img = np.rot90(img)$/;"	v
 img	listings/rwpf_demo.py	/^    img = get_named_placenta(filename)$/;"	v
 img	listings/scale_sweep_demo.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
 img	listings/scale_sweep_demo_old.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
+img	listings/scale_to_argmax_demo.py	/^img = get_named_placenta(filename)$/;"	v
+img	listings/scale_to_argmax_demo.py	/^img = inpaint_hybrid(img)$/;"	v
 img	listings/scaledecay.py	/^img = get_named_placenta(filename)$/;"	v
 img	listings/signed_sweep_demo.py	/^    img = get_named_placenta(f'T-{sample_name}.png')$/;"	v
 img	listings/stump_test.py	/^    img = get_named_placenta(filename)$/;"	v
 img	listings/threshold_demo.py	/^        img = np.rot90(img)$/;"	v
 img	listings/threshold_demo.py	/^    img = get_named_placenta(filename)$/;"	v
 img	listings/threshold_demo.py	/^    img = inpaint_hybrid(img)$/;"	v
+img	listings/trough_filling_demo.py	/^    img = inpaint_hybrid(img)$/;"	v
+img	listings/trough_filling_demo.py	/^    img = prepare_placenta(filename)$/;"	v
 img	listings/vessel_filters.py	/^    img = preprocess(raw)$/;"	v
 img	listings/vessel_filters.py	/^    img = raw$/;"	v
 img_view	listings/preprocessing.py	/^    img_view = show_mask(img, interactive=False,$/;"	v
@@ -1177,6 +1276,7 @@ inset	listings/preprocessing.py	/^    inset = zoom  # which view to use$/;"	v
 inset	listings/scale_sweep_demo.py	/^        inset = target[inset_slice].filled(0)$/;"	v
 inset	listings/scale_sweep_demo_old.py	/^        inset = target[inset_slice]$/;"	v
 inset	listings/signed_sweep_demo.py	/^        inset = target[inset_slice].filled(0)$/;"	v
+inset	listings/trough_filling_demo.py	/^    inset = np.s_[151:486,147:653]$/;"	v
 integral	listings/compare_parameters.py	/^        integral = integrate_score(F_max, trace, mask=img.mask)$/;"	v
 integral	listings/compare_parameters_alt.py	/^        integral = integrate_score(F_max, trace, mask=img.mask)$/;"	v
 integral_scores	listings/compare_parameters.py	/^integral_scores = list()$/;"	v
@@ -1203,6 +1303,8 @@ labeled_S	listings/output-montages.py	/^labeled_S = imread(figs[9])$/;"	v
 labeled_pf	listings/output-montages.py	/^labeled_pf = imread(figs[8])$/;"	v
 labeled_rw	listings/output-montages.py	/^labeled_rw = imread(figs[6])$/;"	v
 labeles_S	listings/output-montages.py	/^labeles_S = imread(figs[9])$/;"	v
+labels	listings/compare_parameters.py	/^labels = [p['label'] for p in PARAMS]$/;"	v
+labels	listings/compare_segmentations.py	/^labels = [$/;"	v
 labels	listings/crv_boxplot_mash.py	/^labels = [p['label'] for p in PARAMS]$/;"	v
 labels	listings/hfft_accuracy.py	/^    labels = ('scipy.ndimage,gaussian_filter', 'fft_gaussian', 'fft_dgk')$/;"	v
 labs	listings/find_plate.py	/^labs, nlabs = ndi.label(eroded)$/;"	v
@@ -1242,6 +1344,9 @@ local_count	listings/line_to_nearest_mash.py	/^from scipy.ndimage import sum as 
 local_count	listings/line_to_nearest_mash.py	/^from skimage.filters.rank import sum as local_count$/;"	x
 local_count	listings/network_completion.py	/^from skimage.filters.rank import sum as local_count$/;"	x
 local_pop	listings/line_extend_megamash.py	/^from skimage.filters.rank import pop as local_pop$/;"	x
+log_range	listings/compare_segmentations.py	/^log_range = (-1, 3.2)$/;"	v
+log_range	listings/scale_to_argmax_demo.py	/^log_range=(0.25, 3)$/;"	v
+log_range	listings/trough_filling_demo.py	/^log_range = (-1.5, 3.2)$/;"	v
 longest_chain	listings/scoring.py	/^def longest_chain(arr, axis):$/;"	f
 low_G	listings/gradient_filter_mash.py	/^low_G = G < nz_percentile(G, 50)$/;"	v
 m	listings/hfft_demo.py	/^m = 8$/;"	v
@@ -1252,10 +1357,16 @@ m	listings/rwpf_demo.py	/^    m, counts = mcc(approx, trace, bg_mask=ucip_mask, 
 m2	listings/margin_add_demo.py	/^    m2, counts2 = mcc(approx2, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 m_FA	listings/margin_add_demo.py	/^    m_FA, counts_FA = mcc(approx_FA, trace, bg_mask=img.mask,$/;"	v
 m_FA	listings/rwpf_demo.py	/^    m_FA, counts_FA = mcc(approx_FA, trace, bg_mask=ucip_mask,$/;"	v
+m_FA_high	listings/compare_segmentations.py	/^    m_FA_high, counts_FA_high = mcc(approx_FA_high, trace, bg_mask=img.mask,$/;"	v
+m_FA_low	listings/compare_segmentations.py	/^    m_FA_low, counts_FA_low = mcc(approx_FA_low, trace, bg_mask=img.mask,$/;"	v
 m_L	listings/rwpf_demo.py	/^    m_L, counts_L = mcc(approx_L, trace, bg_mask=ucip_mask, return_counts=True)$/;"	v
 m_PF	listings/margin_add_demo.py	/^    m_PF, counts_PF = mcc(approx_PF, trace, bg_mask=img.mask,$/;"	v
+m_PF95	listings/compare_segmentations.py	/^    m_PF95, counts_PF95 = mcc(approx_PF95, trace, bg_mask=img.mask,$/;"	v
+m_PF98	listings/compare_segmentations.py	/^    m_PF98, counts_PF98 = mcc(approx_PF98, trace, bg_mask=img.mask,$/;"	v
 m_PFA	listings/margin_add_demo.py	/^    m_PFA, counts_PFA = mcc(approx_PFA, trace, bg_mask=img.mask,$/;"	v
+m_st	listings/compare_segmentations.py	/^    m_st, counts_st = mcc(straw, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 m_st	listings/margin_add_demo.py	/^    m_st, counts_st = mcc(straw, trace, bg_mask=img.mask, return_counts=True)$/;"	v
+m_tf	listings/compare_segmentations.py	/^    m_tf, counts_tf = mcc(approx_tf, trace, bg_mask=img.mask, return_counts=True)$/;"	v
 ma	listings/basic.py	/^import numpy.ma as ma$/;"	I
 ma	listings/compare_parameters.py	/^import numpy.ma as ma$/;"	I
 ma	listings/compare_parameters_alt.py	/^import numpy.ma as ma$/;"	I
@@ -1277,32 +1388,34 @@ ma	listings/rw_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/rwpf_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/scale_sweep_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/scale_sweep_demo_old.py	/^import numpy.ma as ma$/;"	I
+ma	listings/scale_to_argmax_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/signed_sweep_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/stump_test.py	/^import numpy.ma as ma$/;"	I
 ma	listings/threshold_demo.py	/^import numpy.ma as ma$/;"	I
+ma	listings/trough_filling_demo.py	/^import numpy.ma as ma$/;"	I
 ma	listings/vessel_filters.py	/^import numpy.ma as ma$/;"	I
 mag	listings/neverzeromaskandqthreshdemo.py	/^mag = plt.cm.plasma$/;"	v
 make_individual	listings/scale_sweep_demo.py	/^make_individual = False$/;"	v
 make_multiscale	listings/pcsvn.py	/^def make_multiscale(img, scales, beta=0.5, gamma=0.5, c=None, dark_bg=True,$/;"	f
-manuscript/appendix	LW2018_thesis_draft.tex	/^\\include{manuscript\/appendix}$/;"	i
-manuscript/conclusion	LW2018_thesis_draft.tex	/^\\include{manuscript\/conclusion}$/;"	i
-manuscript/extra_figures	LW2018_thesis_draft.tex	/^\\include{manuscript\/extra_figures}$/;"	i
-manuscript/introduction	LW2018_thesis_draft.tex	/^\\include{manuscript\/introduction}		$/;"	i
-manuscript/mm-diffgeo	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-diffgeo}$/;"	i
-manuscript/mm-hfft	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-hfft}$/;"	i
-manuscript/mm-morphology	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-morphology}$/;"	i
-manuscript/mm-multifrangi	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-multifrangi}$/;"	i
-manuscript/mm-scalespaces	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-scalespaces}$/;"	i
-manuscript/mm-unifrangi	LW2018_thesis_draft.tex	/^\\include{manuscript\/mm-unifrangi}$/;"	i
-manuscript/network_completion	LW2018_thesis_draft.tex	/^\\include{manuscript\/network_completion}$/;"	i
-manuscript/research_protocol	LW2018_thesis_draft.tex	/^\\include{manuscript\/research_protocol}$/;"	i
-manuscript/results_analysis	LW2018_thesis_draft.tex	/^\\include{manuscript\/results_analysis}$/;"	i
-manuscript/segmentation	LW2018_thesis_draft.tex	/^\\include{manuscript\/segmentation}$/;"	i
+manuscript/appendix	LW_thesis_draft.tex	/^\\include{manuscript\/appendix}$/;"	i
+manuscript/conclusion	LW_thesis_draft.tex	/^\\include{manuscript\/conclusion}$/;"	i
+manuscript/extra_figures	LW_thesis_draft.tex	/^\\include{manuscript\/extra_figures}$/;"	i
+manuscript/introduction	LW_thesis_draft.tex	/^\\include{manuscript\/introduction}		$/;"	i
+manuscript/mm-diffgeo	LW_thesis_draft.tex	/^\\include{manuscript\/mm-diffgeo}$/;"	i
+manuscript/mm-hfft	LW_thesis_draft.tex	/^\\include{manuscript\/mm-hfft}$/;"	i
+manuscript/mm-multifrangi	LW_thesis_draft.tex	/^\\include{manuscript\/mm-multifrangi}$/;"	i
+manuscript/mm-scalespaces	LW_thesis_draft.tex	/^\\include{manuscript\/mm-scalespaces}$/;"	i
+manuscript/mm-unifrangi	LW_thesis_draft.tex	/^\\include{manuscript\/mm-unifrangi}$/;"	i
+manuscript/research_protocol	LW_thesis_draft.tex	/^\\include{manuscript\/research_protocol}$/;"	i
+manuscript/results_analysis	LW_thesis_draft.tex	/^\\include{manuscript\/results_analysis}$/;"	i
+manuscript/segmentation	LW_thesis_draft.tex	/^\\include{manuscript\/segmentation}$/;"	i
 manylines	listings/line_to_nearest_mash.py	/^manylines = _$/;"	v
 manylines	listings/line_to_nearest_mash.py	/^manylines = _328$/;"	v
 margin	listings/finalfigstoshowmash.py	/^margin = _$/;"	v
 margins	listings/add_margins.py	/^margins = remove_small_objects((finv > ft).filled(0), min_size=32)$/;"	v
+margins	listings/compare_segmentations.py	/^    margins = (nf > MARGIN_THRESHOLD)$/;"	v
 margins	listings/margin_add.py	/^margins = nf$/;"	v
+margins	listings/trough_filling_demo.py	/^    margins = (nf > MARGIN_THRESHOLD)$/;"	v
 margins_added	listings/add_margins.py	/^margins_added = remove_small_holes(np.logical_or(margins, approx),$/;"	v
 marker4931	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
 marker4977	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:isstock="true">$/;"	i
@@ -1312,6 +1425,7 @@ markers	listings/cutfixer.py	/^markers = np.zeros(A.shape, dtype='int32')$/;"	v
 markers	listings/cutfixer.py	/^markers = np.zeros(img.shape, dtype='int32')$/;"	v
 markers	listings/line_to_nearest_mash.py	/^markers = np.zeros(img.shape, np.uint8)$/;"	v
 markers	listings/rwpf_demo.py	/^        markers = np.zeros(img.shape, np.int32)$/;"	v
+markers	listings/trough_filling_demo.py	/^    markers = np.zeros_like(spine)$/;"	v
 marks	listings/find_plate.py	/^marks = np.zeros(img.shape, np.int32)$/;"	v
 mask	listings/hfft_demo.py	/^mask = imread('samples\/barium1.mask.png', as_grey=True)$/;"	v
 mask	listings/line_extend_megamash.py	/^mask = lambda a: ma.masked_array(a, a!=-1)$/;"	f
@@ -1349,10 +1463,12 @@ mcc_S	listings/extract_NCS_pcsvn.py	/^    mcc_S, counts_S = mcc_with_counts(appr
 mcc_sm	listings/extract_NCS_pcsvn.py	/^    mcc_sm, counts_sm = mcc_with_counts(approx_sm)$/;"	v
 mcc_with_counts	listings/extract_NCS_pcsvn.py	/^    mcc_with_counts = partial(mcc, truth=trace, bg_mask=ucip_mask,$/;"	v
 mccfile	listings/extract_NCS_pcsvn.py	/^mccfile = os.path.join(OUTPUT_DIR, f"runlog_{timestring}.json")$/;"	v
+mccs	listings/compare_segmentations.py	/^mccs = list()$/;"	v
 mccs	listings/extract_NCS_pcsvn.py	/^mccs = dict()  # empty dict to store MCC's of each sample$/;"	v
-mccs	listings/margin_add_demo.py	/^mccs = list()$/;"	v
+mccs	listings/margin_add_demo.py	/^mccs = list() # store MCC scores$/;"	v
 mccs	listings/network_completion.py	/^    mccs = list()$/;"	v
 mccs	listings/threshold_demo.py	/^mccs = list()$/;"	v
+mccs	listings/trough_filling_demo.py	/^mccs = list()$/;"	v
 mccs_rw	listings/add_margins.py	/^mccs_rw = mccs(approx_rw, trace, bg_mask=ucip_mask)$/;"	v
 mean_colored_connections	listings/network_completion.py	/^def mean_colored_connections(arr, scores=None, double_connect=True):$/;"	f
 mean_score	listings/network_completion.py	/^        mean_score = lambda p: scores[line(*p0,*p)].mean() if ((p0!=p) and np.all(scores[line(*p/;"	f	function:colored_connections_max_path	file:
@@ -1430,9 +1546,11 @@ newlisting	listings/fixgreek.py	/^    newlisting = listing.copy()$/;"	v
 newmask	listings/plate_test.py	/^    newmask = show_mask(ma.masked_array(img, mask=plate))$/;"	v
 newmask	listings/stump_test.py	/^    newmask = show_mask(ma.masked_array(img, mask=stump))$/;"	v
 newname	listings/abbreviate_NCS_names.py	/^        newname = ''.join((newbase,ext))$/;"	v
+nf	listings/compare_segmentations.py	/^    f, nf = split_signed_frangi_stack(F, positive_range=None,$/;"	v
 nf	listings/margin_add.py	/^nf = (-F*(F<0))[:10].max(axis=0)$/;"	v
 nf	listings/margin_add_demo.py	/^    nf = ((-F*(F<0))[:12]).max(axis=0)$/;"	v
 nf	listings/margin_add_demo.py	/^    nf = dilate_boundary(nf, mask=img.mask, radius=20).filled(0)$/;"	v
+nf	listings/trough_filling_demo.py	/^    f, nf = split_signed_frangi_stack(F, positive_range=None,$/;"	v
 nl	listings/vessel_filters.py	/^        el, nl = label(e, return_num=True)$/;"	v
 nlabs	listings/find_plate.py	/^labs, nlabs = ndi.label(eroded)$/;"	v
 np	figures/add_sobel_border_demo/sobelmashfinal.py	/^import numpy as np$/;"	I
@@ -1440,6 +1558,7 @@ np	figures/strict_examples/output_montage_2_by_2.py	/^import numpy as np$/;"	I
 np	listings/basic.py	/^import numpy as np$/;"	I
 np	listings/compare_parameters.py	/^import numpy as np$/;"	I
 np	listings/compare_parameters_alt.py	/^import numpy as np$/;"	I
+np	listings/compare_segmentations.py	/^import numpy as np$/;"	I
 np	listings/cut_demo.py	/^import numpy as np$/;"	I
 np	listings/diffgeo.py	/^import numpy as np$/;"	I
 np	listings/extract_NCS_pcsvn.py	/^import numpy as np$/;"	I
@@ -1467,12 +1586,14 @@ np	listings/rwpf_demo.py	/^import numpy as np$/;"	I
 np	listings/sampled_gauss_problem.py	/^import numpy as np$/;"	I
 np	listings/scale_sweep_demo.py	/^import numpy as np$/;"	I
 np	listings/scale_sweep_demo_old.py	/^import numpy as np$/;"	I
+np	listings/scale_to_argmax_demo.py	/^import numpy as np$/;"	I
 np	listings/scaledecay.py	/^import numpy as np$/;"	I
 np	listings/scaletowidthplots.py	/^import numpy as np$/;"	I
 np	listings/scoring.py	/^import numpy as np$/;"	I
 np	listings/signed_sweep_demo.py	/^import numpy as np$/;"	I
 np	listings/stump_test.py	/^import numpy as np$/;"	I
 np	listings/threshold_demo.py	/^import numpy as np$/;"	I
+np	listings/trough_filling_demo.py	/^import numpy as np$/;"	I
 np	listings/vessel_filters.py	/^import numpy as np$/;"	I
 np	unsorted/endpoint_label_figure.py	/^import numpy as np$/;"	I
 npz_filename	listings/extract_NCS_pcsvn.py	/^                npz_filename = os.path.join(NPZ_DIR, f.name)$/;"	v
@@ -1485,6 +1606,8 @@ nz_percentile	listings/merging.py	/^def nz_percentile(A, q, axis=None, interpola
 oD	listings/recentmash.py	/^oD = dilate_boundary(None, radius=50, mask=np.invert(img.mask))$/;"	v
 ob	listings/recentmash.py	/^ob = sks.find_boundaries(D)$/;"	v
 okay	listings/make_sample_qualities.py	/^okay = {k:m.mean() for k,m in M.items() if m.mean() > p2 and m.mean() <= p3}$/;"	v
+old_mask	listings/compare_segmentations.py	/^        old_mask = np.rot90(old_mask)$/;"	v
+old_mask	listings/compare_segmentations.py	/^    old_mask = img.mask.copy()$/;"	v
 old_size	listings/line_to_nearest_mash.py	/^    old_size = new_skel.sum()    $/;"	v
 open_tracefile	listings/placenta.py	/^def open_tracefile(base_filename, as_binary=True,$/;"	f
 open_typefile	listings/placenta.py	/^def open_typefile(filename, filetype, sample_dir=None, mode=None):$/;"	f
@@ -1500,11 +1623,18 @@ p2	listings/margin_add_demo.py	/^    p2 = precision_score(counts2)$/;"	v
 p3	listings/make_sample_qualities.py	/^p3 = np.percentile(avgs, 87.5)$/;"	v
 p_FA	listings/margin_add_demo.py	/^    p_FA = precision_score(counts_FA)$/;"	v
 p_FA	listings/rwpf_demo.py	/^    p_FA = precision_score(counts_FA)$/;"	v
+p_FA_high	listings/compare_segmentations.py	/^    p_FA_high = precision_score(counts_FA_high)$/;"	v
+p_FA_low	listings/compare_segmentations.py	/^    p_FA_low = precision_score(counts_FA_low)$/;"	v
 p_L	listings/rwpf_demo.py	/^    p_L = precision_score(counts_L)$/;"	v
 p_PF	listings/margin_add_demo.py	/^    p_PF = precision_score(counts_PF)$/;"	v
+p_PF95	listings/compare_segmentations.py	/^    p_PF95 = precision_score(counts_PF95)$/;"	v
+p_PF98	listings/compare_segmentations.py	/^    p_PF98 = precision_score(counts_PF98)$/;"	v
 p_PFA	listings/margin_add_demo.py	/^    p_PFA = precision_score(counts_PFA)$/;"	v
 p_alphas	listings/rwpf_demo.py	/^    p_alphas = np.zeros_like(scales)$/;"	v
+p_st	listings/compare_segmentations.py	/^    p_st = precision_score(counts_st)$/;"	v
 p_st	listings/margin_add_demo.py	/^    p_st = precision_score(counts_st)$/;"	v
+p_tf	listings/compare_segmentations.py	/^    p_tf = precision_score(counts_tf)$/;"	v
+parametrization_name	listings/compare_segmentations.py	/^beta, gamma, parametrization_name = 0.5, 0.5, "standard"$/;"	v
 path4527	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       inkscape:connector-curvature="0" \/>$/;"	i
 path4529	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^         transform="scale(0.8) translate(12.5,0)" \/>$/;"	i
 path4532	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^         transform="scale(0.8) rotate(180) translate(12.5,0)" \/>$/;"	i
@@ -1514,9 +1644,11 @@ path4975	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^         transfo
 path5015	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^         transform="scale(0.8) rotate(180) translate(12.5,0)" \/>$/;"	i
 percent_network_coverage	listings/extract_NCS_pcsvn.py	/^    percent_network_coverage = lambda a: np.sum(skeltrace&a)\/np.sum(skeltrace)$/;"	f
 percentage	listings/vessel_filters.py	/^        percentage = timg.count() \/ img.size$/;"	v
+placentas	listings/compare_segmentations.py	/^placentas = list_placentas()$/;"	v
 placentas	listings/cut_demo.py	/^placentas = list_placentas('T-BN')$/;"	v
 placentas	listings/extract_NCS_pcsvn.py	/^placentas = list_by_quality(0, N=1)$/;"	v
 placentas	listings/margin_add_demo.py	/^placentas = list_by_quality(0)$/;"	v
+placentas	listings/trough_filling_demo.py	/^placentas = list_by_quality(0, N=1)$/;"	v
 plane	listings/line_extend_megamash.py	/^plane = np.zeros((100,100))$/;"	v
 plane	listings/line_extend_megamash.py	/^plane = np.zeros((100,100)); plane[line(50,30, 50 + int(5*np.sin(np.pi\/3)), 30 + int(5*np.cos(n/;"	v
 plane	listings/line_extend_megamash.py	/^plane = np.zeros((100,100)); plane[line(50,30, 50 - int(5*np.sin(np.pi\/2)), 30 - int(5*np.cos(n/;"	v
@@ -1561,6 +1693,7 @@ plt	figures/strict_examples/output_montage_2_by_2.py	/^import matplotlib.pyplot 
 plt	listings/basic.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/compare_parameters.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/compare_parameters_alt.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/compare_segmentations.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/cut_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/extract_NCS_pcsvn.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/frangi_graphing.py	/^import matplotlib.pyplot as plt$/;"	I
@@ -1585,6 +1718,7 @@ plt	listings/rwpf_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/sampled_gauss_problem.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/scale_sweep_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/scale_sweep_demo_old.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/scale_to_argmax_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/scaledecay.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/scaletowidthplots.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/scoring.py	/^    import matplotlib.pyplot as plt$/;"	I
@@ -1592,6 +1726,7 @@ plt	listings/scoring.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/signed_sweep_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/stump_test.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/threshold_demo.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	listings/trough_filling_demo.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	listings/vessel_filters.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	unsorted/endpoint_label_figure.py	/^import matplotlib.pyplot as plt$/;"	I
 pnc	figures/T-BN4569506_181129_2054.json	/^{"time": "181129_2054", "filename": "T-BN4569506.png", "betas": 0.35, "gammas": 0.5, "c": [null,/;"	a
@@ -1621,13 +1756,17 @@ precision	listings/margin_add.py	/^precision = TP \/ (TP+FP)$/;"	v
 precision	listings/network_completion.py	/^        precision = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f
 precision	listings/scoring.py	/^def precision(counts):$/;"	f
 precision	listings/threshold_demo.py	/^    precision = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f
+precision_score	listings/compare_segmentations.py	/^    precision_score = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f
 precision_score	listings/margin_add_demo.py	/^    precision_score = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f
 precision_score	listings/rw_demo.py	/^    precision_score = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f	function:rw_demo	file:
 precision_score	listings/rwpf_demo.py	/^    precision_score = lambda t: int(t[0]) \/ int(t[0] + t[2])$/;"	f
 precisions	listings/extract_NCS_pcsvn.py	/^precisions = dict()$/;"	v
-precs	listings/margin_add_demo.py	/^precs = list()$/;"	v
+precs	listings/compare_segmentations.py	/^precs = list()$/;"	v
+precs	listings/margin_add_demo.py	/^precs = list() # store precision scores$/;"	v
 precs	listings/network_completion.py	/^    precs = list()$/;"	v
 precs	listings/threshold_demo.py	/^precs = list()$/;"	v
+precs	listings/trough_filling_demo.py	/^precs = list()$/;"	v
+prepare_placenta	listings/trough_filling_demo.py	/^from placenta import get_named_placenta as prepare_placenta$/;"	x
 principal_curvatures	listings/diffgeo.py	/^def principal_curvatures(img, sigma=1.0, H=None):$/;"	f
 principal_directions	listings/diffgeo.py	/^def principal_directions(img, sigma, H=None, mask=None):$/;"	f
 printable	listings/scale_sweep_demo.py	/^                printable = inset$/;"	v
@@ -1637,9 +1776,13 @@ process_NCS_xcf	listings/process_NCS_xcfs.py	/^def process_NCS_xcf(timg,tdrawabl
 pyplot	unsorted/endpoint_label_figure.py	/^import matplotlib as pyplot$/;"	I
 q	listings/recentmash.py	/^q = _428$/;"	v
 qualities	listings/make_sample_qualities.py	/^qualities = dict()$/;"	v
+quality_name	listings/compare_segmentations.py	/^quality_name = 'all'$/;"	v
 r	listings/frangi_graphing.py	/^def r(y, beta):$/;"	f
+radii	listings/compare_segmentations.py	/^    approx_tf, radii = dilate_to_rim(spineseeds > THRESHOLD, margins,$/;"	v
 radii	listings/margin_add_demo.py	/^    approx, radii = dilate_to_rim(bspine, nf > .05, thin_spine=True,$/;"	v
+radii	listings/trough_filling_demo.py	/^    approx, radii = dilate_to_rim(fixed, margins, thin_spine=True, return_radii=True)$/;"	v
 radii2	listings/margin_add_demo.py	/^    approx2, radii2 = dilate_to_rim(spine > (THRESHOLD*255), nf > .05,$/;"	v
+radii2	listings/trough_filling_demo.py	/^    approx2, radii2 = dilate_to_rim(fixed, margins, return_radii=True)$/;"	v
 radius	listings/plate_morphology.py	/^    radius = 25$/;"	v
 random_walk_fill	listings/postprocessing.py	/^def random_walk_fill(img, Fmax, high_thresh, low_thresh, dark_bg):$/;"	f
 random_walk_scalewise	listings/postprocessing.py	/^def random_walk_scalewise(F, high_thresh=0.4, rw_beta=130,$/;"	f
@@ -1653,11 +1796,14 @@ raw	listings/vessel_filters.py	/^    raw = preregister(raw)$/;"	v
 raw_diff	listings/hfft_demo.py	/^    raw_diff = np.abs(f - s)$/;"	v
 raw_img	listings/extract_NCS_pcsvn.py	/^    raw_img = get_named_placenta(filename, mode=FLATTEN_MODE)$/;"	v
 rawg	listings/recentmash.py	/^rawg = _$/;"	v
+recolor_with_negative	listings/trough_filling_demo.py	/^    recolor_with_negative = (f <= THRESHOLD) & (nf > MARGIN_THRESHOLD)$/;"	v
 rect4523	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       y="91.810432" \/>$/;"	i
 rect5193	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       y="159.87679" \/>$/;"	i
 rect5201	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       y="174.12323" \/>$/;"	i
 rect5203	figures/inset_of_sample_issues/T-BN0392644_inset.svg	/^       y="97.878357" \/>$/;"	i
 reorder_eigs	listings/diffgeo.py	/^def reorder_eigs(L):$/;"	f
+res	listings/compare_segmentations.py	/^    ucip, res = measure_ncs_markings(filename=filename)$/;"	v
+rescale	listings/compare_parameters.py	/^            rescale = False$/;"	v
 rescale	listings/compare_parameters_alt.py	/^            rescale = False$/;"	v
 resolution	listings/compare_parameters.py	/^    ucip_midpoint, resolution = measure_ncs_markings(ucip)$/;"	v
 resolution	listings/compare_parameters_alt.py	/^    ucip_midpoint, resolution = measure_ncs_markings(ucip)$/;"	v
@@ -1672,6 +1818,7 @@ row	listings/rw_demo.py	/^    row = rw_demo(filename, RW_BETA, THRESHOLD, None)$
 row	listings/rwpf_demo.py	/^    row = (basename, m_FA, p_FA, m, p, m_L, p_L)$/;"	v
 run_data	listings/rw_demo.py	/^run_data = list()$/;"	v
 run_data	listings/rwpf_demo.py	/^run_data = list()$/;"	v
+runlog	listings/compare_segmentations.py	/^runlog = { 'mccs': mccs, 'precs': precs}$/;"	v
 runlog	listings/extract_NCS_pcsvn.py	/^runlog = {$/;"	v
 runlog	listings/make_sample_qualities.py	/^    runlog = json.load(f)$/;"	v
 runlog	listings/margin_add_demo.py	/^runlog = { 'mccs': mccs, 'precs': precs}$/;"	v
@@ -1696,8 +1843,9 @@ scale_range	listings/vessel_filters.py	/^    scale_range = np.logspace(0,5, num=
 scale_to_argmax_plot	listings/scoring.py	/^def scale_to_argmax_plot(max_labels, widths, scales, normalize=False,$/;"	f
 scale_to_width_plots	listings/scaletowidthplots.py	/^def scale_to_width_plots(multiscale_approx, max_labels, widths, scales,$/;"	f
 scale_to_width_plots	listings/scoring.py	/^def scale_to_width_plots(multiscale_approx, max_labels, widths, scales,$/;"	f
-scales	listings/compare_parameters.py	/^scales = np.logspace(-1.5, 3.5, num=12, base=2)$/;"	v
+scales	listings/compare_parameters.py	/^scales = np.logspace(-1.5, 3.2, num=12, base=2)$/;"	v
 scales	listings/compare_parameters_alt.py	/^scales = np.logspace(-1.5, 3.5, num=12, base=2)$/;"	v
+scales	listings/compare_segmentations.py	/^scales = np.logspace(*log_range, base=2, num=N_scales)$/;"	v
 scales	listings/extract_NCS_pcsvn.py	/^        scales = np.linspace(*SCALE_RANGE, num=N_SCALES)$/;"	v
 scales	listings/extract_NCS_pcsvn.py	/^        scales = np.logspace(*SCALE_RANGE, num=N_SCALES, base=2)$/;"	v
 scales	listings/gradient_filter_demo.py	/^scales = np.logspace(-1, 3, num=12, base=2)$/;"	v
@@ -1711,22 +1859,22 @@ scales	listings/neverzeromaskandqthreshdemo.py	/^scales = np.logspace(-1.5, 3.5,
 scales	listings/rwpf_demo.py	/^    scales =np.logspace(-1.5, 3.5, num=12, base=2)$/;"	v
 scales	listings/scale_sweep_demo.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
 scales	listings/scale_sweep_demo_old.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
+scales	listings/scale_to_argmax_demo.py	/^scales = np.logspace(*log_range, base=2, num=N_scales)$/;"	v
 scales	listings/scaledecay.py	/^scales = np.logspace(-4,8,num=50,base=2)$/;"	v
 scales	listings/signed_sweep_demo.py	/^    scales = [0.2, 0.8, 1.0, 2.0, 4.0, 6.0, 8.0, 16.0]$/;"	v
 scales	listings/threshold_demo.py	/^scales = np.logspace(-1.5, 3.5, num=20, base=2)$/;"	v
+scales	listings/trough_filling_demo.py	/^scales = np.logspace(*log_range, base=2, num=N_scales)$/;"	v
 scoretable	listings/extract_NCS_pcsvn.py	/^    scoretable = pandas.DataFrame(np.vstack((mccs[filename], pncs[filename],$/;"	v
 sec:NCS-data-set	manuscript/research_protocol.tex	/^\\section{Samples \/ Image Domain}\\label{sec:NCS-data-set}$/;"	l
-sec:NCS-dataset-issues	manuscript/results_analysis.tex	/^\\section{Variations in the Data Set and Imperfections of the Ground Truth} \\label{sec:NCS-data/;"	l
+sec:NCS-dataset-issues	manuscript/results_analysis.tex	/^\\section{Ground Truth Imperfections} \\label{sec:NCS-dataset-issues}$/;"	l
 sec:boundary-dilation	manuscript/research_protocol.tex	/^    \\subsection{Boundary Dilation} \\label{sec:boundary-dilation}$/;"	l
 sec:calculate-weinmap-of-a-ridge	manuscript/mathematical_methods.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	l
 sec:calculate-weinmap-of-a-ridge	manuscript/mm-diffgeo.tex	/^  \\subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \\label{sec:c/;"	l
 sec:differential-geometry	manuscript/mathematical_methods.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	l
 sec:differential-geometry	manuscript/mm-diffgeo.tex	/^\\section{Differential Geometry} \\label{sec:differential-geometry}$/;"	l
-sec:frangi	manuscript/mm-unifrangi.tex	/^\\section{The Frangi Filter: Uniscale} \\label{sec:frangi}$/;"	l
 sec:frangi-multiscale	manuscript/mathematical_methods.tex	/^    \\section{The Frangi Filter: A multiscale approach} \\label{sec:frangi-multiscale}$/;"	l
-sec:frangi-structureness	manuscript/mm-unifrangi.tex	/^\\subsection{Structureness measure} \\label{sec:frangi-structureness}$/;"	l
-sec:frangi.anisotropy	manuscript/mm-unifrangi.tex	/^\\subsection{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	l
-sec:future-research-directions	manuscript/conclusion.tex	/^\\section{Future research directions} \\label{sec:future-research-directions}$/;"	l
+sec:frangi-structureness	manuscript/mm-unifrangi.tex	/^\\section{Structureness measure} \\label{sec:frangi-structureness}$/;"	l
+sec:frangi.anisotropy	manuscript/mm-unifrangi.tex	/^\\section{Anisotropy Measure} \\label{sec:frangi.anisotropy}$/;"	l
 sec:image-processing-setup	manuscript/mathematical_methods.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	l
 sec:image-processing-setup	manuscript/mm-diffgeo.tex	/^\\section{Problem Setup in Image Processing}\\label{sec:image-processing-setup}$/;"	l
 sec:scale-space-theory	manuscript/mathematical_methods.tex	/^    \\section{Linear Scale Space Theory} \\label{sec:scale-space-theory}$/;"	l
@@ -1761,21 +1909,31 @@ skeltrace	listings/extract_NCS_pcsvn.py	/^        skeltrace = skeletonize_trace(
 skeltrace	listings/extract_NCS_pcsvn.py	/^        skeltrace = skeletonize_trace(trace)$/;"	v
 sks	listings/recentmash.py	/^import skimage.segmentation as sks$/;"	I
 slog	listings/extract_NCS_pcsvn.py	/^        slog = json.load(f)$/;"	v
+sns	listings/compare_parameters.py	/^import seaborn as sns$/;"	I
+sns	listings/compare_segmentations.py	/^import seaborn as sns$/;"	I
+spine	listings/compare_segmentations.py	/^    spine = dilate_boundary(f, mask=img.mask, radius=20).filled(0)$/;"	v
 spine	listings/margin_add.py	/^spine = F[:-4].max(axis=0)$/;"	v
 spine	listings/margin_add.py	/^spine = dilate_boundary(spine, mask=img.mask, radius=20).filled(0)$/;"	v
 spine	listings/margin_add_demo.py	/^    spine = dilate_boundary(f, mask=img.mask, radius=20).filled(0)$/;"	v
 spine	listings/margin_add_demo.py	/^    spine = rescale_intensity(spine, in_range=(0,1), out_range='uint8')$/;"	v
 spine	listings/margin_add_demo.py	/^    spine = spine.astype('uint8')$/;"	v
+spine	listings/trough_filling_demo.py	/^    spine = dilate_boundary(f, mask=img.mask, radius=20).filled(0)$/;"	v
+spine	listings/trough_filling_demo.py	/^    spine = rescale_intensity(spine, in_range=(0,1), out_range='uint8')$/;"	v
 spine_dists	listings/margin_add.py	/^spine_dists = D.copy()$/;"	v
 spine_dists	listings/margin_add.py	/^spine_dists = edt(D)$/;"	v
 spine_radii	listings/margin_add.py	/^spine_radii = np.round(spine_dists).astype('int')$/;"	v
+spineseeds	listings/compare_segmentations.py	/^    spineseeds = (spine > THRESHOLD)$/;"	v
+split_signed_frangi_stack	listings/compare_segmentations.py	/^def split_signed_frangi_stack(F, negative_range=None, positive_range=None,$/;"	f
+split_signed_frangi_stack	listings/trough_filling_demo.py	/^def split_signed_frangi_stack(F, negative_range=None, positive_range=None,$/;"	f
 square	listings/line_extend_megamash.py	/^square = np.ones((3,3),dtype=np.bool)$/;"	v
 sr	listings/recentmash.py	/^sr = _$/;"	v
 st_colors	listings/extract_NCS_pcsvn.py	/^    st_colors = {$/;"	v
 std_results	listings/hfft_demo.py	/^std_results = list()$/;"	v
 std_test_statement	listings/hfft_demo.py	/^    std_test_statement = "gaussian_filter(img,{})".format(sigma)$/;"	v
 stitched	listings/scale_sweep_demo_old.py	/^        stitched = np.concatenate((top,bottom),axis=0)$/;"	v
+straw	listings/compare_segmentations.py	/^    straw = img.filled(0) < threshold_isodata(img.filled(0))$/;"	v
 straw	listings/margin_add_demo.py	/^    straw = img.filled(0) < threshold_isodata(img.filled(0))$/;"	v
+strip_ncs_name	listings/placenta.py	/^def strip_ncs_name(filename):$/;"	f
 structureness	listings/frangi.py	/^def structureness(K1, K2, gamma=0.5, c=None):$/;"	f
 stub	listings/extract_NCS_pcsvn.py	/^        stub = filename.rstrip('.png')$/;"	v
 stub	listings/output-montages.py	/^stub = 'T-BN2050224'$/;"	v
@@ -1783,7 +1941,7 @@ stub	listings/output-montages.py	/^stub = T-BN2050224$/;"	v
 stump	listings/stump_test.py	/^    stump = mask_stump(raw, mask=img.mask, mask_only=True)$/;"	v
 stump_labs	listings/stump_test.py	/^    stump_labs = label(stump)$/;"	v
 subsec:discrete-scale-space	manuscript/mathematical_methods.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	l
-subsec:discrete-scale-space	manuscript/mm-scalespaces.tex	/^    \\subsection{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	l
+subsec:discrete-scale-space	manuscript/mm-scalespaces.tex	/^    \\section{Scale Spaces over Discrete Structures} \\label{subsec:discrete-scale-space}$/;"	l
 subtype	listings/abbreviate_NCS_names.py	/^        basename, subtype = os.path.splitext(basename)$/;"	v
 success	listings/cut_demo.py	/^    mimg, success = mask_cuts_simple(img, ucip, return_success=True)$/;"	v
 surf	listings/frangi_graphing.py	/^    surf = ax.plot_surface(X,Y,Z, cmap='coolwarm', linewidth=0)$/;"	v
@@ -1791,10 +1949,14 @@ t	listings/vessel_filters.py	/^        t = get_frangi_targets(k1,k2,$/;"	v
 t	listings/vessel_filters.py	/^        t = t > t.mean()$/;"	v
 t1	listings/vessel_filters.py	/^        t1,t2 = principal_directions(timg, sigma=sigma, H=h)$/;"	v
 t2	listings/vessel_filters.py	/^        t1,t2 = principal_directions(timg, sigma=sigma, H=h)$/;"	v
+tab:cvr-demo-parametrizations	manuscript/results_analysis.tex	/^	\\label{tab:cvr-demo-parametrizations}$/;"	l
+tab:gaussian-mae-mse	manuscript/mm-hfft.tex	/^\\label{tab:gaussian-mae-mse}$/;"	l
 tab:mse-F-sigma-0.3	manuscript/mm-hfft.tex	/^    \\label{tab:mse-F-sigma-0.3}$/;"	l
 tab:mse-F-sigma-5	manuscript/mm-hfft.tex	/^    \\label{tab:mse-F-sigma-5}$/;"	l
 tab:mse-G-sigma-0.3	manuscript/mm-hfft.tex	/^    \\label{tab:mse-G-sigma-0.3}$/;"	l
 tab:mse-G-sigma-5	manuscript/mm-hfft.tex	/^    \\label{tab:mse-G-sigma-5}$/;"	l
+tab:segmentation-methods	manuscript/segmentation.tex	/^\\label{tab:segmentation-methods}$/;"	l
+tab:segmentation-parametrizations	manuscript/segmentation.tex	/^\\label{tab:segmentation-parametrizations}$/;"	l
 tab:widthcolors	manuscript/research_protocol.tex	/^\\label{tab:widthcolors}$/;"	l
 table	listings/extract_NCS_pcsvn.py	/^    table = pandas.DataFrame(np.dstack((scales, ALPHAS, scale_maxes)).squeeze(),$/;"	v
 table	listings/scaledecay.py	/^table = pandas.DataFrame(data)$/;"	v
@@ -1852,6 +2014,8 @@ trace	listings/compare_parameters.py	/^        trace = np.rot90(trace)$/;"	v
 trace	listings/compare_parameters.py	/^    trace = open_tracefile(filename)$/;"	v
 trace	listings/compare_parameters_alt.py	/^        trace = np.rot90(trace)$/;"	v
 trace	listings/compare_parameters_alt.py	/^    trace = open_tracefile(filename)$/;"	v
+trace	listings/compare_segmentations.py	/^        trace = np.rot90(trace)$/;"	v
+trace	listings/compare_segmentations.py	/^    trace = open_tracefile(filename)$/;"	v
 trace	listings/dilate_by_distance.py	/^trace = _$/;"	v
 trace	listings/extract_NCS_pcsvn.py	/^    trace = open_tracefile(filename, as_binary=True)$/;"	v
 trace	listings/line_to_nearest_mash.py	/^trace = open_tracefile(filename)$/;"	v
@@ -1861,8 +2025,10 @@ trace	listings/network_completion.py	/^            trace = np.rot90(trace)$/;"	v
 trace	listings/network_completion.py	/^        trace = open_tracefile(filename)$/;"	v
 trace	listings/rwpf_demo.py	/^        trace = np.rot90(trace)$/;"	v
 trace	listings/rwpf_demo.py	/^    trace = open_tracefile(filename)$/;"	v
+trace	listings/scale_to_argmax_demo.py	/^trace = open_tracefile(filename)$/;"	v
 trace	listings/threshold_demo.py	/^        trace = np.rot90(trace)$/;"	v
 trace	listings/threshold_demo.py	/^    trace = open_tracefile(filename)$/;"	v
+trace	listings/trough_filling_demo.py	/^    trace = open_tracefile(filename)$/;"	v
 true_neg_color	listings/scoring.py	/^    true_neg_color = np.array([247,247,247], dtype='f') # 'f7f7f7'$/;"	v
 true_pos_color	listings/scoring.py	/^    true_pos_color = np.array([0, 0, 0] , dtype='f')  # '000000'$/;"	v
 tt	listings/line_extend_megamash.py	/^tt = thin(T!=-1)*T$/;"	v
@@ -1870,6 +2036,7 @@ ucip	listings/compare_parameters.py	/^        ucip = np.rot90(ucip)$/;"	v
 ucip	listings/compare_parameters.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
 ucip	listings/compare_parameters_alt.py	/^        ucip = np.rot90(ucip)$/;"	v
 ucip	listings/compare_parameters_alt.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
+ucip	listings/compare_segmentations.py	/^    ucip, res = measure_ncs_markings(filename=filename)$/;"	v
 ucip	listings/cut_demo.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
 ucip	listings/cutfixer.py	/^ucip = open_typefile(Afile, 'ucip')$/;"	v
 ucip	listings/extract_NCS_pcsvn.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
@@ -1879,7 +2046,7 @@ ucip	listings/rwpf_demo.py	/^        ucip = np.rot90(ucip)$/;"	v
 ucip	listings/rwpf_demo.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
 ucip	listings/threshold_demo.py	/^        ucip = np.rot90(ucip)$/;"	v
 ucip	listings/threshold_demo.py	/^    ucip = open_typefile(filename, 'ucip')$/;"	v
-ucip_mask	listings/compare_parameters.py	/^    ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=60, mask=img.mask)$/;"	v
+ucip_mask	listings/compare_parameters.py	/^    ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=50, mask=img.mask)$/;"	v
 ucip_mask	listings/compare_parameters_alt.py	/^    ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=60, mask=img.mask)$/;"	v
 ucip_mask	listings/extract_NCS_pcsvn.py	/^        ucip_mask = img.mask$/;"	v
 ucip_mask	listings/network_completion.py	/^        ucip_mask = add_ucip_to_mask(ucip_midpoint, radius=60, mask=img.mask)$/;"	v
@@ -1905,6 +2072,11 @@ weinmatexactgraph	manuscript/mathematical_methods.tex	/^        	\\begin{equatio
 weinmatexactgraph	manuscript/mm-diffgeo.tex	/^        	\\begin{equation} \\label{weinmatexactgraph}$/;"	l
 which	listings/scaledecay.py	/^which = _$/;"	v
 widths	listings/extract_NCS_pcsvn.py	/^        widths = merge_widths_from_traces(A_trace, V_trace, strategy='arteries')$/;"	v
+widths	listings/scale_to_argmax_demo.py	/^widths = merge_widths_from_traces(A_trace, V_trace, strategy='arteries')$/;"	v
 widths_to_rgb	listings/scoring.py	/^def widths_to_rgb(w, show_non_matches=False):$/;"	f
 window	figures/add_sobel_border_demo/sobelmashfinal.py	/^window = np.s_[130:630,70:570]$/;"	v
+x	listings/compare_parameters.py	/^    x, y = line.get_xydata()[1]  # right of median line$/;"	v
+x	listings/compare_segmentations.py	/^        x, y = line.get_xydata()[1] # right of median line$/;"	v
+y	listings/compare_parameters.py	/^    x, y = line.get_xydata()[1]  # right of median line$/;"	v
+y	listings/compare_segmentations.py	/^        x, y = line.get_xydata()[1] # right of median line$/;"	v
 zoom	listings/preprocessing.py	/^    zoom = np.s_[300:380, 300:380]  # even smaller region$/;"	v

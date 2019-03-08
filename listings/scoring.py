@@ -655,7 +655,7 @@ def scale_to_width_plots(multiscale_approx, max_labels, widths, scales,
     ax[1].set_xlim(2,21)
 
     title = 'pixels reported per scale'
-    max_title = r'pixel widths of true positives by scale of $V_{\max}$'
+    max_title = r'pixel widths of true positives by scale of $\mathcal{V}_{\max}$'
     if approx_method is not None:
         title += f'({approx_method})'
         max_title += f'({approx_method})'
@@ -762,7 +762,7 @@ def scale_to_argmax_plot(max_labels, widths, scales, normalize=False,
 
     ax.set_xlim(2,21)
 
-    max_title = r'pixel widths of true positives by scale of $V_{\max}$'
+    max_title = r'pixel widths of true positives by scale of $\mathcal{V}_{\max}$'
 
     ax.set_title(max_title)
     ax.legend(loc='best', labelspacing=0.2)
