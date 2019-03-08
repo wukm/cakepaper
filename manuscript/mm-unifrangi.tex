@@ -74,6 +74,8 @@ Frangi further strengthened the filter by adding an additional case to \cref{eq:
 
 The only perceivable difference is that the maximum normal curvature will be positive--we are at a local minimum in the direction of $u_2$. In situations where we wish to only identify ridges (as is the case here) we simply exclude any points where there is not a negative curvature in the maximal direction. Conversely, we could only seek to find valley, or local minima, as thus require $\lambda_2 > 0$, and set the vesselness measure to zero when $\lambda_2 < 0$.
 
+
+
 \section{Choosing parameters $\beta$ and $c$}
 
 The parameters $\beta$ and $c$ are meant to scale so that the peaks of the anisotropy factor $\exp(\frac{-A^2}{2\beta^2})$ and the structureness factor $(1-\exp\left(\frac{-S^2}{2c^2}\right))$ coincide enough to be statistically significant at highly curvilinear structures, but rapidly decay in areas not associated with curvilinear content. What values of these parameters are appropriate is ultimately dependent on the context of the problem.
@@ -152,4 +154,6 @@ The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall ef
 In the figures in \cref{app:extra-figures}, we plot the Frangi vesselness measure itself as a function of $S$ and $A$ while sweeping through different choices of $\beta$ and $\gamma$. 
 
 
+
 	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach.
+	

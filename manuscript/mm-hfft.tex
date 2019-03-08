@@ -290,30 +290,31 @@ In \cref{fig:fft-gaussian-demo}, we demonstrate the compatibility of standard co
   \label{fig:fft-gaussian-demo}
 \end{figure}
 
-In \cref{fig:semigroup-demo}, we show these same three methods of Gaussian blur but for a large scale
-($\sigma=45$). For each method of taking the Gaussian blur ((a) - standard convolution with sampled kernel, (b) FFT with sampled kernel, (c) FFT with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted in \cref{tab:gaussian-mae-mse}. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
+We also demonstrated the ``semigroup property'' of Gaussian kernel convolution.
+For a large scale ($\sigma=45$) Gaussian blur ((a) - standard convolution with sampled kernel, (b) FFT with sampled kernel, (c) FFT with discrete kernel), the top row is one round of Gaussian blur with $\sigma=45$ and the bottom row is two progressive passes of Gaussian blur ($\sigma_1 = 10, \sigma_2 = 35$). The mean squared error and mean absolute error between the one-pass and two-pass versions are outputted in \cref{tab:gaussian-mae-mse}. Code for this demo can be found in \texttt{hfft.semigroup\_demo}.
 The discrete kernel performs very slightly better than the sampled versions. We originally attempted
 this demonstration with a much larger sigma (say $\sigma=150$) and multiple iterations, but unfortunately multiple passes cause the ``noise'' from zeroing out around the boundaries to become very noticable after several iterations. Here, we've opted to crop out a radius of pixels from around the edges equal to the standard deviation of the Gaussian before we calculated the MAE or MSE, to reduce noise from the border.
 
 \begin{table}
   \centering
   \begin{tabular}{c|cc}
-    blurring method   & MSE & MAE \\
+    convolution implementation   & MSE & MAE \\
     \hline
     spatial convolution, sampled kernel (A) & 0.00054426 & 0.02015643 \\
     FFT convolution, sampled kernel (B) & 0.00055205 & 0.02029916 \\
     FFT convolution, discrete kernel (C) & 0.00054406 & 0.02015336
   \end{tabular}
-\caption{Errors between different Gaussian blur implementations}
+\caption{MSE and MAE of one-pass vs. two pass Gaussian blur}
 \label{tab:gaussian-mae-mse}
 \end{table}
 
+%%REMOVED SEMIGROUP FIGURE, not worth it, just show data
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{semigroup_demo}
-  \caption{Iterative Gaussian blur}
-  \label{fig:semigroup-demo}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{semigroup_demo}
+%  \caption{Iterative Gaussian blur}
+%  \label{fig:semigroup-demo}
+%\end{figure}
 
 We further confirm the commensurate nature of Gaussian blur techniques by comparing the three techniques on a placental image and using each to calculate Frangi targets. The code can be found in \texttt{hfft\_accuracy.py}. In \cref{tab:mse-G-sigma-0.3,tab:mse-F-sigma-0.3,tab:mse-G-sigma-5,tab:mse-F-sigma-5} we compare the mean squared error of a single image blurred (A) with standard spatial convolution, (B) with FFT sampled Gaussian kernel, and (C) with the discrete kernel. We see that the standard convolution and discrete convolution are very similar, while the sampled discrete Gaussian is off by two orders of magnitude, but still reasonably small. We further confirm these by viewing the grayscale intensity of the image from 0 to 1 and the Frangi targets themselves across an arbitrarily chosen horizontal cross section of the image
 \cref{fig:cross-sec-demos}, the peaks of the Gaussian blurred image all still occur at the same places, as do the Frangi responses. We repeated this procedure up to $\sigma=90$ and found a situation similar to $\sigma=5$; it was only in very small scales where there was any noticeable difference at all.
