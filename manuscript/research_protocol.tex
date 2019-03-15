@@ -2,11 +2,10 @@
 
 \section{Samples / Image Domain}\label{sec:NCS-data-set}
 
-We ultimately perform a multiscale Frangi prefilter on a subset of 201 color images of placental samples from a private database provided by the National Children's Study, which had been prepared for a different study. A detailed description of the data set is given in \cite{chang2017},
-and a description of the cleaning and fixing procedure is given in \cite{almoussa-ucla-reu}. The samples are provided as XCF files (the native project file for GIMP) and contain four major layers.
+We ultimately perform a multiscale Frangi prefilter on a subset of 201 color images of placental samples from a private database provided by the National Children's Study, which had been prepared for a different study. A detailed description of the data set is given in \cite{chang2017}. A description of the cleaning and fixing procedure of the samples prior to their being photographed is given in \cite{almoussa-ucla-reu}. The samples are provided as XCF files (the native project file for GIMP) and contain four major layers.
 \subsection{A representative sample}
 The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample (with ID number ``BN0164923'') is given in \cref{fig:NCSlayers}.
-% put this on it's own page close to it's first reference
+
 \begin{figure}[p] \centering
     \subfloat[Fixed Placental Sample]{        \label{fig:NCSlayers-raw}\includegraphics[width=80mm]{{{T-BN0164923.raw}}}
         }
@@ -158,8 +157,8 @@ These procedures are performed automatically on the 201 images in our data set u
     
     Despite best efforts when harvesting samples, a select number of the placental samples exhibit substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\texttt{MATLAB}'s \texttt{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \texttt{scikit-image}'s \texttt{inpaint\_biharmonic()}, which should be expected to achieve similar results, albeit at the expense of processing time.
     
-    The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving a
-    biharmonic equation i.e. $\nabla \nabla f = 0$ for the surface $f$ subject to boundary conditions (as
+    The function \texttt{inpaint\_biharmonic} is based on \cite{damelin2018surface}, and relies on solving the biharmonic equation i.e. $\nabla \nabla f = 0$
+    for the surface $f$ subject to boundary conditions (as
     compared to \texttt{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
     
     The method for deciding what is considered glare is similar to $\cite{almoussa-ucla-reu}$, in which we

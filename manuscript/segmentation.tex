@@ -3,14 +3,16 @@
 We discuss how we use the Frangi as a prefilter and discuss several different segmentation strategies based upon our Frangi-filtered result. We will compare these methods to an unrelated segmentation strategy, the ISODATA threshold. First, we define some standard quantitative measures of success for segmentation methods.
 
 
-\section{Binary classifications and the confusion matrix}
+\section{Binary classifications, scoring methods, and the confusion matrix}
 
 We wish to come up wish a means of gauging the success of an arbitrary segmentation and will adopt a binary classification model to do so.
-We end up with a boolean matrix the size of the image, and compare it to the ground truth, the trace, and then compare them to get the number of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN). We demonstrate these four labels visually with a confusion matrix, as in \cref{fig:sample-confusion}. The lighter gray represents true negatives (TN), red represents false negatives (FN), blue represents false positives (FP), and black represents true positives. The darkest gray are is the background mask (pixels are not considered at all in gauging the success of segmentation).
+We end up with a boolean matrix the size of the image, and compare it to the ground truth, the trace, and then compare them to get the number of true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN). We demonstrate these four labels visually with a confusion matrix, as in \cref{fig:sample-confusion}.
+% The lighter gray represents true negatives (TN), red represents false negatives (FN), blue represents false positives (FP), and black represents true positives. The darkest gray are is the background mask (pixels are not considered at all in gauging the success of segmentation).
  
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{sample_confusion}
+  \includegraphics[height=0.3\textheight]{example_confusion_small}
+  \includegraphics[height=0.12\textheight]{confusion_legend}
   \caption{Sample confusion matrix}
   \label{fig:sample-confusion}
 \end{figure}
@@ -28,11 +30,11 @@ and the second is the Matthews Correlation Constant (MCC), given by
 MCC = \frac{TP\times TN - FP \times FN}{\sqrt{ (TP + FP)(TP+FN)(TN+FP)(TN+FN)}}
 \end{equation}
 
-where precision is a ratio between 0 \% and 100\% and the MCC is a measure between -1 and 1. Precision (or positive predictive power) is of course a ratio between how many pixels were labeled correctly and all pixels labeled positive (correctly or incorrectly). This is a useful score for us--if we are using Frangi as a prefiltering for a more robust technique, we would not want to provide any wrong information or seeds to that algorithm. Precision therefore does an okay job of representing that scenario: we are not penalized for what we do not label as true, as long as our reports of true are correct.
+where precision is a ratio between 0\% and 100\% and the MCC is a measure between -1 and 1. Precision (or positive predictive power) is defined as the ratio between how many pixels were labeled correctly (true positives) and all pixels labeled positive (either correctly or incorrectly). This is a useful score for us--if we are using Frangi as a prefiltering for a more robust technique, then we would rather provide an incomplete starting point, rather than an inaccurate one. Precision therefore does an okay job of representing that scenario: we are not penalized for what we do not label as true, as long as our reports of true are correct.
 
-Of course, we cannot rely on precision as our sole quantiative factor alone--we could simply return everything negative and recieve a perfect score of 100\% precision. Therefore we will gauge that measure with that of the MCC \cite{mcc-original-paper}. The main advantage of the MCC is that it is well balanced no matter what the size of the two classes are, and will only be high if the approximation scores well against both labels. A score of $1.0$ means the approximation is 100\% correct, a score of $-1.0$ means that everything is completely incorrect, and a score of $0$ means that the test performs only as well as random guessing. In our analysis, we will consider both the MCC and precision of a particular segmentation simultaneously. We would like an MCC score as high as possible, but will contextually settle for a lower score as long as the approximation is still \textit{precise}.
+Of course, we cannot rely on precision as our sole quantitative factor alone--we could simply return everything negative and receive a perfect score of 100\% precision. Therefore we will gauge that measure with that of the MCC \cite{mcc-original-paper}. The main advantage of the MCC is that it is well balanced no matter what the size of the two classes are, and will only be high if the approximation scores well against both labels. A score of $1.0$ means the approximation is 100\% correct, a score of $-1.0$ means that everything is completely incorrect, and a score of $0$ means that the test performs only as well as random guessing. In our analysis, we will consider both the MCC and precision of a particular segmentation simultaneously. We would like an MCC score as high as possible, but will contextually settle for a lower score as long as the approximation is sufficiently precise.
 
-One final point about these measures is that we have decided to report their scores only within the placental plate, rather than the entire rectangular image. Since the area outside of plate is masked from consideration, those points will be true negatives no matter what, and we don't want this artificial padding to influence our score. That being said, we do currently concede one part right now: we will also mask an area around the umbilical cord insertion point, as the large amount of noise here will mean that our scores are artificially low. We would like to remove these areas, but for now we will simply not score them. 
+One final point about these measures is that we have decided to report their scores only within the placental plate, rather than the entire rectangular image. Since the area outside of plate is masked from consideration, those points will be true negatives no matter what, and we don't want these points to artificially inflate our score. That being said, we do currently concede one part right now: we will also mask an area around the umbilical cord insertion point, as the large amount of noise here will mean that our scores are artificially low. We would like to remove these areas, but for now we will simply not score them. 
 
 \section{Postprocessing Techniques}
 Here we develop four relatively straightforward methods of postprocessing the multiscale Frangi output to obtain an actual PCSVN extraction. Again, we stress that the Frangi filter itself does not produce a segmentation itself. In fact, Frangi in his original paper \cite{frangi-paper} refrained from any explicit analysis of the Frangi score apart from taking the maximum across all scales. Still, we wish to demonstrate some immediate methods of postprocessing these samples in order to illustrate the usefulness of this optimized Frangi filter. 
@@ -48,13 +50,13 @@ $\Vmax >  \alpha$. This $\alpha$, as noted above, is unfortunately highly depend
 Unfortunately, even with our ``rescaled'' Frangi filter, this $\alpha$ cannot be picked without regard for the particular image domain. Equally problematic, we cannot guarantee that the Frangi filter will decay as our scale exceeds the the bounds where structure is expected to be found.
 
 
-\begin{equation}
-{\VSigma}_{\alpha}(x_0,y_0) = \begin{cases}
-1 & \textrm{if}\quad \Vmax(x,y) \; \ge\;  \alpha \\
-0 & \textrm{else}
-\end{cases}  \quad , \; \alpha > 0
-\; \textrm{for}\;\alpha\;\textrm{fixed}.
-\end{equation}
+%\begin{equation}
+%{\VSigma}_{\alpha}(x_0,y_0) = \begin{cases}
+%1 & \textrm{if}\quad \Vmax(x,y) \; \ge\;  \alpha \\
+%0 & \textrm{else}
+%\end{cases}  \quad , \; \alpha > 0
+%\; \textrm{for}\;\alpha\;\textrm{fixed}.
+%\end{equation}
 
 If we insist on such a performing such a thresholding, the ``correct'' choice of $\alpha$ unfortunately seems to depend on the image domain, so user intervention when dealing with the problem domain seems to be the best strategy. A more sincere use of thresholding might be to choose a relatively high threshold, and then use the result for a further technique.
 We will discuss alternatives methods of aggregating results from our multiscale method, as well as optimal values for parameters and scales. As a final note, we admit that any future extensions of this work should not hold too much stock in this thresholded result. Analyzing the raw vesselness score \cref{eq:Vmax}, or even the un-merged scale-wise scores \cref{eq:VSigma}, would be far more rewarding.
@@ -225,7 +227,7 @@ Our multiscale Frangi filter setup involves 20 scales spaced logarithmically fro
 In \cref{fig:seg-montage-example}, we look at the results of our various segmentation procedures for a typical well behaved sample. We can see that there are fewer false negatives for strict parametrization than with a standard parametrization. Even though the best MCC score across the 10 demonstrated in \cref{fig:seg-montage-example} is achieved by trough filling under standard parametrization, we note that trough filling in the strict parametrization has comparatively fewer false negatives and much higher precision. The highest precision is achieved by our higher fixed threshold. Thus, we should see the high MCC score achieved by the trough filling method as a testament to the usability of a simpler threshold (such as FT-high) as a precursor to more complete segmentation methods.
 
 
-In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent  $median \pm 1.5*(Q3-Q1)$ ($Q3-Q1$ is the so-called interquartile range) \cite{scipy}. Outliers outside of those whispkers, from samples such as those in \cref{fig:bad-gallery}, are also plotted as circles.
+In \cref{fig:scoring-boxplots} we graph the MCC and precision scores across our entire set of 201 images. In each boxplot, the median is labeled, with first and third quartiles making up the edges of the box. The ends of the whiskers represent  $median \pm 1.5*(Q3-Q1)$. The quantity ($Q3-Q1$), the difference of the third quartile (where $p=75$) and first quartile (where $p=25$) is the so-called interquartile range \cite{scipy}. Outliers outside of those whiskers, from samples such as those in \cref{fig:bad-gallery}, are plotted as individual data points.
 
 Across all samples, maximum precision was achieved by the higher fixed threshold of $\alpha =0.3 $ in all but 22 samples, and the trough filling method offered the best MCC in about three-fourths of the samples (51 of 201). Where the trough filling method was not most accurate, we noticed that the $q=95 $ nz-percentile method had a slightly higher MCC score. From viewing the samples, we see that noise from the umbillical cord insertion point still hinders a number of samples, causing noise within the Frangi filter. 
 
