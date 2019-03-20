@@ -4,35 +4,36 @@ TODO for cakepaper
 Tags
 ----
 [!] - quick
+[S] - style only (not that it isn't important)
+[#] - involves running code
 [~] - complicated / involved / fuzzy
 [.] - incremental (make sure gets done but don't need to do directly)
-[#] - involves running code
 [?] - decision / external input required
-[_] - other / undecided
 
 
 0. Multisection
 ---------------
-    A. [~] Debug correct style sheet
-    B. [#] Consistent coloration of graphs (nipy-spectral or plasma/magma?).
-    C. [?] Less awkward way to describe figure grids (not inline or smoothly
-            inline).  This also involves standardizing subfigure titles.  
+    A. [#] Consistent coloration of graphs (nipy-spectral)
+    B. [# S] Redo inline descriptions of subfloat arrays (use subfigure titles)
+    C. [#] Insert some words about morphological image processing somewhere.
 
 1. Introduction and Abstact
 ---------------------------
-    A. [?] Realign context with current developments in research group
+    A. [?] Realign context with current developments in Chang research group
+    B. [!] Recapture focus of thesis
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
     A. [~] Replace hand drawings
+    B. [ ] Redo differential geo discussion just in terms of graphs
 
 3. The Uniscale Frangi Filter
 -----------------------------
-    A. [~] Another editing pass
+    A. [~]
 
 4. Linear Scale Space Theory
 ----------------------------
-    A. [~] Edit pass
+    A. [~] 
 
 5. The Multiscale Frangi Filter
 -------------------------------
@@ -43,37 +44,41 @@ Tags
 
 6. FFT-Based Discrete Derivatives
 ---------------------------------
-    A. [~] Standard proofing
-    B. [?] Rework as just 1D; some of this is really unnecessary
+    A. [~] 
 
-7. Morphological Image Processing
----------------------------------
-    A. [~] Write this section (as brief as possible)
-    B. [~] Include thinning algorithm if you 
 
-8. Research Protocol
+7. Research Protocol
 --------------------
-    A. [?] Decision Tree is Better Formatted or as a Diagram (with the
-            alternate steps just within the body)
+    A. [~] Decision tree needs to be better formatted or as a flowchart
+           (with the alternate steps just within the body)
+    B. [~] Be clearer about UCIP stump removal
 
-9. Results and Analysis
+8. Results and Analysis
 -----------------------
-    A. [~] Calculate CVR of "bad samples"
-    B. [~] In what's labeled Figure 23 in this chapter, explain what the
-    scalewise percentile alphas are.
+    A. [~] Calculate CVR of "bad samples" or recalculate what constitutes "good"
+    B. [#] Colorbar for 3x3 scalewise parametrizations
     C. [~] Last two figures lack a write-up. Decide if you want to include these, as
             they really don't communicate the ideas well at all.
     D. [~] Include discussion of network completion and principal directions here
+    E. [~] With arrow annotations, use a colored legend. Redo Vmax output as BW.
+    F. [#] Redo CVR results, excluding UCIP to be consistent with Seg. chapter
 
-10. Segmentation
+9. Segmentation
 ----------------
-    A. [~] Fix figures
-    B. [ ] Potentially 
-    C. [ ] Merge numerical results (boxplots) into more readable result
-    D. [ ] Figure out another scoring method that highlights more heavily penalizes false positives?
+    A. [~] Show more data somehow (insets? bad samples?)
+    B. [#] For segmentation results, redo mask color
+    C. [ ] Merge numerical results of each parametrizaton into same boxplot for more
+           readable result
+    D. [~] More analysis! Be more honest about what is bad at least? More open about
+           improper scale selection?
+    E. [~] Remove or incorporate scalewise RW demo into results (maybe move to the
+           discussion part instead)
 
-
-11. Conclusion
+10. Conclusion
 -------------
-    A. [_] Standard Proofing
-    B. [~] Move any development things to analysis, this is summary only
+    A. [~]
+
+11. Appendix
+------------
+    A. [#] Decide what code to include as an example (if any)
+

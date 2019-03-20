@@ -126,7 +126,7 @@ The red arrow points to an issue unrelated to the ground truth, but an issue tha
 The sample we examined was a relatively well-behaved sample compared to others. Conversely, in \cref{fig:bad-gallery}, we give examples of some sampled that did not respond well to the Frangi filter, nor any of our Frangi-based segmentation methods. As can be seen from this gallery, poor perfusion of the blood vessels and large amounts of high constrast background is the common thread. One particular sample has very large arteries that were not reported. Increasing the scale size might fix the issue for this particular sample.
 
 We have empirically identified a few reasons for issues. Although we have in many cases removed border areas from consideration where they would cause a large false response (see \cref{sec:boundary-dilation} for our discussion on boundary dilation), some samples still demonstrate noise around the ``collar'' of each plate. This can marginally be seen in \cref{fig:detailed_frangi_with_table_ex2}--there is a large Frangi response in the bottom left that was not removed, and thus shows up in each simple segmentation.
-
+In \cref{ch:segmentation} we have opted to remove an area around the umbilical cord insertion point from our Frangi calculation for the same reason, although in \cref{fig:annotated-montage} it is unmasked its effect on the Frangi output.
 
 \begin{figure}[p]
 	\includegraphics[width=\textwidth]{bad_gallery}
