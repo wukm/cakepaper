@@ -1,0 +1,69 @@
+Thesis Defense Outline
+
+Chang recommendations:
+
+    -   Present a few things (like 2 or 3) that I've developed in the process of
+        this research project. Highlight thought process.
+        Highlighting a few of the things that I've learned from doing this
+        thesis 
+
+    -   Open with a journey thought process and goal. "I'm choosing a few
+        things to highlight that I've learned (and help us get closer to the
+        goal of segmentation of this image)
+
+    -   Fourier analysis speedup is like one slide. Details found in thesis. 
+
+    -   (Chang suggested about 20-30 minutes on math methods)
+
+My recommendations:
+
+    -   Present DIFFGEO theory (as close to the end as possible, as simplified
+        to your particular use case as possible).
+
+    -   Make  and FRANGI theory. all
+        other theory: challenge yourself to not get into it.
+
+    -   Scalewise random walker is a good demo, but is too resource-intensive
+        to be compared against other methods or take too much time explaining
+        in defense.  Okay to show for one sample (in paper not defense) but
+        don't get into it too much off-the-mark to be included as an official
+        segmentation method. 
+
+        30 slides. a minute and a half each.
+
+    -   3x3 parametrization grid is very busy. Rework this so that you can tell
+        what the flow is. Maybe only a few. Emphasize the takeaway: that
+        stricter leads to less noise, also that being strict about beta is
+        preferred. Make sure you can compare two that you want to talk about.
+        draw arrows (stricter beta stricter gamma) on axis
+
+Other todos:
+
+    -   Check structureness output for CVR scores.
+
+    -   Make colorbar for CVR outputs
+
+    -   Redo with fewer scales (what about like 6?)
+
+    -   When you redo CVR scores, gather time of running for each so you can
+        show how long  it takes (preprocessing, Frangi time)
+
+
+
+Make sure to include:
+
+
+    -   Relation of scale and vessel with in ground truth
+
+    -   Show using a stricter parametrization causes a higher precision vs MCC
+        score
+
+
+MATLAB/MATPLOTLIB boxplots:
+
+    central mark is median,
+    bottom and top is 25th and 75th percentiles. 
+    whiskers extend to most extreme data point not considered an outlier.
+    outliers are anything greater than q3+w*(q3-q1) or less than q1-w*(q3-q1)
+    with default value of w=1.5
+

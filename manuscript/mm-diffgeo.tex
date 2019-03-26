@@ -73,7 +73,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
      \;,\quad u = (u_1, u_2) \in U \subset \R^2 \]
     \end{defn}
     %That is, $f$ is an embedding/immersion/parametrization of the function h
-    Since the graph $f$ is clearly one-to-one by definition, we may readily associate any input $u\in U$ with
+    Since the graph $f$ is clearly one-to-one (into $\R^3$) by definition, we may readily associate any input $u\in U$ with
     its corresponding output $p \in f[U]$, i.e.
     $ p = f(u) = f(u_1, u_2) \;=\; \big(u_1 , u_2 , h(u_1,u_2)\big)$,
     % world salad but may need motivation.
@@ -82,9 +82,9 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     
     % Motivation
     Our development of curvature ultimately will hinge upon a careful consideration of the tangent plane of $f$ at a point $p$, for we will require a concrete definition of both the tangent space within the domain and image of $f$,
-    as well as the so called "differential" of $f$,
+    as well as the differential" of $f$,
     % shit or not because we need it later!
-    the lattermost of which we will only define for the immediate case required.
+    % the lattermost of which we will only define for the immediate case required.
 	%    Seeing that $f$ is one-to-one should make a lot of this
 	%    futzing about complete overkill, but I've yet to find a way to distill it.
 	%    That is, this development works for any parametrized surface element, not necessarily a graph. Whatever for now.
@@ -94,7 +94,7 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     	\[ T_{u} U = \left\{u\right\} \times \R^2
     	\]
     	\end{defn}
-    \begin{defn}[Tangent space of $\R^3$ at $p$]
+    \begin{defn}[Tangent space of $\R^3$ at $p$] \label{def:tangent-of-R3}
     	\[ T_{p} \R^3 = \{p\} \times \R^3
     	\]
     \end{defn}
@@ -105,15 +105,15 @@ We wish to describe the structure of an image as a surface. To do this, we devel
     \[
      Df|_u : T_uU \to T_{f(u)}\R^3
      \quad \textrm{by}
-     \quad w \mapsto J_f (u) \cdot v
+     \quad w \mapsto J_f (u) w
     \]
 where $J_f(u)$ is the Jacobian of $f$ evaluated at some fixed point $u \in U$, i.e. the matrix
 \[
 J_f (u) = \left[ \left.\frac{\partial f_i}{\partial u_j}\right\vert_u \right]_{i,j}
 \]
 \end{defn} % You can in some ways argue that J_x(f) is a better notation
-Although not necessary presently, we could just as easily consider the differential of an arbitrary function as a map between tangent vectors in the function's domain and tangent vectors in its range.
-We could also just identify this as mapping  $U \to \R^3$ by the obvious isomorphism described above. and then differential of $f$ at $x$ is simply a linear transformation of between the tangent spaces $T_uU$ and $T_p\R^3$ where the transformation in question is given by the Jacobian. We can define such a differential at any point $u$ in the domain.
+%Although not necessary presently, we could just as easily consider the differential of an arbitrary function as a map between tangent vectors in the function's domain and tangent vectors in its range.
+We could also just identify the differential \cref{def:differential-map}  with a mapping $U \to \R^3$ by the obvious isomorphism inherent in \cref{def:tangent-at-U}. In this case, the differential of $f$ at $x$ is simply a linear transformation between the tangent spaces $T_uU$ and $T_p\R^3$ where the matrix of the transformation is given by the Jacobian. We can define such a differential at any point $u$ in the domain.
 
 With these three definitions, we are equipped to give a formal definition of $T_uf$,
 the tangent plane of $f$ at an input $u$.
@@ -128,7 +128,7 @@ The vectors in this plane can thus be identified as tangent vectors from $T_uU$ 
 We shall denote a generic tangent vector $X \in T_u f$ at point $p$.
 %%%%%STOPPEED HERE
 We may expand any such vector $X$ in terms of the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$; that is,
-$\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$.
+$\textrm{span}\left\{ \frac{\partial f}{\partial u_1}, \frac{\partial f}{\partial u_2}\right\} = T_u f$. Each of these basis vectors are the columns of the Jacobian matrix and are \textit{parametric} derivatives of $f$ for the input $u$.  
 
 % level of "needless" abstraction
 Given the level of abstraction above, it may be refreshing to explicitly show the linear independence of this set in the case of an arbitrary graph $f$.
@@ -136,15 +136,17 @@ Given the level of abstraction above, it may be refreshing to explicitly show th
 \begin{lemma} \label{lemma:f_ui-is-a-basis}
 	When $f$ is a graph, for all points $u \in U$, $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is in fact a basis for the tangent plane $T_uf$.
 \end{lemma}
-Quite obviously, we're assuming $(1,0), (0,1) \in U$. If this is not the case, we pick some $\alpha$ small enough so that $(\alpha,0)$ and $(0,\alpha)$ are contained and this scaled version would serve as a basis instead.
+
 \begin{proof}
-Given the definition of a graph $f$ as in \cref{def:graph}, we can directly calculate the partial derivatives of $f$ at a point $u$.
+Given the definition of a graph $f$ as in \cref{def:graph}, we can directly calculate the parametric derivatives of $f$ at a point $u$.
 \[
 f_{u_1} = (1,0,h_{u_1}(u)) \quad\textrm{and}\quad f_{u_2} = (0,1,h_{u_2}(u))
 \]
  which are obviously linearly independent.  Then $Df\vert_u (1,0) = f_{u_1} ,$ and $ Df\vert_u (0,1) = f_{u_2}$, which shows $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\} \in T_uf$.  Thus $\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ is a linearly independent subset of $T_u f$, and can serve as its basis.\end{proof}
 
-	The partials derivatives of $f$ are not, in general, orthogonal at any point $u$, unless it happens that $h_{u_1} $ or $h_{u_2}$ is zero.
+Quite obviously, we're assuming $(1,0), (0,1) \in U$. If this is not the case, we pick some $\alpha$ small enough so that $(\alpha,0)$ and $(0,\alpha)$ are contained and this scaled version would serve as a basis instead.
+
+	The parametric derivatives of $f$ are not, in general, orthogonal at any point $u$, unless it happens that $h_{u_1} $ or $h_{u_2}$ is zero.
 	A visualization of some of the above is given in \cref{fig:Tuf}, although note that $f_{u_1}$ and  $f_{u_2}$ accidentally appear orthogonal.
 	
 	\begin{figure}\centering
@@ -180,13 +182,13 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
  Note as well that the velocity of this particular curve lies within $T_u f$. This
  can be seen by an elementary application of chain rule:
  \begin{align}
- -\frac{d c}{dt} &= -\frac{d}{dt}\big[ f(\theta_c(t))\big] \\
- &= -\frac{d}{dt}\big[f(\theta_1(t), \theta_2(t))\big] \\
+ \frac{d c}{dt} &= \frac{d}{dt}\big[ f(\theta_c(t))\big] \nonumber \\
+ &= \frac{d}{dt}\big[f(\theta_1(t), \theta_2(t))\big] \nonumber \\
  &= \theta_1'(t)\left( \frac{\partial f}{\partial u_1} \right) + 
  \theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right) \in T_uf.
  \end{align}
  
- Considering a point $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all (regular) surface curves passing through the point $p$ at some particular velocity.
+ Considering the parameter $p \in I$ and its associated point $u = \theta_c(p)$, we wish to compare the curvatures of all (regular) surface curves passing through the point $u$ at some particular velocity.
  
  We now present a main result that provides a notion of curvature of a surface.
 
@@ -201,7 +203,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	In other words, any two curves on the surface with a common velocity at a given point on the surface will have the same curvature. To prove this, we require one final definition.
 	
 	\begin{defn}[The Gauss Map] \label{def:gauss-map}
-		The Gauss map at a point $p = f(u)$ is the unit normal to the tangent plane
+		The Gauss map at a point $u$  is the unit normal to the tangent plane
 		\[\nu : U \to \R^3 \quad\textrm{by}\quad  \nu(u) :=
 		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
 		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}} \]
@@ -209,7 +211,6 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	Each partial above understood to be evaluated at the input $u \in U$; that is, we calculate $\left.\frac{\partial f}{\partial u_i}\right|_u$.
 	The existence of the cross product in its definition makes it clear that $\nu \perp \frac{\partial f}{\partial u_i}$ each $i=1,2$. A simple dimensionality argument of $\R^3$ implies that these must exist in $T_uf$. However, we can also show it directly: 
 %	\vcomment{at this point if you can prove $\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\}$ are linearly independent then do so, or just save for later, in which case don't use derivates at all}
-	
 	To show that $\left\{\frac{\partial \nu}{\partial u_1} , \frac{\partial \nu}{\partial u_2}\right\} \in T_u f$,
 	first note that at any particular $u \in U$,
 	$\inner{\nu}{\nu} = 1 \implies \frac{\partial}{\partial u_i} \inner{\nu}{\nu} = 0$,
@@ -220,13 +221,15 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
 	
 	Thus, we have $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well and we can also use it as a basis.
-	
+  The Gauss map is intrinsic to the surface and irrespective of any particular curve through it.
 	
 	We are finally ready to prove \cref{thm:meusnier}, the Theorem of Meusnier.
 	
-	%%% START HERE %%%%%%
 	\begin{proof}
-	Let $X\in T_u f$ be given and consider some curve where $\frac{\partial c}{\partial t}(u) = X$ where $X \in T_u f$. We wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
+	Let $X\in T_u f$ be given and consider some curve where
+  %$\frac{\partial c}{\partial t}(u) = X$ where $X \in T_u f$.
+  $c'(p) = X$.
+  We wish to decompose the curve's acceleration along the  orthogonal vectors $X$ and
 	the Gauss map $\nu = \nu(u_1, u_2) =
 		\frac{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}
 		{\vnorm{\frac{\partial f}{\partial u_1} \times \frac{\partial f}{\partial u_2}}}$ as in \cref{def:gauss-map}.
@@ -247,7 +250,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 
 	
 	 and we can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
-	\begin{align}
+	\begin{gather}
+  \begin{aligned}
 		\inner{c''}{\nu} &=
 		\frac{\partial}{\partial t}\left[ \inner{c'}{\nu} \right]
 			- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
@@ -255,15 +259,16 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			- \inner{c'}{\frac{\partial \nu}{\partial t}} \\
 			&= 0 - \inner{X}{\frac{\partial \nu}{\partial t}}
 			%&= \inner{X}{\wein X} = \mathbf{II}(X,X)
-			\end{align}
+      \end{aligned}
+			\end{gather}
 	
 	Thus, we can express the curvature at this point on our selected curve as
 	\begin{align}
 	%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
 	\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
-	&= \vnorm{0 + \inner{c''}{\nu}\nu} \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu} \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}} \\
+	&= \vnorm{0 + \inner{c''}{\nu}\nu}  \nonumber \\
+	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu}  \nonumber \\
+	&= - \inner{X}{\frac{\partial \nu}{\partial t}}  \nonumber \\k
 	&=  \inner{X}{-\frac{\partial \nu}{\partial t}} \label{eq:expand_accel_norm}
 	\end{align}
 	
