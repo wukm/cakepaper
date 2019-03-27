@@ -1,4 +1,4 @@
-\documentclass[9pt]{beamer}
+\documentclass[9pt,notes]{beamer}
 %\documentclass{foils} %if wish to emulate the foils class using beamer
 
 % - Style is ornate.
@@ -105,14 +105,15 @@
 
 %\usepackage[latin1]{inputenc} or whatever
 
-%\usepackage{beramono}
+\usepackage{beramono}
+
 %\usepackage[T1]{fontenc}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 
 \beamertemplatenavigationsymbolsempty
 
-\title[Thesis Defense]{Optimized Strict Multiscale Frangi Prefiltering for Segmentation}
+\title[Cake Defense]{Optimized Strict Multiscale Frangi Prefiltering for Segmentation}
 \subtitle{Towards an automated PCSVN extraction}
 
 \author[{Luke Wukmer}] % (optional, use only with lots of authors)
@@ -134,7 +135,6 @@
 
 \date{April 9, 2019}
 
-
 \titlegraphic{\includegraphics[height=2cm]{csulb-seal.png}}
 \begin{document}
 
@@ -143,51 +143,107 @@
   \titlepage
 \end{frame}
 
-
-%%% Motivation / Researh Problem
+\section{Introduction}
 \begin{frame} % % % % % % % % % % % % % % % % % % % % % % % % %
+\AtEndNote{\par}
 	\frametitle{Research Goals}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
 			\begin{figure}
-				%\includegraphics[height=0.36\textheight]{earli_crop.jpg} \\
-			%	\includegraphics[height=0.36\textheight]{earli_crop_trace.jpg}
 			\includegraphics[width=\textwidth]{general_research_question.png}
-				
-				\caption{\scriptsize \textbf{(Top)}: A manual trace of the placental chorionic vascular surface network (PCSVN) is performed. This trace is measured, which is turned into a feature vector, which is used as a predictive aid.}
+			\note[item]{In the figure, a manual trace of the placental chorionic
+            vascular surface network (PCSVN) is performed.
+            This trace is measured in multiple ways. Those measurements are turned into
+            a feature vector, which can be used to predict a risk. Refer to Boruta paper.}
 			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
 			\begin{block}{Vascular Network Extraction in Placentas}
 				\begin{itemize}
-					\item \textbf{Motivation:} An accurate measurement of the vascular structure of a placental sample can be used to predict neonatal risk factors.
-					\item \textbf{Challenges:}
-					\begin{itemize}
-						\item Placental images are very noisy, so many conventional methods fail.
-						\item Currently no completely automated method of obtaining traces of vascular network. Manual tracing is labor intensive but necessary for feature analysis.
-					\end{itemize}
+					\item \textbf{Motivation:}
+            Accurate measurement of the vascular structure of a placental sample
+            can be used to predict neonatal risk factors, specifically ASD.
+					\item \textbf{Challenge:}
+						Currently no automated method of obtaining traces of
+            PCSVN. Manual tracing is labor intensive but necessary
+            for feature analysis.
+            \note[item]{Manual tracing requires like 5 hours or something
+                  and requires training.
+                  There is some guesswork that's done in it too and some limitations
+                  in the ground truth itself (will cover later)
+                }
 					\item \textbf{Research Goal:} Provide a fully automated method of extraction.
-				\end{itemize}
+          					\end{itemize}
 			\end{block}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-%SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \begin{frame}
-	\frametitle{Previous Research}
-	
-	\begin{enumerate}[\bfseries(a)]
-	\item Nen Huynh used Frangi filtering result (different data set)
-	\item Frangi filtering is followed by morphological filtering (using principal-directions). Agreement with ground truth is displayed. 
-  \item There's a different research group using advanced methods
-	\end{enumerate}
-	
-	\end{frame}
+  \frametitle{The Image Processing Problem}
+  \begin{columns}[c]
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}
+        \begin{block}{Our image domain}
+        \item The PCSVN is a connected network of veins and arteries
+                on the surface of the placenta
+        \item We have a ground truth for 201 samples
+                from private NCS dataset
+        \item Placentas have been formalin-fixed,
+                so arteries are more prominent
+                (there are issues)
+        \item Pictures taken from top down, some glare,
+                some inconsistencies.
+        \item Placental images are comparatively noisy
+        \note[item]{The surface of the placenta has a lot of changes
+              in color/topology apart from the PCSVN
+              so a lot of techniques that work elsewhere
+              for vascular segmentation seem to fail here.
+              Thus segmentation is more complicated that than say,
+              an eyeball MRI (like original Frangi paper)
+            }
+      \end{block}
+    \begin{block}{Strategy}
+      Given the curvilinear nature of these vessels, we will appeal
+      to differential geometry.
+      \end{block}
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[height=0.36\textheight]{earli_crop.jpg} \\
+    {\Huge $\Downarrow$}\\
+    \includegraphics[height=0.36\textheight]{earli_crop_trace.jpg}
+    \note[item]{Mention colors are simply vessel widths (3 to 19 odds)
+          are part of the tracing protocol. that's really outside of the
+          scope of this thesis, but kept anytime we show a ground truth
+          because they're pretty
+        }
+  \end{column}
+  \end{columns}
+\end{frame}
+%SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\begin{frame}
+%	\frametitle{Previous Research}
+%	
+%	\begin{enumerate}[\bfseries(a)]
+%	\item Nen Huynh used Frangi filtering result (different data set)
+%	\item Frangi filtering is followed by morphological filtering (using principal-directions). Agreement with ground truth is displayed. 
+%  \item There's a different research group using a cGAN or whatever and it's really good but
+%    resource intensive, but whatever maybe just go with that one
+%	\end{enumerate}
+%	
+%	\end{frame}
 
-%
+
+\section[Math Methods]{Mathematical Methods}
 \begin{frame}
 \frametitle{Differential Geometry in Image Processing}
+  We want to find curvilinear structures in the images, so 
+\begin{itemize}
+  \item Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and
+        
+\end{itemize}
 \end{frame}
 
 \begin{frame}
