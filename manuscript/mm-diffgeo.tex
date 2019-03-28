@@ -171,10 +171,10 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
  
  \begin{defn}[Surface curve] \label{def:curve-on-a-surface}
  	Given a closed interval $I \subset \R$, we call the regular curve
- 	$c: I \to \R^3$ a surface curve in the event that $\image(c) \subset \image(f)$ entirely. The one-to-one-ness of the graph $f$ ensures that we can define (for the given curve) an intermediary parametrization $\theta_c$  so that
- 	$ c = f \circ \theta_c $. That is,
+ 	$c: I \to \R^3$ a surface curve in the event that $\image(c) \subset \image(f)$ entirely. The one-to-one-ness of the graph $f$ ensures that we can define (for the given curve) an intermediary parametrization $\theta$  so that
+ 	$ c = f \circ \theta $. That is,
  	\[
- 	\theta_c : I \to U \; \textrm{by} \; \theta(t) = \big(\theta_1(t), \theta_2(t)\big)
+ 	\theta : I \to U \; \textrm{by} \; \theta(t) = \big(\theta_1(t), \theta_2(t)\big)
  	\]
  	so that $c(t) = f(\theta_c(t)) \;\forall t\in I,$
  	and $c[I] = f\left[\theta_c[I]\right]$.
@@ -217,7 +217,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	and so by chain rule $2\inner{\frac{\partial \nu}{\partial u_i}}{\nu} = 0
 	\implies \frac{\partial \nu}{\partial u_i} \perp \nu $.
 	Since $ \nu \perp \spn\left\{\frac{\partial f}{\partial u_i}\right\} $ as well (since $\nu$ its outer product), in  $\R^3$, this implies
-	$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} \parallel
+	$\spn\left\{\frac{\partial \nu}{\partial u_i}\right\} = % not \parallel
 	\spn\left\{\frac{\partial f}{\partial u_i}\right\}$.
 	
 	Thus, we have $\textrm{span}\left\{ \frac{\partial \nu}{\partial u_1}, \frac{\partial \nu}{\partial u_2}\right\} \subset T_u f$ as well and we can also use it as a basis.
@@ -236,7 +236,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		Note that $X$ and $\nu$ are indeed orthogonal,
 		as $ X \in \spn\left\{\frac{\partial f}{\partial u_i}\right\} = T_u f$, and
 		$\nu \perp T_u f$).
-	 We then have (at this fixed point $u=\theta_c(p)$)
+	 We then have (at this fixed point $u=\theta(p)$)
 		
 		\begin{equation} \label{eq:meusnier_acceleration}
 			c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
@@ -267,24 +267,25 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
 	\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
 	&= \vnorm{0 + \inner{c''}{\nu}\nu}  \nonumber \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}}\vnorm{\nu}  \nonumber \\
-	&= - \inner{X}{\frac{\partial \nu}{\partial t}}  \nonumber \\k
-	&=  \inner{X}{-\frac{\partial \nu}{\partial t}} \label{eq:expand_accel_norm}
+	&= \abs{- \inner{X}{\frac{\partial \nu}{\partial t}}}\vnorm{\nu}  \nonumber \\
+	&= \abs{- \inner{X}{\frac{\partial \nu}{\partial t}}}  \nonumber \\
+	&=  \abs{\inner{X}{-\frac{\partial \nu}{\partial t}}} \label{eq:expand_accel_norm}
 	\end{align}
 	
-	We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
+  We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
 	\cref{eq:expand_accel_norm} via chain rule:
 	\begin{align} \label{gaussmap_timederivative}
-	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \\
-	&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \\
+	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \nonumber \\
+	&= -\frac{d}{dt}\big[\nu(\theta_1(t), \theta_2(t))\big] \nonumber \\
 	&= \theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \label{eq:gaussmap_dt_expanded}
+	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right)
 	\end{align}
 	
 	
-	Identifying $\textrm{span}\left\{ - \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation which maps the basis
-	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this subset, which we shall call
-	the Weingarten map $\wein$.
+	Since $\textrm{span}\left\{ - \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation which maps the basis
+	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this basis.
+  
+  We call this map which the Weingarten map $\wein$.
 	
 	\begin{defn}[The Weingarten Map] \label{def:wein-map}
 		\[
@@ -296,15 +297,17 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		%\quad i=1,2		
 		\]
 	\end{defn}
-	That is, $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i} $ for $i=1,2$, where the negative sign comes about from blind adherence to \cref{eq:gaussmap_dt_expanded} and \cref{eq:expand_accel_norm}. This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
+	That is, $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i} $ for $i=1,2$.
+  %where the negative sign comes about from blind adherence to \cref{eq:gaussmap_dt_expanded} and \cref{eq:expand_accel_norm}.
+  This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
 		\begin{align}
 		-\frac{d \nu}{dt} &= 
 		\theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
-		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \\
+		\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right) \nonumber\\
 		&= \theta_1'(t)\left( \wein\left(\frac{\partial f}{\partial u_1}\right) \right) + 
-		\theta_2'(t)\left( \wein\left(\frac{\partial f}{\partial u_2}\right) \right) \\
+		\theta_2'(t)\left( \wein\left(\frac{\partial f}{\partial u_2}\right) \right)\nonumber \\
 		&= \wein\left[\theta_1'(t)\left( \frac{\partial f}{\partial u_1}\right)  + 
-		\theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right)\right] \\
+		\theta_2'(t)\left( \frac{\partial f}{\partial u_2} \right)\right] \nonumber\\
 		&= \wein\left(\frac{d}{dt}\left[ f\left(\theta(t)\right)\right] \right)
 		= \wein\left( \frac{d}{dt} \left[ c(t) \right] \right) = \wein\left(X\right)
 		\end{align} 
@@ -312,7 +315,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		\cref{eq:expand_accel_norm} as the much simplified
 		
 		\begin{equation} \label{eq:expand_accel_norm_final}
-		\vnorm{c''} = \inner{X}{-\frac{\partial \nu}{\partial t}} = \inner{X}{\wein(X)}
+		\vnorm{c''} = \abs{\inner{X}{-\frac{\partial \nu}{\partial t}}}
+                = \abs{\inner{X}{\wein(X)}}
 		\end{equation}
 		
 	
@@ -338,7 +342,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	
 	That is, we may trace any $X \in T_u f$ which has been expanded in terms of the basis 
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
-	and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
+	and map it to the basis $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
 	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case (that is, for surfaces $f$ that are not graphs). We refer to \cite{Kuhnel-DiffGeo} for the general proof. Our present situation is much less delicate, as we're only concerned for cases when $f$ is a graph. In this case, the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
 	\begin{lemma}
@@ -362,19 +366,22 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			\mcol{\left.-\frac{\partial \nu}{\partial u_2}\right|_{T_u f}} \right]
 			\end{align}
 			Now, representing each vector in  $T_u f$ with respect to the basis $\left\{ \frac{\partial f}{\partial u_i}\right\}$, we have
-			\begin{align}
-			\implies
+  \begin{align}
+      	\Bigg[ \;\weinmat\; \Bigg]
+      \left[ \mcol{\left.\frac{\partial f}{\partial u_1}\right|_{T_u f}} \;
+      \mcol{\left.\frac{\partial f}{\partial u_2}\right|_{T_u f}} \right]
+      = 
 			\Bigg[ \;\weinmat\; \Bigg]
 			\begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
 				- \frac{\partial f}{\partial u_2} -
 							\end{bmatrix}
 			\left[ \mcol{\frac{\partial f}{\partial u_1}} \;
 				\mcol{\frac{\partial f}{\partial u_2}}\right]
-				&= \begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
+				= \begin{bmatrix} - \frac{\partial f}{\partial u_1} - \\
 				- \frac{\partial f}{\partial u_2} -
 				\end{bmatrix}
 				\left[ \mcol{-\frac{\partial \nu}{\partial u_1}} \;
-				\mcol{-\frac{\partial \nu}{\partial u_2}}\right]
+				\mcol{-\frac{\partial \nu}{\partial u_2}}\right] \\
 	\end{align}
 		 
 	We can simplify this greatly by defining 
