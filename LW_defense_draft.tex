@@ -41,12 +41,6 @@
 
 \setbeamercovered{dynamic}
 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\X}{\mathcal{X}}
-\newcommand{\Y}{\mathcal{Y}}
-\newcommand{\isoa}{\xrightarrow{\sim}}
-
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator{\Exp}{Exp}
@@ -90,6 +84,43 @@
 \newcommand{\Green}[1]{{\color{Green}{#1}}}
 \newcommand{\LightGray}[1]{{\color{LightGray}{#1}}}
 
+
+%\newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
+%\newcommand{\N}{\mathbb{N}} % set of all natural numbers
+%\newcommand{\Z}{\mathbb{Z}} % integers
+%\newcommand{\Zpos}{\mathbb{Z}_{+}}
+%\newcommand{\image}{\mathrm{image}} % image of a function
+%\newcommand{\spn}{\mathrm{span}}
+%
+%\newcommand{\Vmax}{\ensuremath{\mathcal{V}_{\max}}\xspace}
+%\newcommand{\Vargmax}{\ensuremath{\mathcal{V}_{\mathrm{argmax}}}\xspace}
+%\newcommand{\VSigma}{\ensuremath{\mathcal{V}_{\Sigma}}\xspace}
+%\newcommand{\Vsigma}{\ensuremath{\mathcal{V}_{\sigma}}\xspace}
+%\newcommand{\Sigmaneg}{\Sigma^{(-)}}	
+%
+%\newcommand{\VSigmapos}{\ensuremath{\mathcal{V}_{\Sigma}^{(+)}}\xspace}
+%\newcommand{\VSigmaneg}{\ensuremath{\mathcal{V}_{\Sigma}^{(-)}}\xspace}
+%
+%\newcommand{\Vmaxpos}{\ensuremath{\mathcal{V}^{(+)}_{\max}}\xspace}
+%\newcommand{\Vmaxneg}{\ensuremath{\mathcal{V}^{(-)}_{\max}}\xspace}
+%\newcommand{\alphapos}{\alpha^{(+)}}
+%\newcommand{\alphaneg}{\alpha^{(-)}}
+%\newcommand{\alphaiso}{\alpha_{{\tiny\textsc{ISO}}}}
+%
+%
+%\newcommand{\Hess}{\mathrm{Hess}} % fancy H for the hessian
+%\newcommand{\wein}{\mathsf{L}} % for the Weingarten map
+%\newcommand{\weinmat}{\widehat{\mathsf{L}}}
+%\newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
+%
+%%\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+%%\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
+%%\DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+%
+%\newcommand{\bigO}{\mathcal{O}}
+%
+%\DeclareMathOperator{\FT}{\mathcal{F}} % fancy F for \FT
+%\DeclareMathOperator{\DFT}{\mathcal{D}} % fancy D for \DFT
 
 %%% theorem styles %%%%%%%%%
 %\theoremstyle{plain}% default \newtheorem{thm}{Theorem}[section]
@@ -146,7 +177,6 @@
 
 \section{Introduction}
 \begin{frame} % % % % % % % % % % % % % % % % % % % % % % % % %
-\AtEndNote{\par}
 	\frametitle{Research Goals}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
@@ -240,7 +270,7 @@
 
 \section[Math Methods]{Mathematical Methods}
 \begin{frame}
-\frametitle{Differential Geometry: Why use}
+\frametitle{Appealing to Differential Geometry}
   Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and intensity as the height function.
   \note[item]{Point of this slide is show that finding curvilinear surfaces is reasonable}
 
@@ -253,182 +283,226 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Relevant Differential Geometry of (Continuous) Surfaces}
+\frametitle{Review of Differential Geometry of (Continuous) Surfaces}
+\note[item]{``Let's just pretend we're dealing with this as a continuous surface
+              for now''}
   \begin{itemize}
-    \item 
+    \item (Thm of Meusnier)
+          If you look at a point on the surface and fix a tangent vector,
+          then all surface curves through that point with that velocity
+          will have the same curvature there.
+          So the curvature is intrinsic to the surface, call it normal curvature.
+    \item Varying the tangent vector,
+          we call extremal values of normal curvature the
+          \textbf{principal curvatures}.
+          The associated tangent vectors are \textbf{principal directions.}
+    \item (Thm. of Olinde Rodrigues)
+          These principal curvatures/directions are
+          the eigenvalues/eigenvectors of
+          a particular map called the \textbf{Weingarten map}.
+      \note[item]{Weingarten map also called shape operator. Also can just define
+                  the second fundamental form and use that matrix
+                  (for our purposes)}
+      \note[item]{Note that all this is true for \textit{any} kind of surface,
+                  but we really just care about graphs.}
+      \note[item]{If you want to get into notation, you can do so as far as explicitly
+                  showing what the Weingarten map is (requires Gauss map).
+                  You probably can avoid showing any setup of Meusnier--
+                  defining curves and so on. 
+                  }
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Implementation Detail: Calculating Discrete Hessian}
-\end{frame}
-%SLIDE 4/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}
-\frametitle{Differential Geometry in Image Processing and the Frangi Filter}
-\begin{columns}[c]
-\begin{column}{0.4\textwidth}
-\begin{block}{\footnotesize Principal Curvatures and Principal Directions}
-\scriptsize
-\begin{gather*}
-	\mathsf{L} \in \R^{m\times n} \; \Longleftrightarrow L \in \mathcal{C}^2\Big([0,m] \times [0,n]\Big)\\
-	\mathsf{H}(x,y) = \begin{bmatrix} L_{xx} & L_{xy} \\ L_{yx} & L_{yy} \end{bmatrix} \\
-	\kappa_i , u_i \; \,\text{for}\; i=1,2
-	\intertext{such that}
-	\mathsf{H} u_i = \kappa_i u_i \;,\;
-	\left|\kappa_1\right| < \left|\kappa_2\right|
-\end{gather*}
-\end{block}
-
-\begin{block}{\footnotesize Frangi Filter Measure}
-	\tiny
-	\begin{equation}
-	F \{\cdot\} =
-	\begin{cases}
-	0 & \text{if} \kappa_2 < 0, \\
-	\exp \left(\frac{-A^2}{2\beta^2}\right)
-		\left(1 - \exp\left( \frac{-S^2}{2c^2}\right)\right) & \textrm{else} \end{cases}
-	\end{equation}
-	
-	\begin{equation}
-	S = \sqrt{\kappa_1^2 + \kappa_2^2} \quad\text{(structureness)}
-	\end{equation}	
-	\begin{equation}
-	A = \left|\frac{{\kappa_1}}{\kappa_2}\right| \quad\text{(anisotropy)}
-	\end{equation}
-	\qquad \qquad with $\beta$, c, parameters
-	\end{block}
-\end{column}
-\begin{column}{0.55\textwidth}
-\begin{figure}[h]
-\includegraphics[width=\textwidth]{svginset}
-\caption{\footnotesize{The principal curvatures (eigenvectors of the Hessian matrix) point in the direction of greatest and least curvature at each pixel}}
-\end{figure}
-
-The Frangi filter \Blue{[2]} finds tubular structures on the surface. Corresponds to areas where $\kappa_2$ is large and $\kappa_1$ is small.
-
-\end{column}
-\end{columns}
-\end{frame}
-%SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}
-	\frametitle{Improved Parameters for Frangi Filter}
-	\begin{figure}
-		\begin{subfigure}[t]{0.33\textwidth}
-			\includegraphics[width=\textwidth]{04-raw.png}
-			\caption{Placental sample (bad parameters)}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.33\textwidth}
-			\includegraphics[width=\textwidth]{04-improved.png}
-			\caption{improved parameters}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.33\textwidth}
-			\includegraphics[width=\textwidth]{16.png}
-			\caption{improved parameters (larger scale space)}
-		\end{subfigure}
-	\end{figure}
-
+\frametitle{Relationship Between Hessian and Weingarten Map for Graphs}
+    \begin{block}{Weingarten Map for Graphs}
+    Given the graph $f: U \to \mathbb{R}^3$ where $(x,y) \mapsto (x, y, h(x,y))$, the matrix
+    representation of its Weingarten map is given by
+    \begin{equation}
+    \widehat{\mathsf{L}} = \mathrm{Hess}(h(x,y)) \tilde{G} \;,\quad \mathrm{where} \quad
+    \tilde{G} := \frac{1}{\left({1+h_x^2 + h_y^2}\right)^{3/2}}
+    \begin{bmatrix}
+    1 + h_y^2 & -h_x h_y \\
+    -h_x h_y & 1 + h_x^2 \\
+    \end{bmatrix} 
+    \end{equation}
+    In particular, given a point $u = (x,y) \in U \subset \mathbb{R}^2$
+    where $h_x \approx h_y \approx 0$, we
+    have $\tilde{G} \approx \mathrm{Id}$, and thus
+    $\widehat{\mathsf{L}} \approx \mathrm{Hess}(h)$.
+  \end{block}
 \end{frame}
 
-
-\begin{frame} 
-	\frametitle{Future Work}
-\begin{columns}[c]
-\begin{column}{0.5\textwidth}
-\begin{figure}
-\includegraphics[height=0.45\textheight]{nb}
-\includegraphics[height=0.45\textheight]{nb_on_skel_labeled}
-\end{figure}
-\end{column}
-\begin{column}{0.4\textwidth}
-\textbf{Additional Work Required}
-\begin{itemize}
-\item Extend to other samples and image domains.
-\begin{itemize}
-	\item new barium samples
-	\item other placental samples (NCS, EARLI)
-	\item STARE, DRIVE retinal database
-	\item other curvilinear image sets?
-	
-\end{itemize}
-\item Adapt previous morphological filtering to improved frangi targets
-\item Speedups with FFT (completed!)
-\item Find good way to quantify results
-\item Graph connection problem, etc.
-
-\end{itemize}
-
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Appendix: Main Extraction Process}
-	\includegraphics[width=\textwidth]{main_flowchart}
-\end{frame}
-%SLIDE 8 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}
-	\frametitle{Principal Directions with Frangi Filter (Example with  $\sigma=2$)}
-	\begin{figure}
-		\centering
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{02pdall-inset}
-			\caption{all $\theta(u_2 , e_1)$}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{02bw-inset}
-			\caption{Frangi targets}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{02pd-inset}
-			\caption{frangi targets with $\theta$}
-		\end{subfigure}
-	\end{figure}
-	\begin{columns}[c]
-		\begin{column}{0.5\textwidth}
-			\begin{figure}
-				\includegraphics[height=0.4\textheight]{morphfilter}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			
-			\begin{block}{Morphological Filter}
-				\begin{itemize}
-					\item Rectangular filter rotated by $\theta(u_1,e_1)$
-					\item Rectangle size dependent on $\sigma$ (scale size)
-					\item Binary closing $\rightarrow$ binary opening with disk
-				\end{itemize}
-			\end{block}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-%SLIDE 9/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\begin{frame}
-	\frametitle{Skeletonization \& Sieving}
-	\begin{block}{Morphological Filtering Algorithm}
-		\begin{enumerate}[\bfseries(a)]
-			\item Join all scales.
-			\item Skeletonize.
-			\item Iterate over each scale extraction and keep content only if it is connected to the skeleton.
-		\end{enumerate}
-	\end{block}
-	\begin{figure}
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{D-cumulative_binary}
-			\caption{Union of all scales}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{F-small_skel}
-			\caption{Skeletonization of (a)}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.30\textwidth}
-			\includegraphics[width=\textwidth]{G-on_skel}
-			\caption{Sieving (a) through (b)}
-		\end{subfigure}
-		\caption{Morphological Filtering (smaller scales only)}
-	\end{figure}
-\end{frame}
+%\begin{frame}
+%\frametitle{Implementation Detail: Calculating Discrete Hessian}
+%\end{frame}
+%%SLIDE 4/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\begin{frame}
+%\frametitle{Differential Geometry in Image Processing and the Frangi Filter}
+%\begin{columns}[c]
+%\begin{column}{0.4\textwidth}
+%\begin{block}{\footnotesize Principal Curvatures and Principal Directions}
+%\scriptsize
+%\begin{gather*}
+%	\mathsf{L} \in \R^{m\times n} \; \Longleftrightarrow L \in \mathcal{C}^2\Big([0,m] \times [0,n]\Big)\\
+%	\mathsf{H}(x,y) = \begin{bmatrix} L_{xx} & L_{xy} \\ L_{yx} & L_{yy} \end{bmatrix} \\
+%	\kappa_i , u_i \; \,\text{for}\; i=1,2
+%	\intertext{such that}
+%	\mathsf{H} u_i = \kappa_i u_i \;,\;
+%	\left|\kappa_1\right| < \left|\kappa_2\right|
+%\end{gather*}
+%\end{block}
+%
+%\begin{block}{\footnotesize Frangi Filter Measure}
+%	\tiny
+%	\begin{equation}
+%	F \{\cdot\} =
+%	\begin{cases}
+%	0 & \text{if} \kappa_2 < 0, \\
+%	\exp \left(\frac{-A^2}{2\beta^2}\right)
+%		\left(1 - \exp\left( \frac{-S^2}{2c^2}\right)\right) & \textrm{else} \end{cases}
+%	\end{equation}
+%	
+%	\begin{equation}
+%	S = \sqrt{\kappa_1^2 + \kappa_2^2} \quad\text{(structureness)}
+%	\end{equation}	
+%	\begin{equation}
+%	A = \left|\frac{{\kappa_1}}{\kappa_2}\right| \quad\text{(anisotropy)}
+%	\end{equation}
+%	\qquad \qquad with $\beta$, c, parameters
+%	\end{block}
+%\end{column}
+%\begin{column}{0.55\textwidth}
+%\begin{figure}[h]
+%\includegraphics[width=\textwidth]{svginset}
+%\caption{\footnotesize{The principal curvatures (eigenvectors of the Hessian matrix) point in the direction of greatest and least curvature at each pixel}}
+%\end{figure}
+%
+%The Frangi filter \Blue{[2]} finds tubular structures on the surface. Corresponds to areas where $\kappa_2$ is large and $\kappa_1$ is small.
+%
+%\end{column}
+%\end{columns}
+%\end{frame}
+%
+%%SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\begin{frame}
+%	\frametitle{Improved Parameters for Frangi Filter}
+%	\begin{figure}
+%		\begin{subfigure}[t]{0.33\textwidth}
+%			\includegraphics[width=\textwidth]{04-raw.png}
+%			\caption{Placental sample (bad parameters)}
+%		\end{subfigure}
+%		\begin{subfigure}[t]{0.33\textwidth}
+%			\includegraphics[width=\textwidth]{04-improved.png}
+%			\caption{improved parameters}
+%		\end{subfigure}
+%		\begin{subfigure}[t]{0.33\textwidth}
+%			\includegraphics[width=\textwidth]{16.png}
+%			\caption{improved parameters (larger scale space)}
+%		\end{subfigure}
+%	\end{figure}
+%
+%\end{frame}
+%
+%
+%\begin{frame} 
+%	\frametitle{Future Work}
+%\begin{columns}[c]
+%\begin{column}{0.5\textwidth}
+%\begin{figure}
+%\includegraphics[height=0.45\textheight]{nb}
+%\includegraphics[height=0.45\textheight]{nb_on_skel_labeled}
+%\end{figure}
+%\end{column}
+%\begin{column}{0.4\textwidth}
+%\textbf{Additional Work Required}
+%\begin{itemize}
+%\item Extend to other samples and image domains.
+%\begin{itemize}
+%	\item new barium samples
+%	\item other placental samples (NCS, EARLI)
+%	\item STARE, DRIVE retinal database
+%	\item other curvilinear image sets?
+%	
+%\end{itemize}
+%\item Adapt previous morphological filtering to improved frangi targets
+%\item Speedups with FFT (completed!)
+%\item Find good way to quantify results
+%\item Graph connection problem, etc.
+%
+%\end{itemize}
+%
+%\end{column}
+%\end{columns}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Appendix: Main Extraction Process}
+%	\includegraphics[width=\textwidth]{main_flowchart}
+%\end{frame}
+%%SLIDE 8 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\begin{frame}
+%	\frametitle{Principal Directions with Frangi Filter (Example with  $\sigma=2$)}
+%	\begin{figure}
+%		\centering
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{02pdall-inset}
+%			\caption{all $\theta(u_2 , e_1)$}
+%		\end{subfigure}
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{02bw-inset}
+%			\caption{Frangi targets}
+%		\end{subfigure}
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{02pd-inset}
+%			\caption{frangi targets with $\theta$}
+%		\end{subfigure}
+%	\end{figure}
+%	\begin{columns}[c]
+%		\begin{column}{0.5\textwidth}
+%			\begin{figure}
+%				\includegraphics[height=0.4\textheight]{morphfilter}
+%			\end{figure}
+%		\end{column}
+%		\begin{column}{0.5\textwidth}
+%			
+%			\begin{block}{Morphological Filter}
+%				\begin{itemize}
+%					\item Rectangular filter rotated by $\theta(u_1,e_1)$
+%					\item Rectangle size dependent on $\sigma$ (scale size)
+%					\item Binary closing $\rightarrow$ binary opening with disk
+%				\end{itemize}
+%			\end{block}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
+%
+%%SLIDE 9/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\begin{frame}
+%	\frametitle{Skeletonization \& Sieving}
+%	\begin{block}{Morphological Filtering Algorithm}
+%		\begin{enumerate}[\bfseries(a)]
+%			\item Join all scales.
+%			\item Skeletonize.
+%			\item Iterate over each scale extraction and keep content only if it is connected to the skeleton.
+%		\end{enumerate}
+%	\end{block}
+%	\begin{figure}
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{D-cumulative_binary}
+%			\caption{Union of all scales}
+%		\end{subfigure}
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{F-small_skel}
+%			\caption{Skeletonization of (a)}
+%		\end{subfigure}
+%		\begin{subfigure}[b]{0.30\textwidth}
+%			\includegraphics[width=\textwidth]{G-on_skel}
+%			\caption{Sieving (a) through (b)}
+%		\end{subfigure}
+%		\caption{Morphological Filtering (smaller scales only)}
+%	\end{figure}
+%\end{frame}
 
 
 \end{document}
-
