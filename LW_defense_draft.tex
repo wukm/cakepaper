@@ -131,6 +131,7 @@
 }
 \graphicspath{{./figures/abstract_defense/}
               {./figures/abstract_defense/A-raw_targets/}
+              {./figures/}
              }
 
 \date{April 9, 2019}
@@ -219,6 +220,7 @@
           scope of this thesis, but kept anytime we show a ground truth
           because they're pretty
         }
+    \note[item]{redo this page with a placenta from NCS, not EARLI}
   \end{column}
   \end{columns}
 \end{frame}
@@ -238,16 +240,23 @@
 
 \section[Math Methods]{Mathematical Methods}
 \begin{frame}
-\frametitle{Differential Geometry in Image Processing}
-  We want to find curvilinear structures in the images, so 
-\begin{itemize}
-  \item Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and
-        
-\end{itemize}
+\frametitle{Differential Geometry: Why use}
+  Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and intensity as the height function.
+  \note[item]{Point of this slide is show that finding curvilinear surfaces is reasonable}
+
+  \includegraphics[width=0.3\textwidth]{inset_for_3d_surface}
+  \includegraphics[width=0.6\textwidth]{inset_as_3d_surface}
+  \note[item]{This point is a lot clearer when you show multiple vessel widths.}
+  \note[item]{Also way clearer later when you show the surface after Gaussian blur,
+  			  not sure if I should put that here and ``lie''/complicate things early on or not.}
+  \note[item]{Crop graph, center, etc}
 \end{frame}
 
 \begin{frame}
-\frametitle{The Frangi Filter}
+\frametitle{Relevant Differential Geometry of (Continuous) Surfaces}
+  \begin{itemize}
+    \item 
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
