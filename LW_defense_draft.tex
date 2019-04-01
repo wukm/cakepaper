@@ -22,7 +22,7 @@
 
 \usepackage{multimedia}
 \usepackage[english]{babel}
-\usepackage{amsfonts, amsmath, mathrsfs}
+\usepackage{amsfonts, amsmath, mathrsfs, mathtools}
 \usepackage{amsxtra, amsthm, amssymb, amscd}
 \usepackage{float}
 \usepackage{graphics}
@@ -31,6 +31,7 @@
 \usepackage{latexsym}
 \usepackage{multimedia}
 \usepackage{hyperref}
+\usepackage{xspace}
 %\usepackage[dvips]{color} \usepackage{color}
 %\usepackage{epsfig}
 %\usepackage{mathrsfs}
@@ -113,10 +114,10 @@
 \newcommand{\wein}{\mathsf{L}} % for the Weingarten map
 \newcommand{\weinmat}{\widehat{\mathsf{L}}}
 \newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
-%
-%%\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
-%%\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
-%%\DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+
+%\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+%\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
+%\DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
 %
 %\newcommand{\bigO}{\mathcal{O}}
 %
@@ -137,9 +138,8 @@
 
 %\usepackage[latin1]{inputenc} or whatever
 
-\usepackage{beramono}
-
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet} 
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 
@@ -205,7 +205,7 @@
                   in the ground truth itself (will cover later)
                 }
 					\item \textbf{Research Goal:} Provide a fully automated method of extraction.
-          					\end{itemize}
+          \end{itemize}
 			\end{block}
 		\end{column}
 	\end{columns}
@@ -255,6 +255,7 @@
   \end{column}
   \end{columns}
 \end{frame}
+
 %SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 %\begin{frame}
 %	\frametitle{Previous Research}
@@ -267,7 +268,6 @@
 %	\end{enumerate}
 %	
 %	\end{frame}
-
 
 \section[Math Methods]{Mathematical Methods}
 \begin{frame}
@@ -342,36 +342,71 @@
     \item For ease of use, we can simply find eigenvalues of the Hessian instead.
     \item This gives rise to a class of filters, the so-called Hessian-based filters.
     \end{itemize}
-    \end{block}
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} 
-
 Show the example here. Your example calculates from a different definition, like with Gauss map etc. so maybe rework or decide what you want here. 
 \end{frame}
 
 
 \section{The Frangi filter}
+
 \begin{frame}
 \frametitle{The (Uniscale) Frangi Filter}
-\begin{gather*}
-	\mathsf{H}(x,y) = \begin{bmatrix} h_{xx} & h_{xy} \\ h_{yx} & h_{yy} \end{bmatrix} \\
-	\kappa_i , u_i \; \,\text{for}\; i=1,2
-	\intertext{such that}
-	\mathsf{H} u_i = \kappa_i u_i \;,\;
-	\left|\kappa_1\right| < \left|\kappa_2\right|
-\end{gather*}
+  \begin{equation}
+  \Vsigma(x_0,y_0) =
+  \begin{cases}
+  0 & \text{if} \quad \lambda_2 > 0 \\
+  \exp\left(-\frac{A^2}{2\beta^2}\right)
+  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+  \end{cases}
+  \end{equation}
+where
+  \begin{equation}
+  A := \left|\lambda_1 / \lambda_2\right|
+  \quad \textrm{and} \quad 
+  S := \sqrt{\lambda_1^2 + \lambda_2^2}
+  \end{equation}
 
-Frangi filter definition here
+for eigenvalues $\lambda_1, \lambda_2$ of the Hessian (defined at each point)
+  \begin{equation}
+    \mathsf{H} = \begin{bmatrix} h_{xx} & h_{xy} \\
+                                 h_{yx} & h_{yy}
+                 \end{bmatrix}
+    \quad \;\textrm{such that}\;
+    \mathsf{H} u_i = \lambda_i u_i \;,\;
+    \left|\lambda_1\right| \leq \left|\lambda_2\right|
+  \end{equation}
 \end{frame}
 
 \begin{frame}
 \frametitle[Anisotropy Factor]{Frangi filter anatomy: Anisotropy Factor}
+\begin{equation}
+\exp\left(-\frac{A^2}{2\beta^2}\right) \quad,\quad
+A := \left|\lambda_1 / \lambda_2\right|
+\end{equation}
 \end{frame}
 
 \begin{frame}
 \frametitle[Structureness Factor]{Frangi filter anatomy: Structureness Factor}
+\begin{equation}
+\left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right)
+\quad,\quad
+S := \sqrt{\lambda_1^2 + \lambda_2^2}
+\end{equation}
+\begin{itemize}
+  \item Purpose is to filter out numerically small values, we only want significant curvilinear content.
+  \note[item]{For example, we don't want our filter to report a point as curvilinear structure if $\lambda_1 / \lambda_2$ is large, but we can't differentiate between
+  $\lambda_2 = 100, \lambda_1 = .01$ and $\lambda_2 = .001, \lambda_1 = .000001$}
+  \note[item]{This is actually critically important to define, entire filter will be
+              extremely noisy otherwise. Less important in MRI images, but more important
+              for our context where there is significant noise}
+\end{itemize}
+  \note[item]{I'm not sure when/how to introduce $\gamma$ instead but it should be
+  prominent enough that I don't have to worry about using it exclusively
+  in later slides}
 \end{frame}
 
 \begin{frame}
@@ -384,7 +419,7 @@ Frangi filter definition here
 \end{frame}
 
 \begin{frame}
-\frametitle[Scale Space Theory]{Scale Space Theory for Kids}
+\frametitle[Scale Space Theory]{Linear Scale Space Theory for Kids}
 \begin{itemize}
   \item Obviously it's not actually a continuous surface
   \item Motivate and say some basic axioms
