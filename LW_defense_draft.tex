@@ -51,6 +51,7 @@
 \DeclareMathOperator*{\rank}{rank}
 \DeclareMathOperator{\tr}{trace}
 
+
 %%%% color-stuff, e.g., \Green{stuff you want to be printed in green}
 \definecolor{LightGray}{rgb}{0.94,0.94,0.94}
 \definecolor{VeryLightBlue}{rgb}{0.9,0.9,1}
@@ -85,33 +86,33 @@
 \newcommand{\LightGray}[1]{{\color{LightGray}{#1}}}
 
 
-%\newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
-%\newcommand{\N}{\mathbb{N}} % set of all natural numbers
-%\newcommand{\Z}{\mathbb{Z}} % integers
-%\newcommand{\Zpos}{\mathbb{Z}_{+}}
-%\newcommand{\image}{\mathrm{image}} % image of a function
-%\newcommand{\spn}{\mathrm{span}}
+\newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
+\newcommand{\N}{\mathbb{N}} % set of all natural numbers
+\newcommand{\Z}{\mathbb{Z}} % integers
+\newcommand{\Zpos}{\mathbb{Z}_{+}}
+\newcommand{\image}{\mathrm{image}} % image of a function
+\newcommand{\spn}{\mathrm{span}}
 %
-%\newcommand{\Vmax}{\ensuremath{\mathcal{V}_{\max}}\xspace}
-%\newcommand{\Vargmax}{\ensuremath{\mathcal{V}_{\mathrm{argmax}}}\xspace}
-%\newcommand{\VSigma}{\ensuremath{\mathcal{V}_{\Sigma}}\xspace}
-%\newcommand{\Vsigma}{\ensuremath{\mathcal{V}_{\sigma}}\xspace}
-%\newcommand{\Sigmaneg}{\Sigma^{(-)}}	
+\newcommand{\Vmax}{\ensuremath{\mathcal{V}_{\max}}\xspace}
+\newcommand{\Vargmax}{\ensuremath{\mathcal{V}_{\mathrm{argmax}}}\xspace}
+\newcommand{\VSigma}{\ensuremath{\mathcal{V}_{\Sigma}}\xspace}
+\newcommand{\Vsigma}{\ensuremath{\mathcal{V}_{\sigma}}\xspace}
+\newcommand{\Sigmaneg}{\Sigma^{(-)}}	
 %
-%\newcommand{\VSigmapos}{\ensuremath{\mathcal{V}_{\Sigma}^{(+)}}\xspace}
-%\newcommand{\VSigmaneg}{\ensuremath{\mathcal{V}_{\Sigma}^{(-)}}\xspace}
+\newcommand{\VSigmapos}{\ensuremath{\mathcal{V}_{\Sigma}^{(+)}}\xspace}
+\newcommand{\VSigmaneg}{\ensuremath{\mathcal{V}_{\Sigma}^{(-)}}\xspace}
 %
-%\newcommand{\Vmaxpos}{\ensuremath{\mathcal{V}^{(+)}_{\max}}\xspace}
-%\newcommand{\Vmaxneg}{\ensuremath{\mathcal{V}^{(-)}_{\max}}\xspace}
-%\newcommand{\alphapos}{\alpha^{(+)}}
-%\newcommand{\alphaneg}{\alpha^{(-)}}
-%\newcommand{\alphaiso}{\alpha_{{\tiny\textsc{ISO}}}}
+\newcommand{\Vmaxpos}{\ensuremath{\mathcal{V}^{(+)}_{\max}}\xspace}
+\newcommand{\Vmaxneg}{\ensuremath{\mathcal{V}^{(-)}_{\max}}\xspace}
+\newcommand{\alphapos}{\alpha^{(+)}}
+\newcommand{\alphaneg}{\alpha^{(-)}}
+\newcommand{\alphaiso}{\alpha_{{\tiny\textsc{ISO}}}}
 %
 %
-%\newcommand{\Hess}{\mathrm{Hess}} % fancy H for the hessian
-%\newcommand{\wein}{\mathsf{L}} % for the Weingarten map
-%\newcommand{\weinmat}{\widehat{\mathsf{L}}}
-%\newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
+\newcommand{\Hess}{\mathrm{Hess}} % fancy H for the hessian
+\newcommand{\wein}{\mathsf{L}} % for the Weingarten map
+\newcommand{\weinmat}{\widehat{\mathsf{L}}}
+\newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
 %
 %%\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 %%\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
@@ -331,178 +332,181 @@
     have $\tilde{G} \approx \mathrm{Id}$, and thus
     $\widehat{\mathsf{L}} \approx \mathrm{Hess}(h)$.
   \end{block}
+  \note[item]{Define hessian as the second derivative matrix}
+  \note[item]{Make sure you have the graph definition clearly here. It's at the top but make it more prominent / earlier slidewise }
+  \note[item]{Make point about when we're not at a critcial point, we don't guarantee
+              any of this but it seems to work out okay}
+  \note[item]{Fix notation in general}
+  \begin{block}{Approximating}
+    \begin{itemize}
+    \item For ease of use, we can simply find eigenvalues of the Hessian instead.
+    \item This gives rise to a class of filters, the so-called Hessian-based filters.
+    \end{itemize}
+    \end{block}
 \end{frame}
 
-%\begin{frame}
-%\frametitle{Implementation Detail: Calculating Discrete Hessian}
-%\end{frame}
-%%SLIDE 4/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-%\begin{frame}
-%\frametitle{Differential Geometry in Image Processing and the Frangi Filter}
-%\begin{columns}[c]
-%\begin{column}{0.4\textwidth}
-%\begin{block}{\footnotesize Principal Curvatures and Principal Directions}
-%\scriptsize
-%\begin{gather*}
-%	\mathsf{L} \in \R^{m\times n} \; \Longleftrightarrow L \in \mathcal{C}^2\Big([0,m] \times [0,n]\Big)\\
-%	\mathsf{H}(x,y) = \begin{bmatrix} L_{xx} & L_{xy} \\ L_{yx} & L_{yy} \end{bmatrix} \\
-%	\kappa_i , u_i \; \,\text{for}\; i=1,2
-%	\intertext{such that}
-%	\mathsf{H} u_i = \kappa_i u_i \;,\;
-%	\left|\kappa_1\right| < \left|\kappa_2\right|
-%\end{gather*}
-%\end{block}
-%
-%\begin{block}{\footnotesize Frangi Filter Measure}
-%	\tiny
-%	\begin{equation}
-%	F \{\cdot\} =
-%	\begin{cases}
-%	0 & \text{if} \kappa_2 < 0, \\
-%	\exp \left(\frac{-A^2}{2\beta^2}\right)
-%		\left(1 - \exp\left( \frac{-S^2}{2c^2}\right)\right) & \textrm{else} \end{cases}
-%	\end{equation}
-%	
-%	\begin{equation}
-%	S = \sqrt{\kappa_1^2 + \kappa_2^2} \quad\text{(structureness)}
-%	\end{equation}	
-%	\begin{equation}
-%	A = \left|\frac{{\kappa_1}}{\kappa_2}\right| \quad\text{(anisotropy)}
-%	\end{equation}
-%	\qquad \qquad with $\beta$, c, parameters
-%	\end{block}
-%\end{column}
-%\begin{column}{0.55\textwidth}
-%\begin{figure}[h]
-%\includegraphics[width=\textwidth]{svginset}
-%\caption{\footnotesize{The principal curvatures (eigenvectors of the Hessian matrix) point in the direction of greatest and least curvature at each pixel}}
-%\end{figure}
-%
-%The Frangi filter \Blue{[2]} finds tubular structures on the surface. Corresponds to areas where $\kappa_2$ is large and $\kappa_1$ is small.
-%
-%\end{column}
-%\end{columns}
-%\end{frame}
-%
-%%SLIDE 2/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-%\begin{frame}
-%	\frametitle{Improved Parameters for Frangi Filter}
-%	\begin{figure}
-%		\begin{subfigure}[t]{0.33\textwidth}
-%			\includegraphics[width=\textwidth]{04-raw.png}
-%			\caption{Placental sample (bad parameters)}
-%		\end{subfigure}
-%		\begin{subfigure}[t]{0.33\textwidth}
-%			\includegraphics[width=\textwidth]{04-improved.png}
-%			\caption{improved parameters}
-%		\end{subfigure}
-%		\begin{subfigure}[t]{0.33\textwidth}
-%			\includegraphics[width=\textwidth]{16.png}
-%			\caption{improved parameters (larger scale space)}
-%		\end{subfigure}
-%	\end{figure}
-%
-%\end{frame}
-%
-%
-%\begin{frame} 
-%	\frametitle{Future Work}
-%\begin{columns}[c]
-%\begin{column}{0.5\textwidth}
-%\begin{figure}
-%\includegraphics[height=0.45\textheight]{nb}
-%\includegraphics[height=0.45\textheight]{nb_on_skel_labeled}
-%\end{figure}
-%\end{column}
-%\begin{column}{0.4\textwidth}
-%\textbf{Additional Work Required}
-%\begin{itemize}
-%\item Extend to other samples and image domains.
-%\begin{itemize}
-%	\item new barium samples
-%	\item other placental samples (NCS, EARLI)
-%	\item STARE, DRIVE retinal database
-%	\item other curvilinear image sets?
-%	
-%\end{itemize}
-%\item Adapt previous morphological filtering to improved frangi targets
-%\item Speedups with FFT (completed!)
-%\item Find good way to quantify results
-%\item Graph connection problem, etc.
-%
-%\end{itemize}
-%
-%\end{column}
-%\end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Appendix: Main Extraction Process}
-%	\includegraphics[width=\textwidth]{main_flowchart}
-%\end{frame}
-%%SLIDE 8 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-%\begin{frame}
-%	\frametitle{Principal Directions with Frangi Filter (Example with  $\sigma=2$)}
-%	\begin{figure}
-%		\centering
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{02pdall-inset}
-%			\caption{all $\theta(u_2 , e_1)$}
-%		\end{subfigure}
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{02bw-inset}
-%			\caption{Frangi targets}
-%		\end{subfigure}
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{02pd-inset}
-%			\caption{frangi targets with $\theta$}
-%		\end{subfigure}
-%	\end{figure}
-%	\begin{columns}[c]
-%		\begin{column}{0.5\textwidth}
-%			\begin{figure}
-%				\includegraphics[height=0.4\textheight]{morphfilter}
-%			\end{figure}
-%		\end{column}
-%		\begin{column}{0.5\textwidth}
-%			
-%			\begin{block}{Morphological Filter}
-%				\begin{itemize}
-%					\item Rectangular filter rotated by $\theta(u_1,e_1)$
-%					\item Rectangle size dependent on $\sigma$ (scale size)
-%					\item Binary closing $\rightarrow$ binary opening with disk
-%				\end{itemize}
-%			\end{block}
-%		\end{column}
-%	\end{columns}
-%\end{frame}
-%
-%%SLIDE 9/12 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-%\begin{frame}
-%	\frametitle{Skeletonization \& Sieving}
-%	\begin{block}{Morphological Filtering Algorithm}
-%		\begin{enumerate}[\bfseries(a)]
-%			\item Join all scales.
-%			\item Skeletonize.
-%			\item Iterate over each scale extraction and keep content only if it is connected to the skeleton.
-%		\end{enumerate}
-%	\end{block}
-%	\begin{figure}
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{D-cumulative_binary}
-%			\caption{Union of all scales}
-%		\end{subfigure}
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{F-small_skel}
-%			\caption{Skeletonization of (a)}
-%		\end{subfigure}
-%		\begin{subfigure}[b]{0.30\textwidth}
-%			\includegraphics[width=\textwidth]{G-on_skel}
-%			\caption{Sieving (a) through (b)}
-%		\end{subfigure}
-%		\caption{Morphological Filtering (smaller scales only)}
-%	\end{figure}
-%\end{frame}
+\begin{frame}
+  \frametitle{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} 
 
+Show the example here. Your example calculates from a different definition, like with Gauss map etc. so maybe rework or decide what you want here. 
+\end{frame}
+
+
+\section{The Frangi filter}
+\begin{frame}
+\frametitle{The (Uniscale) Frangi Filter}
+\begin{gather*}
+	\mathsf{H}(x,y) = \begin{bmatrix} h_{xx} & h_{xy} \\ h_{yx} & h_{yy} \end{bmatrix} \\
+	\kappa_i , u_i \; \,\text{for}\; i=1,2
+	\intertext{such that}
+	\mathsf{H} u_i = \kappa_i u_i \;,\;
+	\left|\kappa_1\right| < \left|\kappa_2\right|
+\end{gather*}
+
+Frangi filter definition here
+\end{frame}
+
+\begin{frame}
+\frametitle[Anisotropy Factor]{Frangi filter anatomy: Anisotropy Factor}
+\end{frame}
+
+\begin{frame}
+\frametitle[Structureness Factor]{Frangi filter anatomy: Structureness Factor}
+\end{frame}
+
+\begin{frame}
+\frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
+\begin{itemize}
+\item Show the Frangi filter def. again.
+\item Show a 3D graph of Frangi (just two, not 6x6 or whatever)
+\item We will show a lot of data with different choices of parameters later.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle[Scale Space Theory]{Scale Space Theory for Kids}
+\begin{itemize}
+  \item Obviously it's not actually a continuous surface
+  \item Motivate and say some basic axioms
+  \item Say convolution by gaussian solves these problems, derivatives work then too
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation Detail: Calculating Discrete Hessian}
+\begin{itemize}
+  \item Calculate in frequency space
+  \item Much much much faster
+  \item Show the speed graph, explain MSE findings
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Frangi Filter Anatomy: Scale parameter}
+\begin{itemize}
+  \item Show scalewise outputs (inset)
+  \item Describe relationship between vessel width and (LATER)
+  \item Describe relative strength of outputs and what's too large (LATER)
+  \item (Better to come back to these points later after describing research protocol)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiscale Frangi filter}
+\begin{itemize}
+  \item Definition
+  \item Standard Merging strategy
+  \item It's faster so can pick more
+  \item Logarithmic spacing is kind of sensible
+  \item We can process each scale by itself too
+\end{itemize}
+\end{frame}
+
+
+\section{Research Protocol}
+\begin{frame}
+\frametitle{The data set}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ground truth}
+\end{frame}
+
+\begin{frame}
+\frametitle{Imperfections/Complications in Data set}
+\end{frame}
+
+\begin{frame}
+\frametitle{Preprocessing: Glare}
+\end{frame}
+
+\begin{frame}
+\frametitle{Preprocessing: Umbilical Stump}
+\end{frame}
+
+\section{Analysis (Pre-segmentation)}
+
+\begin{frame}
+\frametitle{Cumulative Vesselness Ratio}
+Just show a few parametrization methods, don't show all
+\end{frame}
+
+\section{Frangi Segmentation Methods}
+\begin{frame}
+\frametitle{Fixed threshold of Vmax}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scalewise percentile filtering}
+\end{frame}
+
+\begin{frame}
+\frametitle{Trough-filling (1/2)}
+Show definition of signed Frangi, inset
+\end{frame}
+
+\begin{frame}
+\frametitle{Trough-filling (2/2)}
+\end{frame}
+
+\begin{frame}
+\frametitle{A non-Frangi segmentation method: ISODATA}
+This represents a good idea that doesn't rely on diffgeo or local anything
+\end{frame}
+
+\section{Frangi Segmentation Results}
+\begin{frame}
+\frametitle{Binary Classification (1/2)}
+Confusion matrix with TP, FP, TN, FN
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Classification (2/2)}
+MCC and Precision Scores
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Segmentation Results}
+Spend a couple slides here talking about
+\begin{itemize}
+  \item parametrization choices effect
+  \item threshold choices effect
+  \item talk about ``good'' false positives and  ``bad'' false positives
+  \item talk about good samples and bad samples
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Boxplots}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conclusion}
+\end{frame}
+
+\begin{frame}
+\frametitle{Appendix}
+Put some proofs / extra things here
+\end{frame}
 
 \end{document}
