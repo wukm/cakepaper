@@ -164,8 +164,16 @@
 \graphicspath{{./figures/abstract_defense/}
               {./figures/abstract_defense/A-raw_targets/}
               {./figures/}
-             }
-
+              {./figures/frangi3d/}
+              {./figures/strict_examples/}
+              {./figures/inset_of_sample_issues/}
+              {./figures/rw_demo/}
+              {./figures/output_examples/}
+              {./figures/qthresh_demo/}
+              {./figures/segmentation_montage/}
+              {./figures/segmentation/}
+              {./figures/compare_parameters_demo/}
+}
 \date{April 9, 2019}
 
 \titlegraphic{\includegraphics[height=2cm]{csulb-seal.png}}
@@ -340,6 +348,7 @@
   \begin{block}{Approximating}
     \begin{itemize}
     \item For ease of use, we can simply find eigenvalues of the Hessian instead.
+    \item Talk about that more.
     \item This gives rise to a class of filters, the so-called Hessian-based filters.
     \end{itemize}
   \end{block}
@@ -379,6 +388,10 @@ for eigenvalues $\lambda_1, \lambda_2$ of the Hessian (defined at each point)
     \mathsf{H} u_i = \lambda_i u_i \;,\;
     \left|\lambda_1\right| \leq \left|\lambda_2\right|
   \end{equation}
+  
+  \begin{itemize}
+    \item We'll go through this step by step.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -387,6 +400,12 @@ for eigenvalues $\lambda_1, \lambda_2$ of the Hessian (defined at each point)
 \exp\left(-\frac{A^2}{2\beta^2}\right) \quad,\quad
 A := \left|\lambda_1 / \lambda_2\right|
 \end{equation}
+\begin{itemize}
+  \item This is the main thing that selects curvilinear points.
+  \item When $A$ is very close to 0, $\lambda_2 \gg \lambda_1$, and the surface is very anisotropic.
+  \item Frangi suggested $\beta=1/2$ as a reasonable default.
+  \item Show pictures of a curvilinear structure here, or a hangar.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -400,9 +419,13 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
   \item Purpose is to filter out numerically small values, we only want significant curvilinear content.
   \note[item]{For example, we don't want our filter to report a point as curvilinear structure if $\lambda_1 / \lambda_2$ is large, but we can't differentiate between
   $\lambda_2 = 100, \lambda_1 = .01$ and $\lambda_2 = .001, \lambda_1 = .000001$}
+  \item Important to pick a reasonable value for the image at hand / image domain.
   \note[item]{This is actually critically important to define, entire filter will be
               extremely noisy otherwise. Less important in MRI images, but more important
-              for our context where there is significant noise}
+              for our context where there is significant noise. Talk about the standard implementation where c=15 is the default for seemingly no reason.}
+  \item Frangi suggested ``half the maximum value of the Hessian norm''. We will define
+  the parameter $\gamma$ and define $c(\gamma) = \gamma S_{\max}$, since $S_{\max}$ is the
+  Frobenius norm of the Hessian.
 \end{itemize}
   \note[item]{I'm not sure when/how to introduce $\gamma$ instead but it should be
   prominent enough that I don't have to worry about using it exclusively
@@ -410,9 +433,43 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \end{frame}
 
 \begin{frame}
-\frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
+\frametitle{Frangi filter anatomy: Putting it together}
+ \begin{equation}
+\Vsigma(x_0,y_0) =
+\begin{cases}
+0 & \text{if} \quad \lambda_2 > 0 \\
+\exp\left(-\frac{A^2}{2\beta^2}\right)
+\left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+\end{cases}
+\end{equation}
+where
+\begin{equation}
+A := \left|\lambda_1 / \lambda_2\right|
+\quad \textrm{and} \quad 
+S := \sqrt{\lambda_1^2 + \lambda_2^2}
+\end{equation}
 \begin{itemize}
-\item Show the Frangi filter def. again.
+\item Note $\lambda_2 > 0$ means the point would be a local minimum. We are looking for a local maximum. You can switch this depending on if you're looking for bright or dark curvilinear features.
+\item Point of $\exp(...) and \exp(1-...)$ is that the filter decays rapidly as anisotropy or structureness decrease.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
+    \begin{equation}
+  \Vsigma(x_0,y_0) =
+  \begin{cases}
+  0 & \text{if} \quad \lambda_2 > 0 \\
+  \exp\left(-\frac{A^2}{2\beta^2}\right)
+  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+  \end{cases}
+  \end{equation}
+  where
+  \begin{equation}
+  A := \left|\lambda_1 / \lambda_2\right|
+  \quad \textrm{and} \quad 
+  S := \sqrt{\lambda_1^2 + \lambda_2^2}
+  \end{equation}
+\begin{itemize}
 \item Show a 3D graph of Frangi (just two, not 6x6 or whatever)
 \item We will show a lot of data with different choices of parameters later.
 \end{itemize}
@@ -421,9 +478,9 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \begin{frame}
 \frametitle[Scale Space Theory]{Linear Scale Space Theory for Kids}
 \begin{itemize}
-  \item Obviously it's not actually a continuous surface
-  \item Motivate and say some basic axioms
-  \item Say convolution by gaussian solves these problems, derivatives work then too
+  \item Obviously the image is not actually a continuous surface. It is a particular sampling of a surface. 
+  \item Motivate and say some basic axioms.
+  \item Say convolution by Gaussian solves these problems, derivatives work then too
 \end{itemize}
 \end{frame}
 
