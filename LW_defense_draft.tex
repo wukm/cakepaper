@@ -27,11 +27,12 @@
 \usepackage{float}
 \usepackage{graphics}
 \usepackage{graphicx}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 \usepackage{latexsym}
 \usepackage{multimedia}
 \usepackage{hyperref}
 \usepackage{xspace}
+\usepackage{subfig}
 %\usepackage[dvips]{color} \usepackage{color}
 %\usepackage{epsfig}
 %\usepackage{mathrsfs}
@@ -251,9 +252,9 @@
   \end{column}
   \begin{column}{0.5\textwidth}
     \centering
-    \includegraphics[height=0.36\textheight]{earli_crop.jpg} \\
-    {\Huge $\Downarrow$}\\
-    \includegraphics[height=0.36\textheight]{earli_crop_trace.jpg}
+    \includegraphics[height=0.48\textheight]{{{T-BN0164923.raw}}} \\[0em]
+    %{\Huge $\Downarrow$}\\[-1em]
+    \includegraphics[height=0.48\textheight]{{{T-BN0164923.ctrace}}}
     \note[item]{Mention colors are simply vessel widths (3 to 19 odds)
           are part of the tracing protocol. that's really outside of the
           scope of this thesis, but kept anytime we show a ground truth
@@ -403,7 +404,7 @@ A := \left|\lambda_1 / \lambda_2\right|
 \begin{itemize}
   \item This is the main thing that selects curvilinear points.
   \item When $A$ is very close to 0, $\lambda_2 \gg \lambda_1$, and the surface is very anisotropic.
-  \item Frangi suggested $\beta=1/2$ as a reasonable default.
+  \item Frangi suggested $\beta=\frac{1}{2}$ as a reasonable default.
   \item Show pictures of a curvilinear structure here, or a hangar.
 \end{itemize}
 \end{frame}
@@ -416,7 +417,7 @@ A := \left|\lambda_1 / \lambda_2\right|
 S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \end{equation}
 \begin{itemize}
-  \item Purpose is to filter out numerically small values, we only want significant curvilinear content.
+  \item Purpose is to filter out numerically small values, we only want significant curvilinear content ($S$ large).
   \note[item]{For example, we don't want our filter to report a point as curvilinear structure if $\lambda_1 / \lambda_2$ is large, but we can't differentiate between
   $\lambda_2 = 100, \lambda_1 = .01$ and $\lambda_2 = .001, \lambda_1 = .000001$}
   \item Important to pick a reasonable value for the image at hand / image domain.
@@ -434,12 +435,13 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Frangi filter anatomy: Putting it together}
+\begin{block}{Frangi filter}
  \begin{equation}
 \Vsigma(x_0,y_0) =
 \begin{cases}
 0 & \text{if} \quad \lambda_2 > 0 \\
 \exp\left(-\frac{A^2}{2\beta^2}\right)
-\left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+\left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
 \end{cases}
 \end{equation}
 where
@@ -447,20 +449,26 @@ where
 A := \left|\lambda_1 / \lambda_2\right|
 \quad \textrm{and} \quad 
 S := \sqrt{\lambda_1^2 + \lambda_2^2}
+\quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
 \end{equation}
+\end{block}
 \begin{itemize}
-\item Note $\lambda_2 > 0$ means the point would be a local minimum. We are looking for a local maximum. You can switch this depending on if you're looking for bright or dark curvilinear features.
-\item Point of $\exp(...) and \exp(1-...)$ is that the filter decays rapidly as anisotropy or structureness decrease.
+\item $\lambda_2 > 0$ means the point would be a local minimum (at a critical point). We are looking for a local maximum by looking for bright curvilinear objects. You can switch this ($\lambda_2 < 0$ as the case) if you are looking for dark curvilinear.
+\item Point of $\exp(...)$ and $1 - \exp(...)$ structure is that the filter decays rapidly as anisotropy or structureness decrease.
 \end{itemize}
+\note[item]{Really look into the bright/dark curvilinear subject and try to explain better.}
+\note[item]{Get rid of the sigma until after scale space theory?}
+\note[item]{If it's too long to get to this point, maybe start showing samples already}
 \end{frame}
 \begin{frame}
 \frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
-    \begin{equation}
+\begin{block}{Frangi filter}
+  \begin{equation}
   \Vsigma(x_0,y_0) =
   \begin{cases}
   0 & \text{if} \quad \lambda_2 > 0 \\
   \exp\left(-\frac{A^2}{2\beta^2}\right)
-  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+  \left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
   \end{cases}
   \end{equation}
   where
@@ -468,7 +476,9 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
   A := \left|\lambda_1 / \lambda_2\right|
   \quad \textrm{and} \quad 
   S := \sqrt{\lambda_1^2 + \lambda_2^2}
+  \quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
   \end{equation}
+\end{block}
 \begin{itemize}
 \item Show a 3D graph of Frangi (just two, not 6x6 or whatever)
 \item We will show a lot of data with different choices of parameters later.
@@ -478,16 +488,33 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \begin{frame}
 \frametitle[Scale Space Theory]{Linear Scale Space Theory for Kids}
 \begin{itemize}
-  \item Obviously the image is not actually a continuous surface. It is a particular sampling of a surface. 
+  \item Obviously the image is not actually a continuous surface.
+        It is a particular sampling of a surface. 
+  \item We want to embed the image this image with a ``resolution'' parameter.
   \item Motivate and say some basic axioms.
-  \item Say convolution by Gaussian solves these problems, derivatives work then too
+  \item Convolution by Gaussian solves these problems, discrete derivatives are fine too
 \end{itemize}
+
+\begin{block}{Axioms}
+  \begin{itemize}
+    \item Linear shift and rotational invariance
+    \item Semigroup property
+    \item Continuity of scale parameter
+    \item Causality condition
+    \end{itemize}
+  \note[item]{Maybe spend an extra slide on causality condition.
+              Basically, as resolution decreases (scale increases) then local minima do not
+              decrease, and local maxima do not increase.}
+  \note[item]{Prepare a couple more details to get into here.}
+  \end{block}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Implementation Detail: Calculating Discrete Hessian}
 \begin{itemize}
-  \item Calculate in frequency space
+  \item Convolution by gaussian matrix is slow. 
+  \item Calculate in frequency space as a multiplication
   \item Much much much faster
   \item Show the speed graph, explain MSE findings
 \end{itemize}
@@ -512,6 +539,13 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
   \item Logarithmic spacing is kind of sensible
   \item We can process each scale by itself too
 \end{itemize}
+
+\begin{equation}
+  \Vmax(x_0, y_0) :=
+  \underset{\sigma \in \Sigma}{\max}\left\{  \Vsigma (x_0, y_0) \right\}
+\end{equation}
+where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_n \right\}$ is
+the set of $n$ scales at which to probe, and \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $(x_0,y_0)$
 \end{frame}
 
 
@@ -522,10 +556,39 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Ground truth}
+\begin{figure}[p] \centering
+  \subfloat{\includegraphics[width=0.41\textwidth]{{{T-BN0164923.raw}}}
+  }
+  \subfloat{\includegraphics[width=0.41\textwidth]{{{T-BN0164923_perimeter_overlay}}}
+  }\\
+  \subfloat{
+    \includegraphics[width=0.41\textwidth]{{{T-BN0164923_arteries_overlay}}}
+  }
+  \subfloat{
+    \includegraphics[width=0.41\textwidth]{{{T-BN0164923_veins_overlay}}}
+  }
+%  \subfloat{
+%    \includegraphics[width=0.35\textwidth]{{{T-BN0164923_all_layers_overlay}}}
+%  }
+\end{figure}
+\note[item]{Maybe show these cropped, who cares}
+\note[item]{Maybe show enlarged UCIP and border, IDK if these will show up well}
+\note[item]{Maybe show cropped, merged trace by itself on one slide (quickly)}
 \end{frame}
 
 \begin{frame}
 \frametitle{Imperfections/Complications in Data set}
+\begin{figure}
+  \includegraphics[width=\textwidth]{annotations-montage-2by2}
+\end{figure}
+\note[item]{The $2\times 2$ annotations might be too complicated, might not show up on the projector. Maybe just switch between two slides? or show different colors of annotations on each slide?}
+\note[item]{Talk about:
+  \begin{itemize}
+    \item UCIP noise
+    \item too small and too big
+    \item bad perfusion
+    \item crossings
+  \end{itemize}}
 \end{frame}
 
 \begin{frame}

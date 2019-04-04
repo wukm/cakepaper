@@ -2,38 +2,13 @@
 
 % University Guidelines suggest less than 150 words or 2 pages
 
-Recent statistical analysis of placental features has suggested the usefulness
-of studying key features of the placental chorionic surface vascular network
-(PCSVN) as a measure of overall neonatal health \cite{chang2017}. A recent
-study has suggested that reliable reporting of these features may be useful in
-identifying risks of certain neurodevelopmental disorders at birth. The
-necessary features can be extracted from an accurate tracing of the surface
-vascular network, but such tracings must still be done manually, with
-significant user intervention. Automating this procedure would not only allow
-more data acquisition to study the potential effects of placental development on
-later conditions, but even perhaps provide a real-time diagnostic for neonatal
-risk factors.
+Recent statistical analysis has suggested that accurate measurements of certain features of the placental chorionic surface vascular network (PCSVN) after birth may be useful in identifying risks of certain neurodevelopmental disorders, including Autism Spectrum Disorder. These features, taken from a single top-down photograph, can be extracted from a manual tracing of the PCSVN, but the tracing procedure itself is very time and resource intensive. Automating this tracing procedure would not only allow more data acquisition to study potential links between placental development and neonatal health, but even perhaps provide a real-time diagnostic for certain risk factors.
 
-Much work has been to develop reliable vascular network segmentation methods for
-well-known image domains (such as retinal MRA images) using Hessian-based
-filters, namely the multiscale Frangi filter. It is desirable to extend these
-techniques to study placental images, but the approach has been historically
-hindered by the comparative irregularity of the placental surface as a whole,
-which introduces significant noise into filtered result.  Previous work has either
-involved additional filtering \cite{huynh2013filter} or other techniques that are
-often time-consuming and resource intensive \cite{djima2017enhancing}.
+Much work has been to develop reliable vascular network segmentation methods for well-known image domains (such as retinal MRA images) using Hessian-based filters, namely the multiscale Frangi filter. It is desirable to extend these techniques to our image domain, but this approach has been historically hindered by the comparative irregularity of the placental surface as a whole, which introduces significant noise into filtered result. Here we provide an in-depth mathematical background of the multiscale Frangi filter, touching upon topics in differential geometry, linear scale space theory, multiscale methods, and morphological image processing. Informed by this theory, we are able to identify stricter parameters that allow us to greatly improve our result. We also reimplement the Frangi filter in frequency space (using a Fast Fourier Transform), which allows a major speedup compared to previous efforts.
 
-Here we provide an in-depth mathematical background of the multiscale Frangi filter.
-Informed by this theory, we are able to identify stricter parameters that allow us
-to greatly improve our result. We also reimplement the Frangi filter in frequency space
-(using a fast fourier transform), which allows us to quickly probe many scales.
+Compared to recent success in solving this problem using more modern and ``flashy'' techniques such as neural networks, we demonstrate the continued viability of this ``classic'' image processing technique. Its comparative speed and simplicity make it suitable as a prefilter to more robust techniques. We apply a large (twelve scales) multiscale Frangi filter on a subset of 201 placental images from a private database provided by the National Children's Study (NCS). We then compare several approaches of merging the multiscale result into an approximation of the PCSVN and compare them to manual tracings of the network. Finally, we develop the notion of the signed Frangi filter, upon which we describe a straightforward segmentation method called "trough-filling".
 
-We demonstrate the effectiveness of our sped-up implementation of the Frangi
-filter by performing a large (twenty scales) multiscale Frangi filter on a subset of 201
-placental images from a private database provided by the National Children's
-Study (NCS). We then compare several approaches of merging the multiscale
-result into an approximation of the PCSVN and compare them to manual tracings
-of the network. Finally, we develop the notion of the \textit{signed} Frangi filter,
-upon which we describe a novel-yet-straightforward segmentation method called "trough filling".
+Keywords: Medical Image Processing, Image Segmentation, Placenta, Differential Geometry, Multiscale Methods
+
 
 
