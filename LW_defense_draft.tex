@@ -444,9 +444,8 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
 \end{cases}
 \end{equation}
-where
 \begin{equation}
-A := \left|\lambda_1 / \lambda_2\right|
+\textrm{where} \quad A := \left|\lambda_1 / \lambda_2\right|
 \quad \textrm{and} \quad 
 S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
@@ -462,7 +461,7 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \end{frame}
 \begin{frame}
 \frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
-\begin{block}{Frangi filter}
+%\begin{block}{Frangi filter}
   \begin{equation}
   \Vsigma(x_0,y_0) =
   \begin{cases}
@@ -471,16 +470,16 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
   \left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
   \end{cases}
   \end{equation}
-  where
   \begin{equation}
-  A := \left|\lambda_1 / \lambda_2\right|
+  \textrm{where} \quad A := \left|\lambda_1 / \lambda_2\right|
   \quad \textrm{and} \quad 
   S := \sqrt{\lambda_1^2 + \lambda_2^2}
   \quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
   \end{equation}
-\end{block}
+%\end{block}
+\includegraphics[width=0.49\textwidth]{4} % beta=0.1 gamma=1.0
+\includegraphics[width=0.49\textwidth]{14} % beta=0.5 gamma=0.5 
 \begin{itemize}
-\item Show a 3D graph of Frangi (just two, not 6x6 or whatever)
 \item We will show a lot of data with different choices of parameters later.
 \end{itemize}
 \end{frame}
@@ -522,12 +521,23 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Frangi Filter Anatomy: Scale parameter}
-\begin{itemize}
-  \item Show scalewise outputs (inset)
-  \item Describe relationship between vessel width and (LATER)
-  \item Describe relative strength of outputs and what's too large (LATER)
-  \item (Better to come back to these points later after describing research protocol)
-\end{itemize}
+  \note[item]{Describe relationship between vessel width and (LATER)}
+  \note[item]{Describe relative strength of outputs and what's too large}
+  \note[item]{Better to come back to these points later after describing research protocol? Or do that earlier?}
+  \note[item]{You really should rerun these just to make sure things are the same.}
+\includegraphics[width=\textwidth]{scalesweep_stitch_BN5280796_inset}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{scalesweep_colorbar}
+\end{center}
+\end{frame}
+
+\begin{frame}
+%\frametitle{Frangi Filter Anatomy: Scale parameter}
+\note[item]{Same thing but whole plate. Probably remove this. Otherwise, do some cropping.}
+\includegraphics[width=\textwidth]{scalesweep_stitch_BN5280796_plate}
+\begin{center}
+  \includegraphics[width=0.75\textwidth]{scalesweep_colorbar}
+\end{center}
 \end{frame}
 
 \begin{frame}
