@@ -27,6 +27,7 @@
 \usepackage{float}
 \usepackage{graphics}
 \usepackage{graphicx}
+\usepackage{bm}
 %\usepackage{subcaption}
 \usepackage{latexsym}
 \usepackage{multimedia}
@@ -673,20 +674,27 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Implementation Detail: Calculating Discrete Hessian}
-\begin{itemize}
-  \item Convolution by gaussian matrix is slow. 
-  \item Calculate in frequency space as a multiplication
-  \item Much much much faster
-  \item Show the speed graph, explain MSE findings
-\end{itemize}
+\begin{columns}
+  \begin{column}{0.4\textwidth}
+    \begin{itemize}
+      \item Convolution by gaussian matrix is slow. 
+      \item Calculate in frequency space as a multiplication
+    \end{itemize}
+  \end{column}
+\begin{column}{0.6\textwidth}
+  \includegraphics[width=\textwidth]{convolution-runtime-demo-alt}
+\end{column}
+\end{columns}
+\TODO{Add some of the math but not too much}
+\TODO{Why is this so much faster now?}
+\NOTE{This is short. Mention MSE findings}
 \end{frame}
 
 \begin{frame}
 \frametitle{Frangi Filter Anatomy: Scale parameter}
   \note[item]{Mention general relationship between vessel width.}
   \note[item]{Describe relative strength of outputs and what's too large.}
-  \note[item]{\META: You kind of need to rerun this with rescaling etc.
-              to make this point easier to make)}
+  \SELF{This is unscaled output}
 \includegraphics[width=\textwidth]{scalesweep_stitch_BN5280796_inset}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{scalesweep_colorbar}
@@ -734,7 +742,16 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 \section{Research Protocol}
 \begin{frame}
 \frametitle{The data set}
-Show a number of samples, no words. Just talk about how some are better than others. Have one sample bad with bad perfusion. We'll get more into it in a minute.
+\begin{center}
+\includegraphics[height=\textheight]{bad_gallery_rot}
+\end{center}
+\NOTE{Just talk about how some are better than others, some are bad perfusion, some have issues
+  with bordering and UCIP point (default methods didn't work well). A few have very nonstandard
+  vessel widths.}
+\NOTE{We'll look at some of the issues with ground truth in detail in a minute}
+\NOTE{Basically, since you've already explained the data set earlier, this is for explaining
+  the wide variation in sample quality}
+\TODO{Better to have single samples with Frangi outputs to explain how it's not good}
 \end{frame}
 
 \begin{frame}
@@ -799,26 +816,27 @@ Show a number of samples, no words. Just talk about how some are better than oth
 
 \begin{frame}
 \frametitle{Preprocessing: Umbilical Stump}
-Put ucip stump (cropped here) or with an arrow. Show a masked version.
+\begin{center}
+\includegraphics[height=0.9\textheight]{ucip_demo}
+\end{center}
 \NOTE{It was hard to remove these in an automated way that worked for all samples. You could do a white top hat and have it work a good amount of the time, but I ran out of time to do it effectively. There isn't any good data here due to diffgeo anyway as far as I can tell. Tracing protocol seems to estimate a lot.}
 \SELF{This was with a radius of 50 pixels}
-\TODO{When do we dump these? We never see a ring around, so it's not processed as a 0, but this region definitely isn't used to calculate Smax at the very least.}
 \NOTE{This prevents area around the stump from being misconstrued as part of vascular network.}
 \SELF{Basically picked this particular one because you can see that the radius we picked doesn't exactly fix the issue, but it does make it better. Hard to tell that the signal is \textit{too} much better, but we see (also from the lack of reporting these as false positives) a minor improvement in precision and MCC scores throughout.}
+\TODO{Zoom in would be nicer if you have time}
 \end{frame}
 
 \begin{frame}
 \frametitle{Preprocessing: Dealing with Boundaries}
 \begin{center}
-\includegraphics[height=0.8\textheight]{boundary_dilation_demo}
+\includegraphics[height=0.8\textheight]{boundary_dilation_demo_labels}
 \end{center}
 \NOTE{Prevent curvilinear content around the edges from being interpreted as curivilinear (especially with bounding structureness).}
 \note[item]{This can be especially significant with certain choices of dark/light BG and at small or large scales. Doesn't matter sooooo much, it's more of a quality of life thing.}
 \note[item]{Mostly because we want the background to be ignored, not treated as minimum (or maximum) intensity.}
 \note[item]{Since we already know where the mask is, we can just dilate it by a fixed amount (this is by 25 pixel radius)}.
-\TODO{Label rows/columns to make this readable}
-\TODO{Pick something where the output is easier to tell the difference with...}
-\TODO{This is fucked because of watershedding you do. Make a slide/demo for that.}
+\TODO{Urgent: You need to describe watershedding procedure}
+\NOTE{Note the different response for light features when the border is removed}
 \end{frame}
 
 \section{Analysis (Pre-segmentation)}
@@ -839,7 +857,7 @@ Put ucip stump (cropped here) or with an arrow. Show a masked version.
 \begin{itemize}
   \item Finding Hessian eigenvalues is about 16 times faster
         (25 scales 24 seconds vs. 7 minutes. mean of 25 samples)
-  \note[item]{Hessian matrix is symmetric}
+  \note[item]{Hessian matrix is much easier to find eigenvalues of}
   \item Scale dependency not the same
   \note[item]{Admit that this came pretty late into my research adventure so I need to look at this more. Weingarten map gives valid response at higher scales than the Hessian. Better
     at outlining just the ridge. Would like to compare strict Frangi to just Weingarten map}
@@ -857,7 +875,34 @@ Put ucip stump (cropped here) or with an arrow. Show a masked version.
 
 \begin{frame}
 \frametitle{Cumulative Vesselness Ratio}
-Just show a few parametrization methods, don't show all
+\begin{columns}
+  \begin{column}{0.6\textwidth}
+    \begin{center}
+    \includegraphics[height=0.9\textheight]{BN6028328-3x3params-190322}
+    \end{center}
+  \end{column}
+  \begin{column}{0.4\textwidth}
+    \begin{table}[p]\centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{label}  & $\bm{\beta}$ & $\bm{\gamma}$ \\ \hline
+        standard & $0.5$ & $0.5$ \\ \hline
+        loose & $ 1.0$ & $0.3$ \\ \hline
+        strict & $0.10$ & $1.0$ \\ \hline
+        semiloose-$\beta$ &$ 1.0$ & $0.5$ \\ \hline
+        semistrict-$\beta$& $ 0.1$ &$ 0.5$ \\ \hline
+        semiloose-$\gamma$ &$ 0.5$ & $0.3$ \\ \hline
+        semistrict-$\gamma$& $ 0.5$ & $1.0$ \\ \hline
+        anisotropy only & $ 0.5$& $0$ \\ \hline
+        structureness only&  $ \infty$ & $0.5$ \\ \hline
+      \end{tabular}
+    \end{table}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width=\textwidth]{cvr_boxplot_wide-all-ucip-190322}
 \end{frame}
 
 \section{Frangi Segmentation Methods}
@@ -933,6 +978,17 @@ Spend a couple slides here talking about
 
 \begin{frame}
 \frametitle{Boxplots}
+\begin{center}
+\includegraphics[height=0.8\textheight]{190408-all-MCC-boxplot-semistrict}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Boxplots test with both}
+\begin{center}
+\includegraphics[width=0.48\textwidth]{190408-all-MCC-boxplot-semistrict}
+\includegraphics[width=0.48\textwidth]{190408-all-precision-boxplot-semistrict}
+\end{center}
 \end{frame}
 
 \begin{frame}
