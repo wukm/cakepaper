@@ -67,9 +67,9 @@
 \definecolor{MidYellow}{rgb}{1,1,0.5}
 \definecolor{VeryLightRed}{rgb}{1,0.9,0.9}
 \definecolor{LightRed}{rgb}{1,0.8,0.8}
-\definecolor{Red}{rgb}{1,0,0}
-\definecolor{Green}{rgb}{0,1,0}
-\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Red}{rgb}{1,.2,.1}
+\definecolor{Green}{rgb}{0,1,.15}
+\definecolor{Blue}{rgb}{.1,.2,1}
 \definecolor{Gray}{rgb}{0.5,0.5,0.5}
 \definecolor{Black}{rgb}{0,0,0}
 \definecolor{White}{rgb}{1,1,1}
@@ -87,6 +87,9 @@
 \newcommand{\Green}[1]{{\color{Green}{#1}}}
 \newcommand{\LightGray}[1]{{\color{LightGray}{#1}}}
 
+\newcommand{\SELF}[1]{{\note[item]{\Blue{{#1}}}}}
+\newcommand{\TODO}[1]{{\note[item]{\Red{{#1}}}}}
+\newcommand{\NOTE}[1]{{\note[item]{#1}}}
 
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
 \newcommand{\N}{\mathbb{N}} % set of all natural numbers
@@ -115,6 +118,13 @@
 \newcommand{\wein}{\mathsf{L}} % for the Weingarten map
 \newcommand{\weinmat}{\widehat{\mathsf{L}}}
 \newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
+
+\newcommand{\META}{\Red{\textbf{META}}}
+
+\newcommand{\TN}{\mathsf{TN}}
+\newcommand{\TP}{\mathsf{TP}}
+\newcommand{\FN}{\mathsf{FN}}
+\newcommand{\FP}{\mathsf{FP}}
 
 %\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 %\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
@@ -228,11 +238,9 @@
         \begin{block}{Our image domain}
         \item The PCSVN is a connected network of veins and arteries
                 on the surface of the placenta
-        \item We have a ground truth for 201 samples
-                from private NCS dataset
+        \item Ground truth for 201 samples from private NCS dataset
         \item Placentas have been formalin-fixed,
-                so arteries are more prominent
-                (there are issues)
+                so arteries are more prominent.
         \item Pictures taken from top down, some glare,
                 some inconsistencies.
         \item Placental images are comparatively noisy
@@ -260,7 +268,7 @@
           scope of this thesis, but kept anytime we show a ground truth
           because they're pretty
         }
-    \note[item]{redo this page with a placenta from NCS, not EARLI}
+    \note[item]{\META: fix/align/crop the images better}
   \end{column}
   \end{columns}
 \end{frame}
@@ -290,6 +298,8 @@
   \note[item]{Also way clearer later when you show the surface after Gaussian blur,
   			  not sure if I should put that here and ``lie''/complicate things early on or not.}
   \note[item]{Crop graph, center, etc}
+  \note[item]{\META: Really need to review this whole section to talk about bright/dark
+    features; make sure it's clear}
 \end{frame}
 
 \begin{frame}
@@ -328,95 +338,247 @@
     \begin{block}{Weingarten Map for Graphs}
     Given the graph $f: U \to \mathbb{R}^3$ where $(x,y) \mapsto (x, y, h(x,y))$, the matrix
     representation of its Weingarten map is given by
-    \begin{equation}
-    \widehat{\mathsf{L}} = \mathrm{Hess}(h(x,y)) \tilde{G} \;,\quad \mathrm{where} \quad
-    \tilde{G} := \frac{1}{\left({1+h_x^2 + h_y^2}\right)^{3/2}}
+    \begin{equation*}
+    \widehat{\mathsf{L}} = \mathrm{Hess}(h) \tilde{G}
+    \end{equation*}
+    where
+    $
+    \tilde{G} := \frac{1}{\left({1+h_x^2 + h_y^2}\right)^{3/2}}   
     \begin{bmatrix}
-    1 + h_y^2 & -h_x h_y \\
+    1+h_y^2 & -h_x h_y \\
     -h_x h_y & 1 + h_x^2 \\
-    \end{bmatrix} 
-    \end{equation}
-    In particular, given a point $u = (x,y) \in U \subset \mathbb{R}^2$
-    where $h_x \approx h_y \approx 0$, we
-    have $\tilde{G} \approx \mathrm{Id}$, and thus
-    $\widehat{\mathsf{L}} \approx \mathrm{Hess}(h)$.
+    \end{bmatrix}
+    \;\text{and}\; \Hess(h) = \begin{bmatrix} h_{xx} & h_{xy} \\ h_{yx} & h_{yy} \end{bmatrix}
+    $
   \end{block}
-  \note[item]{Define hessian as the second derivative matrix}
   \note[item]{Make sure you have the graph definition clearly here. It's at the top but make it more prominent / earlier slidewise }
-  \note[item]{Make point about when we're not at a critcial point, we don't guarantee
-              any of this but it seems to work out okay}
-  \note[item]{Fix notation in general}
+  \note[item]{Make point about when we're not at a critical point, we don't guarantee
+              any of this (but it seems to work out okay)}
   \begin{block}{Approximating}
     \begin{itemize}
+    \item In particular, given a point where $h_x \approx h_y \approx 0$, we
+      have $\tilde{G} \approx \mathrm{Id}$, and thus
+      $\widehat{\mathsf{L}} \approx \mathrm{Hess}(h)$.
     \item For ease of use, we can simply find eigenvalues of the Hessian instead.
-    \item Talk about that more.
+    \note[item]{``Remember this point right here, we will come back to this.''}
     \item This gives rise to a class of filters, the so-called Hessian-based filters.
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} 
-Show the example here. Your example calculates from a different definition, like with Gauss map etc. so maybe rework or decide what you want here. 
+  \frametitle{Example: Finding Weingarten map and Principal Curvatures}
+
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \begin{block}{Cylindrical Ridge of radius $r$}
+    Let $f$ be the graph given by 
+    \begin{gather*}
+    f: \R^2 \to \R^3 \;\textrm{by}\; f(x,y) = (x,y,h(x,y)), \\
+    \textrm{with}\;
+    h(x,y) = \begin{cases}
+    \sqrt{r^2 - x^2} & -r < x < r \\
+    0 & \textrm{else}
+    \end{cases}
+    \end{gather*}
+  \end{block}
+  \end{column}
+
+\begin{column}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{circular_trough_with_axes}
+\end{column}
+\end{columns}
+
+% note: you had these for calculating the gauss map. since you don't need that, just switch to $h$
+%\begin{gather*}
+%\frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
+%\quad , \quad
+%\frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \\
+%\frac{\partial f}{\partial y} = \left(0, 1, 0\right)
+%\quad , \quad
+%\frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 f}{\partial x \partial y} = 0
+%\end{gather*}
+
+\begin{gather*}
+h_x = \frac{-x}{\sqrt{r^2 - x^2}}
+\quad , \quad
+h_{xx} = \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}}\\
+h_y = 0
+\quad , \quad
+h_{yy} = 0 \quad,\quad h_{xy} = 0
+\end{gather*}
+\note[item]{Show the example here. Your example calculates from a different definition, like with Gauss map etc. so maybe rework or decide what you want here.}
+\note[item]{``Calculate boring partial derivatives''}
+\note[item]{Note: the formula for weinmat is on the next slide}
 \end{frame}
 
+\begin{frame}
+\frametitle{Example: Finding Weingarten map and Principal Curvatures}
+\begin{block}{Weingarten matrix representation (for graphs)}
+\begin{equation*}
+\weinmat = \Hess(h) \tilde{G} \;,\quad \mathrm{where} \quad
+\tilde{G} := \frac{1}{\left({1+h_x^2 + h_y^2}\right)^{3/2}}
+\begin{bmatrix}
+1 + h_y^2 & -h_x h_y \\
+-h_x h_y & 1 + h_x^2 \\
+\end{bmatrix} 
+\end{equation*}
+\end{block}
 
+\begin{equation*}
+\Hess (h)
+  = \begin{bmatrix} h_{xx} & h_{xy} \\ h_{xy} & h_{yy} \end{bmatrix}
+   = \begin{bmatrix} \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\ 0 & 0 \end{bmatrix}
+\qquad
+\tilde{G} =
+  \frac{1}{\left(1+\frac{x^2}{r^2-x^2}\right)^{3/2}}
+  \begin{bmatrix}
+  1 & 0 \\ 0 & 1 + \frac{x^2}{r^2 - x^2}
+  \end{bmatrix}
+  \end{equation*}
+  \begin{align*}
+  \weinmat = \Hess(h)\tilde{G}
+           &= \frac{1}{\left(1+\frac{x^2}{r^2-x^2}\right)^{3/2}}
+              \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+              0 & 0 \end{bmatrix} \\
+%           \\
+%           &= \frac{1}{\left(\frac{r^2}{r^2-x^2}\right)^{3/2}}
+%           \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+%           0 & 0 \end{bmatrix}
+%          = \frac{\left(r^2-x^2\right)^{3/2}}{r^3}
+%          \begin{bmatrix} \frac{-r^2}{\left(r^2-x^2\right)^{3/2}} & 0 \\ 0 & 0 \end{bmatrix}
+%          = \begin{bmatrix} \frac{-1}{r} & 0 \\ 0 & 0 \end{bmatrix}
+           &= \quad \cdots \quad = \begin{bmatrix} \frac{-1}{r} & 0 \\ 0 & 0 \end{bmatrix}
+\end{align*}
+\note[item]{This is just some matrix multiplication, exponent rules, and finding common denominators. This would be a good challenge problem for Math 112A minus the matrix.}
+\note{ Here's the steps without dots just in case you need to add it back in:
+  \begin{align*}
+    \weinmat &= \Hess(h)\tilde{G}
+  = \frac{1}{\left(1+\frac{x^2}{r^2-x^2}\right)^{3/2}}
+  \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+    0 & 0 \end{bmatrix} \\
+  &= \frac{1}{\left(\frac{r^2}{r^2-x^2}\right)^{3/2}}
+  \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+    0 & 0 \end{bmatrix}
+  = \frac{\left(r^2-x^2\right)^{3/2}}{r^3}
+  \begin{bmatrix} \frac{-r^2}{\left(r^2-x^2\right)^{3/2}} & 0 \\ 0 & 0 \end{bmatrix}
+  = \begin{bmatrix} \frac{-1}{r} & 0 \\ 0 & 0 \end{bmatrix}
+  \end{align*}
+}
+\note[item]{Mostly, just point out it's $\begin{bmatrix} a & 0 \\ 0 & 0 \end{bmatrix}$ times
+  $\begin{bmatrix} b & 0 \\ 0 & c \end{bmatrix}$}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Finding Weingarten Map and Principal Curvatures}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \begin{block}{Cylindrical Ridge of radius $r$}
+      Let $f$ be the graph given by 
+      \begin{gather*}
+      f: \R^2 \to \R^3 \;\textrm{by}\; f(x,y) = (x,y,h(x,y)), \\
+      \textrm{with}\;
+      h(x,y) = \begin{cases}
+      \sqrt{r^2 - x^2} & -r < x < r \\
+      0 & \textrm{else}
+      \end{cases}
+      \end{gather*}
+    \end{block}
+  \end{column}
+  
+  \begin{column}{0.5\textwidth}
+    \includegraphics[width=\linewidth]{circular_trough_with_axes}
+  \end{column}
+\end{columns}
+\begin{gather*}
+\weinmat = \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}
+\quad \text{Matrix of Weingarten map}\\
+u_2 = (1,0) \;,\; u_1 = (0,1)
+  \quad \text{principal directions (eigenvectors of $\weinmat$)}\\
+\lambda_2 = \frac{-1}{r} \;,\; \lambda_1 = 0
+  \quad \text{principal curvatures (eigenvalues of $\weinmat$)}\\
+\end{gather*}
+\note[item]{\META: need to show what hessian eigs/eigvecs are and emphasize that at the ridge point it's identical}
+\note[item]{\META: also can explain (here or later) if there's a stronger signal at the ridge point
+  or if it's literally anywhere on the ridge}
+\note[item]{
+  This is what to stick in somewhere:
+  \begin{equation}
+  \Hess (h)
+  = \begin{bmatrix} h_{xx} & h_{xy} \\ h_{xy} & h_{yy} \end{bmatrix}
+  = \begin{bmatrix} \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\ 0 & 0 \end{bmatrix}
+  \end{equation}
+  Note that eigenvalues are still $0$ and the top left element (now a function of $x$),
+  eigenvectors are (can be chosen to be) the same throughout, and if $x=0$ (at the crest)
+  then $\weinmat = \Hess$ exactly, as expected.
+}
+
+\end{frame}
 \section{The Frangi filter}
 
 \begin{frame}
 \frametitle{The (Uniscale) Frangi Filter}
-  \begin{equation}
-  \Vsigma(x_0,y_0) =
+  \begin{equation*}
+  \mathcal{V}(x,y) =
   \begin{cases}
   0 & \text{if} \quad \lambda_2 > 0 \\
   \exp\left(-\frac{A^2}{2\beta^2}\right)
-  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \textrm{otherwise}
+  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right) & \text{otherwise}
   \end{cases}
-  \end{equation}
+  \end{equation*}
 where
-  \begin{equation}
-  A := \left|\lambda_1 / \lambda_2\right|
-  \quad \textrm{and} \quad 
-  S := \sqrt{\lambda_1^2 + \lambda_2^2}
-  \end{equation}
+\begin{align*}
+  A &:= \left|\lambda_1 / \lambda_2\right| \quad\text{(Anisotropy Measure)} \\
+  \text{and} \quad 
+  S &:= \sqrt{\lambda_1^2 + \lambda_2^2} \quad\text{(Structureness Measure)}
+  \end{align*}
 
-for eigenvalues $\lambda_1, \lambda_2$ of the Hessian (defined at each point)
-  \begin{equation}
-    \mathsf{H} = \begin{bmatrix} h_{xx} & h_{xy} \\
-                                 h_{yx} & h_{yy}
-                 \end{bmatrix}
-    \quad \;\textrm{such that}\;
-    \mathsf{H} u_i = \lambda_i u_i \;,\;
-    \left|\lambda_1\right| \leq \left|\lambda_2\right|
-  \end{equation}
-  
-  \begin{itemize}
-    \item We'll go through this step by step.
-  \end{itemize}
+for eigenvalues $\lambda_1, \lambda_2$ of the Hessian (at point (x,y)),
+   $ \left|\lambda_1\right| \leq \left|\lambda_2\right|$
+
+and $\beta$ and $c$ are parameters
+
+\note[item]{Mostly point out how it all fits together. Two simple functions of the principal
+  curvatures, put into exponential forms, with a parameter to control each.}
+\note[item]{``We'll go through this step by step and look at each part more closely''}
+\note[item]{Mention that if you wanted to use the ``real'' principal curvatures here you're more than welcome to}
+\note[item]{Don't need to spend too much time on this slide, we'll put it back again}
 \end{frame}
 
 \begin{frame}
-\frametitle[Anisotropy Factor]{Frangi filter anatomy: Anisotropy Factor}
+\frametitle[Anisotropy Factor]{Frangi filter anatomy}
+\begin{block}{Anisotropy Factor}
 \begin{equation}
 \exp\left(-\frac{A^2}{2\beta^2}\right) \quad,\quad
-A := \left|\lambda_1 / \lambda_2\right|
+A := \left|\frac{\lambda_1}{\lambda_2}\right|
 \end{equation}
+\end{block}
 \begin{itemize}
-  \item This is the main thing that selects curvilinear points.
-  \item When $A$ is very close to 0, $\lambda_2 \gg \lambda_1$, and the surface is very anisotropic.
-  \item Frangi suggested $\beta=\frac{1}{2}$ as a reasonable default.
-  \item Show pictures of a curvilinear structure here, or a hangar.
+  \item For selecting anisotropic content (lines not blobs)
+  \item When $A$ is very close to 0,
+  $\left|\lambda_2\right| \gg \left|\lambda_1\right|$, and the factor is $\approx 1$.
+  \item Choosing parameter: Frangi suggested $\beta=\frac{1}{2}$ as a reasonable default.
 \end{itemize}
+\begin{figure} \centering
+  \subfloat[Anisotropic]{
+\includegraphics[width=0.5\linewidth]{circular_trough_with_axes}}
+\subfloat[Isotropic]{
+\includegraphics[width=0.3\linewidth]{hemisphere_wolframalpha}}
+\end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle[Structureness Factor]{Frangi filter anatomy: Structureness Factor}
-\begin{equation}
-\left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right)
-\quad,\quad
-S := \sqrt{\lambda_1^2 + \lambda_2^2}
-\end{equation}
+\frametitle[Structureness Factor]{Frangi filter anatomy}
+\begin{block}{Structureness Factor}
+  \begin{equation}
+  \left(1 - \exp\left(-\frac{S^2}{2c^2}\right)\right)
+  \quad,\quad
+  S := \sqrt{\lambda_1^2 + \lambda_2^2}
+  \end{equation}
+\end{block}
+
 \begin{itemize}
+  \item This selects content with significant curvature.
   \item Purpose is to filter out numerically small values, we only want significant curvilinear content ($S$ large).
   \note[item]{For example, we don't want our filter to report a point as curvilinear structure if $\lambda_1 / \lambda_2$ is large, but we can't differentiate between
   $\lambda_2 = 100, \lambda_1 = .01$ and $\lambda_2 = .001, \lambda_1 = .000001$}
@@ -455,8 +617,9 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \item $\lambda_2 > 0$ means the point would be a local minimum (at a critical point). We are looking for a local maximum by looking for bright curvilinear objects. You can switch this ($\lambda_2 < 0$ as the case) if you are looking for dark curvilinear.
 \item Point of $\exp(...)$ and $1 - \exp(...)$ structure is that the filter decays rapidly as anisotropy or structureness decrease.
 \end{itemize}
-\note[item]{Really look into the bright/dark curvilinear subject and try to explain better.}
-\note[item]{Get rid of the sigma until after scale space theory?}
+\note[item]{\META: Really look into the bright/dark curvilinear subject and try to explain better.}
+\note[item]{\META: Significance of sign of principal curvature (real one from Weingarten map)?}
+\note[item]{\META: Get rid of the sigma until after scale space theory?}
 \note[item]{If it's too long to get to this point, maybe start showing samples already}
 \end{frame}
 \begin{frame}
@@ -506,7 +669,6 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
               decrease, and local maxima do not increase.}
   \note[item]{Prepare a couple more details to get into here.}
   \end{block}
-
 \end{frame}
 
 \begin{frame}
@@ -521,10 +683,10 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Frangi Filter Anatomy: Scale parameter}
-  \note[item]{Describe relationship between vessel width and (LATER)}
-  \note[item]{Describe relative strength of outputs and what's too large}
-  \note[item]{Better to come back to these points later after describing research protocol? Or do that earlier?}
-  \note[item]{You really should rerun these just to make sure things are the same.}
+  \note[item]{Mention general relationship between vessel width.}
+  \note[item]{Describe relative strength of outputs and what's too large.}
+  \note[item]{\META: You kind of need to rerun this with rescaling etc.
+              to make this point easier to make)}
 \includegraphics[width=\textwidth]{scalesweep_stitch_BN5280796_inset}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{scalesweep_colorbar}
@@ -533,7 +695,8 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 %\frametitle{Frangi Filter Anatomy: Scale parameter}
-\note[item]{Same thing but whole plate. Probably remove this. Otherwise, do some cropping.}
+\note[item]{Same thing but whole plate. Show this for like 5 seconds.}
+\note[item]{``This is basically just to show that these trends work throughout the whole image, etc''}
 \includegraphics[width=\textwidth]{scalesweep_stitch_BN5280796_plate}
 \begin{center}
   \includegraphics[width=0.75\textwidth]{scalesweep_colorbar}
@@ -542,40 +705,50 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 
 \begin{frame}
 \frametitle{Multiscale Frangi filter}
-\begin{itemize}
-  \item Definition
-  \item Standard Merging strategy
-  \item It's faster so can pick more
-  \item Logarithmic spacing is kind of sensible
-  \item We can process each scale by itself too
-\end{itemize}
-
+For a set of scales to probe, $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_n \right\}$,
+the set of $n$ scales at which to probe,
 \begin{equation}
-  \Vmax(x_0, y_0) :=
-  \underset{\sigma \in \Sigma}{\max}\left\{  \Vsigma (x_0, y_0) \right\}
+\Vmax(x_0, y_0) :=
+\underset{\sigma \in \Sigma}{\max}\left\{  \Vsigma (x_0, y_0) \right\}
 \end{equation}
-where $\Sigma := \left\{ \sigma_0, \sigma_1 , \cdots, \sigma_n \right\}$ is
-the set of $n$ scales at which to probe, and \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $(x_0,y_0)$
+where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $(x_0,y_0)$
+
+\begin{block}{Notes}
+\begin{itemize}
+  \item The default ``merging'' strategy suggested by Frangi.
+  \item Alternatively, we can process each scale by itself too if we want to.
+  \item Decide what scales to use:
+    \begin{itemize}
+      \item Logarithmic spacing makes some intuitive sense.
+      \item Need to experiment to determine what is large / small enough.
+      \item Smaller scales for smaller features, larger scales for larger features.
+    \end{itemize}
+  \note[item]{We can also keep track of $\Vargmax$ etc.}
+  \note[item]{Recall that this is a probability-like measure, so this is the probabilityish
+              that it has the differential geometry of a curvilinear structure}
+\end{itemize}
+\end{block}
 \end{frame}
 
 
 \section{Research Protocol}
 \begin{frame}
 \frametitle{The data set}
+Show a number of samples, no words. Just talk about how some are better than others. Have one sample bad with bad perfusion. We'll get more into it in a minute.
 \end{frame}
 
 \begin{frame}
 \frametitle{Ground truth}
 \begin{figure}[p] \centering
-  \subfloat{\includegraphics[width=0.41\textwidth]{{{T-BN0164923.raw}}}
+  \subfloat{\includegraphics[width=0.40\textwidth]{{{T-BN0164923.raw}}}
   }
-  \subfloat{\includegraphics[width=0.41\textwidth]{{{T-BN0164923_perimeter_overlay}}}
-  }\\
+  \subfloat{\includegraphics[width=0.40\textwidth]{{{T-BN0164923_perimeter_overlay}}}
+  }\\[-.2cm]
   \subfloat{
-    \includegraphics[width=0.41\textwidth]{{{T-BN0164923_arteries_overlay}}}
+    \includegraphics[width=0.40\textwidth]{{{T-BN0164923_arteries_overlay}}}
   }
   \subfloat{
-    \includegraphics[width=0.41\textwidth]{{{T-BN0164923_veins_overlay}}}
+    \includegraphics[width=0.40\textwidth]{{{T-BN0164923_veins_overlay}}}
   }
 %  \subfloat{
 %    \includegraphics[width=0.35\textwidth]{{{T-BN0164923_all_layers_overlay}}}
@@ -591,8 +764,8 @@ the set of $n$ scales at which to probe, and \Vsigma is the Frangi vesselness me
 \begin{figure}
   \includegraphics[width=\textwidth]{annotations-montage-2by2}
 \end{figure}
-\note[item]{The $2\times 2$ annotations might be too complicated, might not show up on the projector. Maybe just switch between two slides? or show different colors of annotations on each slide?}
-\note[item]{Talk about:
+\TODO{The $2\times 2$ annotations might be too complicated, might not show up on the projector. Maybe just switch between two slides? or show different colors of annotations on each slide?}
+\NOTE{Talk about:
   \begin{itemize}
     \item UCIP noise
     \item too small and too big
@@ -602,14 +775,85 @@ the set of $n$ scales at which to probe, and \Vsigma is the Frangi vesselness me
 \end{frame}
 
 \begin{frame}
-\frametitle{Preprocessing: Glare}
+\frametitle{Preprocessing: Dealing with Glare}
+\begin{center}
+\includegraphics[height=0.8\textheight]{glare_inset_demo_labeled_zealous}
+\end{center}
+\NOTE{Glare isn't catastrophic in most cases, but it can throw off results.}
+\NOTE{We're looking for small abrupt peaks on the surface, want to smooth out.}
+\NOTE{For simplicity, we assume everything higher than $175/255$ is glare}
+\NOTE{MATLAB has a technique called imfill that solves Laplace equation $\nabla f = 0$.
+  We use built-in python that does biharmonic equation $\nabla\nabla f = 0$. It's pretty slow,
+  so we speed it up by using an alternate strategy, where we just take the median of the boundary
+  for smaller masked regions. You can see the lowest portion of the middle mask is fixed in the
+  hybrid method.}
+\SELF{Times to process a representative sample (whole thing not this inset):
+  \begin{itemize}
+    \item biharmonic inpainting: 22 seconds
+    \item boundary median 4 seconds
+    \item hybrid method 6 seconds
+  \end{itemize}
+}
+\TODO{Would be nice to have implementation details on the slide but I'm worried you can't }
 \end{frame}
 
 \begin{frame}
 \frametitle{Preprocessing: Umbilical Stump}
+Put ucip stump (cropped here) or with an arrow. Show a masked version.
+\NOTE{It was hard to remove these in an automated way that worked for all samples. You could do a white top hat and have it work a good amount of the time, but I ran out of time to do it effectively. There isn't any good data here due to diffgeo anyway as far as I can tell. Tracing protocol seems to estimate a lot.}
+\SELF{This was with a radius of 50 pixels}
+\TODO{When do we dump these? We never see a ring around, so it's not processed as a 0, but this region definitely isn't used to calculate Smax at the very least.}
+\NOTE{This prevents area around the stump from being misconstrued as part of vascular network.}
+\SELF{Basically picked this particular one because you can see that the radius we picked doesn't exactly fix the issue, but it does make it better. Hard to tell that the signal is \textit{too} much better, but we see (also from the lack of reporting these as false positives) a minor improvement in precision and MCC scores throughout.}
+\end{frame}
+
+\begin{frame}
+\frametitle{Preprocessing: Dealing with Boundaries}
+\begin{center}
+\includegraphics[height=0.8\textheight]{boundary_dilation_demo}
+\end{center}
+\NOTE{Prevent curvilinear content around the edges from being interpreted as curivilinear (especially with bounding structureness).}
+\note[item]{This can be especially significant with certain choices of dark/light BG and at small or large scales. Doesn't matter sooooo much, it's more of a quality of life thing.}
+\note[item]{Mostly because we want the background to be ignored, not treated as minimum (or maximum) intensity.}
+\note[item]{Since we already know where the mask is, we can just dilate it by a fixed amount (this is by 25 pixel radius)}.
+\TODO{Label rows/columns to make this readable}
+\TODO{Pick something where the output is easier to tell the difference with...}
+\TODO{This is fucked because of watershedding you do. Make a slide/demo for that.}
 \end{frame}
 
 \section{Analysis (Pre-segmentation)}
+
+\begin{frame}
+  \frametitle{Comparing Frangi Hessian to Frangi with Weingarten Map}
+  \begin{figure}[p]\centering
+    \subfloat[Raw Sample]{
+      \includegraphics[width=0.32\textwidth]{BN4384182-raw-weindemo}
+  }
+    \subfloat[$\mathcal{V}_{\max}$ (Hessian eigvals)]{
+      \includegraphics[width=0.32\textwidth]{BN4384182-Vmax-weindemo}
+  }
+    \subfloat[$\mathcal{V}_{\max}$ (Weingarten eigvals)]{
+      \includegraphics[width=0.32\textwidth]{BN4384182-Wmax-weindemo}
+  }
+  \end{figure}
+\begin{itemize}
+  \item Finding Hessian eigenvalues is about 16 times faster
+        (25 scales 24 seconds vs. 7 minutes. mean of 25 samples)
+  \note[item]{Hessian matrix is symmetric}
+  \item Scale dependency not the same
+  \note[item]{Admit that this came pretty late into my research adventure so I need to look at this more. Weingarten map gives valid response at higher scales than the Hessian. Better
+    at outlining just the ridge. Would like to compare strict Frangi to just Weingarten map}
+  \item Frangi parameters seem less important for Weingarten map
+  \note[item]{Note, noise is noise; still present.}
+  \note[item]{You could potentially do a hybrid, i.e.
+  recalculate significant Frangi responses like this. Also there could be a speedup by not doing \textit{every} non-masked point, i.e. make sure that hessian magnitude is large enough first. that would be fast.}
+  \TODO{Move to late in talk, otherwise rest of this shit kinda feels weak.}
+  \TODO{Also, need to look at
+    \texttt{skimage.feature.hessian\_matrix\_eigvals}
+    to figure out other reasons for speedup/ask von Brecht}
+  \SELF{Scales are kinda wrong for optimal Hessian-Frangi, hence more noise there}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Cumulative Vesselness Ratio}
@@ -617,6 +861,7 @@ Just show a few parametrization methods, don't show all
 \end{frame}
 
 \section{Frangi Segmentation Methods}
+
 \begin{frame}
 \frametitle{Fixed threshold of Vmax}
 \end{frame}
@@ -626,28 +871,53 @@ Just show a few parametrization methods, don't show all
 \end{frame}
 
 \begin{frame}
-\frametitle{Trough-filling (1/2)}
-Show definition of signed Frangi, inset
+\frametitle{Signed Frangi}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Trough-filling (2/2)}
+\frametitle{Signed Frangi}
+\includegraphics[width=\textwidth]{signsweep_stitch_BN5280796_inset_alt}
+\begin{center}
+  \includegraphics[width=0.75\textwidth]{signsweep_colorbar_alt}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{A non-Frangi segmentation method: ISODATA}
 This represents a good idea that doesn't rely on diffgeo or local anything
+\TODO{Find histogram figure}
+\TODO{Put an output here}
 \end{frame}
 
 \section{Frangi Segmentation Results}
 \begin{frame}
-\frametitle{Binary Classification (1/2)}
-Confusion matrix with TP, FP, TN, FN
-\end{frame}
+\frametitle{Binary Classification of Segmentation Methods}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{figure}
+  \centering
+  \includegraphics[height=0.5\textheight]{example_confusion_small} \\
+  \includegraphics[height=0.2\textheight]{confusion_legend}
+\end{figure}
+\end{column}
+\note[item]{\META: Use GIMP to merge legend with image and put horizontal under image. maybe add precision and mcc of this particular example}
+\begin{column}{0.6\textwidth}
+  \begin{block}{Scoring Methods}
+  \begin{equation*}
+  \textsf{precision} \;=\; \frac{\TP}{\TP+\FP}
+\end{equation*}
 
-\begin{frame}
-\frametitle{Binary Classification (2/2)}
-MCC and Precision Scores
+\begin{equation*}
+\textsf{MCC} = \frac{\TP\times \TN - \FP \times \FN}{\sqrt{ (\TP+\FP)(\TP+\FN)(\TN+\FP)(\TN+\FN)}}
+\end{equation*}
+\note[item]{There are a lot of different choices in terms of scoring, like accuracy (list more)}
+\note[item]{Rationale behind MCC, the benefit}
+\note[item]{Explain that MCC is good but precision is important too}
+\note[item]{Would be good to have a scoring method based on network, but that's definitely nontrivial to define}
+\end{block}
+  \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -669,9 +939,21 @@ Spend a couple slides here talking about
 \frametitle{Conclusion}
 \end{frame}
 
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+% Backup frames
+
 \begin{frame}
 \frametitle{Appendix}
 Put some proofs / extra things here
 \end{frame}
 
+\begin{frame}
+extra blah blah
+\end{frame}
+\begin{frame}
+another extra slide
+\end{frame}
+\setcounter{framenumber}{\value{finalframe}}
 \end{document}
