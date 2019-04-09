@@ -118,7 +118,7 @@
 \newcommand{\Hess}{\mathrm{Hess}} % fancy H for the hessian
 \newcommand{\wein}{\mathsf{L}} % for the Weingarten map
 \newcommand{\weinmat}{\widehat{\mathsf{L}}}
-\newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
+\newcommand{\img}{\mathsf{I}} % discrete image (a matrix, not the math term)
 
 \newcommand{\META}{\Red{\textbf{META}}}
 
@@ -185,17 +185,24 @@
               {./figures/segmentation_montage/}
               {./figures/segmentation/}
               {./figures/compare_parameters_demo/}
-}
+              {./figures/190409-width_to_scale_response_demo-unscaled-semistrict/}
+              {./figures/190326-segmentation_demo_all_semistrict-ucip}
+            }
 \date{April 9, 2019}
 
 \titlegraphic{\includegraphics[height=2cm]{csulb-seal.png}}
 \begin{document}
+
 
 %%% TITLE SLIDE %%%%
 \begin{frame} % % % % % % % % % % % % % % % % % % %
   \titlepage
 \end{frame}
 
+\begin{frame}
+\includegraphics[width=0.48\textwidth]{BN0651415-cropped_cimg}
+\includegraphics[width=0.48\textwidth]{BN0651415-Vsigma-18-unscaled.png}
+\end{frame}
 \section{Introduction}
 \begin{frame} % % % % % % % % % % % % % % % % % % % % % % % % %
 	\frametitle{Research Goals}
@@ -234,7 +241,7 @@
 \begin{frame}
   \frametitle{The Image Processing Problem}
   \begin{columns}[c]
-  \begin{column}{0.5\textwidth}
+  \begin{column}{0.45\textwidth}
     \begin{itemize}
         \begin{block}{Our image domain}
         \item The PCSVN is a connected network of veins and arteries
@@ -242,8 +249,6 @@
         \item Ground truth for 201 samples from private NCS dataset
         \item Placentas have been formalin-fixed,
                 so arteries are more prominent.
-        \item Pictures taken from top down, some glare,
-                some inconsistencies.
         \item Placental images are comparatively noisy
         \note[item]{The surface of the placenta has a lot of changes
               in color/topology apart from the PCSVN
@@ -253,23 +258,23 @@
               an eyeball MRI (like original Frangi paper)
             }
       \end{block}
-    \begin{block}{Strategy}
-      Given the curvilinear nature of these vessels, we will appeal
-      to differential geometry.
-      \end{block}
+%    \begin{block}{Strategy}
+%      Given the curvilinear nature of these vessels, we will appeal
+%      to differential geometry.
+%      \end{block}
     \end{itemize}
   \end{column}
-  \begin{column}{0.5\textwidth}
-    \centering
-    \includegraphics[height=0.48\textheight]{{{T-BN0164923.raw}}} \\[0em]
-    %{\Huge $\Downarrow$}\\[-1em]
-    \includegraphics[height=0.48\textheight]{{{T-BN0164923.ctrace}}}
-    \note[item]{Mention colors are simply vessel widths (3 to 19 odds)
-          are part of the tracing protocol. that's really outside of the
-          scope of this thesis, but kept anytime we show a ground truth
-          because they're pretty
-        }
-    \note[item]{\META: fix/align/crop the images better}
+  \begin{column}{0.48\textwidth}
+    \includegraphics[height=0.4\textheight]{{{T-BN0164923-raw-mancrop}}}\\
+    \includegraphics[height=0.4\textheight]{{{T-BN0164923-ctrace-mancrop}}}
+        \note[item]{Mention colors are simply vessel widths (3 to 19 odds)
+      are part of the tracing protocol}
+    \SELF{NCS is national children's study}
+    \SELF{formalin is basically formaldehyde and water, basically dried out.
+          other samples i had were barium injected so the vessels were kind of
+        whiter. other samples are kind of red against red. etc. etc.}
+    \NOTE{Pictures taken from top down, some glare,
+    some inconsistencies.}
   \end{column}
   \end{columns}
 \end{frame}
@@ -290,48 +295,61 @@
 \section[Math Methods]{Mathematical Methods}
 \begin{frame}
 \frametitle{Appealing to Differential Geometry}
-  Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and intensity as the height function.
+  Idealize image as a 3D surface (a graph) with $(x,y)$ spatial coordinates and intensity as the height function $h(x,y)$.
+  
+  \begin{equation*}
+\bm{f}: \mathbb{R}^2 \to \mathbb{R}^3 \;\;\text{where}\;\;
+      (x,y) \mapsto \Big(x, y, h(x,y)\Big)
+  \end{equation*}
   \note[item]{Point of this slide is show that finding curvilinear surfaces is reasonable}
 
-  \includegraphics[width=0.3\textwidth]{inset_for_3d_surface}
-  \includegraphics[width=0.6\textwidth]{inset_as_3d_surface}
-  \note[item]{This point is a lot clearer when you show multiple vessel widths.}
+  \includegraphics[width=\textwidth]{inset_surf}
+  \note[item]{This point is a lot clearer when you show multiple vessel widths, this is just a little inset}
   \note[item]{Also way clearer later when you show the surface after Gaussian blur,
   			  not sure if I should put that here and ``lie''/complicate things early on or not.}
-  \note[item]{Crop graph, center, etc}
-  \note[item]{\META: Really need to review this whole section to talk about bright/dark
-    features; make sure it's clear}
+  \NOTE{$f$ is the graph, $h$ is the height function}
+  \NOTE{Technically we just map from an open set but whatever}
 \end{frame}
 
 \begin{frame}
 \frametitle{Review of Differential Geometry of (Continuous) Surfaces}
 \note[item]{``Let's just pretend we're dealing with this as a continuous surface
               for now''}
-  \begin{itemize}
-    \item (Thm of Meusnier)
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=\textwidth]{stolen_surface_tangent}
+    \end{column}
+    \begin{column}{0.7\textwidth}
+  \begin{block}{Meusnier's Theorem}
           If you look at a point on the surface and fix a tangent vector,
           then all surface curves through that point with that velocity
           will have the same curvature there.
-          So the curvature is intrinsic to the surface, call it normal curvature.
-    \item Varying the tangent vector,
-          we call extremal values of normal curvature the
-          \textbf{principal curvatures}.
-          The associated tangent vectors are \textbf{principal directions.}
-    \item (Thm. of Olinde Rodrigues)
-          These principal curvatures/directions are
-          the eigenvalues/eigenvectors of
-          a particular map called the \textbf{Weingarten map}.
+          So the curvature is intrinsic to the surface. Call it
+          \textbf{normal curvature.}
+  \end{block}
+\end{column}
+\end{columns}
+\begin{definition}
+   Extremal values of normal curvature are called \textbf{principal curvatures}
+   of the surface at that point.
+   The extremizing tangent vectors are \textbf{principal directions.}
+\end{definition}
+
+\begin{block}{Theorem of Olinde Rodrigues}
+  These principal curvatures/directions are
+  the eigenvalues/eigenvectors of a particular map called the \textbf{Weingarten map}.
+\end{block}
       \note[item]{Weingarten map also called shape operator. Also can just define
                   the second fundamental form and use that matrix
                   (for our purposes)}
       \note[item]{Note that all this is true for \textit{any} kind of surface,
                   but we really just care about graphs.}
-      \note[item]{If you want to get into notation, you can do so as far as explicitly
+      \note[item]{If you want to get into notation,
+        you can do so as far as explicitly
                   showing what the Weingarten map is (requires Gauss map).
                   You probably can avoid showing any setup of Meusnier--
                   defining curves and so on. 
                   }
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -579,8 +597,7 @@ A := \left|\frac{\lambda_1}{\lambda_2}\right|
 \end{block}
 
 \begin{itemize}
-  \item This selects content with significant curvature.
-  \item Purpose is to filter out numerically small values, we only want significant curvilinear content ($S$ large).
+  \item Purpose: Filter out numerically insignificant values.
   \note[item]{For example, we don't want our filter to report a point as curvilinear structure if $\lambda_1 / \lambda_2$ is large, but we can't differentiate between
   $\lambda_2 = 100, \lambda_1 = .01$ and $\lambda_2 = .001, \lambda_1 = .000001$}
   \item Important to pick a reasonable value for the image at hand / image domain.
@@ -626,43 +643,44 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \begin{frame}
 \frametitle[Frangi parameters]{Frangi filter anatomy: Choosing Parameters}
 %\begin{block}{Frangi filter}
-  \begin{equation}
+  \begin{equation*}
   \Vsigma(x_0,y_0) =
   \begin{cases}
   0 & \text{if} \quad \lambda_2 > 0 \\
   \exp\left(-\frac{A^2}{2\beta^2}\right)
   \left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
   \end{cases}
-  \end{equation}
-  \begin{equation}
+  \end{equation*}
+  \begin{equation*}
   \textrm{where} \quad A := \left|\lambda_1 / \lambda_2\right|
   \quad \textrm{and} \quad 
   S := \sqrt{\lambda_1^2 + \lambda_2^2}
   \quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
-  \end{equation}
+  \end{equation*}
 %\end{block}
-\includegraphics[width=0.49\textwidth]{4} % beta=0.1 gamma=1.0
-\includegraphics[width=0.49\textwidth]{14} % beta=0.5 gamma=0.5 
-\begin{itemize}
-\item We will show a lot of data with different choices of parameters later.
-\end{itemize}
+\includegraphics[width=0.48\textwidth]{4} % beta=0.1 gamma=1.0
+\includegraphics[width=0.48\textwidth]{14} % beta=0.5 gamma=0.5 
+%includegraphics[width=0.3\textwidth]{8}
+\NOTE{We will soon show how choices of parameters manifest in our actual research problem here, but we have one more thing to take care of first}
 \end{frame}
 
 \begin{frame}
 \frametitle[Scale Space Theory]{Linear Scale Space Theory for Kids}
 \begin{itemize}
   \item Obviously the image is not actually a continuous surface.
-        It is a particular sampling of a surface. 
-  \item We want to embed the image this image with a ``resolution'' parameter.
-  \item Motivate and say some basic axioms.
-  \item Convolution by Gaussian solves these problems, discrete derivatives are fine too
+        It is a particular sampling $\img$ of the surface. 
+  \item We want to create a ``family of derived images'' with a ``resolution'' parameter $\sigma \ge 0$,
+        ideally from some operator $T_\sigma$ acting on the image $\img$.
+  \begin{equation*}
+  K(x,y;\sigma) = T_\sigma
+  \end{equation*}
 \end{itemize}
 
-\begin{block}{Axioms}
+\begin{block}{Some Axioms}
   \begin{itemize}
     \item Linear shift and rotational invariance
-    \item Semigroup property
-    \item Continuity of scale parameter
+    \item Semigroup property $T_{\sigma_1 + \sigma_2}\img = T_{\sigma_1}\img + T_{\sigma_2}\img$
+    \item Continuity of scale parameter $\sigma$
     \item Causality condition
     \end{itemize}
   \note[item]{Maybe spend an extra slide on causality condition.
@@ -670,15 +688,25 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
               decrease, and local maxima do not increase.}
   \note[item]{Prepare a couple more details to get into here.}
   \end{block}
+\begin{block}{Moral}
+  Convolution by Gaussian solves these problems.
+\end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{Implementation Detail: Calculating Discrete Hessian}
 \begin{columns}
   \begin{column}{0.4\textwidth}
+          \begin{gather*}
+    K(x,y;\sigma) = T_{\sigma} u_0 = G_\sigma \star u_0 \\
+    \textrm{where}\quad
+    G_\sigma(x,y) := \frac{1}{2\pi \sigma^2}
+                e^{-\frac{x^2+y^2}{2\sigma^2}}
+                      \end{gather*}
     \begin{itemize}
-      \item Convolution by gaussian matrix is slow. 
-      \item Calculate in frequency space as a multiplication
+      \item Convolution by gaussian matrix is slow
+      \item Calculate in frequency space as a multiplication according to the convolution theorem.
+      \item While you're at it, use a FFT.
     \end{itemize}
   \end{column}
 \begin{column}{0.6\textwidth}
@@ -725,16 +753,15 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 \begin{itemize}
   \item The default ``merging'' strategy suggested by Frangi.
   \item Alternatively, we can process each scale by itself too if we want to.
-  \item Decide what scales to use:
+        (Keep track of $\Vargmax, \VSigma$, etc.)
+\end{itemize}
+\end{block}
+\begin{block}{What scales to use?}
     \begin{itemize}
       \item Logarithmic spacing makes some intuitive sense.
-      \item Need to experiment to determine what is large / small enough.
+      \item Experiment to determine what is large / small enough.
       \item Smaller scales for smaller features, larger scales for larger features.
     \end{itemize}
-  \note[item]{We can also keep track of $\Vargmax$ etc.}
-  \note[item]{Recall that this is a probability-like measure, so this is the probabilityish
-              that it has the differential geometry of a curvilinear structure}
-\end{itemize}
 \end{block}
 \end{frame}
 
@@ -743,7 +770,7 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 \begin{frame}
 \frametitle{The data set}
 \begin{center}
-\includegraphics[height=\textheight]{bad_gallery_rot}
+\includegraphics[height=0.9\textheight]{bad_gallery_rot}
 \end{center}
 \NOTE{Just talk about how some are better than others, some are bad perfusion, some have issues
   with bordering and UCIP point (default methods didn't work well). A few have very nonstandard
@@ -841,40 +868,10 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 
 \section{Analysis (Pre-segmentation)}
 
-\begin{frame}
-  \frametitle{Comparing Frangi Hessian to Frangi with Weingarten Map}
-  \begin{figure}[p]\centering
-    \subfloat[Raw Sample]{
-      \includegraphics[width=0.32\textwidth]{BN4384182-raw-weindemo}
-  }
-    \subfloat[$\mathcal{V}_{\max}$ (Hessian eigvals)]{
-      \includegraphics[width=0.32\textwidth]{BN4384182-Vmax-weindemo}
-  }
-    \subfloat[$\mathcal{V}_{\max}$ (Weingarten eigvals)]{
-      \includegraphics[width=0.32\textwidth]{BN4384182-Wmax-weindemo}
-  }
-  \end{figure}
-\begin{itemize}
-  \item Finding Hessian eigenvalues is about 16 times faster
-        (25 scales 24 seconds vs. 7 minutes. mean of 25 samples)
-  \note[item]{Hessian matrix is much easier to find eigenvalues of}
-  \item Scale dependency not the same
-  \note[item]{Admit that this came pretty late into my research adventure so I need to look at this more. Weingarten map gives valid response at higher scales than the Hessian. Better
-    at outlining just the ridge. Would like to compare strict Frangi to just Weingarten map}
-  \item Frangi parameters seem less important for Weingarten map
-  \note[item]{Note, noise is noise; still present.}
-  \note[item]{You could potentially do a hybrid, i.e.
-  recalculate significant Frangi responses like this. Also there could be a speedup by not doing \textit{every} non-masked point, i.e. make sure that hessian magnitude is large enough first. that would be fast.}
-  \TODO{Move to late in talk, otherwise rest of this shit kinda feels weak.}
-  \TODO{Also, need to look at
-    \texttt{skimage.feature.hessian\_matrix\_eigvals}
-    to figure out other reasons for speedup/ask von Brecht}
-  \SELF{Scales are kinda wrong for optimal Hessian-Frangi, hence more noise there}
-\end{itemize}
-\end{frame}
+
 
 \begin{frame}
-\frametitle{Cumulative Vesselness Ratio}
+\frametitle{Cumulative Vesselness Ratio (CVR)}
 \begin{columns}
   \begin{column}{0.6\textwidth}
     \begin{center}
@@ -882,6 +879,11 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
     \end{center}
   \end{column}
   \begin{column}{0.4\textwidth}
+      \begin{equation*}
+      \mathsf{CVR}\left(\Vmax\right) :=
+      \frac{\sum_{G\subset\img} \Vmax(x_0, y_0)}{\sum_{\img} \Vmax(x_0,y_0)}
+      \end{equation*}
+      where $G \subset \img$ is the ground truth
     \begin{table}[p]\centering
       \begin{tabular}{|c|c|c|}
         \hline
@@ -905,34 +907,56 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 \includegraphics[width=\textwidth]{cvr_boxplot_wide-all-ucip-190322}
 \end{frame}
 
+\begin{frame}
+\frametitle{Comparing Frangi Hessian to Frangi with Weingarten Map}
+\begin{figure}[p]\centering
+  \subfloat[Raw Sample]{
+    \includegraphics[width=0.32\textwidth]{BN4384182-raw-weindemo}
+  }
+  \subfloat[$\mathcal{V}_{\max}$ (Hessian eigvals)]{
+    \includegraphics[width=0.32\textwidth]{BN4384182-Vmax-weindemo}
+  }
+  \subfloat[$\mathcal{V}_{\max}$ (Weingarten eigvals)]{
+    \includegraphics[width=0.32\textwidth]{BN4384182-Wmax-weindemo}
+  }
+\end{figure}
+\begin{itemize}
+  \item Finding Hessian eigenvalues is about 16 times faster
+  (25 scales 24 seconds vs. 7 minutes. mean of 25 samples)
+  \note[item]{Hessian matrix is much easier to find eigenvalues of}
+  \item Scale dependency not the same
+  \note[item]{Admit that this came pretty late into my research adventure so I need to look at this more. Weingarten map gives valid response at higher scales than the Hessian. Better
+    at outlining just the ridge. Would like to compare strict Frangi to just Weingarten map}
+  \item Frangi parameters seem less important for Weingarten map
+  \note[item]{Note, noise is noise; still present.}
+  \note[item]{You could potentially do a hybrid, i.e.
+    recalculate significant Frangi responses like this. Also there could be a speedup by not doing \textit{every} non-masked point, i.e. make sure that hessian magnitude is large enough first. that would be fast.}
+  \TODO{Move to late in talk, otherwise rest of this shit kinda feels weak.}
+  \TODO{Also, need to look at
+    \texttt{skimage.feature.hessian\_matrix\_eigvals}
+    to figure out other reasons for speedup/ask von Brecht}
+  \SELF{Scales are kinda wrong for optimal Hessian-Frangi, hence more noise there}
+\end{itemize}
+\end{frame}
+
 \section{Frangi Segmentation Methods}
 
-\begin{frame}
-\frametitle{Fixed threshold of Vmax}
-\end{frame}
 
 \begin{frame}
-\frametitle{Scalewise percentile filtering}
-\end{frame}
+\frametitle{A non-Frangi segmentation method: ISODATA (Ridler-Calvert)}
+\begin{equation*} \label{eq:ISODATA}
+\alpha_{\textrm{ISO}} = \arg\min_{\alpha} \left( \frac{1}{2} \Big[
+\textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) \le \alpha \right\} 
++
+\textrm{mean}\left\{ \img(x,y) \;|\; \img(x,y) >   \alpha \right\}
+\Big]
+\right)
+\end{equation*}
 
-\begin{frame}
-\frametitle{Signed Frangi}
+\includegraphics[width=0.3\textwidth]{isodata_example}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{Signed Frangi}
-\includegraphics[width=\textwidth]{signsweep_stitch_BN5280796_inset_alt}
-\begin{center}
-  \includegraphics[width=0.75\textwidth]{signsweep_colorbar_alt}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{A non-Frangi segmentation method: ISODATA}
-This represents a good idea that doesn't rely on diffgeo or local anything
-\TODO{Find histogram figure}
-\TODO{Put an output here}
+Since the vascular structure in our image domain is darker than the background, we select pixels
+where $\img(x,y) < \alphaiso$.
 \end{frame}
 
 \section{Frangi Segmentation Results}
@@ -966,50 +990,136 @@ This represents a good idea that doesn't rely on diffgeo or local anything
 \end{frame}
 
 \begin{frame}
-\frametitle{Example Segmentation Results}
-Spend a couple slides here talking about
+\frametitle{Thresholding Methods}
+\begin{block}{Fixed Threshold (\texttt{thresh-low} and \texttt{thresh-high})}
+  Pick some $0 < \alpha < 1$, then extract $\Vmax > \alpha$
+  \begin{itemize}
+    \item $\alpha$ must be manually selected
+    \item We picked $\alpha=0.3$ and $\alpha=0.2$
+  \end{itemize}
+  \end{block}
+
+\begin{block}{scalewise (nonzero) percentile filtering (\texttt{snz-p})}
+    For each scale, filter under $p$th percentile: $\Vsigma > \alpha_p$.
+    \begin{itemize}
+      \item Use \textit{nonzero} percentile for each scale
+      \item Smaller scales get in easier
+      \item Good for unscaled Frangi, unknown filter response
+      \item Very noisy if $\Sigma$ chosen poorly
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Signed Frangi}
+Don't throw anything away!
+  \begin{equation*}
+\Vsigma^{(+)}(x_0,y_0) =
+\begin{cases}
+0 & \text{if} \quad \lambda_2 > 0 \\
+\exp\left(-\frac{A^2}{2\beta^2}\right)
+\left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
+\end{cases}
+\end{equation*}
+  \begin{equation*}
+\Vsigma^{(-)}(x_0,y_0) =
+\begin{cases}
+0 & \text{if} \quad \lambda_2 < 0 \\
+\exp\left(-\frac{A^2}{2\beta^2}\right)
+\left(1 - \exp\left(-\frac{S^2}{2{(\gamma S_{\max})}^2}\right)\right) & \textrm{otherwise}
+\end{cases}
+\end{equation*}
+\begin{equation*}
+\textrm{where} \quad A := \left|\lambda_1 / \lambda_2\right|
+\quad \textrm{and} \quad 
+S := \sqrt{\lambda_1^2 + \lambda_2^2}
+\quad, \left|\lambda_2\right| \ge \left|\lambda_1\right|
+\end{equation*}
 \begin{itemize}
-  \item parametrization choices effect
-  \item threshold choices effect
-  \item talk about ``good'' false positives and  ``bad'' false positives
-  \item talk about good samples and bad samples
+  \item This gives us a $\Vmaxpos$ and $\Vmaxneg$ with same calculation time.
+  \item We might want to use a subset $\Sigmaneg \subset \Sigma$ (smaller scales only)
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Boxplots}
+\frametitle{Signed Frangi}
+\includegraphics[width=\textwidth]{signsweep_stitch_BN5280796_inset_alt}
 \begin{center}
-\includegraphics[height=0.8\textheight]{190408-all-MCC-boxplot-semistrict}
+\includegraphics[width=0.75\textwidth]{signsweep_colorbar_alt}
 \end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Boxplots test with both}
+\frametitle{Trough Filling Method}
+\includegraphics[width=\textwidth]{fig-insetBN0164923}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Results (1/4)}
+\includegraphics[width=\textwidth]{fig-BN8801263-semistrict-segdemo}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Results (2/4)}
+\includegraphics[width=\textwidth]{fig-BN7753462-semistrict-segdemo}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Results (3/4)}
+\includegraphics[width=\textwidth]{fig-BN6250724-semistrict-segdemo}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Results (4/4)}
+\includegraphics[width=\textwidth]{fig-BN5280796-semistrict-segdemo}
+\end{frame}
+%
+%\begin{frame}
+%\frametitle{Example Segmentation Results}
+%Spend a couple slides here talking about
+%\begin{itemize}
+%  \item parametrization choices effect
+%  \item threshold choices effect
+%  \item talk about ``good'' false positives and  ``bad'' false positives
+%  \item talk about good samples and bad samples
+%\end{itemize}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{Boxplots}
+%\begin{center}
+%\includegraphics[height=0.8\textheight]{190408-all-MCC-boxplot-semistrict}
+%\end{center}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Results on All Samples ($\beta=0.15, \gamma=0.5$)}
 \begin{center}
-\includegraphics[width=0.48\textwidth]{190408-all-MCC-boxplot-semistrict}
-\includegraphics[width=0.48\textwidth]{190408-all-precision-boxplot-semistrict}
+\includegraphics[width=0.48\textwidth]{190326-all-MCC-boxplot-semistrict}
+\includegraphics[width=0.48\textwidth]{190326-all-precision-boxplot-semistrict}
 \end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{Conclusion}
-\end{frame}
+%\begin{frame}
+%\frametitle{Conclusion}
+%\end{frame}
 
-\appendix
-\newcounter{finalframe}
-\setcounter{finalframe}{\value{framenumber}}
-% Backup frames
-
-\begin{frame}
-\frametitle{Appendix}
-Put some proofs / extra things here
-\end{frame}
-
-\begin{frame}
-extra blah blah
-\end{frame}
-\begin{frame}
-another extra slide
-\end{frame}
-\setcounter{framenumber}{\value{finalframe}}
+%\appendix
+%\newcounter{finalframe}
+%\setcounter{finalframe}{\value{framenumber}}
+%% Backup frames
+%
+%\begin{frame}
+%\frametitle{Appendix}
+%Put some proofs / extra things here
+%\end{frame}
+%
+%\begin{frame}
+%extra blah blah
+%\end{frame}
+%\begin{frame}
+%another extra slide
+%\end{frame}
+%\setcounter{framenumber}{\value{finalframe}}
 \end{document}
