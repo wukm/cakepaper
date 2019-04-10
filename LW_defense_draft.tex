@@ -1,4 +1,5 @@
-\documentclass[9pt,notes]{beamer}
+%\documentclass[9pt,notes]{beamer}
+\documentclass[9pt]{beamer}
 %\documentclass{foils} %if wish to emulate the foils class using beamer
 
 % - Style is ornate.
@@ -804,7 +805,13 @@ where \Vsigma is the Frangi vesselness measure at scale $\sigma$ for the pixel $
 \end{frame}
 
 \begin{frame}
-\frametitle{Imperfections/Complications in Data set}
+\frametitle{Imperfections in Data set (1/2)}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{annotations-on-raw}
+\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Imperfections in Data set (2/2)}
 \begin{figure}
   \includegraphics[width=\textwidth]{annotations-montage-2by2}
 \end{figure}
@@ -1101,6 +1108,13 @@ S := \sqrt{\lambda_1^2 + \lambda_2^2}
 \end{center}
 \end{frame}
 
+\begin{frame}
+\frametitle{Results on All Samples ($\beta=0.15, \gamma=0.5$)}
+\begin{center}
+  \includegraphics[width=0.48\textwidth]{all-MCC-boxplot-strict}
+  \includegraphics[width=0.48\textwidth]{all-precision-boxplot-strict}
+\end{center}
+\end{frame}
 %\begin{frame}
 %\frametitle{Conclusion}
 %\end{frame}
