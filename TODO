@@ -3,33 +3,46 @@ TODO for cakepaper
 
 Tags
 ----
+[ ] - unassigned/ not urgent
 [!] - quick
-[S] - style only (not that it isn't important)
 [#] - involves running code
 [~] - complicated / involved / fuzzy
 [.] - incremental (make sure gets done but don't need to do directly)
 [?] - decision / external input required
 
+--------------
 
-0. Multisection
+
+0. Multisection/Preamble
 ---------------
-    A. [#] Consistent coloration of graphs (nipy-spectral)
-    B. [# S] Redo inline descriptions of subfloat arrays (use subfigure titles)
+    A. [ ] Consistent coloration of graphs (nipy-spectral or rainbow)
+    B. [#] Consistent inline descriptions/subfloat captions
     C. [#] Insert some words about morphological image processing somewhere.
+    D. [ ] Get rid of signature page
 
 1. Introduction and Abstact
 ---------------------------
-    A. [?] Realign context with current developments in Chang research group
-    B. [!] Recapture focus of thesis
+    A. [ ] Realign context with current developments in Chang research group
+    B. [ ] Recapture focus of thesis
 
 2. Mathematical Methods: Differential Geometry and Surface Curvature
 --------------------------------------------------------------------
-    A. [~] Replace hand drawings
+    A. [~] FIGURE ONE (TANGENT PLANE OF A GRAPH) IS TERRIBLE.
+           Find an open source or just remove.
     B. [ ] Redo differential geo discussion just in terms of graphs
+    C. [ ] Add in stuff from defense instead for example
+    D. [ ] Add in better circular trough graphs
+    E. [ ] Fix connection between Weingarten map and Hessian map / justification
+    F. [ ] Be clearer about direction
 
 3. The Uniscale Frangi Filter
 -----------------------------
-    A. [~]
+    A. [~] Fix Frangi 3D graphs; remove appendix
+    B. [ ] Talk about λ_2 directionality more
+    C. [ ] Mention that you can use Weingarten eigs
+    D. [ ] Redo expo marker drawings, add in isotropic (like defense slide)
+    E. [ ] Redo {structurness,anisotropy}_parameter_demo graphs, removing title
+
 
 4. Linear Scale Space Theory
 ----------------------------
@@ -62,6 +75,7 @@ Tags
     D. [~] Include discussion of network completion and principal directions here
     E. [~] With arrow annotations, use a colored legend. Redo Vmax output as BW.
     F. [#] Redo CVR results, excluding UCIP to be consistent with Seg. chapter
+    G. [ ] Show anisotropy, structureness parameters by themselves
 
 9. Segmentation
 ----------------

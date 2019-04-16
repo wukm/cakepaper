@@ -136,22 +136,33 @@ Considering as the anisotropy measure $\abs{\lambda_1 / \lambda_2} \in [0,1]$ (s
 anisotropy factor varies depending on our choice of $\beta$, as seen in \cref{fig:anisotropy-parameter-demo}.
 
 We can theoretically choose any values $0 < \beta, \gamma < \infty$ for the two parameters. Two particular limits are of theoretical interest:
-as $\beta \to \infty$, the anisotropy factor tends to $1$, and as $\gamma \to 0$, the structureness factor tends to $1$, make the measure entirely irrelevant. Of course, in the limit that $\beta \to 0$ or $\gamma \to \infty$, their respective factors become 0, making the entire filter irrelevant.
-\begin{figure}
-  \includegraphics[width=\linewidth]{anisotropy_parameter_demo}
+as $\beta \to \infty$, the anisotropy factor tends to $1$, and as $\gamma \to 0$, the structureness factor tends to $1$, make the measure entirely irrelevant. We will use this fact in \cref{ch:results-analysis} to provide a visual demonstration of each individual factor. The limits in the other directions are less interesting; if either $\beta \to 0$ or $\gamma \to \infty$, their respective factors will tend to 0, making the entire filter zero everywhere.
+
+\begin{figure}[t] \centering
+  \includegraphics[height=0.4\textheight]{anisotropy_parameter_demo}
   \caption{Dependence of the Anisotropy Factor on its Parameter}
   \label{fig:anisotropy-parameter-demo}
 \end{figure}
 
-We make a similar presentation of the dependence of the structureness kernel on its parameter $\gamma$, as you can see in \cref{fig:structureness-parameter-demo}.
-\begin{figure}
-  \includegraphics[width=\linewidth]{structureness_parameter_demo}
+\begin{figure}[t] \centering
+  \includegraphics[height=0.4\textheight]{structureness_parameter_demo}
   \caption{Dependence of the Structureness Factor on its Parameter}
   \label{fig:structureness-parameter-demo}
 \end{figure}
 
-The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall effect of tuning the selectivity of the Frangi filter itself.
-In the figures in \cref{app:extra-figures}, we plot the Frangi vesselness measure itself as a function of $S$ and $A$ while sweeping through different choices of $\beta$ and $\gamma$. 
+\cref{fig:structureness-parameter-demo} is a similar presentation of the dependence of the structureness kernel on its parameter $\gamma$.
+A convenient by-product of our redefinition of $\gamma$ actually is that can group together $S$ with the $S_{\max}$ that appears in the denominator, allowing us to refer to a structureness ratio $S/S_{\max}$. In fact, we could perfectly well define the Frangi filter to be in terms of this ratio--though we refrain presently since we acknowledge specific cases where $c$ can be chosen to be fixed independent of a calculated $S_{\max}$ value.
+
+
+The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall effect of tuning the selectivity of the Frangi filter itself. In \cref{fig:frangi3d-selection}, we show the shape of our rescaled filter depends on the anisotropy measure $\abs{\lambda_1 / \lambda_2}$ and the ``structureness ratio'' $S/S_{\max}$. Each of these filters has been rescaled with $a_\gamma$. The steepness of \cref{subfig:frangi3d-strict} suggests that the filter is in fact, stricter compared to the default parameter selection \cref{subfig:frangi3d-default}. \cref{subfig:frangi3d-loose} shows the filters continued strength over a much larger range of values, indicating that it may not work effectively. In particular, choosing $\gamma$, and thus $c$, poorly will lead to quite a lot of noise.
+An interesting manifestation of this is that the default implementation of the Frangi filter \cite{scipy} chooses an seemingly arbitrarily fixed value for the structureness parameter, perhaps causing many na\"ive applications of the Frangi filter to give a needlessly poor result, simply becuase the filter was not correctly parametrized.
+
+\begin{figure}[t] \centering
+\subfloat[Strict]{\includegraphics[width=0.33\linewidth]{4}} \label{subfig:frangi3d-strict}
+\subfloat[Standard]{\includegraphics[width=0.33\linewidth]{14}} \label{subfig:frangi3d-default}
+\subfloat[Loose $\gamma$]{\includegraphics[width=0.33\linewidth]{12}} \label{subfig:frangi3d-loose}
+\label{fig:frangi3d-selection}
+\end{figure}
 
 
 
