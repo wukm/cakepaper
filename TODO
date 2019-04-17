@@ -30,10 +30,10 @@ Tags
     A. [~] FIGURE ONE (TANGENT PLANE OF A GRAPH) IS TERRIBLE.
            Find an open source or just remove.
     B. [ ] Redo differential geo discussion just in terms of graphs
-    C. [ ] Add in stuff from defense instead for example
-    D. [ ] Add in better circular trough graphs
-    E. [ ] Fix connection between Weingarten map and Hessian map / justification
+    C. [ ] Fix connection between Weingarten map and Hessian map / justification
+           (Start at FIX_THIS) 
     F. [ ] Be clearer about direction
+    G. [ ] Remove / rework talk about 
 
 3. The Uniscale Frangi Filter
 -----------------------------

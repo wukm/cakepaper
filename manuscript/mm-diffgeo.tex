@@ -511,7 +511,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	Our final goal is to explicitly determine a (hopefully simplified) version of the Weingarten map in the case of a graph $f(u_1,u_2) = (u_1,u_2, h(u_1,u_2))$ and calculate
        	the principal directions and curvatures in a simple example.
        	        		
-       	\begin{theorem}[Relationship between Hessian and Weingarten Map of a Graph]
+       	\begin{theorem}[Weingarten Map of a Graph]
         	Given the graph $f: U \to \R^3$ where $(x,y) \mapsto (x, y, h(x,y))$, the matrix
         	representation of its Weingarten map is given by
         	\begin{equation} \label{weinmatexactgraph}
@@ -599,40 +599,41 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	
   We stress that this map $\wein$ is defined for each point $u \in U$.
   In the particular case that $u \in  U$ is a critical point, where $\nabla h(u) = (h_x(u), h_y(u)) = 0$, then it is clear from the previous theorem that $\weinmat$ is exactly the Hessian matrix $\Hess(h)$. Of course this implies that $\weinmat$ and $\Hess{(h)}$ have the same eigenvalues and eigenvectors at any such point.
-  
-But this observation is more broadly useful than for analyzing critical points alone. If $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
-\begin{equation}
-\tilde{G} = \frac{1}{1+h_x^2 +h_y^2}\left(I + [\delta]\right), \quad
-	[\delta] 	:= \begin{bmatrix} h_y^2 & -h_x h_y \\
-					  -h_x h_y & h_x^2 \end{bmatrix}
-\end{equation}
 
-We can then rewrite \cref{weinmatexactgraph} as 
-\begin{equation}
-\weinmat = \frac{1}{\left(1+h_x^2 + h_y^2\right)^{3/2}}\left( \Hess(h)
-+  \Hess(h) [\delta]\right)
-\end{equation}
-
-We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix, and the constant $\left(1+h_x^2 + h_y^2\right)^{-3/2}$ will be very close to 1 as well, so we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \cite{wilkinson-eigenvalue}, which we state without rigorous proof.
-
-% see wilkinson pg 66
-\begin{theorem}
-	If $A$, $B$ are matrices such that $\abs{A_{ij}} < 1 , \abs{B_{ij}} < 1$ (a condition that can be ignored with scaling) and $\lambda$ is a simple eigenvalue of $A$, then given $\epsilon > 0$, there exists a simple eigenvalue $\tilde{\lambda}$ of the matrix $A + \epsilon B$ with $\abs{\lambda - \tilde{\lambda}} = \bigO(\epsilon)$. Similarly, if $v$ is an eigenvector of A, then $\tilde{v}$ is an eigenvector of $A + \epsilon B$ with
-	$\abs{v - \tilde{v}} = \bigO(\epsilon)$.
-\end{theorem}
-
-The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
-$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large. 
-
-We can bound the perturbation of eigenvalues from $\weinmat$ to $\Hess(h)$ by another result
-which we state without proof \cite{matrix-analysis-horn}.
-
-\begin{theorem}
-	Let A be a $n\times n$ normal matrix with eigenvalues $\lambda_1, \dots, \lambda_n$ and $E$ an $n \times n$ arbitrary matrix. If $\hat{\lambda} $ in an eigenvalue of $A + E$, then there is an eigenvalue $\lambda_i$ of A for which
-		$\abs{\hat{\lambda} - \lambda_i} \leq \vnorm{E}_2$
-\end{theorem}
-
-In the event that we do wish to rigorously compute the Weingarten map--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
+%FIX_THIS % % % % % % % % % % % % % % % % % % % % % % % %
+%But this observation is more broadly useful than for analyzing critical points alone. If $\tilde{G}$ above is close to identity, then the eigenvalues and eigenvectors of $\weinmat$ will be similarly close to the eigenvalues of the Hessian. We can rewrite $\tilde{G}$ from \cref{weinmatexactgraph} as identity plus a small matrix:
+%\begin{equation}
+%\tilde{G} = \frac{1}{1+h_x^2 +h_y^2}\left(I + [\delta]\right), \quad
+%	[\delta] 	:= \begin{bmatrix} h_y^2 & -h_x h_y \\
+%					  -h_x h_y & h_x^2 \end{bmatrix}
+%\end{equation}
+%
+%We can then rewrite \cref{weinmatexactgraph} as 
+%\begin{equation}
+%\weinmat = \frac{1}{\left(1+h_x^2 + h_y^2\right)^{3/2}}\left( \Hess(h)
+%+  \Hess(h) [\delta]\right)
+%\end{equation}
+%
+%We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix, and the constant $\left(1+h_x^2 + h_y^2\right)^{-3/2}$ will be very close to 1 as well, so we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \cite{wilkinson-eigenvalue}, which we state without rigorous proof.
+%
+%% see wilkinson pg 66
+%\begin{theorem}
+%	If $A$, $B$ are matrices such that $\abs{A_{ij}} < 1 , \abs{B_{ij}} < 1$ (a condition that can be ignored with scaling) and $\lambda$ is a simple eigenvalue of $A$, then given $\epsilon > 0$, there exists a simple eigenvalue $\tilde{\lambda}$ of the matrix $A + \epsilon B$ with $\abs{\lambda - \tilde{\lambda}} = \bigO(\epsilon)$. Similarly, if $v$ is an eigenvector of A, then $\tilde{v}$ is an eigenvector of $A + \epsilon B$ with
+%	$\abs{v - \tilde{v}} = \bigO(\epsilon)$.
+%\end{theorem}
+%
+%The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
+%$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large. 
+%
+%We can bound the perturbation of eigenvalues from $\weinmat$ to $\Hess(h)$ by another result
+%which we state without proof \cite{matrix-analysis-horn}.
+%
+%\begin{theorem}
+%	Let A be a $n\times n$ normal matrix with eigenvalues $\lambda_1, \dots, \lambda_n$ and $E$ an $n \times n$ arbitrary matrix. If $\hat{\lambda} $ in an eigenvalue of $A + E$, then there is an eigenvalue $\lambda_i$ of A for which
+%		$\abs{\hat{\lambda} - \lambda_i} \leq \vnorm{E}_2$
+%\end{theorem}
+%
+%In the event that we do wish to rigorously compute the Weingarten map--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
 
   
   To make the Weingarten map and its relationship to the Hessian more explicit, we will calculate the Weingarten map for a relatively simple graph.
@@ -643,134 +644,172 @@ In the event that we do wish to rigorously compute the Weingarten map--that is, 
   \begin{equation}
    f: \R^2 \to \R^3 \;\textrm{by}\; f(x,y) = (x,y,h(x,y)), \;\textrm{with}\;
    h(x,y) = \begin{cases}
-    \sqrt{r^2 - x^2} & -r \le x \le r \\
+    \sqrt{r^2 - x^2} & -r < x < r \\
     0 & \textrm{else}
     \end{cases}
   \end{equation} 
   \begin{figure}[h!]
-  \includegraphics[width=\linewidth]{circular_trough}
+  \includegraphics[width=\linewidth]{circular_trough_with_axes_flipped}
   \caption{The graph of a cylindrical ridge of radius $r$}
   \label{fig:ridge-graph}
   \end{figure}
   
   
-  The graph is shown in \cref{fig:ridge-graph}. We calculate the necessary partial derivatives of $f$ as follows:
+  The graph $f$ is depicted in \cref{fig:ridge-graph}. We calculate the necessary partial derivatives of $h(x,y)$ and apply them to \cref{weinmatexactgraph}.
   
-  \begin{gather}
-  \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
-  \quad , \quad
-  \frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \\
-  \frac{\partial f}{\partial y} = \left(0, 1, 0\right)
-  \quad , \quad
-  \frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 f}{\partial x \partial y} = 0
-  \end{gather}
-  The gauss map is given by
-  \begin{gather}
-  \nu(x,y) = \frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
-  {\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}}
-  = \left( \frac{x}{r} ,\; 0 ,\; \frac{\sqrt{r^2 - x^2}}{r} \right) \\
-\implies
-\frac{\partial \nu}{\partial x}
- = \left(\frac{1}{r} \;,\; 0\;,\; \frac{-x}{r\sqrt{r^2-x^2}}\right)
- \quad , \quad \frac{\partial \nu}{\partial y} = \left(0,0,0\right).
-  \end{gather}
-  
-  We then calculate matrix elements of the Weingarten map's construction as given in
-  \cref{hij_exactgraph} and \cref{gij_exactgraph} :
-  \begin{align}
-  [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
-     &= \frac{1}{\sqrt{1+\left(\frac{x^2}{r^2-x^2}\right)}}
-     \begin{bmatrix}
-     \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \\
-    0 & 0
-     \end{bmatrix} 
-     = \begin{bmatrix}
-     \frac{-r}{r^2 - x^2} & 0 \\
-     0 & 0
-     \end{bmatrix} \
-     [g_{ij}]^{-1} &= \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \\
-     \implies \weinmat = [h_{ij}]	[g_{ij}]^{-1} &=
-     \begin{bmatrix}
-     \frac{-r}{r^2 - x^2} & 0 \\
-     0 & 0
-     \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \\
-     &= \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}	       	
-  \end{align}
-  
-  We see that $u_2 = (0,1)$ and $u_1 = (1,0)$ are eigenvectors for $\weinmat$ with respective eigenvalues
-  $\kappa_2 = -\frac{1}{r} , \kappa_1 = 0$. The Theorem of Olinde Rodriguez then suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and is $0$. The Theorem of Meusnier, \cref{thm:meusnier}, suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable--any curve on the trough perpendicular to the ridge should have the curvature of a circle, and the negative simply indicates that we are on the ``outside'' of the surface. Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
-  
+%  \begin{gather}
+%  \frac{\partial f}{\partial x} = \left(1, 0, \frac{-x}{\sqrt{r^2 - x^2}}\right)
+%  \quad , \quad
+%  \frac{\partial^2 f}{\partial x^2} = \left(0, 0, \frac{-r^2}{\left(\sqrt{r^2 - x^2}\right)^3}\right) \\
+%  \frac{\partial f}{\partial y} = \left(0, 1, 0\right)
+%  \quad , \quad
+%  \frac{\partial^2 f}{\partial y^2} = \frac{\partial^2 f}{\partial x \partial y} = 0
+%  \end{gather}
+%  The gauss map is given by
+%  \begin{gather}
+%  \nu(x,y) = \frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
+%  {\vnorm{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}}
+%  = \left( \frac{x}{r} ,\; 0 ,\; \frac{\sqrt{r^2 - x^2}}{r} \right) \\
+%\implies
+%\frac{\partial \nu}{\partial x}
+% = \left(\frac{1}{r} \;,\; 0\;,\; \frac{-x}{r\sqrt{r^2-x^2}}\right)
+% \quad , \quad \frac{\partial \nu}{\partial y} = \left(0,0,0\right).
+%  \end{gather}
+%  
+%  We then calculate matrix elements of the Weingarten map's construction as given in
+%  \cref{hij_exactgraph} and \cref{gij_exactgraph} :
+%  \begin{align}
+%  [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
+%     &= \frac{1}{\sqrt{1+\left(\frac{x^2}{r^2-x^2}\right)}}
+%     \begin{bmatrix}
+%     \frac{-r^2}{\sqrt{r^2 - x^2}^3} & 0 \\
+%    0 & 0
+%     \end{bmatrix} 
+%     = \begin{bmatrix}
+%     \frac{-r}{r^2 - x^2} & 0 \\
+%     0 & 0
+%     \end{bmatrix} \
+%     [g_{ij}]^{-1} &= \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \\
+%     \implies \weinmat = [h_{ij}]	[g_{ij}]^{-1} &=
+%     \begin{bmatrix}
+%     \frac{-r}{r^2 - x^2} & 0 \\
+%     0 & 0
+%     \end{bmatrix} \begin{bmatrix} \frac{r^2 - x^2}{r^2} & 0 \ 0 & 1 \end{bmatrix} \\
+%     &= \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix}	       	
+%  \end{align}
+\begin{gather*}
+h_x = \frac{-x}{\sqrt{r^2 - x^2}}
+\quad , \quad
+h_{xx} = \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}}\\
+h_y = 0
+\; , \quad
+h_{yy} = 0 \;,\quad h_{xy} = 0
+\end{gather*}
 
-  \section{Orthogonality of Principal Directions and Approximated Principal Directions}
-    
-  \vcleanup{the eigenvectors of the Weingarten map are orthonormal. the eigenvectors of the hessian are also orthonormalizable. make the distinction!}
-  Our final point is to consider the relationship between the principal directions of a surface at a point. Viewing the surface in $\R^3$, we define the Hessian $\Hess(x,y)$ of the surface $L$
-  at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
-  \begin{equation}
-  \Hess(x,y) = \begin{bmatrix}
-  L_{xx}(x,y) & L_{xy}(x,y) \\
-  L_{yx}(x,y) & L_{yy}(x,y)
-  \end{bmatrix}
+    \begin{align*}
+  \weinmat &= \Hess(h)\tilde{G}
+  = \frac{1}{\left(1+\frac{x^2}{r^2-x^2}\right)^{3/2}}
+  \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+  0 & 0 \end{bmatrix} \\
+  &= \frac{1}{\left(\frac{r^2}{r^2-x^2}\right)^{3/2}}
+  \begin{bmatrix} \frac{r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+  0 & 0 \end{bmatrix}
+%  = \frac{\left(r^2-x^2\right)^{3/2}}{r^3}
+%  \begin{bmatrix} \frac{-r^2}{\left(r^2-x^2\right)^{3/2}} & 0 \\ 0 & 0 \end{bmatrix}
+  = \cdots
+  = \begin{bmatrix} \frac{-1}{r} & 0 \\ 0 & 0 \end{bmatrix}
+  \end{align*}
+  
+The matrix of the Weingarten map and its eigenvalues (in local coordinates) and vectors are then
+\begin{equation} \label{eq:trough-example-eigens}
+  \weinmat = \begin{bmatrix} - \frac{1}{r} & 0 \\ 0 & 0 	\end{bmatrix} \quad
+  u_2 = (1,0) \;,\; u_1 = (0,1) \quad
+  \lambda_2 = \frac{-1}{r} \;,\; \lambda_1 = 0
   \end{equation}
-  
-  At any point $(x,y)$ we denote the two eigenpairs of the Hessian matrix of $h$ as
-  \begin{equation}
-  \Hess(x,y) u_i = \kappa_i u_i \; , \quad i = 1,2
-  \end{equation}
 
-  where $\kappa_i$ and $u_i$ are known as the
-  \textit{approximated principal curvatures} and \textit{approximated principal directions} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following basic result from linear algebra
-  \cite{burden-faires}.
-  
-  % from burden and faires corollary 9.17
-  \begin{lemma}
-     	Let $A$ be a real, symmetric matrix. The eigenvalues of $A$ are real and its eigenvectors are orthonormal to each other.
-  \end{lemma}
-  
-  \begin{proof}
-     	Let $x\ne 0$ so that $Ax = \lambda x$. Then 
-     	\begin{align*}
-     	\vnorm{Ax}_2^2 = \inner{Ax}{Ax}  &= (Ax)^{*} Ax \\
-     	&= x^{*}A^{*}Ax = x^{*}A^T A x = x*A A x \\
-     	&= x^{*} A \lambda x = \lambda x^{*} A x \\
-     	&= \lambda x^{*} \lambda x = \lambda^2 x^{*} x = \lambda ^2 \vnorm{x}_2^2
-     	\end{align*}
-     	Upon rearrangement, we have
-     	$\lambda^2 = \frac{\vnorm{Ax}_2^2}{\vnorm{x}_2^2} \ge 0 \implies \lambda $ is real.
-     	
-     	To prove that a set of orthonormalizable eigenvectors exists,
-     	let $A$ be real, symmetric as above and consider the eigenpairs
-     	$Av_1 = \lambda_1 v_1$, $Av_2 = \lambda_2 v_2$ with $v_1, v_2 \ne 0$.
+The Theorem of Olinde Rodriguez then suggests that $u_2$ points in the direction of maximum curvature of the surface, $-\frac{1}{r}$, which is predictably in the direction directly perpendicular to the trough, whereas the direction of least curvature is along the trough and the curvature there is $0$. The Theorem of Meusnier, \cref{thm:meusnier}, suggests that the normal curvature $\kappa_2 = -\frac{1}{r}$ is reasonable--any curve on the trough perpendicular to the ridge should have the curvature of a circle, and the negative simply indicates that we are on the ``outside'' of the surface. Finally, we note that at the ridge of the trough is exactly where $\nabla f = 0$, and the Weingarten map is exactly the Hessian matrix there.
 
-     	5
-     	In the case that $\lambda_1 \ne \lambda_2$, we have
-     	\begin{align*}
-     	(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \\
-     	&= (\lambda_1 v_1)^T v_2 - v_1^T (\lambda_2 v_2) \\
-     	&= (Av_1)^T v_2 - v_1^T (Av_2) \\
-     	&= v_1^T A^T v_2 - v_1^T A v_2 \\
-     	&= v_1^T A v_2 - v_1^T A v_2 = 0
-     	\end{align*}
-     	Since $\lambda_1 \ne \lambda_2$, we conclude that $v_1^T v_2 = 0$.
-     	
-     	In the case that $\lambda_1 = \lambda_2 =: \lambda$, we can define
-     	(as in Gram-Schmidt orthogonalization) $u = v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1$.
-     	This is an eigenvector for $\lambda=\lambda_2$, as
-     	\begin{align*}
-     	Au &= A\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1\right) \\
-     	&= A v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} A v_1 \\
-     	&= \lambda v_2- \frac{v_1^Tv_2}{v_1^Tv_1} \lambda v_1 \\
-     	&= \lambda \left( v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1 \right) = \lambda u
-     	\end{align*}
-     	and is perpendicular to $v_1$, since
-     	\begin{align*}
-     	v_1^T u &= v_1^T\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1\right) \\
-     	&= v_1^T v_2 - \left(\frac{v_1^Tv_2}{v_1^Tv_1}\right) v_1^T v_1 \\
-     	&= v_1^T v_2 - v_1^Tv_2 (1) = 0.
-     	\end{align*}
-  \end{proof}
-  
-  Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
+For arbitrary points $-r < x < r$, the Hessian takes the general form
+
+\begin{equation}
+\Hess(h) =
+  \begin{bmatrix} \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}} & 0 \\
+                  0 & 0 \end{bmatrix}
+\end{equation}
+
+Its two eigenvectors are the same as in \cref{eq:trough-example-eigens},and its eigenvalues are $\lambda_2 = \frac{-r^2}{\left(r^2 - x^2\right)^{3/2}}$ and $\lambda_1 = 0$. Note that the leading eigenvalue is a function of $x$.
+% unfortunately, it's actually taking a maximal value as x is farther away from $x=0$ which is kind of unintuitive but i won't mention it here
+
+%  \section{Orthogonality of Principal Directions and Approximated Principal Directions}
+%    
+%  \vcleanup{the eigenvectors of the Weingarten map are orthonormal. the eigenvectors of the hessian are also orthonormalizable. make the distinction!}
+%  Our final point is to consider the relationship between the principal directions of a surface at a point. Viewing the surface in $\R^3$, we define the Hessian $\Hess(x,y)$ of the surface $L$
+%  at a point $(x,y)$ on the surface as the matrix of its second partial derivatives:
+%  \begin{equation}
+%  \Hess(x,y) = \begin{bmatrix}
+%  L_{xx}(x,y) & L_{xy}(x,y) \\
+%  L_{yx}(x,y) & L_{yy}(x,y)
+%  \end{bmatrix}
+%  \end{equation}
+%  
+%  At any point $(x,y)$ we denote the two eigenpairs of the Hessian matrix of $h$ as
+%  \begin{equation}
+%  \Hess(x,y) u_i = \kappa_i u_i \; , \quad i = 1,2
+%  \end{equation}
+%
+%  where $\kappa_i$ and $u_i$ are known as the
+%  \textit{approximated principal curvatures} and \textit{approximated principal directions} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following basic result from linear algebra
+%  \cite{burden-faires}.
+%  
+%  % from burden and faires corollary 9.17
+%  \begin{lemma}
+%     	Let $A$ be a real, symmetric matrix. The eigenvalues of $A$ are real and its eigenvectors are orthonormal to each other.
+%  \end{lemma}
+%  
+%  \begin{proof}
+%     	Let $x\ne 0$ so that $Ax = \lambda x$. Then 
+%     	\begin{align*}
+%     	\vnorm{Ax}_2^2 = \inner{Ax}{Ax}  &= (Ax)^{*} Ax \\
+%     	&= x^{*}A^{*}Ax = x^{*}A^T A x = x*A A x \\
+%     	&= x^{*} A \lambda x = \lambda x^{*} A x \\
+%     	&= \lambda x^{*} \lambda x = \lambda^2 x^{*} x = \lambda ^2 \vnorm{x}_2^2
+%     	\end{align*}
+%     	Upon rearrangement, we have
+%     	$\lambda^2 = \frac{\vnorm{Ax}_2^2}{\vnorm{x}_2^2} \ge 0 \implies \lambda $ is real.
+%     	
+%     	To prove that a set of orthonormalizable eigenvectors exists,
+%     	let $A$ be real, symmetric as above and consider the eigenpairs
+%     	$Av_1 = \lambda_1 v_1$, $Av_2 = \lambda_2 v_2$ with $v_1, v_2 \ne 0$.
+%
+%     	5
+%     	In the case that $\lambda_1 \ne \lambda_2$, we have
+%     	\begin{align*}
+%     	(\lambda_1 - \lambda_2)v_1^T v_2 &= \lambda_1 v_1^T v_2 - \lambda_2 v_1^T v_2 \\
+%     	&= (\lambda_1 v_1)^T v_2 - v_1^T (\lambda_2 v_2) \\
+%     	&= (Av_1)^T v_2 - v_1^T (Av_2) \\
+%     	&= v_1^T A^T v_2 - v_1^T A v_2 \\
+%     	&= v_1^T A v_2 - v_1^T A v_2 = 0
+%     	\end{align*}
+%     	Since $\lambda_1 \ne \lambda_2$, we conclude that $v_1^T v_2 = 0$.
+%     	
+%     	In the case that $\lambda_1 = \lambda_2 =: \lambda$, we can define
+%     	(as in Gram-Schmidt orthogonalization) $u = v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1$.
+%     	This is an eigenvector for $\lambda=\lambda_2$, as
+%     	\begin{align*}
+%     	Au &= A\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1\right) \\
+%     	&= A v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} A v_1 \\
+%     	&= \lambda v_2- \frac{v_1^Tv_2}{v_1^Tv_1} \lambda v_1 \\
+%     	&= \lambda \left( v_2 - \frac{v_1^Tv_2}{v_1^Tv_1} v_1 \right) = \lambda u
+%     	\end{align*}
+%     	and is perpendicular to $v_1$, since
+%     	\begin{align*}
+%     	v_1^T u &= v_1^T\left(v_2 - \frac{v_1^Tv_2}{v_1^Tv_1}v_1\right) \\
+%     	&= v_1^T v_2 - \left(\frac{v_1^Tv_2}{v_1^Tv_1}\right) v_1^T v_1 \\
+%     	&= v_1^T v_2 - v_1^Tv_2 (1) = 0.
+%     	\end{align*}
+%  \end{proof}
+%  
+%  Thus we see that the two principal directions form an orthonormal frame at each point (x,y) within the continuous image $L(x,y)$.
   
 
 
