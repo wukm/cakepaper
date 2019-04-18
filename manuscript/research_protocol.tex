@@ -151,7 +151,8 @@ These procedures are performed automatically on the 201 images in our data set u
 
 As mentioned above, expect for a few small images, we estimate the perimeter of the placental plate from the raw image, rather than using the ground truth's traced perimeter. Most notably, the placental plate often includes includes a small V-shaped cuts in the placental plate.
 The traced placental perimeter often overlooks these regions and opt for a more convex shape.
-In \cref{fig:cut-demo}, we showcase the effect of using our automated approach versus using the ground truth mask. The first two images demonstrate the Notably, this prevents the white background leading to false positives at the edge of the cut. To find the placental plate, we simply find the gradient (with small choice of $\sigma$) of the entire raw image (as in \cref{fig:NCSlayers-raw}), then perform a watershedding algorithm \cite{DIPGW} \cite{skimage}, with a foreground marker at the central pixel, and a background marker at a corner pixel. After watershedding, we simply label connected binary regions and identify the placental plate as the largest object. For the few images for which this technique fails, we revert to using the traced perimeter (as in \cref{fig:NCSlayers-P}).
+In \cref{fig:cut-demo}, we showcase the effect of using our automated approach versus using the ground truth mask. The first two images demonstrate the Notably, this prevents the white background leading to false positives at the edge of the cut.
+To find the placental plate,we take the gradient of the raw sample's green channel with a very small scale $\sigma=.01$ to identify very small and sharp edges. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result \cite{skimage} \cite{DIPGW}. From this, we grab the largest foreground object, which will inevitably be the placental plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails, typically due to poor contrast at the edge of the placental plate. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
 
     \subsection{Boundary Dilation} \label{sec:boundary-dilation}
     
@@ -174,8 +175,8 @@ In \cref{fig:cut-demo}, we showcase the effect of using our automated approach v
     the placental plate prevents a small response to a non-vascular yet mildly curvilinear
     background feature from appearing.
     The third row of \cref{fig:boundary-demo} shows the Frangi vesselness measure at the same scale ($\sigma=3$) when we are probing for bright curvilinear structures (i.e.
-    \texttt{DARK\_BG=True}). Here, wherever the very edge of the placental plate is *any* brighter than adjacent interior, a very large Frangi response will occur, as seen on the left. Dilating the boundary completely avoids this issue, as seen by the figure on the right. Thus we prevent a visual artifact that is present in much prior work on this problem (see \cite{huynh2013filter}, \cite{almoussa-ucla-reu}).
-    % FIX THIS THIS PROBABLY ISN'T TRUE ANYMORE %RELATIVEMAXBOUNDARYDEMO
+    \texttt{DARK\_BG=True}). Here, wherever the very edge of the placental plate is *any* brighter than adjacent interior, a very large Frangi response will occur, as seen on the left. Dilating the boundary completely avoids this issue, as seen by the figure on the right. Thus we prevent a visual artifact that is present in much prior work on this problem \cite{huynh2013filter,almoussa-ucla-reu}.
+
     It should be noted that, while the figure on the right shows a much larger interior response, this is simply because the intensity of the output in each of these
     images is being independently scaled between the minimum and maximum intensity in the image. However, we argue that this is an appropriate and desired depiction of the situation, as we will frequently consider only the relative maxima of Frangi response per scale in our analysis.
     
@@ -194,10 +195,10 @@ In \cref{fig:cut-demo}, we showcase the effect of using our automated approach v
 %        \label{fig:cutdemo}
 %    \end{figure}
     
-    \subsection{Finding Placental Border}
-		
-		We take the gradient of the sample green channel of the raw sample with a very small scale $\sigma=.01$ to identify very small and sharp changes. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result. From this, we grab the largest foreground object, which will inevitably be the placental
-		plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
+%    \subsection{Finding Placental Border}
+%		
+%		We take the gradient of the sample green channel of the raw sample with a very small scale $\sigma=.01$ to identify very small and sharp changes. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result. From this, we grab the largest foreground object, which will inevitably be the placental
+%		plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
 		
 		    \subsection{Deglaring}
     
@@ -277,7 +278,7 @@ In \cref{fig:cut-demo}, we showcase the effect of using our automated approach v
     
     \begin{spacing}{1}
     \begin{small}
-    \begin{verbatim} % DECISION TREE
+    \begin{verbatim}
 For each sample:
 
 A) Preprocessing
@@ -315,12 +316,12 @@ B) Multiscale Frangi filter
   3) Merge each result, reserve positive and negative stacks
 C) Estimate PCSVN
   1) Approximate using strategy
-    a) Calculate Vmax above high fixed threshold
-    b) Calculate Vmax above lower fixed threshold
+    a) Calculate Vmax above high fixed threshold alpha=0.3
+    b) Calculate Vmax above lower fixed threshold alpha=0.2
     b) Threshold scalewise at 95th nonzero-percentile
     c) Threshold scalewise at 98th nonzero-percentile
     d) Margin adding algorithm with high fixed threshold
-  2) Compare to Trace to obtain confusion matrix
+  2) Compare to ground truth trace to obtain confusion matrix
   3) Calculate MCC score and precision
 \end{verbatim}
     \end{small}
