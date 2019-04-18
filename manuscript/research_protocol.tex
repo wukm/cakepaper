@@ -1,15 +1,18 @@
 \chapter{Research Protocol} \label{ch:research-protocol}
 
+We ultimately perform a multiscale Frangi prefilter on a subset of 201 color images of placental samples. We describe here the sample set and the preprocessing steps we take prior to performing the multiscale filter.
+
 \section{Samples / Image Domain}\label{sec:NCS-data-set}
 
-We ultimately perform a multiscale Frangi prefilter on a subset of 201 color images of placental samples from a private database provided by the National Children's Study, which had been prepared for a different study. A detailed description of the data set is given in \cite{chang2017}. A description of the cleaning and fixing procedure of the samples prior to their being photographed is given in \cite{almoussa-ucla-reu}. The samples are provided as XCF files (the native project file for GIMP) and contain four major layers.
+The 201 samples are from a larger private database provided by the National Children's Study, which had been prepared for a different study \cite{chang2017}. These 201 samples are those that have a ground truth provided, although the actual database is much larger with many untraced samples. The placental samples were cleaned and formalin-fixed prior to their being photographed \cite{almoussa-ucla-reu}, and their placental chorionic surface vascular networks (PCSVN) manifest as primarily dark curvilinear structures. The samples are provided as XCF files (the native project file for the image processing software GIMP) and contain four major layers.
+
 \subsection{A representative sample}
 The layers together give a hand tracing of the vascular network and perimeter. A sample of overlaid layers in a representative sample (with ID number ``BN0164923'') is given in \cref{fig:NCSlayers}.
 
 \begin{figure}[p] \centering
     \subfloat[Fixed Placental Sample]{        \label{fig:NCSlayers-raw}\includegraphics[width=80mm]{{{T-BN0164923.raw}}}
         }
-    \subfloat[Perimeter tracing and Umbilical cord insertion point (UCIP]{
+    \subfloat[Perimeter tracing and UCIP]{
         \label{fig:NCSlayers-P}\includegraphics[width=80mm]{{{T-BN0164923_perimeter_overlay}}}
     }\
     \subfloat[Arterial tracing]{
@@ -26,17 +29,34 @@ The layers together give a hand tracing of the vascular network and perimeter. A
 \label{fig:NCSlayers}
 \end{figure}
 
-Each layer is roughly 1954x1200 pixels (with some occasional variation).
-In \cref{fig:NCSlayers}, we see these four layers of a characteristic sample. \cref{fig:NCSlayers-raw} is the base image. A cleaned, formalin-fixed placenta is placed on a table with a camera a fixed distance away, and a ruler and penny (presumably for redundancy) are placed nearby to aid registration and calibration of the resolution. The resolution of each sample is roughly 46 pixels per centimeter.
-\cref{fig:NCSlayers-P} is a tracing (in green) of the perimeter of the placenta. The umbilical cord insertion point (UCIP) is notated in yellow. Two cyan marks are placed on consecutive centimeter markings on the ruler (the dots are enlarged and shown as a darker blue here for clarity).
-\cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are each hand traces of the PCSVN, with a layer for each the arteries and veins. These layers are simultaneously overlain on the base image in \cref{fig:NCSlayers-T}. The coloration is meant to indicate the diameter of each vessel. The diameters are binned into 9 discrete widths, odd integers from 3 to 19 pixels. Vessels of smaller diameter are either binned to three or (quite frequently) left untraced. The correspondence between pencil color and (binned) vessel width used in the tracing protocol is given in \cref{tab:widthcolors}.
+Each sample is roughly 1954x1200 pixels with some occasional variation.
+In \cref{fig:NCSlayers}, we see these four layers of a characteristic sample.
+\cref{fig:NCSlayers-raw} is the base image.
+A cleaned, formalin-fixed placenta is placed on a table with a camera a fixed distance away,
+and a ruler and penny (presumably for redundancy) are placed nearby to aid registration and
+calibration of the resolution.
+The resolution of each sample is roughly 46 pixels per centimeter, with some variation.
+\cref{fig:NCSlayers-P} is a tracing (in green) of the perimeter of the placenta.
+The umbilical cord insertion point (UCIP) is notated in yellow.
+Two cyan marks are placed on consecutive centimeter markings on the ruler.
+The dots are enlarged and shown as a darker blue in the figure for clarity.
+\cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} are each hand traces of the PCSVN,
+  with a layer for each the arteries and veins.
+These layers are simultaneously overlain on the base image in \cref{fig:NCSlayers-T},
+with the arterial trace on top,
+just as the arteries generally lay on top of the veins in the samples themselves.
+In these traces, the coloration of each vessel corresponds its the reported diameter.
+The diameters are binned into 9 discrete widths, odd integers from 3 to 19 pixels.
+Vessels of smaller diameter are either binned to three or (quite frequently) left untraced.
+The correspondence between pencil color and (binned) vessel width used in the tracing protocol
+  is given in \cref{tab:widthcolors}.
 
 \begin{table}
     \centering
 \begin{tabular}{ccc}
     \hline
     \rule[-1ex]{0pt}{2.5ex}
-    vessel width & color (hex value) & color name \\
+    vessel width & color (hex value) & approximate color \\
     \hline 
     \rule[-1ex]{0pt}{2.5ex}
     3 pixels &  \texttt{\#ff006f} &   magenta \\                                      
@@ -63,24 +83,30 @@ In \cref{fig:NCSlayers}, we see these four layers of a characteristic sample. \c
 \end{table}
 
 
-As stated in the introduction, the task of creating these samples, in particular the tracing and estimation involved in creating \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} is very labor intensive--requiring between 4 and 8 hours to trace a single sample.
-A closer look at many of the samples often reveals that a great deal of subjectivity in providing this ``ground truth,'' as it is not often clear what the underlying truth really is. Often it's hard to see where the vein is, vascular networks are obscured by the umbilical stem, the blood in the vessels dries unevenly or ruptures, and the vessel seems to disappear momentarily. These situations and more will be showcased in \cref{fig:annotated-montage}, where we will demonstrate how the Frangi filter reacts to these problem areas. Our efforts at the eventual task of network completion must deal with these shortcomings and, in some circumstances, make subjective decisions like the manual tracer did.
+The task of creating these samples, in particular the tracing and estimation involved in creating \cref{fig:NCSlayers-A} and \cref{fig:NCSlayers-V} is very labor intensive--requiring between 4 and 8 hours to trace a single sample.
+A closer look at many of the samples often reveals that a great deal of subjectivity in providing this ``ground truth,'' as it is not often clear what the underlying truth really is. Often it's hard to see where the vein is, vascular networks are obscured by the umbilical stem, the blood in the vessels dries unevenly or ruptures, and the vessel seems to disappear momentarily. These situations and more will be discussed in \cref{sec:NCS-dataset-issues}, where we will demonstrate how the Frangi filter reacts to these problem areas. Our efforts at the eventual task of total network completion must deal with these shortcomings and, in some circumstances, make subjective decisions like the manual tracer did.
 
 
 \subsection{Knowns and Unknowns}
 Since our final goal is a fully automated procedure, we wish to simply operate on the placental sample itself, without any understanding of its provided tracing (except for judging the strength of our algorithm);
 our goal is to develop an algorithm that can produce a ``ground truth'' tracing similar to \cref{fig:NCSlayers-T} or \cref{fig:NCSoutput-trace} without any user intervention.
 
-For our purposes however, we will concede and provide a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}). In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours} or, even a simple edge finding algorithm followed by watershedding and largest object selection. In fact, we have implemented this later algorithm, but unfortunately we achieve a subpar result on several images, and therefore we currently use it to improve upon the perimeter by removing ``cuts'', which were previously reported as being inside the plate and sometimes led to large false positives. %We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
+For our purposes however, we will concede and provide a limited amount of information from the tracings, namely the provided placental perimeter (shown in green in \cref{fig:NCSlayers}). In \cref{sec:perimeter-detection} we will describe a simple edge finding algorithm that allows us to estimate the perimeter in \cref{fig:NCSlayers-P}.
+Unfortunately we achieve a subpar result on a small subset of images--roughly 7 of the 201 total images--using our currently implemented algorithm, and in such cases will revert to using the reported perimeter from the ground truth.
 
-Finally, we will consider the location of the umbilical insertion point as a ``known'', as the vessels around it are frequently impossible to see and we wish to exclude them from consideration. It is not unreasonable, however, to consider this to be a known--in future preparations of samples, we could simply require that this point be centered in image in a predictable location. Furthermore, we use its location as a convenience in data analysis--knowledge of this point does not inform our algorithm at the present time.
+%to provide which were previously reported as being inside the plate and sometimes led to large false positives. In the case that this method 
+%In developing a fully automated algorithm, it would be relatively straightforward to obtain this boundary ourselves using various techniques, such as an Active Contour Model \cite{activecontours} or, even 
+%We do use the traced placental perimeter at our own peril, however, since often there are tears in the side of the plate or large amounts of non-vascular content with large changes in height that are not adequately accounted for in the perimeter tracing.
 
+Finally, we will consider the location of the umbilical insertion point as a ``known'', as the vessels around it are frequently impossible to see and we wish to exclude them from consideration. It is not unreasonable, however, to consider this to be a known--in future preparations of samples, we could simply require that this point be centered in image in a predictable location prior to the picture being taken.
+Furthermore, we suggest that we can avoid this in the future by using an algorithm to find the umbilical cord stump and mask that region. Such an algorithm is certainly reasonable, although we were not able to implement something that worked on all images in a uniform fashion. Noise from the umbilical stump, if not addressed, will affect the fidelity of our filter. We will discuss this further in \cref{sec:NCS-dataset-issues}.
 
 \section{Data Cleaning and Preprocessing}
 
 Building a sample suitable for use in our algorithm from \cref{fig:NCSlayers} is relatively simple. We  zero  outside the boundary of the plate (so as to not waste computational time calculating the differential geometry of a ruler, say), and also generate a binary mask to identify the plate. Finally, our vessel layers are combined and given as a binary trace, which we will use later for scoring. An example of the preprocessed samples used by the algorithm are given in \cref{fig:exampleNCSoutput}.
 
-These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings. For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
+These procedures are performed automatically on the 201 images in our data set using a custom GIMP plug-in, which performs various ``bucket fill'' operations, layer mergings, and thresholdings.
+%For completeness sake, this plug-in (and an associated Scheme script which turns it into a batch operation) can be found in the Appendix.
 
 \begin{figure}\label{fig:exampleNCSoutput}     \centering
     \subfloat[Background mask (in white)]{
@@ -98,12 +124,34 @@ These procedures are performed automatically on the 201 images in our data set u
     \caption{Preprocessed files from an NCS sample}
 \end{figure}
 
-    As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary $N$-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma \cite{scipy}, or ``luminance'' transform:
+    As a point of technicality, the grayscale image in \cref{fig:NCSoutput-gray} is not actually produced directly by the extractor plug-in, but created when the 3 channel RGB image \cref{fig:NCSoutput-base} is imported at the start of the algorithm. This grayscale conversion is simply done for ease of analysis on the sample: although the Frangi filter is designed for arbitrary $N$-dimensional input \cite{frangi-paper}, an image with three color channels does not have 3 spatial dimensions. We therefore simply combine the information in three channels using the well-known and oft-implemented ITU-R 601-2 luma , or ``luminance'' transform \cite{scipy}:
     
     \begin{equation} \label{eq:luma_transform}
     L =  \frac{299}{1000}\ R + \frac{587}{1000}\ G + \frac{114}{1000}\ B
     \end{equation}
-    It should be noted that this choice is not a given--several other attempts have used the green channel unmodified, as in \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Preliminary and periodical rechecking has not indicated that such a conversion has any benefit over the luminance transformation for our image domain, although other placental samples with a different preparation method might benefit from it.
+    It should be noted that this choice is not requisite--several other attempts have opted to use the image's green channel instead \cite{almoussa-ucla-reu} and \cite{huynh2013filter}. Preliminary and periodical rechecking has not indicated that such a conversion has any benefit over the luminance transformation for our image domain, although other placental samples with a different preparation method or color profile might benefit from it.
+
+\subsection{Placental Perimeter Detection and Background Masking} \label{sec:perimeter-detection}
+\begin{figure}     \centering
+  \subfloat[Raw (traced mask)]{
+    \includegraphics[width=0.24\textwidth]{{{cut_demo_new_cimg_gt}}}
+  }
+  \subfloat[Raw (watershed mask)]{
+    \includegraphics[width=0.24\textwidth]{{{cut_demo_new_cimg_ws}}}
+  } %\\
+  \subfloat[$\Vmax$ (traced mask)]{
+    \includegraphics[width=0.24\textwidth]{{{cut_demo_new_f_gt}}}
+  }
+  \subfloat[$\Vmax$ (watershed mask)]{
+    \includegraphics[width=0.24\textwidth]{{{cut_demo_new_f_ws}}}
+  }
+  \caption{Automated Placental Perimeter Detection}
+  \label{fig:cut-demo}
+\end{figure}
+
+As mentioned above, expect for a few small images, we estimate the perimeter of the placental plate from the raw image, rather than using the ground truth's traced perimeter. Most notably, the placental plate often includes includes a small V-shaped cuts in the placental plate.
+The traced placental perimeter often overlooks these regions and opt for a more convex shape.
+In \cref{fig:cut-demo}, we showcase the effect of using our automated approach versus using the ground truth mask. The first two images demonstrate the Notably, this prevents the white background leading to false positives at the edge of the cut. To find the placental plate, we simply find the gradient (with small choice of $\sigma$) of the entire raw image (as in \cref{fig:NCSlayers-raw}), then perform a watershedding algorithm \cite{DIPGW} \cite{skimage}, with a foreground marker at the central pixel, and a background marker at a corner pixel. After watershedding, we simply label connected binary regions and identify the placental plate as the largest object. For the few images for which this technique fails, we revert to using the traced perimeter (as in \cref{fig:NCSlayers-P}).
 
     \subsection{Boundary Dilation} \label{sec:boundary-dilation}
     
@@ -133,9 +181,7 @@ These procedures are performed automatically on the 201 images in our data set u
     
     We end our discussion by noting that we perform this boundary dilation within the
     Frangi algorithm itself when we set the structureness parameter $\gamma$ as half of the maximum Hessian norm found at that scale--this ensures that the maximum occurs sufficiently away from the boundary of the plate, and does not occur from a noise phenomenon.
-    
-    The code for generating \cref{fig:boundary-demo} is found within the ``\texttt{if \_\_name\_\_ == \_\_main\_\_}'' block of the file \texttt{plate\_morphology.py},
-    (so the figure will be generated when running \texttt{plate\_morphology.py} as a top-level script from the command line). See appendix.
+
     
     
 %    Sometimes there are small cuts that appear on the side of the placental plate, which can lead to large filter responses. We would like to filter these out to eliminate false positives in any way we can. These places are identified somewhat reliably by the tracing protocol with a blue dot. We perform a morphological watershedding in this area in an attempt to add this area to the mask.
