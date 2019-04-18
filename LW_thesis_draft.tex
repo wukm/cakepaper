@@ -109,6 +109,10 @@
 \newcommand{\image}{\mathrm{image}} % image of a function
 \newcommand{\spn}{\mathrm{span}}
 
+\newcommand{\Am}{\ensuremath{\mathsf{A}}\xspace} % anisotropy measure
+\newcommand{\Sm}{\ensuremath{\mathsf{S}}\xspace} % structureness measure
+\newcommand{\Smax}{\Sm_{\max}} % max value of Structureness
+\newcommand{\V}{\ensuremath{\mathcal{V}}\xspace}
 \newcommand{\Vmax}{\ensuremath{\mathcal{V}_{\max}}\xspace}
 \newcommand{\Vargmax}{\ensuremath{\mathcal{V}_{\mathrm{argmax}}}\xspace}
 \newcommand{\VSigma}{\ensuremath{\mathcal{V}_{\Sigma}}\xspace}
@@ -131,8 +135,9 @@
 \newcommand{\img}{\mathtt{I}} % discrete image (a matrix, not the math term)
 
 \DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
-\DeclarePairedDelimiterX{\vnorm}[1]{\Vert}{\Vert}{#1}
-\DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+\DeclarePairedDelimiter{\vnorm}{\Vert}{\Vert}
+%\DeclarePairedDelimiterX{\abs}[1]{\vert}{\vert}{#1}
+\DeclarePairedDelimiter{\abs}{\vert}{\vert}
 
 \newcommand{\bigO}{\mathcal{O}}
 

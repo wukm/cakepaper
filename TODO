@@ -29,11 +29,14 @@ Tags
 --------------------------------------------------------------------
     A. [~] FIGURE ONE (TANGENT PLANE OF A GRAPH) IS TERRIBLE.
            Find an open source or just remove.
-    B. [ ] Redo differential geo discussion just in terms of graphs
     C. [ ] Fix connection between Weingarten map and Hessian map / justification
            (Start at FIX_THIS) 
-    F. [ ] Be clearer about direction
+    F. [ ] Be clearer about direction of surface (trough or 
     G. [ ] Remove / rework talk about 
+
+    No time:
+        B. [ ] Redo differential geo discussion just in terms of graphs
+
 
 3. The Uniscale Frangi Filter
 -----------------------------
