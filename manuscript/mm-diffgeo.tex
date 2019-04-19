@@ -20,13 +20,13 @@ Our goal is establish a resource efficient method of finding curvilinear content
 %  Use any notation here that is useful beyond differential geometry, in all the contexts
 %  we need to consider the image (in terms of Fourier Theory, scale space theory,
 %  Frangi filtering, etc. all together.}
-A digital 2D grayscale image is given by a $M\times N$ array of pixels, whose intensity is given by an integer value between 0 and 255.
+A digital 2D grayscale image is given by a $M\times N$ array of pixels, whose intensity is given by an integer value between 0 and 255. For simplicity, we will rescale this intensity to be a real number between 0 and 1.
 
 \begin{defn}[Image as a pixel matrix] \label{def:image_as_pixel_matrix}
 	\begin{equation*}
 	\img \in \N^{M \times N}
 	\quad\textrm{with}\quad
-	0 \le \img_{ij} \le 2^8 - 1
+	0 \le \img_{ij} \le 1
 	\end{equation*}
 \end{defn}
 	% iI hate this wording.
@@ -53,7 +53,13 @@ It is of course necessary to admit that $\mathtt{I}$ is not really a perfect rep
 However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{def:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
 % Word salad, also rude? ask chang about this
 Moreover, though our samples in the image domain have been carefully prepared (as outlined in \cref{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
-Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling again to motivate our development of scale space theory in \cref{sec:scale-space-theory}, we ultimately use these techniques because we find them successful to our problem.
+Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling again to motivate our development of scale space theory in \cref{sec:scale-space-theory}, we ultimately use these techniques because we find them successful to our problem. A view of an inset of an image sample as a three dimensional graph, as shown in \cref{fig:inset_surf}, supports our decision to link our images of concern with this  three dimensional interpretation. We mention here, whereas \cref{fig:inset_surf} shows these \textit{dark} curvilinear structures, i.e. ``valleys'' within the surface containing local minima, other image domains may be more concerned with \textit{bright} curvilinear structures, i.e. ``ridges'' within the surface. Although our images of interest in this thesis are indeed dark curvilinear structures, we shall occassionally refer to surfaces where bright curvilinear structures are the concern, especially in \cref{sec:calculate-weinmap-of-a-ridge} and \cref{ch:unifrangi}. We do so only for ease of visualization. We will discuss the differences between these two structures in \cref{ch:unifrangi} and provide a way to distinguish between them.
+
+\begin{figure}[t]
+\includegraphics[width=\textwidth]{inset_surf}
+\caption{Grayscale image (inset) as an interpolated surface}
+\label{fig:inset_surf}
+\end{figure}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,13 +153,13 @@ f_{u_1} = (1,0,h_{u_1}(u)) \quad\textrm{and}\quad f_{u_2} = (0,1,h_{u_2}(u))
 Quite obviously, we're assuming $(1,0), (0,1) \in U$. If this is not the case, we pick some $\alpha$ small enough so that $(\alpha,0)$ and $(0,\alpha)$ are contained and this scaled version would serve as a basis instead.
 
 	The parametric derivatives of $f$ are not, in general, orthogonal at any point $u$, unless it happens that $h_{u_1} $ or $h_{u_2}$ is zero.
-	A visualization of some of the above is given in \cref{fig:Tuf}, although note that $f_{u_1}$ and  $f_{u_2}$ accidentally appear orthogonal.
+	%A visualization of some of the above is given in \cref{fig:Tuf}, although note that $f_{u_1}$ and  $f_{u_2}$ accidentally appear orthogonal.
 	
-	\begin{figure}\centering
-		\includegraphics[width=0.8\textwidth]{T_uf}
-		\caption{Tangent plane of a graph}
-		\label{fig:Tuf} 
-	\end{figure}
+%	\begin{figure}\centering
+%		\includegraphics[width=0.8\textwidth]{T_uf}
+%		\caption{Tangent plane of a graph}
+%		\label{fig:Tuf} 
+%	\end{figure}
 %  	But the above allows us to view $Df\vert_u$ differential map of $f$ is exactly the expansion of
 %  	a point  $v \in U$ along the basis
 %  	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$ .

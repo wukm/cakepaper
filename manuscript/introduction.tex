@@ -48,7 +48,7 @@ we discuss an important advancement in implementation--scale space conversion
 for differentiation (i.e. Gaussian blur) via Fast Fourier Transform, which
 offers a significant speedup. This allows us faster calculation of the
 eigenvalues of the Hessian, from which we calculate the Frangi filter, a
-vesselness measure.
+vesselness measure. We briefly discuss an alternate version of the Frangi filter which is not based on the Hessian, but instead Weingarten map, which seems to yield promising results.
 
 We demonstrate the effectiveness of our sped-up implementation of the Frangi
 filter by performing a large-scale multiscale Frangi filter on a set of 201
