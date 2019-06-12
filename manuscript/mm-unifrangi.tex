@@ -37,7 +37,7 @@ In \cref{fig:circular_trough_with_axes_vectors}, this situation is demonstrated.
 
 \begin{figure} \centering
   \includegraphics[width=0.8\linewidth]{circular_trough_with_axes_vectors}
-  \caption{The principal eigenvectors at a ridge like structure} 
+  \caption{The principal eigenvectors at a ridge-like structure} 
   \label{fig:circular_trough_with_axes_vectors}
 \end{figure}. 
 
@@ -53,14 +53,14 @@ Also the crest could be really flat (``hangar shaped''), in which case both are 
 
 Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{ch:segmentation}.
 
-\section{Structureness measure} \label{sec:frangi-structureness}
+\section{Structureness Measure} \label{sec:frangi-structureness}
 
 There is another concern with using the pure ratio $\Am:= \abs{\lambda_1 / \lambda_2}$ as an identifying feature of ridgelike structures apart from the ones listed above. We could have $\abs*{\lambda_2} \gg \abs*{\lambda_1}$ in a relative sense, but still have $\lambda_2 \approx 0$. As a rather extreme example, we should certainly wish to differentiate a point on the surface where $\lambda_2 \approx 10^{-5} $ and $\lambda_1 \approx 10^{-10}$ from another point where $\lambda_2 \approx 10000$ and $\lambda_2 = 0.1$.
 
 A natural fix to differentiate these points is to introduce a ``structureness'' measure to insure that there is in fact significant curvilinear activity at the point in question. Frangi used $\Sm:= \sqrt{(\lambda_1)^2 + (\lambda_2)^2}$, which is in fact the Frobenius norm of the Hessian matrix. Inclusion of the structureness factor with an appropriately chosen parameter $c$ should result in a high vesselness measure only for regions of significant curvilinear content.
 
 
-\section{The Frangi vesselness measure}
+\section{The Frangi Vesselness Measure}
 
 Our goal then is to attach a numerical measure to each pixel in the image %(at a particular scale $\sigma$)
 that is large when the anisotropy measure $\Am$ and the structureness measure $\Sm$ is sufficiently large.
@@ -73,7 +73,7 @@ The only perceivable difference is that the maximum normal curvature will be pos
 
 
 
-\section{Choosing parameters $\beta$ and $c$}
+\section{Choosing Parameters $\beta$ and $c$}
 
 The parameters $\beta$ and $c$ are meant to scale so that the peaks of the anisotropy factor $\exp(\frac{-\Am^2}{2\beta^2})$ and the structureness factor $(1-\exp\left(\frac{-\Sm^2}{2c^2}\right))$ coincide enough to be statistically significant at highly curvilinear structures, but rapidly decay in areas not associated with curvilinear content. What values of these parameters are appropriate is ultimately dependent on the context of the problem.
 
@@ -139,13 +139,13 @@ As $\beta \to \infty$, the anisotropy factor tends to $1$, and the Frangi filter
 
 \begin{figure}[t] \centering
   \includegraphics[height=0.4\textheight]{anisotropy_parameter_demo}
-  \caption{Dependence of the Anisotropy Factor on its Parameter}
+  \caption{Dependence of the anisotropy factor on its parameter}
   \label{fig:anisotropy-parameter-demo}
 \end{figure}
 
 \begin{figure}[t] \centering
   \includegraphics[height=0.4\textheight]{structureness_parameter_demo}
-  \caption{Dependence of the Structureness Factor on its Parameter}
+  \caption{Dependence of the structureness factor on its parameter}
   \label{fig:structureness-parameter-demo}
 \end{figure}
 
@@ -160,11 +160,9 @@ An interesting manifestation of this is that the default implementation of the F
 \subfloat[Strict]{\includegraphics[height=0.3\textheight]{4-rs}} \label{subfig:frangi3d-strict} \\
 \subfloat[Standard]{\includegraphics[height=0.3\textheight]{14-rs}} \label{subfig:frangi3d-default} \\
 \subfloat[Loose $\gamma$]{\includegraphics[height=0.3\textheight]{12-rs}} \label{subfig:frangi3d-loose} \\
-\caption{Strictness of Frangi Filter based on Parametrization}
+\caption{Strictness of Frangi filter based on parametrization}
 \label{fig:frangi3d-selection}
 \end{figure}
-
-
 
 	We now take a quick tangent from our description of the Frangi filter to develop and justify our ``multiscale'' approach.
 	
