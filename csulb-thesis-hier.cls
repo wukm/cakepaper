@@ -262,9 +262,11 @@
 	\renewcommand{\@thesisptsz}{11pt}
 	\renewcommand{\@thesisfoot}{22pt}
 }
+% changed by LW2019, want page number to be between 1 in and 3/4 in from page bottom
+% changing thesisfoot size does not do anything except shorten the textheight
 \DeclareOption{12pt}{
 	\renewcommand{\@thesisptsz}{12pt}
-	\renewcommand{\@thesisfoot}{24pt}
+  \renewcommand{\@thesisfoot}{24pt} % was originally 24pt
 }
 
 %% Number of Page Sides options: change current setting.
@@ -314,12 +316,13 @@
 	\RequirePackage{needspace}					% Need this to ensure no orphaned section/subsection/etc headers JLG 2012-03-23
 %Following  line commented out 5/14/2012 by rmw
 %	\RequirePackage[defaultlines=2,all]{nowidow}  		% Load the nowidow package in order to eliminate widows and orphans entirely. needspace values set assuming this package is loaded. JLG 2012-03-23
+% Changed LW2019 to get rid of includeheadfoot so page numbers will appear between 1in and 3/4in from bottom
 	\RequirePackage[
 		top=1in, 
 		bottom=1in, 
 		outer=1in, 
 		inner=1in, 
-		includeheadfoot, 
+		%includeheadfoot, 
 		nohead, 
 		footskip=\@thesisfoot
 	]{geometry}

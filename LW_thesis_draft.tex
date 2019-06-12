@@ -29,6 +29,7 @@
 \usepackage{newtxtext,newtxmath} 
 \usepackage[utf8]{inputenc}
 
+\usepackage{showframe}
 
 
 %%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS %%%%%%%%%%%%%%
@@ -93,7 +94,21 @@
 
 % math commands
 
-% mathy definitions?
+% this should be the theorem style for pretty much everything according to the library
+% for all 'nonheirachical headings'
+\newtheoremstyle{defths} % name
+  {}% space above (NOT SURE)
+  {}% space below (NOT SURE)
+  {}% body font (should be normal)
+  {.5in}% indent amount (half an inch)
+  {\itshape}% theorem head font (should be italicized)
+  {:}% punctuation after theorem head
+  {.5em}% space after theorem head (NOT SURE)
+  {} % theorem head spec (can be left empty, meaning normal) (NOT SURE)
+
+% newtheorem declarations that follow will have this style
+% reset with \theoremstyle{plain}
+\theoremstyle{defths} 
 \newtheorem{defn}{Definition}[chapter]
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{corollary}{Corollary}[theorem]
