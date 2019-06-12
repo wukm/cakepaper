@@ -498,10 +498,13 @@
 		\begin{singlespaced}
 			\@committeeB\\
 			\@committeeC\\
-		\end{singlespaced}
-		\vspace{\@thesisfoot}
+		%\end{singlespaced}
+		%\vspace{\@thesisfoot}
+    \hfill \break
 		College Designee:\\
+    \hfill \break
 		\@deptHead\\
+      \end{singlespaced}
 		\vfill
 		By {\@author}\\
 %		{\@firstdegree}, {\@firstdegyear}, {\@firstdeginst}\\
