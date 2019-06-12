@@ -595,7 +595,7 @@
 %% acknowledgements section (on a separate page).
 \newenvironment{acknowledgements}{
   \if@openright\cleardoublepage\else\clearpage\fi % start new page
-  \vspace*{.625in}			% add 1/2 in. to top margin
+  %\vspace*{.625in}			% add 1/2 in. to top margin
     {\bfseries
     \centering{ACKNOWLEDGEMENTS}\\}
       \addcontentsline{toc}{chapter}{Acknowledgements}
@@ -728,7 +728,7 @@
 
 
 \renewcommand{\@makechapterhead}[1]{	% put the chapter head in the doc
-        \vspace*{0.625in}			% extra 1 in top margin on first page of chapter
+        %\vspace*{0.625in}			% extra 1 in top margin on first page of chapter
         \normalfont			% reset font
         {\centering\MakeUppercase{\bfseries\@chapapp{ \thechapter}}\\} % type "CHAPTER #"
         {\centering\MakeUppercase{\bfseries#1}\\}	% chapter name in upper case
