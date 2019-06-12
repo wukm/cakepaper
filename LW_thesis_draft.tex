@@ -31,10 +31,9 @@
 
 
 
-%%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% to make interspersed comments visible, uncomment these three lines and comment out the three below
+%%%%%%% VISIBLE COMMENTS / TODOS / CLEANUP TODOS %%%%%%%%%%%%%%
+% to make interspersed comments visible, uncomment these three lines
+% and comment out the three below
 %\newcommand{\vcomment}[1]{\textit{\textcolor{Blue}{[#1]}}}
 %\newcommand{\vtodo}[1]{\textbf{\textcolor{Red}{[TODO:\;#1]}}}
 %\newcommand{\vcleanup}[1]{\textcolor{Orchid}{[CLEANUP:\;#1]}}
@@ -143,16 +142,12 @@
 
 \DeclareMathOperator{\FT}{\mathcal{F}} % fancy F for \FT
 \DeclareMathOperator{\DFT}{\mathcal{D}} % fancy D for \DFT
-
-
-%\newcommand*\mcol[1]{\overset{\big\uparrow}{\underset{\big\downarrow}{#1}}}
 \newcommand*\mcol[1]{\overset{\big\vert}{\underset{\big\vert}{#1}}}
+
 %\usepackage[small,singlelinecheck=on]{caption}
 %\usepackage[font=singlespacing]{caption}
 
 % each subfolder should be added here. also must end in a /
-
-
 \graphicspath{{figures/}
 			  {figures/frangi3d/}
 			  {figures/strict_examples/}
@@ -177,6 +172,10 @@
      \addcontentsline{lot}{table}{\protect\numberline{4.}{#2}}}%
   \fi}
 \makeatother
+
+% LW2019 this fixes the figure captions. Everything is bold, period after Figure number,
+% period at the end. Need to fix this for subcaptions if those are allowed
+\captionsetup[figure]{labelsep=period, textfont=bf, labelfont=bf, textformat=period}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%About the Author%%%%
@@ -210,7 +209,9 @@
 
 % According to the 2019 guidelines title page comes first before abstract
 % then abstract starts at (ii).
-% Need to remove signature page.
+
+% Removed signature page per 2019 guidelines 
+% (commented out in csulb-thesis-heir.cls)
 
 %% There should be NOTHING between the title page and abstract.
 %% This generates the title page from the information given above.

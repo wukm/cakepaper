@@ -79,6 +79,9 @@
 %%
 %% 19. Changed by ???? (??). Changed spacing after end of sentence punctuation from two to one
 %% spacing. Does this even have to be changed? Seems to be single spacing
+
+%% 20. Changed by Luke Wukmer (2019). Extensive modifications, heirarchical formatting
+%%     (renamed to csulb-thesis-heir).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% USAGE: \documentclass{csulb-thesis}
@@ -493,6 +496,8 @@
 		of the Requirements for the Degree\\
 		{\@degree}\\
 		\vfill
+    % LW 2019 This is modified so there is only one space between committee members listings
+    % and the ``College Designee'' headerssssssssss 
 		Committee Members:\\
 		\@committeeA\\
 		\begin{singlespaced}
@@ -741,7 +746,7 @@
 }% end @schapter
 
 \renewcommand{\@makeschapterhead}[1]{{	% put the chapter* head in the doc
-	\vspace*{0.625in}			% like \@makechapterhead above
+	%\vspace*{0.625in}			% like \@makechapterhead above
         \normalfont
         {\centering\MakeUppercase{#1}\\}	% chapter name in upper case
 }}% end @makeschapterhead
