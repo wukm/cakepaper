@@ -514,42 +514,43 @@
 	%\setcounter{page}{2}
    \end{titlepage}
 
-   \begin{titlepage} 			% approval signature page
-	\begin{center}
-		WE, THE UNDERSIGNED MEMBERS OF THE COMMITTEE,\\
-		HAVE APPROVED THIS THESIS\\
-		\vfill\vfill
-		\textbf{\@title}
-		\vfill\vfill
-		By \\
-		{\@author}
-		\vfill\vfill
-		COMMITTEE MEMBERS\\
-	\end{center}
-	\vfill
-	\begin{singlespaced}
-		\noindent \makebox[5.75in]{\hrulefill}\\	% signature line (makebox controls size)
-		\noindent \makebox[5.75in]{\@committeeA\hfill\@committeeAdept}\vspace*{.4in}
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent\makebox[5.75in]{\@committeeB\hfill\@committeeBdept}\vspace*{.4in}
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent\makebox[5.75in]{\@committeeC\hfill\@committeeCdept}
-		\vfill\vfill
-		\begin{center}
-			ACCEPTED AND APPROVED ON BEHALF OF THE UNIVERSITY
-		\end{center}
-		\vfill\vfill
-		\noindent\makebox[5.75in]{\hrulefill}\\
-		\noindent \@deptHead\\
-		\noindent \@deptHeadTitle
-	\end{singlespaced}
-	\vspace{0pt}
-	\begin{center}
-		California State University, Long Beach\\
-		\@gradmonth\ \@gradyear
-	\end{center}
-	%\setcounter{page}{1}
-    \end{titlepage}
+%REMOVE SIGNATURE PAGE
+%   \begin{titlepage} 			% approval signature page
+%	\begin{center}
+%		WE, THE UNDERSIGNED MEMBERS OF THE COMMITTEE,\\
+%		HAVE APPROVED THIS THESIS\\
+%		\vfill\vfill
+%		\textbf{\@title}
+%		\vfill\vfill
+%		By \\
+%		{\@author}
+%		\vfill\vfill
+%		COMMITTEE MEMBERS\\
+%	\end{center}
+%	\vfill
+%	\begin{singlespaced}
+%		\noindent \makebox[5.75in]{\hrulefill}\\	% signature line (makebox controls size)
+%		\noindent \makebox[5.75in]{\@committeeA\hfill\@committeeAdept}\vspace*{.4in}
+%		\noindent\makebox[5.75in]{\hrulefill}\\
+%		\noindent\makebox[5.75in]{\@committeeB\hfill\@committeeBdept}\vspace*{.4in}
+%		\noindent\makebox[5.75in]{\hrulefill}\\
+%		\noindent\makebox[5.75in]{\@committeeC\hfill\@committeeCdept}
+%		\vfill\vfill
+%		\begin{center}
+%			ACCEPTED AND APPROVED ON BEHALF OF THE UNIVERSITY
+%		\end{center}
+%		\vfill\vfill
+%		\noindent\makebox[5.75in]{\hrulefill}\\
+%		\noindent \@deptHead\\
+%		\noindent \@deptHeadTitle
+%	\end{singlespaced}
+%	\vspace{0pt}
+%	\begin{center}
+%		California State University, Long Beach\\
+%		\@gradmonth\ \@gradyear
+%	\end{center}
+%	%\setcounter{page}{1}
+%    \end{titlepage}
 \endgroup
 %\setcounter{page}{2} % abstract begins on (ii) now
 
@@ -565,11 +566,13 @@
    \setcounter{page}{2}
     			% add 1/2 in. to top margin
    \begin{center}
-	\vspace*{.625in}
-   	  \bfseries
+	%\vspace*{.625in}
+   	  %\bfseries
       \MakeUppercase{Abstract}\\
       %\MakeUppercase{\@title}\\
-	\@title\\
+  {\bfseries
+  \@title\\
+}
       By\\
       {\@author}\\
       {\@gradmonth} {\@gradyear}
