@@ -115,6 +115,10 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{axiom}{Axiom}[chapter]
 
+% change proof style to something they don't object to
+\renewenvironment{proof}[1][\proofname]{{\itshape #1: }}{}
+% thesis committee doesn't like qed symbols
+\renewcommand{\qedsymbol}{}
 
 \newcommand{\R}{\mathbb{R}} % the standard 'set of all real numbers'
 \newcommand{\N}{\mathbb{N}} % set of all natural numbers
@@ -191,6 +195,7 @@
 % LW2019 this fixes the figure captions. Everything is bold, period after Figure number,
 % period at the end. Need to fix this for subcaptions if those are allowed
 \captionsetup[figure]{labelsep=period, textfont=bf, labelfont=bf, textformat=period}
+\captionsetup[table]{labelsep=period, textfont=bf, labelfont=bf, textformat=period}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%About the Author%%%%

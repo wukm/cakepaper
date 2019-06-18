@@ -920,13 +920,14 @@
 
 \setcounter{tocdepth}{1}		% only chapter and section headings in toc (modified JLG 2011-8-29)
 
+% LW 2019 changed the inner geometry from 1.5in. to 1in.
 \renewcommand\tableofcontents{		% redefine table of contents
 				% following length changes allow heading on 2nd page of TOC (if any)
-	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	\thispagestyle{plain}		% first page does not use toc page style
 	\pagestyle{toc}			% subsequent pages (if any) - types "Page" in upper right
 	\null\vspace{0pt}
-	\vspace*{22pt}
+	%\vspace*{22pt} % LW2019 removed this to bring TABLE OF CONTENTS header to top
 	{\bfseries\centering{TABLE OF CONTENTS}\\}	% title of page
 	\hfill Page\par			% right-aligns "Page"
 	\begin{singlespaced}
@@ -970,9 +971,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% List of Tables and List of Figures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% LW2019 changed inner spacing from 1.5in to 1in
 \renewcommand\listoftables{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
 	    \null\vspace{0pt}			% Need this or title wont show
@@ -988,7 +989,7 @@
 }% end listoftables
     
 \renewcommand\listoffigures{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1.5in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
 	    \null\vspace{0pt}			% Need this or title wont show
