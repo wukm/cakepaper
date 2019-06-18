@@ -971,13 +971,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% List of Tables and List of Figures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LW2019 changed inner spacing from 1.5in to 1in
+% LW2019 changed inner spacing from 1.5in to 1in for list of figures and tables
+% tried to get rid of vspace at top to move title up
 \renewcommand\listoftables{		% redefine list of tables
     \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
 	    \null\vspace{0pt}			% Need this or title wont show
-	    \vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
+	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF TABLES}\\}	% print title
 	    \noindent TABLE \hfill Page\par	% subtitle
 	    \addcontentsline{toc}{chapter}{List of Tables}% add to toc
@@ -993,7 +994,7 @@
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
 	    \null\vspace{0pt}			% Need this or title wont show
-	    \vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
+	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF FIGURES}\\}	% print title
   	    \noindent FIGURE \hfill Page\par	% subtitle
 	    \addcontentsline{toc}{chapter}{List of Figures}% add to toc
