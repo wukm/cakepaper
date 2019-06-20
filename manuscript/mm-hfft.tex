@@ -152,6 +152,25 @@ Let $j$ and $k$ be integers and let $N$ be a positive integer. Then
 \sum_{n=0}^{N-1} e^{2\pi i\left(\frac{n(j-k)}{N}\right)} =  N \cdot \hat{\delta}_N(j-k) 
 \end{equation}
 \end{lemma}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \begin{proof}
 
 Consider the complex number $e^{2\pi i (j-k)/N}$. Note first that this is an $N$-th root of unity, since
@@ -321,7 +340,7 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 
 
 \begin{table}
-  \parbox{.45\linewidth}{
+  %\parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
       &  A & B & C \\
@@ -332,8 +351,10 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
     \end{tabular}
     \caption{MSE of Gaussian Blurs ($\sigma=0.3$)}
     \label{tab:mse-G-sigma-0.3}
-  }
-  \parbox{.45\linewidth}{
+  %}
+\end{table}
+\begin{table}
+  %\parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
       &  A &  B         & C \\
@@ -344,7 +365,7 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
     \end{tabular}
     \caption{MSE of Frangi Scores $\sigma=0.3$}
     \label{tab:mse-F-sigma-0.3}
-  }
+  %}
 \end{table}
 
 
@@ -362,7 +383,7 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 
 
 \begin{table}
-  \parbox{.45\linewidth}{
+  %\parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
       &  A & B & C \\
@@ -373,8 +394,10 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
     \end{tabular}
     \caption{MSE of Gaussian Blurs of an Image ($\sigma=5$)}
     \label{tab:mse-G-sigma-5}
-  }
-  \parbox{.45\linewidth}{
+  %}
+\end{table}
+\begin{table}
+  %\parbox{.45\linewidth}{
     \centering
     \begin{tabular}{c|ccc}
       &  A &  B         & C \\
@@ -385,7 +408,7 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
     \end{tabular}
     \caption{MSE of Frangi Scores $\sigma=5$}
     \label{tab:mse-F-sigma-5}
-  }
+  %}
 \end{table}
 
 Finally, we wish to demonstrate the point of this comparison--that $FFT-based$ convolution is much faster than spatial convolution. We took a much larger sample ($2200 \times 2561$) and timed each method of convolution (average of three trials) for a large number of samples: logarithmic between $\sigma=1$ and $\sigma=128$ with 32 steps. We plot the result in \cref{fig:gconv-runtime}. It shows that the convolution time seems to at least linearly increase with the size of the kernel, whereas FFT is independent of choice of scale. This is to be expected, as convolving with a Gaussian kernel in spatial coordinates requires a greater number of calculations as $\sigma$ increases, whereas the size of the kernel does not change in our frequency space convolution.
