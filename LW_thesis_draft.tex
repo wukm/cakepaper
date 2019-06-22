@@ -7,14 +7,10 @@
 \usepackage{amsfonts, amsmath, mathrsfs}
 \usepackage{amsxtra, amssymb, amscd, mathtools}
 \usepackage{graphicx}
-\usepackage{subfig}
+\usepackage[caption=false]{subfig} % for some reason, caption=false allows left justification of captions
 \usepackage{rotating}
 \usepackage{bm}
-<<<<<<< HEAD
 %\usepackage{hyperref} remove hyperlinks per library requirement LW2019
-=======
-%\usepackage{hyperref} % disabled per thesis office  LW2019
->>>>>>> 93fcc72a02e8c87fae64f69303c8a8b5b6d9f7ae
 \usepackage[capitalise]{cleveref}
 
 \usepackage{multicol}
@@ -198,6 +194,10 @@
 
 % LW2019 this fixes the figure captions. Everything is bold, period after Figure number,
 % period at the end. Need to fix this for subcaptions if those are allowed
+% there is apparently a ``bug'' in captions that makes them centered no matter what, and justified does nothing.
+% setting caption=false in the subfig package fixes this, but then the period at the end of the figure caption
+% goes away. i want to die.
+
 \captionsetup[figure]{labelsep=period, textfont=bf, labelfont=bf, textformat=period}
 \captionsetup[table]{labelsep=period, textfont=bf, labelfont=bf, textformat=period}
 
@@ -291,6 +291,7 @@
 %\include{manuscript/network_completion}
 \include{manuscript/conclusion}
 
+% there should be no introductory page if there's only one appendix so comment out \HalfPage{Appendices} maybe?
 \HalfPage{Appendices}
 %% Renews chapter command so type appendix files in the same way
 

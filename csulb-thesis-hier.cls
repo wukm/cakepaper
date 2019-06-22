@@ -938,10 +938,7 @@
 	\restoregeometry
 }% end tableofcontents
 
-%% LW 2019 -- I commented out the line starting with \vskip here
-%% to try to get strict double spacing of entries. Only lines going on
-%% longer than one line are single spaced, but strict double spacing between
-%% entries. Just simplify all this shit, I think it's way easier now
+
 \renewcommand*\l@chapter[2]{		% redefine the writing of the chapter line in the toc
     \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
 	\addpenalty{-\@highpenalty}	% prefer a page break before starting entry if needed
