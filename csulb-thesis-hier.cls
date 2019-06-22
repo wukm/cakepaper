@@ -930,15 +930,15 @@
 	%\vspace*{22pt} % LW2019 removed this to bring TABLE OF CONTENTS header to top
 	{\bfseries\centering{TABLE OF CONTENTS}\\}	% title of page
 	\hfill Page\par			% right-aligns "Page"
-	\begin{singlespaced}
-	\@starttoc{toc}			% start the toc
+	%\begin{singlespaced} % removed single spacing. this many fuck up multiline entries. LW2019
+	\@starttoc{toc}			% start the toc 
 	\newpage				% go to next page
 	\pagestyle{plain}			% reset page style
-	\end{singlespaced}
+	%\end{singlespaced}
 	\restoregeometry
 }% end tableofcontents
 
-
+% comment out to see what would happen
 \renewcommand*\l@chapter[2]{		% redefine the writing of the chapter line in the toc
     \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
 	\addpenalty{-\@highpenalty}	% prefer a page break before starting entry if needed
@@ -987,7 +987,8 @@
 }% end listoftables
     
 \renewcommand\listoffigures{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, %includeheadfoot, %LW2019
+    headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
 	    \null\vspace{0pt}			% Need this or title wont show
@@ -1003,12 +1004,15 @@
 }% end listoffigures
 
 %%  The following two values seem to give the ToC, LoF, LoT linebreaking conditions that the library wants
-\renewcommand{\@pnumwidth}{3.1em}	% Set width of ToC, LoF, LoT page number column
-\renewcommand{\@tocrmarg}{3em plus 1fill}
+% % LW2019 THESE ALSO CONTROL HOW FAR \dottedline goes to the page number. default values (in this document were
+% pnumwidth: {3.1em} and tocrmarg: {3em plus 1fill}
+% I figured these out manually. 1.1 and 1em plus 1fill seem reasonable if all page numbers are two digits or less, but i may need to increase it a little bit for the three digit entries, for which {1.3em} and {1.2em plus 1fill} seem to work well.
+\renewcommand{\@pnumwidth}{1.1em}	% Set width of ToC, LoF, LoT page number column
+\renewcommand{\@tocrmarg}{1.0em plus 1fill}
 
 %% Indent and index number width values for LoF and LoT
-\renewcommand*\l@figure{\@dottedtocline{1}{0.25in}{2em}}
-\renewcommand*\l@table{\@dottedtocline{1}{0.25in}{2em}}
+\renewcommand*\l@figure{\@dottedtocline{0}{0.25in}{2em}} % changed level {1} to {0}
+\renewcommand*\l@table{\@dottedtocline{0}{0.25in}{2em}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
