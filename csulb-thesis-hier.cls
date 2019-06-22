@@ -718,10 +718,10 @@
 		\typeout{\@chapapp\space\thechapter.}% type CHAPTER #. to log
 			\ifnum\thechapter=1 		% if this is chapter 1, ...
 				% add font sized vertical space,...
-				%{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
+				{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
 				% add the heading "CHAPTER" to table of contents first
 				%\addtocontents{toc}{\noindent CHAPTER\par}
-		%}
+		}
         	\fi
 		\addcontentsline{toc}{chapter}{%
 		\hangindent=.5in\hspace{.25in}\protect\numberline{\thechapter.}#1}% adds #. name to toc
@@ -773,7 +773,7 @@
     \refstepcounter{section}		% increment section number
     \@makesectionhead{#1}		% put section head in doc - see above
     \ifnum \value{section}=1 		% if first section of chapter, ...
-	\addtocontents{toc}{\protect\addvspace{12\p@}}% put an extra blank line in toc
+	%\addtocontents{toc}{\protect\addvspace{12\p@}}% put an extra blank line in toc % this is still happening even if sections aren't printed (level too high?)
     \fi
     \addcontentsline{toc}{section}{\hspace{.5in}#1}% add section name to toc
 }% end section
@@ -938,7 +938,6 @@
 	\restoregeometry
 }% end tableofcontents
 
-% comment out to see what would happen
 \renewcommand*\l@chapter[2]{		% redefine the writing of the chapter line in the toc
     \ifnum \c@tocdepth >\m@ne		% if tocdepth > -1
 	\addpenalty{-\@highpenalty}	% prefer a page break before starting entry if needed
@@ -954,10 +953,11 @@
 	\uppercase{#1}\nobreak\		% print toc entry
 	\leaders\hbox{$\m@th		% print the leader to the page num
         \mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}
-	\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par % print the page num and end paragraph
+	\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2} \par % print the page num and end paragraph
 	\penalty\@highpenalty		% set high penalty to avoid page break
 	\endgroup
     \fi}% end l@chapter
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% fill
