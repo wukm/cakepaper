@@ -82,6 +82,8 @@
 
 %% 20. Changed by Luke Wukmer (2019). Extensive modifications, heirarchical formatting
 %%     (renamed to csulb-thesis-heir).
+% %    Fixed TOC spacing for 2019 requirements. This maybe would break multiline entries.
+% %    If you need that, then reallow the singlespace environment around \start{toc} and add vspace to \addtocontentsline commands for abstract, acknowledgements, etc just like currently exists in the chapter etc.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% USAGE: \documentclass{csulb-thesis}
@@ -718,7 +720,7 @@
 		\typeout{\@chapapp\space\thechapter.}% type CHAPTER #. to log
 			\ifnum\thechapter=1 		% if this is chapter 1, ...
 				% add font sized vertical space,...
-				{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
+				{ %\addtocontents{toc}{\protect\addvspace{\@thesisptsz}} % remove randomly injected vspace
 				% add the heading "CHAPTER" to table of contents first
 				%\addtocontents{toc}{\noindent CHAPTER\par}
 		}
@@ -926,7 +928,7 @@
 	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	\thispagestyle{plain}		% first page does not use toc page style
 	\pagestyle{toc}			% subsequent pages (if any) - types "Page" in upper right
-	\null\vspace{0pt}
+	% \null\vspace{0pt} commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	%\vspace*{22pt} % LW2019 removed this to bring TABLE OF CONTENTS header to top
 	{\bfseries\centering{TABLE OF CONTENTS}\\}	% title of page
 	\hfill Page\par			% right-aligns "Page"
@@ -974,7 +976,7 @@
     \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
-	    \null\vspace{0pt}			% Need this or title wont show
+	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF TABLES}\\}	% print title
 	    \noindent TABLE \hfill Page\par	% subtitle
@@ -991,7 +993,7 @@
     headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
-	    \null\vspace{0pt}			% Need this or title wont show
+	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF FIGURES}\\}	% print title
   	    \noindent FIGURE \hfill Page\par	% subtitle
