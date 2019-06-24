@@ -890,7 +890,7 @@
 \let\@openbib@code\@empty
 
 \renewenvironment{thebibliography}[1]	% redefine thebibliography command
-     {\chapter*{\bibname}		% adds a heading for bibliography
+     {\chapter*{\bfseries\bibname}		% adds a heading for bibliography
      \newlinestretch{1}
      \vspace*{\baselineskip}
      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}% set page headings
