@@ -804,9 +804,13 @@
 \def\HalfPage#1{%			% define HalfPage command
     \clearpage				% finish the current page (prints queued 
 					% figures/tables), start new page
-    \vspace*{0pt plus 1fil}		% advances half the vertical space
+    %\vspace*{0pt plus 1fil}		% advances half the vertical space
+    %\vspace*{0pt plus 1fil}		% advances half the vertical space
+    \vspace*{4.5in} % about 5.5 inches down the page
     \begin{center}
+      {\bfseries
         \MakeUppercase{#1}		% puts the title in upper case
+      }
     \end{center}
     \addcontentsline{toc}{chapter}{#1}	% adds to toc 
     \newpage				% advances page

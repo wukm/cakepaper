@@ -8,7 +8,7 @@
     	} \\[-0.5cm]
     	\subfloat{        
     		\label{fig:scalesweep-1c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
-    	} \\
+    	} \\[12pt]
     	% should i use the real sample names? or obfuscate?
     	\caption{Example scalewise Frangi output (plate and inset) (example 1)}
     	\label{fig:scalesweep-1}
@@ -21,7 +21,7 @@
     	} \\[-0.5cm]
     	\subfloat{        
     		\label{fig:scalesweep-2c}\includegraphics[width=.75\linewidth]{{{scalesweep_colorbar}}}
-    	} \\
+    	} \\[12pt]
     	\caption{Example scalewise Frangi output (plate and inset) (example 2)}
     	\label{fig:scalesweep-2}
     \end{figure}
@@ -42,13 +42,10 @@
     \;\textrm{and}\;
     a_\gamma = \left(1-\exp\left(\frac{-1}{2\gamma^2}\right)\right)^{-1} \notag\\
     %\end{equation}
-    \shortintertext{and}
-    %\begin{equation*}
-    \abs*{\lambda_1} \le \abs*{\lambda_2}
-    \; \textrm{are eigenvalues of the Hessian matrix at point} \; (x_0, y_0) \;\textrm{at scale}\; \sigma. \notag
-    %\end{equation*}
     \end{gather}
-    
+    and $\abs*{\lambda_1} \le \abs*{\lambda_2}$
+    are eigenvalues of the Hessian matrix at point $(x_0, y_0)$ at scale $\sigma.$
+
     A central point of importance here is that certain ridgelike structures will be more prominent at different scales. \cref{fig:scalesweep-1} and \cref{fig:scalesweep-2} demonstrate this effect for two different placental samples. Here, a Frangi filter is applied to the sample at eight different scales ranging from small to large. The vesselness response is greater at smaller scales for smaller width vessels and smaller for larger width vessels. When the scale is large, the reverse is true: response to small vessels is nonexistent, and larger scales are prominent.  A full treatment of applying the Frangi filter to these samples begins in \cref{ch:research-protocol}.
     
     \section{The Multiscale Frangi Filter}

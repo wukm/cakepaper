@@ -22,7 +22,7 @@ Our goal is establish a resource efficient method of finding curvilinear content
 %  Frangi filtering, etc. all together.}
 A digital 2D grayscale image is given by a $M\times N$ array of pixels, whose intensity is given by an integer value between 0 and 255. For simplicity, we will rescale this intensity to be a real number between 0 and 1.
 
-\begin{defn}[Image as a pixel matrix] \label{def:image_as_pixel_matrix}
+\begin{defn} The image can be given as the pixel matrix \label{def:image_as_pixel_matrix}
 	\begin{equation*}
 	\img \in \N^{M \times N}
 	\quad\textrm{with}\quad
@@ -32,7 +32,7 @@ A digital 2D grayscale image is given by a $M\times N$ array of pixels, whose in
 	% iI hate this wording.
 	For theoretical purposes, we wish to consider any such picture to ultimately be a sampling of a 2D continuous surface. We also require that this surface is sufficiently continuous as to admit the existence of second partial derivatives.
 	
-\begin{defn}[Image as an interpolated surface] \label{def:image_as_surface}
+\begin{defn} The image can be given as the interpolated surface \label{def:image_as_surface}
  \begin{equation*}
  h: \R^2 \to \R
  \quad \textrm{with}\quad
@@ -96,18 +96,18 @@ We wish to describe the structure of an image as a surface. To do this, we devel
 	%    That is, this development works for any parametrized surface element, not necessarily a graph. Whatever for now.
     
     
-    \begin{defn}[Tangent space of $U$ at $u$] \label{def:tangent-at-U}
+    \begin{defn} The tangent space of $U$ at $u$ is given as \label{def:tangent-at-U}
     	\[ T_{u} U = \left\{u\right\} \times \R^2
     	\]
     	\end{defn}
-    \begin{defn}[Tangent space of $\R^3$ at $p$] \label{def:tangent-of-R3}
+    \begin{defn} The tangent space of $\R^3$ at $p$ is given as \label{def:tangent-of-R3}
     	\[ T_{p} \R^3 = \{p\} \times \R^3
     	\]
     \end{defn}
     It is immediately clear that $T_uU$ and $T_p\R^3$ are isomorphic to
     $\R^2$ and $\R^3$, respectively, and we can easily visualize elements of $T_uU$ are tangent vectors in $\R^2$ ``originating'' at the point $u$, and elements of $T_p\R^3$ are tangent vectors ``originating'' at the point $p$.
-\begin{defn}[The differential of $f$ at a point $u$] \label{def:differential-map}
-       	$Df\vert_u$ is the map from $T_uU$ into $\R^3$ given by
+\begin{defn} The differential of $f$ at a point $u$, \label{def:differential-map}
+       	$Df\vert_u$, is the map from $T_uU$ into $\R^3$ given by
     \[
      Df|_u : T_uU \to T_{f(u)}\R^3
      \quad \textrm{by}
@@ -123,7 +123,7 @@ We could also just identify the differential \cref{def:differential-map}  with a
 
 With these three definitions, we are equipped to give a formal definition of $T_uf$,
 the tangent plane of $f$ at an input $u$.
-\begin{defn}[Tangent plane of a graph]\label{def:tangent-plane}
+\begin{defn} The tangent plane of a graph is \label{def:tangent-plane}
 \[
 T_u f := Df\vert_u \left(T_u U\right)
 \subset T_{f(u)} \R^3 = T_{p} \R^3
@@ -175,7 +175,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
  
  To extend the notion of curvature of a surface $f$, we can consider the curvature of such an arbitrary curve embedded within the surface.
  
- \begin{defn}[Surface curve] \label{def:curve-on-a-surface}
+ \begin{defn} \label{def:curve-on-a-surface}
  	Given a closed interval $I \subset \R$, we call the regular curve
  	$c: I \to \R^3$ a surface curve in the event that $\image(c) \subset \image(f)$ entirely. The one-to-one-ness of the graph $f$ ensures that we can define (for the given curve) an intermediary parametrization $\theta$  so that
  	$ c = f \circ \theta $. That is,
@@ -293,7 +293,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
   We call this map which the Weingarten map $\wein$.
 	
-	\begin{defn}[The Weingarten Map] \label{def:wein-map}
+	\begin{defn} The Weingarten map is the map \label{def:wein-map}
 		\[
 		\wein: T_u f \to T_u f 
 		\quad \textrm{given by the composition} \quad
@@ -508,7 +508,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	
        	Thus, to find the directions of greatest and least curvature of a surface at a point $u \in U$, we simply must calculate the Weingarten map and its eigenvectors. We refer to these directions as follows.
        	
-       	\begin{defn}[Principal Curvatures and Principal Directions]
+       	\begin{defn}
        		The extremal values of normal curvature of a surface at a point  $u\in U$
        		are referred to as \textbf{principal curvatures}. The corresponding directions at which normal curvature attains an extremal value are referred to as \textbf{principal directions}.
        	\end{defn}
@@ -643,7 +643,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
   
   To make the Weingarten map and its relationship to the Hessian more explicit, we will calculate the Weingarten map for a relatively simple graph.
   
-  \subsection{The Weingarten map and Principal Curvatures of a Cylindrical Ridge} \label{sec:calculate-weinmap-of-a-ridge}
+  \subsection{The Weingarten Map and Principal Curvatures of a Cylindrical Ridge} \label{sec:calculate-weinmap-of-a-ridge}
   
   Let $f$ be the graph given by 
   \begin{equation}
@@ -653,12 +653,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
     0 & \textrm{else}
     \end{cases}
   \end{equation} 
-  \begin{figure}[h!]
+  \begin{figure}[t]
   \includegraphics[width=\linewidth]{circular_trough_with_axes_vectors}
   \caption{The graph of a cylindrical ridge of radius $r$}
   \label{fig:ridge-graph}
   \end{figure}
-  
   
   The graph $f$ is depicted in \cref{fig:ridge-graph}. We calculate the necessary partial derivatives of $h(x,y)$ and apply them to \cref{weinmatexactgraph}.
   
@@ -710,7 +709,6 @@ h_y = 0
 \; , \quad
 h_{yy} = 0 \;,\quad h_{xy} = 0
 \end{gather*}
-
     \begin{align*}
   \weinmat &= \Hess(h)\tilde{G}
   = \frac{1}{\left(1+\frac{x^2}{r^2-x^2}\right)^{3/2}}
