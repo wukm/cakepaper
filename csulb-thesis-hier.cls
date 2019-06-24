@@ -934,7 +934,7 @@
 	% \null\vspace{0pt} commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	%\vspace*{22pt} % LW2019 removed this to bring TABLE OF CONTENTS header to top
 	{\bfseries\centering{TABLE OF CONTENTS}\\}	% title of page
-	\hfill Page\par			% right-aligns "Page"
+	%\hfill Page\par			% right-aligns "Page" % removed this now, no column headers necessary LW2019
 	%\begin{singlespaced} % removed single spacing. this many fuck up multiline entries. LW2019
 	\@starttoc{toc}			% start the toc 
 	\newpage				% go to next page
@@ -982,7 +982,7 @@
 	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF TABLES}\\}	% print title
-	    \noindent TABLE \hfill Page\par	% subtitle
+	    % \noindent TABLE \hfill Page\par	% subtitle % No listing here either
 	    \addcontentsline{toc}{chapter}{List of Tables}% add to toc
 	    \begin{singlespaced}		% Singlespace the list
 		    \@starttoc{lot}		% Insert the list of tables
@@ -999,7 +999,7 @@
 	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
 	    %\vspace*{0.306in}			% This value gives us a total 2in top margin (not sure why)
 	    {\bfseries\centering{LIST OF FIGURES}\\}	% print title
-  	    \noindent FIGURE \hfill Page\par	% subtitle
+  	    %\noindent FIGURE \hfill Page\par	% subtitle removed this, no more column headers LW2019
 	    \addcontentsline{toc}{chapter}{List of Figures}% add to toc
 	    \begin{singlespaced}		% Singlespace the list
 		    \@starttoc{lof}		%Insert the list of figures
