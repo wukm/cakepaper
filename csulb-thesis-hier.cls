@@ -843,9 +843,9 @@
 	  %\addtocontents{toc}{\noindent APPENDIX\par}
 	  %}
 	\fi
-	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
-  \else
-	\addcontentsline{toc}{chapter}{#1}%
+%	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
+%	\addcontentsline{toc}{chapter}{#1}%
+  \addcontentsline{toc}{chapter}{APPENDIX: #1} % add to TOC just like this if there's only one appendix.
   \fi
   
   %\chaptermark{#1}			% for running headings (probably won't be used)
@@ -858,11 +858,14 @@
     \@afterheading
 }% end sappendix
 
+% THIS NEEDS TO BE CHANGED IF THERE ARE MULTIPLE APPENDICES
 \def\@makeappendixhead#1{		% put the appendix half page in the doc
     \newpage				% start a new page
     \vspace*{0pt plus 1fil}		% advance vertically 1/2 the page
     \begin{center} \bfseries
-    APPENDIX \themyappendix\\		% add "APPENDIX X" where X is appendix letter (A,B,C,...)
+    % THIS LINE IF THERE ARE MULTIPLE APPENDICES
+    %APPENDIX \themyappendix\\		% add "APPENDIX X" where X is appendix letter (A,B,C,...)
+    APPENDIX\\
     \MakeUppercase{#1}			% put appendix title in upper case
     \end{center}
     \newpage				% clear the page
