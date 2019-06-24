@@ -1,0 +1,52 @@
+We follow the procedure for \cref{ch:segmentation}. For our analysis of the Frangi filter apart from segmentation we shall stop before step (C).
+    
+    \begin{spacing}{1}
+    \begin{small}
+    \begin{verbatim}
+For each sample:
+
+A) Preprocessing
+  1) Find placental border
+  	a) Gradient of green channel for small sigma=.01
+  	b) Watershed outside against above gradient mean
+  	c) erode these points, radius=15
+  	d) Identify largest object in watershed threshold
+  2) RGB to single channel via Luminance Transform
+  3) Glare removal
+    a) Mask glare (threshold at *175/255*)
+    b) Dilate glare mask with radius=2
+    c) Inpaint glare
+      + Hybrid inpainting, with size threshold *32*
+      . Biharmonic inpainting
+      . Median value of boundary
+  4) Dilate around UCIP, add to mask (radius=50)
+B) Multiscale Frangi filter
+  1) Set parameters
+    a) Scales
+      = n_scales (default: *20*)
+      = log_range (default *[-1.5, 3.2]*), log base 2
+      -> scales
+    b) Beta = 0.1, Gamma = 1.0 (or alternate parametrization)
+    d) Dilate mask per scale (20 pixels)
+  2) For each sigma: compute Uniscale Frangi Filter
+    a) gauss blur image with discrete Gaussian kernel FFT
+    b) take gradient across each axis of blurred image;
+       take gradient across each axis of gradient
+       -> (Hxx, Hxy, Hyy)
+    c) Find eigenvalues of hessian at each point (using np.eig)
+       and sort by absolute magnitude 
+    d) Calculate Frangi Vesselness Measure
+  3) Split positive and negative strain.
+  3) Merge each result, reserve positive and negative stacks
+C) Estimate PCSVN
+  1) Approximate using strategy
+    a) Calculate Vmax above high fixed threshold alpha=0.3
+    b) Calculate Vmax above lower fixed threshold alpha=0.2
+    b) Threshold scalewise at 95th nonzero-percentile
+    c) Threshold scalewise at 98th nonzero-percentile
+    d) Margin adding algorithm with high fixed threshold
+  2) Compare to ground truth trace to obtain confusion matrix
+  3) Calculate MCC score and precision
+\end{verbatim}
+    \end{small}
+\end{spacing}

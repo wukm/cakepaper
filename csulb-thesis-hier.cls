@@ -841,15 +841,15 @@
     % was old line \typeout{APPENDIX\space\themyappendix.}% put in display
     \typeout{APPENDIX\space\themyappendix.}
 	\if \themyappendix A
-	  % add font sized vertical space,...
+	   %add font sized vertical space,...
 	  %{\addtocontents{toc}{\protect\addvspace{\@thesisptsz}}
-	  % add the heading "APPENDIX" to table of contents first
+	   %add the heading "APPENDIX" to table of contents first
 	  %\addtocontents{toc}{\noindent APPENDIX\par}
 	  %}
 	\fi
-%	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
-%	\addcontentsline{toc}{chapter}{#1}%
-  \addcontentsline{toc}{chapter}{APPENDIX: #1} % add to TOC just like this if there's only one appendix.
+	\addcontentsline{toc}{chapter}{\hspace{.25in}\protect\numberline{\themyappendix.}#1}% add to toc
+	%\addcontentsline{toc}{chapter}{#1}%
+  %\addcontentsline{toc}{chapter}{APPENDIX: #1} % add to TOC just like this if there's only one appendix.
   \fi
   
   %\chaptermark{#1}			% for running headings (probably won't be used)
@@ -868,8 +868,8 @@
     \vspace*{0pt plus 1fil}		% advance vertically 1/2 the page
     \begin{center} \bfseries
     % THIS LINE IF THERE ARE MULTIPLE APPENDICES
-    %APPENDIX \themyappendix\\		% add "APPENDIX X" where X is appendix letter (A,B,C,...)
-    APPENDIX\\
+    APPENDIX \themyappendix\\		% add "APPENDIX X" where X is appendix letter (A,B,C,...)
+    %APPENDIX\\ % THIS LINE IF THERE'S JUST A SINGLE APPENDIX
     \MakeUppercase{#1}			% put appendix title in upper case
     \end{center}
     \newpage				% clear the page
