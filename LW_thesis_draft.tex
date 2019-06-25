@@ -29,9 +29,9 @@
 \usepackage{newtxtext,newtxmath} 
 \usepackage[utf8]{inputenc}
 
-% turabian style citations?
-%\usepackage[notes, isbn=false]{biblatex-chicago}
-%\addbibresource{thesis_bib.bib}
+\usepackage[backend=biber, style=chicago-authordate]{biblatex}
+\addbibresource{thesis.bib}
+
 
 %\usepackage{showframe}
 
@@ -304,18 +304,13 @@
 \include{manuscript/appendix}
 \myappendix{Research Protocol Decision Tree}\label[appendix]{app:decisiontree}
 \include{manuscript/decisiontreeappendix}
-%\include{manuscript/extra_figures}
 
 
 %Here is the list of cited works.
 \HalfPage{Bibliography}
 
-%% then export in BibTeX format into file thesis_bib.bib
-%\bibliographystyle{ieeetr}
-\bibliographystyle{chicago}
-\bibliography{thesis_bib}
+%\bibliographystyle{ieeetr} % this one works but it's wrong
+%\bibliography{thesis_bib}
 
-
-%\printbibliography 
-
+\printbibliography[title={\bfseries BIBLIOGRAPHY}]
 \end{document}
