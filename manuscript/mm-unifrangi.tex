@@ -3,9 +3,9 @@
 	We now seek to harness the ideas introduced in \cref{ch:diffgeo} to the task at hand: identifying curvilinear content within images.
 
 The Frangi filter, first described by Alejandro Frangi et al., is a widely used  Hessian-based filter
-within image processing \cite{frangi-paper}. Hessian-based filters make use of the
-logical ``proximity'' of the Hessian to notions of curvature of surfaces. Frangi's filter was orignally developed for vascular segmentation in images such as MRIs and it excels in that context \cite{frangi-paper}.
-Several alternatively formulated Hessian-based filters exist \cite{sato-filter,lorenz-filter,olabarriaga-hessian-comparison}. These filters use information about the principal curvatures, approximated as eigenvalues of the Hessian, at each point in the image
+within image processing \autocite{frangi-paper}. Hessian-based filters make use of the
+logical ``proximity'' of the Hessian to notions of curvature of surfaces. Frangi's filter was orignally developed for vascular segmentation in images such as MRIs and it excels in that context \autocite{frangi-paper}.
+Several alternatively formulated Hessian-based filters exist \autocite{sato-filter,lorenz-filter,olabarriaga-hessian-comparison}. These filters use information about the principal curvatures, approximated as eigenvalues of the Hessian, at each point in the image
 to identify regions of significant curvature within an image.
 
 We point out here that our image is of course a discrete structure and not a continuous surface, which was the object of concern in \cref{ch:diffgeo}.
@@ -154,7 +154,7 @@ A convenient by-product of our redefinition of $\gamma$ actually is that can gro
 
 
 The ultimate choice of these parameters $\beta$ and $\gamma$ have the overall effect of tuning the selectivity of the Frangi filter itself. In \cref{fig:frangi3d-selection}, we show the shape of our rescaled filter depends on the anisotropy measure $\abs{\lambda_1 / \lambda_2}$ and the ``structureness ratio'' $\Sm/\Smax$ for some illustrative choices of $\beta$ and $\gamma$. Each of these filters has been rescaled with $a_\gamma$. The steepness of the first figure suggests that the filter is in fact, stricter compared to the default parameter selection. \cref{subfig:frangi3d-loose} shows the filters continued strength over a much larger range of values, indicating that it may not work effectively. In particular, choosing $\gamma$, and thus $c$, poorly will lead to quite a lot of noise.
-An interesting manifestation of this is that the default implementation of the Frangi filter \cite{scipy} chooses an seemingly arbitrarily fixed value for the structureness parameter, perhaps causing many na\"ive applications of the Frangi filter to give a needlessly poor result, simply becuase the filter was not correctly parametrized in relation to the image at hand.
+An interesting manifestation of this is that the default implementation of the Frangi filter \autocite{scipy} chooses an seemingly arbitrarily fixed value for the structureness parameter, perhaps causing many na\"ive applications of the Frangi filter to give a needlessly poor result, simply becuase the filter was not correctly parametrized in relation to the image at hand.
 
 \begin{figure}[t] \centering
 \subfloat[Strict]{\includegraphics[height=0.3\textheight]{4-rs}} \label{subfig:frangi3d-strict} \\[-.2em]

@@ -1,20 +1,20 @@
 \chapter{Introduction} \label{ch:introduction}
 
 Recent statistical analysis has suggested a link between placental development and incidence of
-Autism Spectrum Disorder (ASD) \cite{chang2017}. There is some evidence as in \cite{chang2016whole}
+Autism Spectrum Disorder (ASD) \autocite{chang2017}. There is some evidence as in \autocite{chang2016whole}
 of correlation between this risk and placental health factors. Most ASD
 cases are not diagnosed until the child reaches three or four, so the benefit
 of an early detection technique would be massive, as the brain may be more
 receptive to treatment at a young age. In particular, it was shown in
-\cite{chang2016whole} that measurements of the placental chorionic surface
+\autocite{chang2016whole} that measurements of the placental chorionic surface
 vascular network (PCSVN) may be useful in identifying such risk.
-\cite{chang2017} has provided a method of automatically calculating such
+\autocite{chang2017} has provided a method of automatically calculating such
 features from an extracted vascular network, but does so with manual tracing of
 the PCSVN in order to make these measurements.  These manual tracings are
 labor-intensive, requiring 4 to 8 hours of user intervention to generate each trace.
 The present work follows several other efforts towards an automated extraction
-technique, such as \cite{almoussa-ucla-reu}, \cite{huynh2013filter}, and
-most recently \cite{djima2017enhancing}. Automating this procedure would not
+technique, such as \autocite{almoussa-ucla-reu}, \autocite{huynh2013filter}, and
+most recently \autocite{djima2017enhancing}. Automating this procedure would not
 only allow more data acquisition to study the potential connection between ASD
 and placental health, but could even potentially serve as the basis of real-time
 diagnostic for neonatal risk factors as well. We continue the work of
@@ -34,11 +34,11 @@ Reliable vascular extraction methods do exist for well-known image domains
 It is desirable to extend this technique to study placental images, but this
 approach is greatly hindered by the comparative irregularity of the placental
 surface as a whole, which introduces significant noise into the image domain.
-Previous attempts to implement the Frangi filter in this context \cite{huynh2013filter}
+Previous attempts to implement the Frangi filter in this context \autocite{huynh2013filter}
 dealt with this noise by passing the Frangi filtered result to a custom directional filter bank
 as an additional local curvilinear filter, in an effort to retrieve a partial
 segmentation. Other more recent efforts are very promising,
-but are considerably more resource-intensive \cite{djima2017enhancing}.
+but are considerably more resource-intensive \autocite{djima2017enhancing}.
 
 Here we provide an in-depth mathematical background of the Frangi filter and
 its justification as an image-processing technique, as well as an introduction

@@ -50,7 +50,7 @@ That is, the function $h$ is identical to the pixel matrix $\img$ at all integer
 and simply a ``smooth enough'' interpolation of those points for all other values.
 
 
-It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \cite{DIPGW}, especially when the goal is noise reduction.
+It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \autocite{DIPGW}, especially when the goal is noise reduction.
 However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{def:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
 % Word salad, also rude? ask chang about this
 Moreover, though our samples in the image domain have been carefully prepared (as outlined in \cref{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
@@ -60,7 +60,7 @@ Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling ag
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Differential Geometry} \label{sec:differential-geometry}
   
-We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way, following \cite{Kuhnel-DiffGeo} (although any undergraduate text in Differential Geometry should prove satisfactory).
+We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way, following \autocite{Kuhnel-DiffGeo} (although any undergraduate text in Differential Geometry should prove satisfactory).
 
 \subsection{Preliminaries of Differential Geometry}
 %\vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant. Although it's useful to keep some references to non-graphs to align this with "the general picture" and what you'll find in a diff geo textbook, also because I already wasted time doing the hard work.}
@@ -334,7 +334,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
 	and map it to the span of $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
-	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case, which is certainly useful for surfaces $f$ that are not graphs. We refer to \cite{Kuhnel-DiffGeo} for the general proof. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
+	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case, which is certainly useful for surfaces $f$ that are not graphs. We refer to \autocite{Kuhnel-DiffGeo} for the general proof. The situation is much less delicate if $f$ is a graph--the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
 	\begin{lemma}
 		The Weingarten map as in \cref{def:wein-map} is well-defined for graphs.
 	\end{lemma}
@@ -595,7 +595,7 @@ We can then rewrite \cref{weinmatexactgraph} as
 + \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \Hess(h) [\delta]
 \end{equation}
 
-We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix (and the constant$\frac{1}{\sqrt{1+h_x^2 + h_y^2}}$ will be very close to 1 as well), and we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \cite{wilkinson-eigenvalue}, which we state without rigorous proof.
+We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix (and the constant$\frac{1}{\sqrt{1+h_x^2 + h_y^2}}$ will be very close to 1 as well), and we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \autocite{wilkinson-eigenvalue}, which we state without rigorous proof.
 
 % see wilkinson pg 66
 \begin{theorem}
@@ -606,7 +606,7 @@ We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close t
 The proof ultimately relies on a general result of analysis, that the zeros of a polynomial are continuous with respect to its coefficients. In this case, the polynomial in question is the characteristic polynomial
 $p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect 
 
-In the event that we do wish to rigorously compute the Weingarten map should want to be rigorously computed "without approximation"--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
+In the event that we do wish to rigorously compute the Weingarten map should want to be rigorously computed "without approximation"--that is, without concern for the magnitude of the gradient--we refer to \autocite{jiao2008consistent} and survey papers mentioned therein.
 
   
   To make the Weingarten map and its relationship to the Hessian more explicit, we will calculate the Weingarten map for a relatively simple graph.
@@ -692,7 +692,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
 \vcleanup{the eigenvectors of the Weingarten map are orthonormal. the eigenvectors of the hessian are also orthonormalizable. make the distinction!}
   where $\kappa_i$ and $u_i$ are known as the
   \textit{principal curvatures} and \textit{principal directions} \vcomment{fixthis} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following basic result from linear algebra,
-  \cite{burden-faires}:
+  \autocite{burden-faires}:
   
   % from burden and faires corollary 9.17
   \begin{lemma}[Principal Axis Theorem?]
@@ -794,7 +794,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     In particular, we seek to mitigate the bias of our limited sampling
     of the ``true'' 3D surface. Our main goal is to counter against some of the bias of our particular sampling. In particular, we wish to not over-represent structures that
     are clear at our resolution without giving appropriate weight to larger structures as well.
-    Koenderink \cite{Koenderink} argued that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called scale space axioms. He (and others) showed that a small set of intuitive axioms imply require that any such family of images must satisfy the heat equation
+    Koenderink \autocite{Koenderink} argued that "any image can be embedded in a one-parameter family of derived images (with resolution as the parameter) in essentially only one unique way" given a few of the so-called scale space axioms. He (and others) showed that a small set of intuitive axioms imply require that any such family of images must satisfy the heat equation
     
     \begin{equation} \label{eq:heat-eq-for-family}
     \Delta K(x,y,\sigma) = K_\sigma (x,y,\sigma) 
@@ -803,7 +803,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     \end{equation}
     
     where $K: \R^3 \to \R $ and  $u_0: \R^2 \to \R: $ is the original image (viewed as a continuous surface) and $\sigma$ is a resolution parameter.
-    Much work has been done to formalize this approach \cite{GSST-book}. There is a long list of desired properties--we will to try to identify a minimal subset of axioms and show that other desired properties follow.
+    Much work has been done to formalize this approach \autocite{GSST-book}. There is a long list of desired properties--we will to try to identify a minimal subset of axioms and show that other desired properties follow.
     
 	  
     
@@ -832,7 +832,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     parameter $\sigma$ to be a nonzero real number
     (as opposed to an integer). Moreover, we require that the operator behaves continuously with respect to the scale parameter.
         \end{axiom}
-    What happens as $\sigma \downarrow 0$ is not immediately clear though. 	An argument from functional analysis (see \cite{hille1957functional}) implies that there is a so-called ``infinitesimal generator'' $A$
+    What happens as $\sigma \downarrow 0$ is not immediately clear though. 	An argument from functional analysis (see \autocite{hille1957functional}) implies that there is a so-called ``infinitesimal generator'' $A$
 	which is a limit case of our desired operator $T$; that is
 	\begin{equation} \label{eq:infinitesimal-generator}
 	A u_0 = \lim_{\sigma \downarrow 0} \frac{T_\sigma u_0 - u_0}{\sigma}
@@ -904,7 +904,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
 
     \subsection{Uniqueness of the Gaussian Kernel}
     
-    The above requirements are actually sufficient in proving not only that the operator $T_\sigma$ is a convolution, but that the heat equation described in \cref{eq:heat-eq-for-family} must hold. This has been shown in various ways, both by Koenderink \cite{Koenderink}, Babaud \cite{babaud}, as well as Lindeberg in \cite{GSST-book}. In fact, it is shown that the Gaussian is the unique convolution kernel that works.    
+    The above requirements are actually sufficient in proving not only that the operator $T_\sigma$ is a convolution, but that the heat equation described in \cref{eq:heat-eq-for-family} must hold. This has been shown in various ways, both by Koenderink \autocite{Koenderink}, Babaud \autocite{babaud}, as well as Lindeberg in \autocite{GSST-book}. In fact, it is shown that the Gaussian is the unique convolution kernel that works.    
     
    To this, show that:
     \begin{itemize}
@@ -1065,7 +1065,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     \subsection{Scale Spaces over Discrete Structures} \label{subsec:discrete-scale-space}
     
     The above developments from scale space axioms have (since their first appearance)
-    been recast in terms of discrete structures (rather than continuous surfaces) as in \cite{lindeberg-discrete}. However, we've chosen to present the above in their original continuous surface for clarity of argument. The discrete case is not much different--
+    been recast in terms of discrete structures (rather than continuous surfaces) as in \autocite{lindeberg-discrete}. However, we've chosen to present the above in their original continuous surface for clarity of argument. The discrete case is not much different--
     we still have the same axioms, and it can be shown that the family of scaled images
     must simply satisfy a discrete version of the 
     However, viewing our actual image
@@ -1086,8 +1086,8 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
 	    K(x,\sigma) = \sum_{n=-\infty}^{\infty} g(n;\sigma) f(x-n)
 	    \quad \textrm{for} \quad x \in \Z, \; \sigma > 0
     \]
-    The reality of the matter is that a discretely sampled Gaussian is not an appropriate kernel for creating discrete scale space. In \cite{lindeberg-discrete} and in particular
-    \cite{lindeberg1988-discreteconstruction}, Lindeberg demonstrated that the sampled Gaussian kernel violates not only semigroup property (\cref{axiom:semigroup}), but--much less forgivably--the causality property (\cref{axiom:semigroup}). There is absolutely no guarantee that convolution with a sampled Gaussian kernel will not create ``spurious'' structures as resolution increases.
+    The reality of the matter is that a discretely sampled Gaussian is not an appropriate kernel for creating discrete scale space. In \autocite{lindeberg-discrete} and in particular
+    \autocite{lindeberg1988-discreteconstruction}, Lindeberg demonstrated that the sampled Gaussian kernel violates not only semigroup property (\cref{axiom:semigroup}), but--much less forgivably--the causality property (\cref{axiom:semigroup}). There is absolutely no guarantee that convolution with a sampled Gaussian kernel will not create ``spurious'' structures as resolution increases.
     
     
     Fortunately, Lindeberg was immediately able to remedy this by providing a discrete analogue of the Gaussian kernel, which does satisfy \cref{axiom:causality} and \cref{axiom:semigroup}:
@@ -1107,7 +1107,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     I_n(x) = \sum_{m=0}^{\infty} \frac{1}{m! (m+n)!}
 	    	\left(\frac{x}{2}\right)^{2m+n} \;,\quad n \ge 0
     \]
-    where we have taken the liberty of simplifying the typical definition \cite{abramowitz-stegun} (which involves the gamma function), since we only desire
+    where we have taken the liberty of simplifying the typical definition \autocite{abramowitz-stegun} (which involves the gamma function), since we only desire
     Bessel functions of integer order. The parameter $\alpha$ above is simply an
     optional scaling parameter which is simply set to $1$ hereforth.
     
@@ -1117,7 +1117,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
         \quad \textrm{for} \quad x \in \Z, \; t > 0
         \end{equation}
     
-    The compatibility of scale space theory and derivatives on discrete structures and     extension to two dimensions was also demonstrated by Lindeberg in \cite{lindeberg-discrete-derivative} and \cite{lindeberg1998feature}. In particular, we may take derivatives of the convolutions of our discrete images
+    The compatibility of scale space theory and derivatives on discrete structures and     extension to two dimensions was also demonstrated by Lindeberg in \autocite{lindeberg-discrete-derivative} and \autocite{lindeberg1998feature}. In particular, we may take derivatives of the convolutions of our discrete images
     using, say, a central difference.
     Lastly, the 2D version of the family given in \cref{eq:derived-family-from-discrete} can be obtained by independent convolution of its dimensions (i.e. it is separable). We will make these
     ideas explicit in \cref{ch:implementations} and the Appendix.
@@ -1129,7 +1129,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     Our ideas of scale developed in the previous section imply that, if the ridgelike structures we wish to detect are more prominent at different scales, then a multiscale approach is the natural one. Considering our
     developments in \cref{sec:frangi}, we wish to probe at multiple scales
     regions that would receive a high vesselness score at any range,
-    and consider them all together. Frangi \cite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
+    and consider them all together. Frangi \autocite{frangi-paper} approached this problem by simply aggregating vesselness measure over all scales:
     
     \begin{equation} \label{frangi-vesselness-max}
     V(x_0, y_0) = \underset{\sigma \in \Sigma}{\max}\;  V_\sigma(x_0, y_0)
@@ -1147,7 +1147,7 @@ In the event that we do wish to rigorously compute the Weingarten map should wan
     \mathsf{V}_\Sigma := \left[ V(x, y)\right]_{\substack{0\le x<M \ 0\le y<N}}
     \end{equation}
     
-    Notably, Frangi \cite{frangi-paper} refrained from explicitly interpreting the probablility assigned by \cref{frangi-vesselness-max}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and that the size
+    Notably, Frangi \autocite{frangi-paper} refrained from explicitly interpreting the probablility assigned by \cref{frangi-vesselness-max}; that is--whether a particular point $(x,y)$ in the image definitely a vessel or not. Instead, he cautioned that the result should not be used as a segmentation method alone, and that the size
     of the vasculature cannot be determined rigorously from the filter alone.
     
     However, for the purposes of obtaining an intermediate result, we wish to be final about the whole matter and ultimately say whether or not a pixel does in fact corresponds to a curvilinear structure. A straightforward enough approach is to simply threshold at some fixed value. The resulting matrix can be given in terms of either \cref{frangi-vesselness-max} or \cref{eq:frangi-max-matrix}
@@ -1172,9 +1172,9 @@ All that remains to describe mathematically is how to actually calculate the der
  
 \section{Calculating the 2D Hessian}
 
-According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \cite{fornberg-1988}. Specific implementation will be discussed in \cref{ch:implementations}.
+According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \autocite{fornberg-1988}. Specific implementation will be discussed in \cref{ch:implementations}.
 
-We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \cite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes, although we have implemented our scale spaces in the conventional way, as discussed in \cref{ch:implementations}.
+We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \autocite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes, although we have implemented our scale spaces in the conventional way, as discussed in \cref{ch:implementations}.
 %Given that we are taking a derivative of a convolution, we first show that these operations commute--that is, we may actually take the derivative of the convolution kernel OR the function itself, and then convolve, and the result should be equivalent to taking the derivative of
 %convolving 
 
@@ -1194,7 +1194,7 @@ We note in passing that we may take the derivative of the Gaussian kernel and th
 
 \section{Convolution Speedup via FFT}
 
-In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which requires only $\mathscr{O}\left(N\cdot \log_2N\right)$ operations for a one dimension signal of length $N$, as compared to the $N^2$ operations required of a conventional discrete Fourier transform \cite{DIPGW}. We will briefly outline the theory of Fourier transforms.
+In practice, the convolutions described above  are very slow for large scales ($\large \sigma$), as the size of the kernel is very large. Instead, we will perform a fast Fourier transform, which requires only $\mathscr{O}\left(N\cdot \log_2N\right)$ operations for a one dimension signal of length $N$, as compared to the $N^2$ operations required of a conventional discrete Fourier transform \autocite{DIPGW}. We will briefly outline the theory of Fourier transforms.
 
 \subsubsection{Fourier Transform of a continuous 1D signal}
 
@@ -1221,7 +1221,7 @@ Together, \cref{1D-CFT} and \cref{1D-ICFT} are referred to as the \textit{Fourie
 
 \subsubsection{Fourier Transform of a Discrete 1D signal}
 
-We wish to develop the Fourier transform pair for a discrete signal., following \cite{DIPGW}. We frame the situation
+We wish to develop the Fourier transform pair for a discrete signal., following \autocite{DIPGW}. We frame the situation
 as follows: A continuous function $f(t)$ is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling (or impulse) function, an infinite series of discrete impulses with equal spacing $\Delta T$:
 
 \begin{equation} \label{1D-sampling-function}
@@ -1357,7 +1357,7 @@ We can combine these two cases by invoking the definition of \cref{delta_multipl
 		
 \subsection{FFT}
 \vcomment{use DIP-GW p298}
-As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \cite{DIPGW}.
+As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \autocite{DIPGW}.
 For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.
 
 

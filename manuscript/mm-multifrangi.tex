@@ -52,7 +52,7 @@
     Since our eventual goal is a complete extraction of the vasuclar network, a multiscale approach is the natural one. Considering the dependence of the Frangi filter's response on choice of scale as demonstrated in \cref{ch:unifrangi}, we wish to probe at multiple scales
    regions that would receive a high vesselness score at any range and somehow merge the result.
    
-    Frangi \cite{frangi-paper} approached this problem by simply taking the maximum vesselness measure over all scales. Thus the multiscale Frangi vesselness score at the pixel $(x_0, y_0$) would be 
+    Frangi \autocite{frangi-paper} approached this problem by simply taking the maximum vesselness measure over all scales. Thus the multiscale Frangi vesselness score at the pixel $(x_0, y_0$) would be 
     
     \begin{equation} \label{eq:Vmax}
     \Vmax(x_0, y_0) :=
@@ -79,7 +79,7 @@ as in \cref{def:image_as_pixel_matrix}.
     
     After the maximization in \cref{eq:Vmax}, we are left with a matrix with as many pixels as the original image, all with a vesselness measure between $0$ and $1$ for each pixel in the image.
          
-    At this point, Frangi \cite{frangi-paper} refrained from explicitly interpreting the score assigned by \cref{eq:Vmax}; that is--whether a particular pixel $(x_0,y_0)$ in the image definitely respresents a vessel or not based on its Frangi score. Instead, he cautioned that the result should not be used as a segmentation method alone; moreover, the width of the vasculature cannot be determined rigorously from the Frangi filter, as discussed in \cref{ch:unifrangi}. 
+    At this point, Frangi \autocite{frangi-paper} refrained from explicitly interpreting the score assigned by \cref{eq:Vmax}; that is--whether a particular pixel $(x_0,y_0)$ in the image definitely respresents a vessel or not based on its Frangi score. Instead, he cautioned that the result should not be used as a segmentation method alone; moreover, the width of the vasculature cannot be determined rigorously from the Frangi filter, as discussed in \cref{ch:unifrangi}. 
    
     Nonetheless, we wish to demonstrate the usefulness of the Frangi filter within our image domain towards segmentation. We should at least expect that a well-tuned Frangi filter on an appropriately registered and denoised sample should assign its highest scores to vessel pixels. We can select these strong Frangi responses and use them as seeds for some subsequent algorithm. We will discuss methods of harnessing the Frangi result to the task of segmentation in \cref{ch:segmentation}.
     

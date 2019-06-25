@@ -49,7 +49,7 @@ That is, the function $h$ is identical to the pixel matrix $\img$ at all integer
 and simply a ``smooth enough'' interpolation of those points for all other values.
 
 
-It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \cite{DIPGW}, especially when the goal is noise reduction.
+It is of course necessary to admit that $\mathtt{I}$ is not really a perfect representation of the underlying ``content'' within the picture. Not only is information lost when $\img$ is stored as an integer, there are also elements of noise and anomalies of lighting that would constitute noise to the original signal. There are multiple treatments of image processing that do address this discrepancy in a pragmatic way \autocite{DIPGW}, especially when the goal is noise reduction.
 However, we will be content to simply represent the pixels of $\img$ as the ultimate ``cause'' of the surface $h$ in \cref{def:image_as_surface}, and worry not about how faithfully that sampling corresponds to the real world.
 % Word salad, also rude? ask chang about this
 Moreover, though our samples in the image domain have been carefully prepared (as outlined in \cref{sec:NCS-data-set}), there are numerous shortcomings therein, and improvements to the veracity of our original signal could be made from many angles.
@@ -65,7 +65,7 @@ Though we shall draw upon the notion of the pixel matrix $\img$ as a sampling ag
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Differential Geometry} \label{sec:differential-geometry}
   
-We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way \cite{Kuhnel-DiffGeo}.
+We wish to describe the structure of an image as a surface. To do this, we develop the notion of curvature of a surface in $\R^3$ in a standard way \autocite{Kuhnel-DiffGeo}.
 
 \subsection{Preliminaries of Differential Geometry}
 %\vcleanup{Mention when you're talking about a general surface in $\R^3$ and when it's specifically a graph and make sure it's clear which case you're dealing with and motivate why you'd want to talk about things that aren't graphs at all (to define shape operator in general). Potentially rework to not talk about non-graphs when irrelevant. Although it's useful to keep some references to non-graphs to align this with "the general picture" and what you'll find in a diff geo textbook, also because I already wasted time doing the hard work.}
@@ -350,7 +350,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	$\left\{\frac{\partial f}{\partial u_1} , \frac{\partial f}{\partial u_2}\right\}$
 	and map it to the basis $\left\{-\frac{\partial \nu}{\partial u_1} , -\frac{\partial \nu}{\partial u_2}\right\}$. 
 	
-	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case (that is, for surfaces $f$ that are not graphs). We refer to \cite{Kuhnel-DiffGeo} for the general proof. Our present situation is much less delicate, as we're only concerned for cases when $f$ is a graph. In this case, the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
+	The Weingarten map can be formally shown to be well-defined, invariant under coordinate transformation in the general case (that is, for surfaces $f$ that are not graphs). We refer to \autocite{Kuhnel-DiffGeo} for the general proof. Our present situation is much less delicate, as we're only concerned for cases when $f$ is a graph. In this case, the linear transformation may be simply constructed, and we proceed by simply calculating its matrix representation.	
 	\begin{lemma}
 		The Weingarten map as in \cref{def:wein-map} is well-defined for graphs.
 	\end{lemma}
@@ -619,7 +619,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 %+  \Hess(h) [\delta]\right)
 %\end{equation}
 %
-%We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix, and the constant $\left(1+h_x^2 + h_y^2\right)^{-3/2}$ will be very close to 1 as well, so we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \cite{wilkinson-eigenvalue}, which we state without rigorous proof.
+%We can see that as $h_x, h_y$ are close to zero, $[\delta]$ will be very close to the zero matrix, and the constant $\left(1+h_x^2 + h_y^2\right)^{-3/2}$ will be very close to 1 as well, so we should not expect the addition of a "close to 0" matrix to have much effect on the eigenvectors or eigenvalues. This intuition is confirmed by a result from Wilkinson \autocite{wilkinson-eigenvalue}, which we state without rigorous proof.
 %
 %% see wilkinson pg 66
 %\begin{theorem}
@@ -631,14 +631,14 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 %$p(\lambda) = \det(\lambda I - A - \epsilon B)$, whose coefficients will scale with $\epsilon$. Thus $\weinmat \approx \Hess(h)$ for any point where the gradient $\nabla h \approx 0$. We shall see that we're only concerned with regions where $h_x, h_y$ is small anyway, and we do not expect much response anyway when the gradient is large. 
 %
 %We can bound the perturbation of eigenvalues from $\weinmat$ to $\Hess(h)$ by another result
-%which we state without proof \cite{matrix-analysis-horn}.
+%which we state without proof \autocite{matrix-analysis-horn}.
 %
 %\begin{theorem}
 %	Let A be a $n\times n$ normal matrix with eigenvalues $\lambda_1, \dots, \lambda_n$ and $E$ an $n \times n$ arbitrary matrix. If $\hat{\lambda} $ in an eigenvalue of $A + E$, then there is an eigenvalue $\lambda_i$ of A for which
 %		$\abs{\hat{\lambda} - \lambda_i} \leq \vnorm{E}_2$
 %\end{theorem}
 %
-%In the event that we do wish to rigorously compute the Weingarten map--that is, without concern for the magnitude of the gradient--we refer to \cite{jiao2008consistent} and survey papers mentioned therein.
+%In the event that we do wish to rigorously compute the Weingarten map--that is, without concern for the magnitude of the gradient--we refer to \autocite{jiao2008consistent} and survey papers mentioned therein.
 
   
   To make the Weingarten map and its relationship to the Hessian more explicit, we will calculate the Weingarten map for a relatively simple graph.
@@ -762,7 +762,7 @@ Its two eigenvectors are the same as in \cref{eq:trough-example-eigens},and its 
 %
 %  where $\kappa_i$ and $u_i$ are known as the
 %  \textit{approximated principal curvatures} and \textit{approximated principal directions} of $L(x,y)$, respectively, and we label such that $|\kappa_2| \ge |\kappa_1|$. Notably, $\Hess(x,y)$ is a real, symmetric matrix (since  $L_{xy} = L_{yx}$ and $L$ is a real function) and thus its eigenvalues are real and its eigenvectors are orthonormal to each other, as given by following basic result from linear algebra
-%  \cite{burden-faires}.
+%  \autocite{burden-faires}.
 %  
 %  % from burden and faires corollary 9.17
 %  \begin{lemma}
