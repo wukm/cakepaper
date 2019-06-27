@@ -108,7 +108,7 @@
   {\itshape}% theorem head font (should be italicized)
   {:}% punctuation after theorem head
   {.5em}% space after theorem head (NOT SURE)
-  {} % theorem head spec (can be left empty, meaning normal) (NOT SURE)
+  {{\itshape\thmname{#1} \thmnumber{#2} \thmnote{(#3)}}} % theorem head spec (can be left empty, meaning normal) use combination of \thmname \thmnumber and \thmnote
 
 % newtheorem declarations that follow will have this style
 % reset with \theoremstyle{plain}
