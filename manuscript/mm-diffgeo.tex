@@ -254,8 +254,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	
 		\[ \inner{c''}{X} = \inner{c''}{c'} = 0 \]
 
-	
-	 and we can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
+\noindent and we can rewrite the second coefficient of \cref{eq:meusnier_acceleration} using the chain rule: % prove chain rule?
 	\begin{gather}
   \begin{aligned}
 		\inner{c''}{\nu} &=
@@ -267,8 +266,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 			%&= \inner{X}{\wein X} = \mathbf{II}(X,X)
       \end{aligned}
 			\end{gather}
-	
-	Thus, we can express the curvature at this point on our selected curve as
+\noindent Thus, we can express the curvature at this point on our selected curve as
 	\begin{align}
 	%\vnorm{c''} = \mathbf{II}(X,X) \vnorm{\nu} = \mathbf{II}(X,X)
 	\vnorm{c''} = \vnorm{\inner{c''}{X} X + \inner{c''}{\nu}\nu}
@@ -277,8 +275,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	&= \abs{- \inner{X}{\frac{\partial \nu}{\partial t}}}  \nonumber \\
 	&=  \abs{\inner{X}{-\frac{\partial \nu}{\partial t}}} \label{eq:expand_accel_norm}
 	\end{align}
-	
-  We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
+  \noindent We may compute the quantity $-\frac{\partial \nu}{\partial t}$ that appears in
 	\cref{eq:expand_accel_norm} via chain rule:
 	\begin{align} \label{gaussmap_timederivative}
 	-\frac{d \nu}{dt} &= -\frac{d}{dt}\big[\nu(u_1, u_2)\big] \nonumber \\
@@ -286,11 +283,8 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	&= \theta_1'(t)\left( - \frac{\partial \nu}{\partial u_1} \right) + 
 	\theta_2'(t)\left( - \frac{\partial \nu}{\partial u_2} \right)
 	\end{align}
-	
-	
-	Since $\textrm{span}\left\{ - \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation which maps the basis
-	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this basis.
-  
+\noindent Since $\textrm{span}\left\{ - \frac{\partial \nu}{\partial u_i}\right\}_{i=1,2}$ as a subset of $T_u f$,  we can identify a linear transformation which maps the basis
+	$\left\{ \frac{\partial f}{\partial u_i}\right\}_{i=1,2}$ to this basis.  
   We call this map which the Weingarten map $\wein$.
 	
 	\begin{defn} The Weingarten map is the map \label{def:wein-map}
@@ -303,7 +297,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		%\quad i=1,2		
 		\]
 	\end{defn}
-	That is, $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i} $ for $i=1,2$.
+\noindent That is, $\wein(\frac{\partial f}{\partial u_i}) = - \frac{\partial \nu}{\partial u_i} $ for $i=1,2$.
   %where the negative sign comes about from blind adherence to \cref{eq:gaussmap_dt_expanded} and \cref{eq:expand_accel_norm}.
   This allows us to rewrite the time derivative of the Gauss map \cref{gaussmap_timederivative} as
 		\begin{align}

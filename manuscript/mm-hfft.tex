@@ -63,16 +63,14 @@ The discrete sample $f(t)$ is then constructed from $f(t)$ by
 \begin{equation} \label{1D-discrete-sample}
 \tilde{f}(t) = f(t) s_{\Delta T}(t)
 \end{equation}
-
-From this we can calculate $\tilde{F}(t)$.
+\noindent From this we can calculate $\tilde{F}(t)$.
 Given the discrete signal $\tilde{f}$, we construct the transform
 $\tilde{F}(\mu) = \FT\{\tilde{f}(t)\}$. by expanding $\tilde{f}$ in the same infinite basis as the continuous case.
 \begin{equation} \label{1D-DFT-transform}
 \tilde{F}(\mu) = \sum_{n=-\infty}^{\infty} f_n e^{-i 2\pi \mu n \Delta T} \;,\quad
 f_n = \tilde{f}(n) = f(n\Delta T)
 \end{equation}
-
-The transform is a continuous function with period $1 / \Delta T$. 
+\noindent The transform is a continuous function with period $1 / \Delta T$. 
 
 %\begin{itemize}
 %	\item \vtodo{find image processing papers that find hessian from FFT / who uses this?}
@@ -107,7 +105,6 @@ H(u,v) := \mathcal{D}\{h(x,y)\} &=
 \end{theorem}
 
 The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
-
 \begin{proof}
 \begin{align}
 \left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
@@ -231,8 +228,7 @@ Let the 1D Fourier transform be given by
 \begin{equation} \label{FFT-defineW}
 F(u) = \sum_{x=0}^{M-1} f(x) W_M^{ux},\quad \textrm{where} \quad W_m := e^{-i2\pi/m}
 \end{equation} 
-
-We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
+\noindent We'll define $K \in \Zpos : 2K = M = 2^n$ (i.e. $K = 2^{n-1})$.
 
 We use this to rewrite the series in \cref{FFT-defineW} and split it into odd and even entries in the summation
 
@@ -241,8 +237,7 @@ F(u) &= \sum_{x=0}^{2K-1} f(x) W_{2K}^{ux} \\
 &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{u(2x)}
  + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{u(2x+1)} \label{FFT-oddevensplit}
 \end{align}
-
-We'll get a few identities out of the way (where $m, n, x \in \Zpos$ arbitrary).
+\noindent We'll get a few identities out of the way (where $m, n, x \in \Zpos$ arbitrary).
 
 \vcomment{this fixes an issue in DIP-GW where the identities were provided in terms of $M$ instead of arbitrary $m$, where the proof uses the results for some value other than $M$ anyway}
 \begin{gather} \label{fft-kernelidentities}
@@ -252,8 +247,7 @@ W_{m}^{(u+m)x} = e^{\frac{-i2\pi(u+m)x}{m} } = e^{\frac{-i2\pi unx}{m}} e^{\frac
 W_{2m}^{(u+m)} = e^{\frac{-i2\pi(u+m)}{2m}} = e^{\frac{-i2\pi ux}{2m}} e^{-i\pi}
 	 = W_{2m}^{u} e^{-i\pi} = - W_{2m}^{u}
 \end{gather}
-
-Thus we can rewrite \cref{FFT-oddevensplit} as
+\noindent Thus we can rewrite \cref{FFT-oddevensplit} as
 \begin{align}
 F(u)  &= \sum_{x=0}^{K-1} f(2x) W_{2K}^{2ux} + \sum_{x=0}^{K-1} f(2x+1) W_{2K}^{2ux} W_{2K}^{u} \\
 \Longrightarrow \quad F(u) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{ux}\right)
@@ -269,9 +263,7 @@ F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{(u+K)x}\right)
 \Longrightarrow F(u+K) &= \left(\sum_{x=0}^{K-1} f(2x) W_{K}^{ux}\right)-\left(\sum_{x=0}^{K-1} f(2x+1)W_K^{ux}\right) W_K^{u}
 \label{fft-oddeven-parens-plusK}
 \end{align}
-
-
-Comparing \cref{fft-oddeven-parens} and \cref{fft-oddeven-parens-plusK}, we see that the expressions within parentheses are identical.
+\noindent Comparing \cref{fft-oddeven-parens} and \cref{fft-oddeven-parens-plusK}, we see that the expressions within parentheses are identical.
 What's more, these parentetical expressions are functionally identical to discrete fourier transforms themselves. Let's notate them as follows:
 \begin{align} \label{fft-oddeven-subdfts}
 \DFT_u\{f_{\mathrm{even}}(t)\} &:= \sum_{x=0}^{K-1} f(2x)W_K^{ux} \nonumber\\
@@ -284,13 +276,8 @@ If we're calculating an $M$ point transform
 calculate $F(1), ... , F(M))$, once we've calculated the first $K$ discrete frequencies (i.e. $F(1), \cdots , F(K))$ we may simply reuse the two values we've calculated in \cref{fft-oddeven-subdfts} to calculate the next $F(K+1),..,F(K+K) = F(M)$. Since each expression in parentheses involves $K$ complex multiplications and $K-1$ complex additions, we are effectively saving $K(2K-1)$ calculations in computing the entire spectrum  $F(1), ..,  F(M)$. When $M$ is large, the payoff is undeniable.
 
 In fact, through counting calculations and then doing a proof by induction, we can show that the effective number of calculations is given by $M\log_2{M}$. % see p302 also i have a proof somewhere.
-
-Of course, since \cref{fft-oddeven-subdfts} are DFTs themselves, there's nothing stopping us from reiterating this procedure; if $M$ is substantially large, we can just as easily repeat this process a few times.
-
-Of course, our development was for $1D$.  We can extend this to $2D$ by taking note of \cref{eq:2D-dft-rearrangement}.
-
+Of course, since \cref{fft-oddeven-subdfts} are DFTs themselves, there's nothing stopping us from reiterating this procedure; if $M$ is substantially large, we can just as easily repeat this process a few times. Of course, our development was for $1D$.  We can extend this to $2D$ by taking note of \cref{eq:2D-dft-rearrangement}.
 %The one caveat is that the above development was for transforming sequences whose lengths are perfect powers of $2$, but we can still
-
 Finally we note the inverse DFT can actually be found via a DFT of the complex conjugate of the original signal, and of course we may translate that operation to a FFT. % see p299.
 
 \section{Calculating the Hessian via FFT: A Demonstration}
@@ -407,8 +394,10 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
       \hline
       &  A &  B         & C \\
       \hline
-      A &  - &  9.388e-05 8.383e-07 \\
+      A &  - &  9.388e-05 & 8.383e-07 \\
+      \hline
       B &  - &  -         & 9.599e-05 \\
+      \hline
       C &  - &  -         &  - \\
       \hline
     \end{tabular}
