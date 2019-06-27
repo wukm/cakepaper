@@ -896,6 +896,7 @@
      \vspace*{\baselineskip}
      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}% set page headings
      \list{\@biblabel{\@arabic\c@enumiv}}% set number for bib entry
+  \begin{singlespaced}
 	{\setlength{\itemindent}{-\bibindent}% set 1st line - hanging indent
 	\settowidth\labelwidth{\@biblabel{#1}}% set width of label
 	\advance\leftmargin\labelsep % advance the left margin for remaining lines
@@ -908,7 +909,9 @@
       \@clubpenalty \clubpenalty
       \widowpenalty4000%
       \sfcode`\.\@m	% not sure what this is
-}			
+          content...
+    \end{singlespaced}
+}
 {
 	\def\@noitemerr			% display warning if nothing there
 	{\@latex@warning{Empty `thebibliography' environment}}%
