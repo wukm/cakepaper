@@ -169,7 +169,7 @@ We now concern ourselves with developing the notion of curvature on a surface. F
   	% this isn't really a definition...?
  
 
-\subsection{Curvature of a surface and its calculation}
+\subsection{Curvature of a Surface and its Calculation}
 In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parametrized along some closed interval $I\in \R$
  (that is, a differentiable, one-to-one curve where $c'(s) = 1 \;\; \forall s \in I$), curvature at a point $s \in I$ is defined simply as the magnitude of the curve's acceleration: $\kappa(s) := \vnorm{c''(s)}$.
  
@@ -246,7 +246,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 		
 		\begin{equation} \label{eq:meusnier_acceleration}
 			c'' = \inner{c''}{X} X + \inner{c''}{\nu}\nu
-			\end{equation}. 
+			\end{equation}
 	
 	Because $c$ is a regular curve, we either have $c''=0$,
 	or $c' \perp c''$, since $\vnorm{c'} = 1$ implies
@@ -510,7 +510,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        	
        	\begin{defn}
        		The extremal values of normal curvature of a surface at a point  $u\in U$
-       		are referred to as \textbf{principal curvatures}. The corresponding directions at which normal curvature attains an extremal value are referred to as \textbf{principal directions}.
+       		are referred to as \textit{principal curvatures}. The corresponding directions at which normal curvature attains an extremal value are referred to as \textit{principal directions}.
        	\end{defn}
        	
        	Our final goal is to explicitly determine a (hopefully simplified) version of the Weingarten map in the case of a graph $f(u_1,u_2) = (u_1,u_2, h(u_1,u_2))$ and calculate
@@ -550,7 +550,7 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
        		\end{gathered}
        		\end{equation}
        		
-       		and we have the unit normal vector (Gauss map)
+       		\noindent and we have the unit normal vector (Gauss map)
        		\begin{align}
        		\nu(u_1, u_2) &=
        		\frac{\frac{\partial f}{\partial x} \times \frac{\partial f}{\partial y}}
@@ -569,13 +569,11 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	  \frac{h_{yy}}{\sqrt{1+h_x^2 + h_y^2}} \\
 	 \end{gathered}
 	 \end{equation}
-	 
 	 and thus the first matrix in \cref{weinmatconstruction} is given by
 	 
 	 \begin{equation} \label{hij_exactgraph}
 	 [h_{ij}] = \frac{1}{\sqrt{1+h_x^2 + h_y^2}} \,  \Hess (h)
 	 \end{equation}
-	 
 	 To calcuate the second, we use
 	 
 	 
@@ -588,7 +586,6 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 	 g_{22} = \inner{f_y}{f_y} = 1 + h_y^2
 	 \end{gathered}
 	 \end{equation}
-	 
 	 and thus
 		\begin{equation} \label{gij_exactgraph}		 
 		[g_{ij}]^{-1} = \begin{bmatrix} 1 + h_x^2 & h_x h_y \\
@@ -597,7 +594,6 @@ In the context of a regular arc-length parametrized curve $c: I \to \R^3$ parame
 					\begin{bmatrix} 1 + h_y^2 & -h_x h_y \\
 					-	h_x h_y & 1 + h_x^2 \end{bmatrix}
 		\end{equation}
-       	
        	Combining $[h_{ij}]$ and $[g_{ij}]^{-1}$ from \cref{gij_exactgraph} and \cref{hij_exactgraph}
        	we arrive at our result, \cref{weinmatexactgraph}.
        	\end{proof}

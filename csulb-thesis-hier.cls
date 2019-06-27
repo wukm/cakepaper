@@ -1075,7 +1075,7 @@
     \vskip\abovecaptionskip		% space above caption (set to zero above)
     \let\@templinestretch\baselinestretch% save baselinestretch
     \newlinestretch{1}			% single space
-    \raggedright{#1.  #2}		% put in caption
+    \raggedright{#1.  #2.}		% put in caption
   \vskip\belowcaptionskip%		% space below caption (12pt = 1 line)
   \newlinestretch{\@templinestretch}	% restore line spacing to saved value ( JLG 2011-8-29 swapped positions with \vskip\belowcaptionskip above)
 }% end @makecaption
