@@ -1066,7 +1066,8 @@
 
 \def\fnum@table{\bfseries\MakeUppercase{\tablename}\nobreakspace\thetable}
 					% define the word "TABLE" uppercase in caption
-\setlength\abovecaptionskip{0\p@}	% define no space above caption
+%\setlength\abovecaptionskip{0\p@}	% define no space above caption
+\setlength\abovecaptionskip{\@thesisptsz}
 \setlength\belowcaptionskip{\@thesisptsz}	% define font sized space below caption
 					% accounts for setting caption to singlespaced
 					% if longer than one line

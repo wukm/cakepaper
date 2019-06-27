@@ -57,8 +57,7 @@ as follows: a continuous function $f(t)$ is represented as the sampled function 
 s_{\Delta T}(t) := \sum_{n=-\infty}^{\infty} \delta[t - n\Delta T] \;,\quad
 \delta[t] = \begin{cases} 1 \;,\; & t=0 \\ 0 \;,\;& t \ne 0 \end{cases}
 \end{equation}
-
-where $\delta[t]$ is the discrete unit impulse.
+\noindent where $\delta[t]$ is the discrete unit impulse.
 
 The discrete sample $f(t)$ is then constructed from $f(t)$ by
 \begin{equation} \label{1D-discrete-sample}
@@ -97,13 +96,11 @@ H(u,v) := \mathcal{D}\{h(x,y)\} &=
 				\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} h(x,y)
 				e^{-2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)}
 \end{align}
-
-and given the convolution of the two functions
+\noindent and given the convolution of the two functions
 \begin{equation}
 \left(f \star h\right)(x,y) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n)
 \end{equation}
-
-then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
+\noindent then $\left(f \star h\right)(x,y)$ and $MN\cdot F(u,v)H(u,v)$ are transform pairs, i.e.
 \begin{equation}
 \left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
 \end{equation}
@@ -192,7 +189,7 @@ thus giving us
 To prove the claim in \cref{dft_conv_lemma}, we consider two cases: First, if $j-k$ is a multiple of $N$, we of course have $e^{2\pi i n(j-k)/N} = \left(e^{2\pi i}\right)^{n(j-k)/N} = 1$  and thus the left side of \cref{dft_conv_lemma} reduces to 
 \[
 \sum_{n=0}^{N-1} \left(e^{2\pi i}\right)^{n(j-k)/N} = \sum_{n=0}^{N-1} \left(1\right) = N
-\].
+\]
 
 In the case that $j-k$ is \textit{not} a multiple of $N$, we refer to \cref{dft_conv_lemma_factors}.
 The first factor is not zero since, $\left(e^{2\pi i (j-k)/N}\right) \ne 1$ (simply since $(j-k)/N$ is not an integer), and thus it must be that the second factor is 0:
@@ -218,8 +215,7 @@ F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M +
 &= \sum_{x=0}^{M-1} e^{-i2\pi \mu x/M} \FT_x\{ f(x,y)\} \\
 &= \FT_y\{\FT_x \{f(x,y)\} \}
 \end{align}
-
-where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
+\noindent where $\FT_{x'}$ refers to the 1D discrete Fourier transform of the function with respect to
 the variable $x'$ only.
 
 Thus, to calculate the Fourier transform $F(u,v)$ at the point $u,v$
@@ -316,12 +312,14 @@ this demonstration with a much larger sigma (say $\sigma=150$) and multiple iter
 
 \begin{table}
   \centering
-  \begin{tabular}{c|cc}
+  \begin{tabular}{|c|c|c|}
+    \hline
     convolution implementation   & MSE & MAE \\
     \hline
     spatial convolution, sampled kernel (A) & 0.00054426 & 0.02015643 \\
     FFT convolution, sampled kernel (B) & 0.00055205 & 0.02029916 \\
-    FFT convolution, discrete kernel (C) & 0.00054406 & 0.02015336
+    FFT convolution, discrete kernel (C) & 0.00054406 & 0.02015336 \\
+    \hline
   \end{tabular}
 \caption{MSE and MAE of One-pass vs. Two-pass Gaussian Blur}
 \label{tab:gaussian-mae-mse}
@@ -342,12 +340,14 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 \begin{table}
   %\parbox{.45\linewidth}{
     \centering
-    \begin{tabular}{c|ccc}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
       &  A & B & C \\
       \hline
       A & -  & 1.296e-03 & 6.772e-06 \\
       B & -  & - & 1.247e-03 \\
       C & -  &  - &  - \\
+      \hline
     \end{tabular}
     \caption{MSE of Gaussian Blurs ($\sigma=0.3$)}
     \label{tab:mse-G-sigma-0.3}
@@ -356,12 +356,14 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 \begin{table}
   %\parbox{.45\linewidth}{
     \centering
-    \begin{tabular}{c|ccc}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
       &  A &  B         & C \\
       \hline
       A &  - &  4.256e-06 & 5.537e-08 \\
       B &  - &  -         & 4.337e-06 \\
       C &  - &  -         &  - \\
+      \hline
     \end{tabular}
     \caption{MSE of Frangi Scores $\sigma=0.3$}
     \label{tab:mse-F-sigma-0.3}
@@ -385,12 +387,14 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 \begin{table}
   %\parbox{.45\linewidth}{
     \centering
-    \begin{tabular}{c|ccc}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
       &  A & B & C \\
       \hline
       A & -  &  9.012e-06 & 8.629e-09 \\
       B & -  & - & 9.031e-06 \\
       C & -  &  - &  - \\
+      \hline
     \end{tabular}
     \caption{MSE of Gaussian Blurs of an Image ($\sigma=5$)}
     \label{tab:mse-G-sigma-5}
@@ -399,12 +403,14 @@ We further confirm the commensurate nature of Gaussian blur techniques by compar
 \begin{table}
   %\parbox{.45\linewidth}{
     \centering
-    \begin{tabular}{c|ccc}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
       &  A &  B         & C \\
       \hline
       A &  - &  9.388e-05 8.383e-07 \\
       B &  - &  -         & 9.599e-05 \\
       C &  - &  -         &  - \\
+      \hline
     \end{tabular}
     \caption{MSE of Frangi Scores $\sigma=5$}
     \label{tab:mse-F-sigma-5}
