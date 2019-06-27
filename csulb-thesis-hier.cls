@@ -665,7 +665,8 @@
    \def\@oddfoot{\if@draft\blDRAFT\fi\hfil
       \thepage\hfil\if@draft\brDRAFT\fi}%
    \let\@evenfoot\@oddfoot
-   \def\@oddhead{FIGURE \hfill Page}%
+   %\def\@oddhead{FIGURE \hfill Page}%
+   \def\@oddhead{}
    \let\@evenhead\@oddhead
    \let\chaptermark\@gobble\let\sectionmark\@gobble
 }%ps@toc
@@ -932,7 +933,8 @@
 % LW 2019 changed the inner geometry from 1.5in. to 1in.
 \renewcommand\tableofcontents{		% redefine table of contents
 				% following length changes allow heading on 2nd page of TOC (if any)
-	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+	\newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, %includeheadfoot, headheight=\@thesisptsz, %headsep=\@thesisptsz, footskip=\@thesisptsz}
+  }
 	\thispagestyle{plain}		% first page does not use toc page style
 	\pagestyle{toc}			% subsequent pages (if any) - types "Page" in upper right
 	% \null\vspace{0pt} commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
@@ -980,7 +982,8 @@
 % LW2019 changed inner spacing from 1.5in to 1in for list of figures and tables
 % tried to get rid of vspace at top to move title up
 \renewcommand\listoftables{		% redefine list of tables
-    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, %includeheadfoot, headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    }
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lot}			% subsequent pages (if any) - types "Page" in upper right
 	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
@@ -997,7 +1000,8 @@
     
 \renewcommand\listoffigures{		% redefine list of tables
     \newgeometry{top=1in, bottom=1in, outer=1in, inner=1in, %includeheadfoot, %LW2019
-    headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+    %headheight=\@thesisptsz, headsep=\@thesisptsz, footskip=\@thesisptsz}
+  }
 	    \thispagestyle{plain}		% first page does not use lot page style
 	    \pagestyle{lof}			% subsequent pages (if any) - types "Page" in upper right
 	    %\null\vspace{0pt}			commented out to bring TABLE OF CONTENTS header to top of 1in margin? LW2019
