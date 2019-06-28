@@ -1,6 +1,6 @@
 \chapter{FFT-based Discrete Derivatives}
 
-According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference, as in \autocite{fornberg-1988}.
+According to \cref{subsec:discrete-scale-space}, we may calculate derivatives of our structure by calculating a gradient on our convolved image. Our method of calculating the gradient of a matrix uses a second-order accurate central difference \autocite{fornberg-1988}.
 
 We note in passing that we may take the derivative of the Gaussian kernel and then convolve it, and the effect will be the same as if we had taken the derivative subsequently \autocite{DIPGW}. This could offer some computational speedup if we wish to run this procedure on many samples and fixed scale sizes. For the time being, we will convolve first, although our method will differ from standard convolution.
 
@@ -50,7 +50,7 @@ Together, \cref{1D-CFT} and \cref{1D-ICFT} are referred to as the \textit{Fourie
 
 \subsection{Fourier Transform of a Discrete 1D signal}
 
-We wish to develop the Fourier transform pair for a discrete signal., following \autocite{DIPGW}. We frame the situation
+We wish to develop the Fourier transform pair for a discrete signal, following \citeauthor{DIPGW} ({\citeyear{DIPGW}). We frame the situation
 as follows: a continuous function $f(t)$ is represented as the sampled function $\tilde{f}(t)$ by multiplying it by a sampling (or impulse) function, an infinite series of discrete impulses with equal spacing $\Delta T$:
 
 \begin{equation} \label{1D-sampling-function}
@@ -103,8 +103,9 @@ H(u,v) := \mathcal{D}\{h(x,y)\} &=
 \left(f \star h\right)(x,y) = \mathcal{D}^{-1}\left\{MN\cdot F(u,v)H(u,v)\right\}
 \end{equation}
 \end{theorem}
-
 The proof follows from the definition of convolution, substituting in the inverse-DFT of $f$ and $h$, and then rearrangement of finite sums.
+
+
 \begin{proof}
 \begin{align}
 \left(f \star h\right)(x,y) &= \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} f(m,n)h(x-m,y-n) \\
@@ -130,7 +131,6 @@ The proof follows from the definition of convolution, substituting in the invers
 	e^{2\pi i \left(\frac{ux}{M} + \frac{vy}{N}\right)} \\
 	&= MN \cdot \mathcal{D}^{-1}\left\{ FH\right\}
 \end{align}
-
 where
 \begin{equation} \label{delta_multiple}
 	\hat{\delta}_N (k) = \begin{cases}
@@ -199,7 +199,7 @@ We can combine these two cases by invoking the definition of \cref{delta_multipl
 		
 \section{The Fast Fourier Transform}
 \vcomment{use DIP-GW p298}
-As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \autocite{DIPGW}.
+As noted, the above result applies to the Discrete Fourier Transform. We actually achieve a convolution speedup using a Fast Fourier Transform (FFT) instead. We follow the developments of \citeauthor{DIPGW} (\citeyear{DIPGW}).
 For clarity, we present the following theorems which allow a framework to calculate a 2D Fourier transforms quickly.
 
 
@@ -216,7 +216,7 @@ F(\mu,\nu) &= \sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x,y) e^{-i2\pi \left(\mu x/M +
 the variable $x'$ only.
 
 Thus, to calculate the Fourier transform $F(u,v)$ at the point $u,v$
-requires the computation of the transform of length $N$ for each iterated point $x \in 0,\cdots,M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$ We'll also mention that the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation.
+requires the computation of the transform of length $N$ for each iterated point $x \in 0,\cdots,M-1$. Thus there are $MN$ complex multiplications and $(M-1)(N-1)$ complex additions in this sequence required for each point $u,v$ that needs to be calculated. Overall, for all points that need to be calculated, the total order of calculations is on the order of $(MN)^2$. We'll also mention that the values of $e^{-i2\pi m/n}$ can be provided by a lookup table rather than ad-hoc calculation.
 
 We now show that a considerable speedup can be achieved through elimination of redundant calculations. In particular, we wish to show that the calculation of a 1D DFT of signal length $M=2^n, n \in \Zpos$ can be reduced to calculating two half-length transforms and an additional $M/2 = 2^{n-1}$ calculations.
 

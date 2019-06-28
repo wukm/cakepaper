@@ -152,7 +152,7 @@ These procedures are performed automatically on the 201 images in our data set u
 As mentioned above, expect for a few small images, we estimate the perimeter of the placental plate from the raw image, rather than using the ground truth's traced perimeter. Most notably, the placental plate often includes includes a small V-shaped cuts in the placental plate.
 The traced placental perimeter often overlooks these regions and opt for a more convex shape.
 In \cref{fig:cut-demo}, we showcase the effect of using our automated approach versus using the ground truth mask. The first two images demonstrate the Notably, this prevents the white background leading to false positives at the edge of the cut.
-To find the placental plate,we take the gradient of the raw sample's green channel with a very small scale $\sigma=.01$ to identify very small and sharp edges. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result \autocite{skimage} \autocite{DIPGW}. From this, we grab the largest foreground object, which will inevitably be the placental plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails, typically due to poor contrast at the edge of the placental plate. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
+To find the placental plate,we take the gradient of the raw sample's green channel with a very small scale $\sigma=.01$ to identify very small and sharp edges. We then mark the top right pixel, which is certainly outside the placental plate, with a background marker, and we label any points where the gradient is above its mean value as foreground. We then perform a watershed of the gradient given these markers and then perform a binary erosion of the result with radius 15 to regularize the result \autocite{skimage,DIPGW}. From this, we grab the largest foreground object, which will inevitably be the placental plate. Unfortunately, there are 7 of the 201 samples for which this procedure fails, typically due to poor contrast at the edge of the placental plate. In the case of these samples, we revert to simply using the traced outline of the placenta as given by the tracing protocol.
 
     \subsection{Boundary Dilation} \label{sec:boundary-dilation}
     
@@ -192,13 +192,13 @@ To find the placental plate,we take the gradient of the raw sample's green chann
     
     Despite best efforts when harvesting samples, a select number of the placental samples exhibit substantial glare, which leads to inaccuracies in identifying curvilinear content. Our protocol for deglaring is analogous to that performed in \autocite{almoussa-ucla-reu} and \autocite{huynh2013filter}. Unfortunately, the method relied upon by those previous papers (\textrm{MATLAB}'s \textrm{imfill}, which relies on inpainting by solving the Dirichlet problem for masked regions) was not immediately available in a Python environment. Instead, we used an already implemented inpainting algorithm, \textrm{scikit-image}'s \textrm{inpaint\_biharmonic()}, which should be expected to achieve similar results, albeit at the expense of processing time.
     
-    The function \textrm{inpaint\_biharmonic} is based on \autocite{damelin2018surface}, and relies on solving the biharmonic equation i.e. $\nabla \nabla f = 0$
-    for the surface $f$ subject to boundary conditions (as
+    The function \textrm{inpaint\_biharmonic} relies on solving the biharmonic equation i.e. $\nabla \nabla f = 0$
+    for the surface $f$ subject to boundary conditions \autocite{damelin2018surface} (as
     compared to \textrm{imfill}'s solving the Laplace equation $\nabla f = 0$ in regions marked as glare.
     
-    The method for deciding what is considered glare is similar to \autocite{almoussa-ucla-reu}, in which we
+    The method for deciding what is considered glare is similar to \citeauthor{almoussa-ucla-reu} (\citeyear{almoussa-ucla-reu}), in which we
     consider any intensities close the maximum intensity in the image (Almoussa et al. used $80\%$ of max intensity, and we use $175/255 \approx 68\%$). This threshold is unfortunately dependent on the image domain.
-` filter according to \cref{ch:unifrangi} and \cref{ch:multifrangi}. We use these to provide a couple examples of estimating the PCSVN network. The entire decision tree can be shown in the outline below. We follow the procedure for \cref{ch:segmentation}. For our analysis of the Frangi filter apart from segmentation we shall stop before step (C). For the decision tree, please refer to \cref{app:decisiontree}.
+` filter according to \cref{ch:unifrangi} and \cref{ch:multifrangi}. We use these to provide a couple examples of estimating the PCSVN network. The entire decision tree can be shown in \cref{app:decisiontree}. We follow this procedure for \cref{ch:segmentation}. For our analysis of the Frangi filter apart from segmentation we shall stop before step (C), which involves segmentation only.
 %    
 %    \begin{spacing}{1}
 %    \begin{small}

@@ -754,7 +754,7 @@
 \renewcommand{\@makeschapterhead}[1]{{	% put the chapter* head in the doc
 	%\vspace*{0.625in}			% like \@makechapterhead above
         \normalfont
-        {\centering\MakeUppercase{#1}\\}	% chapter name in upper case
+        {\centering\MakeUppercase{#1}\\[12pt]}	% chapter name in upper case % the \\[12pt] is a nasty hack lw2019
 }}% end @makeschapterhead
 
 
@@ -891,10 +891,10 @@
 \let\@openbib@code\@empty
 
 \renewenvironment{thebibliography}[1]	% redefine thebibliography command
-     {\chapter*{\bfseries\bibname}		% adds a heading for bibliography
+     {\chapter*{\bfseries\bibname\\}		% adds a heading for bibliography
      \newlinestretch{1}
      \vspace*{\baselineskip}
-     \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}% set page headings
+     \@mkboth{\MakeUppercase\bibname//}{\MakeUppercase\bibname//}% set page headings
      \list{\@biblabel{\@arabic\c@enumiv}}% set number for bib entry
   \begin{singlespaced}
 	{\setlength{\itemindent}{-\bibindent}% set 1st line - hanging indent

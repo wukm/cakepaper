@@ -2,9 +2,9 @@
 
 	We now seek to harness the ideas introduced in \cref{ch:diffgeo} to the task at hand: identifying curvilinear content within images.
 
-The Frangi filter, first described by Alejandro Frangi et al., is a widely used  Hessian-based filter
-within image processing \autocite{frangi-paper}. Hessian-based filters make use of the
-logical ``proximity'' of the Hessian to notions of curvature of surfaces. Frangi's filter was orignally developed for vascular segmentation in images such as MRIs and it excels in that context \autocite{frangi-paper}.
+The Frangi filter, first described by Alejandro Frangi et al. (\citeyear{frangi-paper}) is a widely used  Hessian-based filter
+within image processing. Hessian-based filters make use of the
+logical ``proximity'' of the Hessian to notions of curvature of surfaces. Frangi's filter was orignally developed for vascular segmentation in images such as MRIs and it excels in that context .
 Several alternatively formulated Hessian-based filters exist \autocite{sato-filter,lorenz-filter,olabarriaga-hessian-comparison}. These filters use information about the principal curvatures, approximated as eigenvalues of the Hessian, at each point in the image
 to identify regions of significant curvature within an image.
 
@@ -51,7 +51,7 @@ Importantly, this formulation does not require $\lambda_1$ to be approximately z
 
 Also the crest could be really flat (``hangar shaped''), in which case both are around zero. At the crest of the ridge, we would actually expect both $u_1$ and $u_2$ to be around 0, whereas a point somewhere between the crest and the ``foot'' of the ridge to contain the maximum $u_2$. We will fix this issue specifically by casting this as a multiscale problem in \cref{ch:multifrangi}.
 
-Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the 'feet are'. We will discuss these ideas in \cref{ch:segmentation}.
+Two other ideas that could fix some other discrepancies mentioned above is to identify these ridges on their own, or also where the ``feet'' are. We will discuss these ideas in \cref{ch:segmentation}.
 
 \section{Structureness Measure} \label{sec:frangi-structureness}
 
